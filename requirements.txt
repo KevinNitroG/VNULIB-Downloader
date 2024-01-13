@@ -1,0 +1,14 @@
+# os
+# sys
+
+argparse
+multiprocessing
+
+# requests
+
+colorama
+progress
+# tqdm
+
+# pillow
+img2pdf

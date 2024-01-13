@@ -1,0 +1,28 @@
+name: 🙏 Update Request
+description: Cập nhật khi website có thay đổi
+title: "🔨 Cập nhật Script khi web VNULIB thay đổi"
+labels: ["vnulib update"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Vui lòng giữ nguyên tiêu đề, không thay đổi ‼️
+  - type: textarea
+    id: update-description
+    attributes:
+      label: 🔨 Mô tả cập nhật
+      placeholder: |
+        Bạn có thể mô tả cụ thể hơn về sự thay đổi cập nhật này không?
+    validations:
+      required: false
+  - type: dropdown
+    id: still-working
+    attributes:
+      label: 🤥 Script vẫn hoạt động?
+      description: |
+        Hiện tại version mới nhất vẫn còn hoạt động?
+      options:
+        - Co
+        - Cothedeonaoduoc
+    validations:
+      required: true
