@@ -3,6 +3,7 @@
 
 argparse
 multiprocessing
+dotenv
 
 # requests
 
