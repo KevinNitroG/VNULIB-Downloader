@@ -2,7 +2,7 @@ version = 1
 
 exclude_patterns = [
 "src/CONSTANTS.py",
-"src/DEFAULT_USER_INPUT.py"
+"sample_config.env"
 ]
 
 [[analyzers]]
