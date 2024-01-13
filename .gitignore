@@ -1,6 +1,9 @@
+# THIS PROJECT
+**/*test*
+downloadedBooks/
+
 **/__pycache__
 **/*.exe
-**/*test*
 
 # FROM https://github.com/github/gitignore/blob/main/Python.gitignore
 
