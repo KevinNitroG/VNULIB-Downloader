@@ -13,3 +13,5 @@ progress
 
 # pillow
 img2pdf
+
+pyinstaller
