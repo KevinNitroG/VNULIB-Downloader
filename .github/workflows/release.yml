@@ -7,8 +7,30 @@ on:
   workflow_dispatch:
 
 jobs:
+  prepare:
+    name: prepare
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    outputs:
+      VERSION: ${{ steps.get-variable.outputs.VERSION }}
+      SET_PRE_RELEASE: ${{ steps.get-variable.outputs.SET_PRE_RELEASE }}
+    steps:
+      - name: Get version
+        id: get-variable
+        run: |
+          VERSION=$(cat src/CONSTANTS.py | grep VERSION | cut -d "=" -f 2 | sed 's/"//g' | sed 's/ //g')
+          echo "VERSION=$VERSION" >> GITHUB_OUTPUT
+          if [[ $VERSION == *"beta"* ]]; then
+            echo "SET_PRE_RELEASE=true" >> GITHUB_OUTPUT
+          else
+            echo "SET_PRE_RELEASE=false" >> GITHUB_OUTPUT
+          fi
+
   build:
     name: build
+    needs: prepare
     strategy:
       matrix:
         os:
@@ -17,8 +39,6 @@ jobs:
           - macos
     runs-on: ${{ matrix.os }}-latest
     timeout-minutes: 10
-    outputs:
-      VERSION: ${{ steps.get-version.outputs.VERSION }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@main
@@ -33,26 +53,25 @@ jobs:
           pip install pyinstaller
           pip install -r requirements.txt
 
-      - name: Get version
-        id: get-version
-        run: echo "VERSION=$(cat src/VERSION.py | cut -d "=" -f 2)" >> GITHUB_OUTPUT
-
-      - name: Build EXE
-        run: pyinstaller main.py --clean --onefile --noconfirm --console --paths "src" --name "-${{ matrix.os }}-${{ steps.get-version.outputs.VERSION }}"
+      - name: Build for ${{ matrix.os }}
+        run: pyinstaller main.py --clean --onefile --noconfirm --console --paths "src" --name "VNULIB-Downloader-${{ matrix.os }}"
 
       - name: Upload to artifact
         uses: actions/upload-artifact@main
         with:
-          name: VNULIB-Downloader-${{ matrix.os }}-${{ steps.get-version.outputs.VERSION }}
-          path: dist/VNULIB-Downloader-*.exe
-          compression-level: 0
+          name: VNULIB-Downloader-${{ matrix.os }}
+          path: dist/VNULIB-Downloader-*
+          compression-level: 6
+          retention-days: 30
 
   release:
     name: Release
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    needs: build
+    needs:
+      - prepare
+      - build
     steps:
       - name: Download Artifact
         uses: actions/download-artifact@main
@@ -60,10 +79,11 @@ jobs:
       - name: Upload to Release
         uses: svenstaro/upload-release-action@master
         with:
-          body: ${{ needs.build.outputs.VERSION }}
+          body: ${{ needs.prepare.outputs.VERSION }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./dist/VNULIB-Downloader-*.exe
-          release_name: ${{ needs.build.outputs.VERSION }}
-          tag: ${{ needs.build.outputs.VERSION }}
+          file: ./dist/VNULIB-Downloader-*
+          release_name: VNULIB Downloader ${{ needs.prepare.outputs.VERSION }}
+          tag: ${{ needs.prepare.outputs.VERSION }}
           file_glob: true
-          overwrite: true
+          overwrite: false
+          prerelease: ${{ needs.prepare.outputs.SET_PRE_RELEASE }}
