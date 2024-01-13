@@ -49,9 +49,7 @@ jobs:
           cache: "pip"
 
       - name: Install dependacies
-        run: |
-          pip install pyinstaller
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Build for ${{ matrix.os }}
         run: pyinstaller main.py --clean --onefile --noconfirm --console --paths "src" --name "VNULIB-Downloader-${{ matrix.os }}"
