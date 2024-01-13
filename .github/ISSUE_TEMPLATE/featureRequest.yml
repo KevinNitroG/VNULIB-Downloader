@@ -1,0 +1,23 @@
+name: 💫 Feature Request
+description: Đề xuất tính năng
+title: "✨ "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Vui lòng giữ emoji "✨" ở tiêu đề
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: 📈 Mô tả tính năng
+      placeholder: Bạn có thể mô tả cụ thể hơn về tính năng này không?
+    validations:
+      required: true
+  - type: textarea
+    id: note
+    attributes:
+      label: 📝 Ghi chú
+      placeholder: Bạn có ghi chú gì thêm không?
+    validations:
+      required: false

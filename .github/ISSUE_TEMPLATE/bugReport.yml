@@ -1,0 +1,48 @@
+name: 🐞 Bug Report
+description: Bạn đang gặp lỗi 😐
+title: "🐛 "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Vui lòng giữ emoji "🐛" ở tiêu đề 
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: 🐛 Mô tả lỗi
+      placeholder: Bạn gặp lỗi đếch gì voại? 🥱
+    validations:
+      required: true
+  - type: checkboxes
+    id: os
+    attributes:
+      label: 💻 Hệ điều hành
+      description: |
+        Chọn hệ điều hành bạn đang sử dụng
+      options:
+        - label: Windows
+        - label: macOS
+        - label: Linux
+        - label: Khác
+  - type: textarea
+    id: other-os
+    attributes:
+      label: 🖥️ Hệ điều hành khác
+      description: |
+        Nếu bạn chọn "Khác" ở trên, hãy điền tên hệ điều hành bạn đang sử dụng
+      placeholder: "Ví dụ: Ubuntu, Arch Linux, Manjaro, Cục gạch Nokia..."
+    validations:
+      required: false
+  - type: textarea
+    id: python-version
+    attributes:
+      label: 💁‍♂️ Python version
+      description: Phiên bản python bạn đang sử dụng
+  - type: textarea
+    id: note
+    attributes:
+      label: 📝 Ghi chú
+      description: Bạn có ghi chú gì thêm không?
+    validations:
+      required: false
