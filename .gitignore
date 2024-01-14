@@ -1,6 +1,7 @@
 # THIS PROJECT
 **/*test*
-downloadedBooks/
+downloaded-books/
+config.env
 
 **/__pycache__
 **/*.exe

@@ -52,7 +52,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Build for ${{ matrix.os }}
-        run: pyinstaller main.py --clean --onefile --noconfirm --console --paths "src" --name "VNULIB-Downloader-${{ matrix.os }}"
+        run: pyinstaller VNULIB-Downloader.py --clean --onefile --noconfirm --console --paths "src" --name "VNULIB-Downloader-${{ matrix.os }}"
 
       - name: Upload to artifact
         uses: actions/upload-artifact@main

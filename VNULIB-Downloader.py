@@ -1,4 +1,8 @@
+"""Main file to run VNULIB Downloader"""
+
+
 def main() -> None:
+    """Main function"""
     pass
 
 
