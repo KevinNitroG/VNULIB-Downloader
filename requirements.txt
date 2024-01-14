@@ -1,8 +1,8 @@
 # os
 # sys
+# multiprocessing
 
 argparse
-multiprocessing
 dotenv
 
 # requests
