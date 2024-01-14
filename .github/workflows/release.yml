@@ -13,11 +13,13 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ${{ github.workspace }}
     outputs:
       VERSION: ${{ steps.get-variable.outputs.VERSION }}
       SET_PRE_RELEASE: ${{ steps.get-variable.outputs.SET_PRE_RELEASE }}
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@main
+
       - name: Get version
         id: get-variable
         run: |
