@@ -13,6 +13,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: ${{ github.workspace }}
     outputs:
       VERSION: ${{ steps.get-variable.outputs.VERSION }}
       SET_PRE_RELEASE: ${{ steps.get-variable.outputs.SET_PRE_RELEASE }}
@@ -20,7 +21,7 @@ jobs:
       - name: Get version
         id: get-variable
         run: |
-          VERSION=$(cat src/CONSTANTS.py | grep VERSION | cut -d "=" -f 2 | sed 's/"//g' | sed 's/ //g')
+          VERSION=$(cat "src/CONSTANTS.py" | grep VERSION | cut -d "=" -f 2 | sed 's/"//g' | sed 's/ //g')
           echo "VERSION=$VERSION" >> GITHUB_OUTPUT
           if [[ $VERSION == *"beta"* ]]; then
             echo "SET_PRE_RELEASE=true" >> GITHUB_OUTPUT
