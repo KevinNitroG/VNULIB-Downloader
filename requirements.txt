@@ -3,11 +3,13 @@
 # multiprocessing
 
 argparse
-dotenv
+python-dotenv
 
-# requests
+requests
 
-colorama
+print-color
+# colorama
+
 progress
 # tqdm
 
