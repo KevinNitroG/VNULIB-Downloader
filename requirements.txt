@@ -1,19 +1,15 @@
+# IN BUILT
 # os
 # sys
-# multiprocessing
+# concurrent.futures
 
+# COMMUNITY
 argparse
 python-dotenv
-
 requests
-
 print-color
 # colorama
-
-progress
-# tqdm
-
+tqdm
 # pillow
 img2pdf
-
 pyinstaller
