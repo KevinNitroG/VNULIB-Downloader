@@ -3,7 +3,7 @@ name: Release VNULIB Downloader
 on:
   push:
     paths:
-      - src/VERSION.py
+      - src/CONSTANTS.py
   workflow_dispatch:
 
 jobs:
