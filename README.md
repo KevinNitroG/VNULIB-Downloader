@@ -19,6 +19,7 @@ Python script download sách từ <strong>VNULIB</strong>
 </pre>
 
 [![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=CAEDFF)](../../commits/main)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/KevinNitroG/VNULIB-Downloader/release.yml?style=for-the-badge&label=RELEASE)
 ![GitHub issues](https://img.shields.io/github/issues-raw/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=ffadad)
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=%23ffc6ff)
 ![GitHub repo size](https://img.shields.io/github/repo-size/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=D8B4F8)
@@ -33,8 +34,6 @@ Python script download sách từ <strong>VNULIB</strong>
 > [!CAUTION]
 >
 > **WORK IN PROGRESS**
->
-> Tạo repo vậy chứ chưa học gì hớt. Học đã rồi làm
 
 ## 😌 CREDIT
 
