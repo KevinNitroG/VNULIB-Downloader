@@ -79,12 +79,15 @@ jobs:
 
       - name: Upload to Release
         uses: svenstaro/upload-release-action@master
+        env:
+          VERSION: ${{ needs.prepare.outputs.VERSION }}
+          SET_PRE_RELEASE: ${{ needs.prepare.outputs.SET_PRE_RELEASE }}
         with:
-          body: ${{ needs.prepare.outputs.VERSION }}
+          body: ${{ env.VERSION }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./dist/VNULIB-Downloader-*
-          release_name: VNULIB Downloader ${{ needs.prepare.outputs.VERSION }}
-          tag: ${{ needs.prepare.outputs.VERSION }}
+          release_name: VNULIB Downloader ${{ env.VERSION }}
+          tag: ${{ env.VERSION }}
           file_glob: true
           overwrite: false
-          prerelease: ${{ needs.prepare.outputs.SET_PRE_RELEASE }}
+          prerelease: ${{ env.SET_PRE_RELEASE }}
