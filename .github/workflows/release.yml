@@ -14,14 +14,14 @@ jobs:
       run:
         shell: bash
     outputs:
-      VERSION: ${{ steps.get-variable.outputs.VERSION }}
-      SET_PRE_RELEASE: ${{ steps.get-variable.outputs.SET_PRE_RELEASE }}
+      VERSION: ${{ steps.get_variables.outputs.VERSION }}
+      SET_PRE_RELEASE: ${{ steps.get_variables.outputs.SET_PRE_RELEASE }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@main
 
-      - name: Get version
-        id: get-variable
+      - name: Prepare Version & Set Pre Release
+        id: get_variables
         run: |
           VERSION=$(cat "src/CONSTANTS.py" | grep VERSION | cut -d "=" -f 2 | sed 's/"//g' | sed 's/ //g')
           echo "VERSION=$VERSION" >> GITHUB_OUTPUT
@@ -55,7 +55,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Build for ${{ matrix.os }}
-        run: pyinstaller --noconfirm --onefile --console --icon "asset/VNU_HCM_LOGO-256.ico" --name "VNULIB-Downloader-${{ matrix.os }}" --clean --log-level "INFO" --add-data "src:src/" --add-data "LICENSE:." "VNULIB-Downloader.py"
+        run: pyinstaller --noconfirm --onefile --console --icon "asset/VNU_HCM_LOGO-256.ico" --name "VNULIB-Downloader-${{ matrix.os }}" --log-level "INFO" --add-data "src:src/" --add-data "LICENSE:." "VNULIB-Downloader.py"
 
       - name: Upload to artifact
         uses: actions/upload-artifact@main
