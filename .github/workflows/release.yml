@@ -77,18 +77,12 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@main
 
-      - name: Debug
-        run: |
-          ls -la
-          echo "---"
-          tree -a
-
       - name: Upload to Release
         uses: svenstaro/upload-release-action@master
         with:
           body: ${{ needs.prepare.outputs.VERSION }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./VNULIB-Downloader-*
+          file: ./VNULIB-Downloader-*/VNULIB-Downloader-*
           release_name: VNULIB Downloader ${{ needs.prepare.outputs.VERSION }}
           tag: ${{ needs.prepare.outputs.VERSION }}
           file_glob: true
