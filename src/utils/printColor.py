@@ -1,5 +1,4 @@
-"""Print out with tag, color, format, background
-"""
+"""Print out with tag, color, format, background"""
 
 from print_color.print_color import print as printColor
 from os import get_terminal_size
