@@ -1,4 +1,4 @@
-VERSION: str = "0.2-beta"
+VERSION: str = "0.3-beta"
 AUTHORS: str = "KevinNitroG & NTGNguyen"
 BANNER: str = """
 ██╗   ██╗███╗   ██╗██╗   ██╗██╗     ██╗██████╗ 
