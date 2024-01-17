@@ -10,7 +10,7 @@ def printBanner(lines: list[str]) -> None:
     """Print out the banner
 
     Params:
-        - lines (str): List of lines of the banner
+        - lines (list[str]): List of lines of the banner
 
     Returns:
         - None
