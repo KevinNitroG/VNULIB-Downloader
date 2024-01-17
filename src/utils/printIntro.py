@@ -1,7 +1,6 @@
 """Print out the banner, authors, version"""
 
 
-from os import get_terminal_size
 from print_color.print_color import print as printColor
 from ..utils import TERMINAL_SIZE_COLUMNS
 from ..CONSTANTS import BANNER, AUTHORS, VERSION
@@ -56,7 +55,7 @@ def printIntro() -> None:
     Returns:
         - None
     """
-    printBanner(lines=[line for line in BANNER.split('\n')])
+    printBanner(lines=list(BANNER.split('\n')))
     printAuthors(authors=AUTHORS)
     printVersion(version=VERSION)
     print()
