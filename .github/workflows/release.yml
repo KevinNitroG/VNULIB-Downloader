@@ -82,7 +82,7 @@ jobs:
         with:
           body: ${{ needs.prepare.outputs.VERSION }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./dist/VNULIB-Downloader-*
+          file: ./VNULIB-Downloader-*
           release_name: VNULIB Downloader ${{ needs.prepare.outputs.VERSION }}
           tag: ${{ needs.prepare.outputs.VERSION }}
           file_glob: true
