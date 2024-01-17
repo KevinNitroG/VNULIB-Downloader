@@ -55,7 +55,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Build for ${{ matrix.os }}
-        run: pyinstaller --noconfirm --onefile --console --icon "asset/VNU_HCM_LOGO-256.ico" --name "VNULIB-Downloader-${{ matrix.os }}" --clean --log-level "INFO" --splash "asset/VNU_HCM_LOGO-large.png" --add-data "src;src/" "VNULIB-Downloader.py" -add-data "LICENSE;."
+        run: pyinstaller --noconfirm --onefile --console --icon "asset/VNU_HCM_LOGO-256.ico" --name "VNULIB-Downloader-${{ matrix.os }}" --clean --log-level "INFO" --splash "asset/VNU_HCM_LOGO-large.png" --add-data "src:src/" -add-data "LICENSE:." "VNULIB-Downloader.py"
 
       - name: Upload to artifact
         uses: actions/upload-artifact@main
