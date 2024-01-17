@@ -55,7 +55,7 @@ def printIntro() -> None:
     Returns:
         - None
     """
-    printBanner(lines=list(BANNER.split('\n')))
+    printBanner(lines=BANNER.split('\n'))
     printAuthors(authors=AUTHORS)
     printVersion(version=VERSION)
     print()
