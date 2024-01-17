@@ -49,7 +49,8 @@ jobs:
       - name: Install python
         uses: actions/setup-python@main
         with:
-          cache: "pip"
+          cache: pip
+          python-version: "3.12"
 
       - name: Install dependacies
         run: pip install -r requirements.txt
