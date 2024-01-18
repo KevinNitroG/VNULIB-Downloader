@@ -64,3 +64,15 @@ def printRetry(message: str) -> None:
         - None
     """
     printColor(message, tag='Retry', color='blue')
+
+
+def printInfo(message: str) -> None:
+    """Print out info message with yan color
+
+    Args:
+        - Message (str): Message of Info
+
+    Returns:
+        - None
+    """
+    printColor(message, tag='Info', color='yan')
