@@ -1,6 +1,6 @@
 """VNULIB Downloader"""
 
-from src.utils import pause
+from src.utils.utils import pause
 from src.utils.printIntro import printIntro
 
 
