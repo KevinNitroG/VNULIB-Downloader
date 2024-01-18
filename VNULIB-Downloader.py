@@ -1,6 +1,6 @@
 """VNULIB Downloader"""
 
-from src.utils import SYSTEM_PAUSE
+from src.utils import pause
 from src.utils.printIntro import printIntro
 
 
@@ -14,7 +14,8 @@ def main() -> None:
         - None
     """
     printIntro()
-    SYSTEM_PAUSE()
+
+    pause()
 
 
 if __name__ == '__main__':

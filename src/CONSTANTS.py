@@ -1,5 +1,5 @@
-VERSION: str = "0.3-beta"
-AUTHORS: str = "KevinNitroG & NTGNguyen"
+VERSION: str = '0.3-beta'
+AUTHORS: str = 'KevinNitroG & NTGNguyen'
 BANNER: str = """
 ██╗   ██╗███╗   ██╗██╗   ██╗██╗     ██╗██████╗ 
 ██║   ██║████╗  ██║██║   ██║██║     ██║██╔══██╗
