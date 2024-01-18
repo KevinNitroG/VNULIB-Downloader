@@ -1,7 +1,9 @@
 # IN BUILT
 # os
 # sys
+# logging
 # concurrent.futures
+# collections.Counter
 
 # COMMUNITY
 argparse
@@ -10,6 +12,6 @@ requests
 print-color
 # colorama
 tqdm
-# pillow
-img2pdf
+pillow
+# img2pdf
 pyinstaller

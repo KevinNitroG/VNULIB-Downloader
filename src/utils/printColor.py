@@ -13,20 +13,9 @@ def printTitle(message: str) -> None:
     Returns:
         - None
     """
+    print()
     printColor(message.center(get_terminal_size().columns),
                color='magenta', format='bold', background='blue', end='\n\n')
-
-
-def printError(message: str) -> None:
-    """Print out error message with red color
-
-    Args:
-        - Message (str): Message of Error
-
-    Returns:
-        - None
-    """
-    printColor(message, tag='Error', color='red')
 
 
 def printSuccess(message: str) -> None:
@@ -41,8 +30,32 @@ def printSuccess(message: str) -> None:
     printColor(message, tag='Success', color='green')
 
 
+def printError(message: str) -> None:
+    """Print out error message with red color
+
+    Args:
+        - Message (str): Message of Error
+
+    Returns:
+        - None
+    """
+    printColor(message, tag='Error', color='red')
+
+
+def printWarning(message: str) -> None:
+    """Print out warning message with yellow color
+
+    Args:
+        - Message (str): Message of Warning
+
+    Returns:
+        - None
+    """
+    printColor(message, tag='Warning', color='yellow')
+
+
 def printRetry(message: str) -> None:
-    """Print out retry message with yellow color
+    """Print out retry message with blue color
 
     Args:
         - Message (str): Message of Retry
@@ -50,4 +63,4 @@ def printRetry(message: str) -> None:
     Returns:
         - None
     """
-    printColor(message, tag='Retry', color='yellow')
+    printColor(message, tag='Retry', color='blue')

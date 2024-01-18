@@ -2,6 +2,7 @@
 **/*test*
 downloaded-books/
 config.env
+log.log
 
 **/__pycache__
 **/*.exe
