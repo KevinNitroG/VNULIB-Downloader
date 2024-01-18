@@ -4,6 +4,18 @@
 from os import makedirs, path, removedirs
 
 
+def pause() -> None:
+    """Pause the terminal until user hits Enter
+
+    Params:
+        - None
+
+    Returns:
+        - None
+    """
+    _: str = input('Press Enter to continue . . .')
+
+
 def createDirectory(*directories: str) -> None:
     """Create directories if they do not exist
 

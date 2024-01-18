@@ -15,3 +15,6 @@ BANNER: str = """
 ██████╔╝╚██████╔╝╚███╔███╔╝██║ ╚████║███████╗╚██████╔╝██║  ██║██████╔╝███████╗██║  ██║
 ╚═════╝  ╚═════╝  ╚══╝╚══╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
 """
+LOGGER_MODE: list[str] = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
+DOTENV_TRUE_VALUES: list[str] = ['True', 'true', '1']
+DOTENV_FALSE_VALUES: list[str] = ['False', 'false', '0', '', ' ']
