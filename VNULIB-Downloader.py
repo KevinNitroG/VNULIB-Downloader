@@ -1,11 +1,15 @@
 """VNULIB Downloader"""
 
+
 from src.utils.utils import pause
 from src.utils.printIntro import printIntro
+from src.utils.setupVariables import (
+    setupVariables, LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG, LOG_LEVEL)
+from src.utils.setupLogger import setupLogger
 
 
 def main() -> None:
-    """Main function
+    """Main function to run VNULIB Downloader
 
     Params:
         - None
@@ -14,6 +18,8 @@ def main() -> None:
         - None
     """
     printIntro()
+    setupVariables()
+    setupLogger()
 
     pause()
 
