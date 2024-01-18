@@ -16,20 +16,14 @@ jobs:
     outputs:
       VERSION: ${{ steps.get_variables.outputs.VERSION }}
       SET_PRE_RELEASE: ${{ steps.get_variables.outputs.SET_PRE_RELEASE }}
+      CONTINUE: ${{ steps.get_variables.outputs.CONTINUE }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@main
 
       - name: Prepare Version & Set Pre Release
         id: get_variables
-        run: |
-          VERSION=$(cat "src/CONSTANTS.py" | grep VERSION | cut -d "=" -f 2 | sed 's/"//g' | sed 's/ //g')
-          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
-          if [[ $VERSION == *"beta"* ]]; then
-            echo "SET_PRE_RELEASE=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "SET_PRE_RELEASE=false" >> "$GITHUB_OUTPUT"
-          fi
+        run: script/checkRelease.sh
 
   build:
     name: build
@@ -42,6 +36,7 @@ jobs:
           - macos
     runs-on: ${{ matrix.os }}-latest
     timeout-minutes: 10
+    if: ${{ needs.prepare.outputs.CONTINUE == 'true' }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@main
@@ -74,6 +69,7 @@ jobs:
     needs:
       - prepare
       - build
+    if: ${{ needs.prepare.outputs.CONTINUE == 'true' }}
     steps:
       - name: Download Artifact
         uses: actions/download-artifact@main
