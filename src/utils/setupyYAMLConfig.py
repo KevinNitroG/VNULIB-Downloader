@@ -23,9 +23,10 @@ def downloadYAMLConfigFile(file_name: str = 'config.yml') -> None:
                 allow_redirects=True,
                 timeout=10
             ).content.decode(encoding='utf-8')
-            file.write(content)
         except ConnectionError:
             printError(message='Couldn\'t connect to Repository Source to download the config file. Please check the connection or the source of the repo and try again.')
+        else:
+            file.write(content)
 
 
 def checkExistYAMLConfigFile(file_name: str = 'config.yml') -> bool:

@@ -1,11 +1,15 @@
 """VNULIB Downloader"""
 
 
+from logging import Logger
+
 from src.utils.utils import pause
 from src.utils.printIntro import printIntro
 from src.utils.printColor import printTitle
-from src.utils.setupLogger import setupLogger
 from src.utils.setupVariables import setupVariables
+from src.utils.setupLogger import setupLogger
+
+from src.CONSTANTS import CONFIG_FILE
 
 
 def main() -> None:
@@ -19,8 +23,9 @@ def main() -> None:
     """
     printIntro()
     printTitle(message='SETUP VARIABLES')
-    LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG, LOG_LEVEL = setupVariables()
-    setupLogger(LOG=LOG, LOG_LEVEL=LOG_LEVEL)
+    LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG = setupVariables(
+        config_file=CONFIG_FILE)
+    LOGGER: Logger | None = setupLogger(LOG=LOG)
 
 
 if __name__ == '__main__':

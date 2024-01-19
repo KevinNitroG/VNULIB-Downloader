@@ -2,11 +2,12 @@
 
 
 from re import compile as reCompile, search as reSearch
+from logging import Logger
 
 from yaml import safe_load
 from argparse import Namespace
 
-import src.utils.argparse
+from src.utils.argparse import argParse
 from .printColor import printError, printInfo
 from .setupyYAMLConfig import prepareYAMLConfigFile
 
@@ -18,7 +19,6 @@ OVERWRITE_BOOK: bool | None = None
 CREATE_PDF: bool | None = None
 KEEP_IMGS: bool | None = None
 LOG: bool | None = None
-LOG_LEVEL: str | None = None
 
 
 def strSetByArgparse(var: str) -> str:
@@ -67,8 +67,8 @@ def setupVariablesFromArgsAndConfigFile(args: Namespace, config_file: str = 'con
     Returns:
         - None
     """
-    global LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG, LOG_LEVEL
-    with open(file='config.yml', mode='r', encoding='utf-8') as file:
+    global LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG
+    with open(file=config_file, mode='r', encoding='utf-8') as file:
         config = safe_load(stream=file)
     # Links
     if args.links:
@@ -120,18 +120,8 @@ def setupVariablesFromArgsAndConfigFile(args: Namespace, config_file: str = 'con
         LOG = config['ADVANCED_CONFIG']['LOG']
         printInfo(message=strSetByConfigFile(var='LOG'))
     else:
-        LOG = False
-    # Log level
-    if args.log_level:
-        LOG_LEVEL = args.log_level
-        printInfo(message=f'{'LOG_LEVEL'.ljust(
-            20)} Set by argparse to ${LOG_LEVEL}')
-    elif config['ADVANCED_CONFIG']['LOG_LEVEL']:
-        LOG_LEVEL = config['ADVANCED_CONFIG']['LOG_LEVEL']
-        printInfo(message=f'{'LOG_LEVEL'.ljust(
-            20)} Set by config file to ${LOG_LEVEL}')
-    else:
-        LOG_LEVEL = None
+        LOG = None
+        printInfo(message=strRetreiveFromUserInput(var='LOG'))
 
 
 def userInputVariables() -> None:
@@ -143,7 +133,7 @@ def userInputVariables() -> None:
     Returns:
         - None
     """
-    global LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG, LOG_LEVEL
+    global LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG
     LINKS = LINKS or list(input(
         'Enter the links of the book(s) to be downloaded (separated by space): ').strip().split(sep=' '))
     OVERWRITE_BOOK = OVERWRITE_BOOK or input(
@@ -152,6 +142,8 @@ def userInputVariables() -> None:
         'Merge images to a PDF (Y/n): ').upper().strip() in USER_INPUT_YES
     KEEP_IMGS = KEEP_IMGS or input(
         'Keep images after merging to PDF (Y/n): ').upper().strip() in USER_INPUT_YES
+    LOG = LOG or input(
+        'Log (Y/n): ').upper().strip() in USER_INPUT_YES
 
 
 def checkValidLinks(links: list[str] | None) -> None:
@@ -184,27 +176,27 @@ def checkValidLinks(links: list[str] | None) -> None:
             printError(
                 message=f'Not support book link at VNULIB page: {link}')
             raise ValueError('Not support book link at VNULIB page')
+        printError(message='Invalid link: {link} with unkown pattern')
+        raise ValueError(f'Invalid link: {link} with unkown pattern')
 
 
-def setupVariables():
+def setupVariables(config_file: str = 'config.yml'):
     """Setup variables, priority: argparse > .env > user input
 
     Params:
-        - None
+        - config_file (str): The name of the config file (Default: config.yml)
 
     Returns:
         - LINKS (list[str] | None): The list of links
         - OVERWRITE_BOOK (bool | None): Overwrite downloaded books
         - CREATE_PDF (bool | None): Merge images to a PDF
         - KEEP_IMGS (bool | None): Keep images after merging to PDF
-        - LOG (bool | None): Log
-        - LOG_LEVEL (str | None): Log level
     """
-    global LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG, LOG_LEVEL
+    global LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG
     prepareYAMLConfigFile()
-    args: Namespace = src.utils.argparse.argParse()
-    setupVariablesFromArgsAndConfigFile(args=args, config_file='config.yml')
+    args: Namespace = argParse()
+    setupVariablesFromArgsAndConfigFile(args=args, config_file=config_file)
     print()
     userInputVariables()
     checkValidLinks(links=LINKS)
-    return LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG, LOG_LEVEL
+    return LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG

@@ -1,9 +1,9 @@
 # THIS PROJECT
 **/*test*
 downloaded-books/
+logs/
 config.env
 config.yml
-log.log
 
 **/__pycache__
 **/*.exe
