@@ -70,7 +70,7 @@ def dowloadImage(url: str) -> bytes:
 
     """
     response: Response = get(url, stream=True)
-    response.raise_for_status()  # Đảm bảo rằng get url thành công
+    response.raise_for_status()
 
     image_data: bytes = response.content
 
