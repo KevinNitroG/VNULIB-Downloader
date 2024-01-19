@@ -1,7 +1,5 @@
 from argparse import ArgumentParser, Namespace
 
-from ..utils.printColor import printInfo
-
 
 parser = ArgumentParser()
 parser.add_argument('--links', type=list, nargs='+',

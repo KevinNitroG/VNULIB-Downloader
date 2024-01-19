@@ -32,9 +32,9 @@ def setupLoggerNow(LOG_LEVEL: str | None = 'INFO') -> Logger:
         case _:
             LOGGER.setLevel(level=INFO)
     file_handler: FileHandler = FileHandler(filename=f'logs/{file_name}')
-    format = Formatter(
+    log_format = Formatter(
         '%(asctime)s - %(levelname)s - %(message)s - %(filename)s:%(lineno)d')
-    file_handler.setFormatter(fmt=format)
+    file_handler.setFormatter(fmt=log_format)
     LOGGER.addHandler(hdlr=file_handler)
     return LOGGER
 
