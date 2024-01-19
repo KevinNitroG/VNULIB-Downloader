@@ -1,12 +1,13 @@
 """Setup the logger"""
 
 
-from os import getenv
 from logging import basicConfig
 from datetime import datetime
-from utils import createDirectory
-from utils.printColor import printWarning, printInfo
-from ..CONSTANTS import DOTENV_TRUE_VALUES
+from tkinter.font import BOLD
+
+from src.utils.setupVariables import LOG
+from .utils import createDirectory
+from ..utils.printColor import printInfo
 
 
 def setupLoggerNow(level: str | None = 'INFO') -> None:
@@ -27,21 +28,16 @@ def setupLoggerNow(level: str | None = 'INFO') -> None:
     )
 
 
-def setupLogger() -> None:
+def setupLogger(LOG: bool | None, LOG_LEVEL: str | None) -> None:
     """Check to decide whether to setup the logger or not
 
     Params:
-        - None
+        - LOG (bool | None): The LOG variable
+        - LOG_LEVEL (str | None): The LOG_LEVEL variable
 
     Returns:
         - None
     """
-    if getenv(key='LOG') in DOTENV_TRUE_VALUES:
-        LOG_LEVEL: str | None = getenv(key='LOG_LEVEL')
-        if LOG_LEVEL is None:
-            printWarning(
-                message='LOG_LEVEL is not set in config.env. Defaulting to INFO')
-            setupLoggerNow()
-        else:
-            printInfo(message=f'LOG_LEVEL is set to {LOG_LEVEL}')
-            setupLoggerNow(level=LOG_LEVEL)
+    if LOG:
+        printInfo(message=f'LOG_LEVEL is set to {LOG_LEVEL}')
+        setupLoggerNow(level=LOG_LEVEL)

@@ -1,86 +1,137 @@
-"""Setup variables, priority: argparse > .env > user input"""
+"""Setup variables, priority: argparse > config file > user input"""
 
 
-from os import getenv
-from typing import Any
-from dotenv import load_dotenv
+from re import compile as reCompile, search as reSearch
+
+from yaml import safe_load
 from argparse import Namespace
+
 import src.utils.argparse
-from printColor import printInfo, printWarning
+from .printColor import printError, printInfo
+from .setupyYAMLConfig import prepareYAMLConfigFile
+
+from ..CONSTANTS import USER_INPUT_YES
 
 
-def setupVariablesFromArgsAndDotenv(args: Namespace) -> None:
-    """Function to be called by setupVariables()
+LINKS: list[str] | None = None
+OVERWRITE_BOOK: bool | None = None
+CREATE_PDF: bool | None = None
+KEEP_IMGS: bool | None = None
+LOG: bool | None = None
+LOG_LEVEL: str | None = None
+
+
+def strSetByArgparse(var: str) -> str:
+    """Return a template string for variables set by argparse
 
     Params:
-        - args (Namespace): Arguments parsed by argparse
+        - var (str): Variable name
+
+    Returns:
+        - str: Set by argparse message
+    """
+    return f'{var.ljust(20)} Set by argparse'
+
+
+def strSetByConfigFile(var: str) -> str:
+    """Return a template string for variables set by config file
+
+    Params:
+        - var (str): Variable name
+
+    Returns:
+        - str: Set by config file message
+    """
+    return f'{var.ljust(20)} Set by config file (config.yml)'
+
+
+def strRetreiveFromUserInput(var: str) -> str:
+    """Return a template string for variables retrieved from user input
+
+    Params:
+        - var (str): Variable name
+
+    Returns:
+        - str: Retrieve from user input message
+    """
+    return f'{var.ljust(20)} Retrieve from user input'
+
+
+def setupVariablesFromArgsAndConfigFile(args: Namespace, config_file: str = 'config.yml') -> None:
+    """Function to be called by setupVariables() to setup variables from argparse and config file
+
+    Params:
+        - args (Namespace): The argparse.Namespace object
+        - config_file (str): The name of the config file (Default: config.yml)
 
     Returns:
         - None
     """
     global LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG, LOG_LEVEL
-
-    dotenv_links: str | None = getenv(key='LINKS')
+    with open(file='config.yml', mode='r', encoding='utf-8') as file:
+        config = safe_load(stream=file)
+    # Links
     if args.links:
-        LINKS: list[Any] | None = args.links
-        printInfo(message=f'LINKS is set by argparse')
-    elif dotenv_links:
-        LINKS: list[Any] | None = dotenv_links.split(sep=',')
-        printInfo(message=f'LINKS is set by config.env')
+        LINKS = args.links
+        printInfo(strSetByArgparse(var='LINKS'))
+    elif config['BASIC_CONFIG']['LINKS'] != [] and config['BASIC_CONFIG']['LINKS'] != ['']:
+        printInfo(message=strSetByConfigFile(var='LINKS'))
     else:
-        LINKS: list[Any] | None = None
-        printWarning(message='LINKS is not set. Will retrieve from user input')
-
+        LINKS = None
+        printInfo(message=strRetreiveFromUserInput(var='LINKS'))
+    # Overwrite book
     if args.overwrite_book:
-        OVERWRITE_BOOK: bool | None = args.overwrite_book
-        printInfo(message=f'OVERWRITE_BOOK is set by argparse')
-    elif getenv(key='OVERWRITE_BOOK'):
-        OVERWRITE_BOOK: bool | None = (getenv(key='OVERWRITE_BOOK') == 'True')
-        printInfo(message=f'OVERWRITE_BOOK is set by config.env')
+        OVERWRITE_BOOK = args.overwrite_book
+        printInfo(message=strSetByArgparse(var='OVERWRITE_BOOK'))
+    elif config['BASIC_CONFIG']['OVERWRITE_BOOK']:
+        OVERWRITE_BOOK = config['BASIC_CONFIG']['OVERWRITE_BOOK']
+        printInfo(message=strSetByConfigFile(var='OVERWRITE_BOOK'))
     else:
-        OVERWRITE_BOOK: bool | None = None
-        printWarning(
-            message='OVERWRITE_BOOK is not set. Will retrieve from user input')
-
+        OVERWRITE_BOOK = None
+        printInfo(
+            message=strRetreiveFromUserInput(var='OVERWRITE_BOOK'))
+    # Create PDF
     if args.create_pdf:
-        CREATE_PDF: bool | None = args.create_pdf
-        printInfo(message=f'CREATE_PDF is set by argparse')
-    elif getenv(key='CREATE_PDF'):
-        CREATE_PDF: bool | None = (getenv(key='CREATE_PDF') == 'True')
-        printInfo(message=f'CREATE_PDF is set by config.env')
+        CREATE_PDF = args.create_pdf
+        printInfo(message=strSetByArgparse(var='CREATE_PDF'))
+    elif config['BASIC_CONFIG']['CREATE_PDF']:
+        CREATE_PDF = config['BASIC_CONFIG']['CREATE_PDF']
+        printInfo(message=strSetByConfigFile(var='CREATE_PDF'))
     else:
-        CREATE_PDF: bool | None = None
-        printWarning(
-            message='CREATE_PDF is not set. Will retrieve from user input')
-
+        CREATE_PDF = None
+        printInfo(
+            message=strRetreiveFromUserInput(var='CREATE_PDF'))
+    # Keep images
     if args.keep_imgs:
-        KEEP_IMGS: bool | None = args.keep_imgs
-        printInfo(message=f'KEEP_IMGS is set by argparse')
-    elif getenv(key='KEEP_IMGS'):
-        KEEP_IMGS: bool | None = (getenv(key='KEEP_IMGS') == 'True')
-        printInfo(message=f'KEEP_IMGS is set by config.env')
+        KEEP_IMGS = args.keep_imgs
+        printInfo(message=strSetByArgparse(var='KEEP_IMGS'))
+    elif config['BASIC_CONFIG']['KEEP_IMGS']:
+        KEEP_IMGS = config['BASIC_CONFIG']['KEEP_IMGS']
+        printInfo(message=strSetByConfigFile(var='KEEP_IMGS'))
     else:
-        KEEP_IMGS: bool | None = None
-        printWarning(
-            message='KEEP_IMGS is not set. Will retrieve from user input')
-
+        KEEP_IMGS = None
+        printInfo(
+            message=strRetreiveFromUserInput(var='KEEP_IMGS'))
+    # Log
     if args.log:
-        LOG: bool | None = args.log
-        printInfo(message=f'LOG is set by argparse')
-    elif getenv(key='LOG'):
-        LOG: bool | None = (getenv(key='LOG') == 'True')
-        printInfo(message=f'LOG is set by config.env')
+        LOG = args.log
+        printInfo(message=strSetByArgparse(var='LOG'))
+    elif config['ADVANCED_CONFIG']['LOG']:
+        LOG = config['ADVANCED_CONFIG']['LOG']
+        printInfo(message=strSetByConfigFile(var='LOG'))
     else:
-        LOG: bool | None = False
-
+        LOG = False
+    # Log level
     if args.log_level:
-        LOG_LEVEL: str | None = args.log_level
-        printInfo(message=f'LOG_LEVEL is set by argparse to ${LOG_LEVEL}')
-    elif getenv(key='LOG_LEVEL'):
-        LOG_LEVEL: str | None = getenv(key='LOG_LEVEL')
-        printInfo(message=f'LOG_LEVEL is set by config.env to ${LOG_LEVEL}')
+        LOG_LEVEL = args.log_level
+        printInfo(message=f'{'LOG_LEVEL'.ljust(
+            20)} Set by argparse to ${LOG_LEVEL}')
+    elif config['ADVANCED_CONFIG']['LOG_LEVEL']:
+        LOG_LEVEL = config['ADVANCED_CONFIG']['LOG_LEVEL']
+        printInfo(message=f'{'LOG_LEVEL'.ljust(
+            20)} Set by config file to ${LOG_LEVEL}')
     else:
-        LOG_LEVEL: str | None = None
+        LOG_LEVEL = None
 
 
 def userInputVariables() -> None:
@@ -93,30 +144,67 @@ def userInputVariables() -> None:
         - None
     """
     global LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG, LOG_LEVEL
-
-    LINKS: list[Any] | None = LINKS or input(
-        'Enter the links of the book(s) to be downloaded (separated by space): ').split(sep=' ')
-    OVERWRITE_BOOK: bool | None = OVERWRITE_BOOK or input(
-        'If the folder of images / PDF file of the book is already exist, then overwrite it (Y/n): ').upper() == 'Y'
-    CREATE_PDF: bool | None = CREATE_PDF or input(
-        'Merge images to a PDF (Y/n): ').upper == 'Y'
-    KEEP_IMGS: bool | None = KEEP_IMGS or input(
-        'Keep images after merging to PDF (Y/n): ').upper() == 'Y'
-    # LOG: bool | None = LOG or input('Log the process (y/N): ').upper() == 'N'
-    # LOG_LEVEL: str | None = LOG_LEVEL or input(
-    #     'Log level:\n\tOptions: DEBUG, INFO, WARNING, ERROR, CRITICAL\n\tDefault: INFO\nLog level: ').upper()
+    LINKS = LINKS or list(input(
+        'Enter the links of the book(s) to be downloaded (separated by space): ').strip().split(sep=' '))
+    OVERWRITE_BOOK = OVERWRITE_BOOK or input(
+        'Overwrite downloaded books (Y/n): ').upper().strip() in USER_INPUT_YES
+    CREATE_PDF = CREATE_PDF or input(
+        'Merge images to a PDF (Y/n): ').upper().strip() in USER_INPUT_YES
+    KEEP_IMGS = KEEP_IMGS or input(
+        'Keep images after merging to PDF (Y/n): ').upper().strip() in USER_INPUT_YES
 
 
-def setupVariables() -> None:
+def checkValidLinks(links: list[str] | None) -> None:
+    """Check if the links are valid, otherwise raise ValueError
+
+    Params:
+        - links (list[str] | None): The list of links
+
+    Returns:
+        - None
+    """
+    true_pattern = reCompile(
+        r'http[s]?://ir\.vnulib\.edu\.vn/flowpaper/services/view\.php\?.+page=\d+.+')
+    preview_book_pattern = reCompile(
+        r'http[s]?://ir\.vnulib\.edu\.vn/flowpaper/simple_document\.php\?subfolder=.+&doc=\d+&bitsid=.+')
+    book_link_pattern = reCompile(
+        r'http[s]?://ir\.vnulib\.edu\.vn/handle/VNUHCM/\d+')
+    if links == None or links == [] or links == ['']:
+        printError(message='LINKS is None')
+        raise ValueError('LINKS is None')
+    for link in links:
+        if reSearch(pattern=true_pattern, string=link):
+            continue
+        if reSearch(pattern=preview_book_pattern, string=link):
+            printError(
+                message=f'Not support preview link of the book: {link}')
+            raise ValueError(
+                'Not support preview link of the book')
+        if reSearch(pattern=book_link_pattern, string=link):
+            printError(
+                message=f'Not support book link at VNULIB page: {link}')
+            raise ValueError('Not support book link at VNULIB page')
+
+
+def setupVariables():
     """Setup variables, priority: argparse > .env > user input
 
     Params:
         - None
 
     Returns:
-        - None
+        - LINKS (list[str] | None): The list of links
+        - OVERWRITE_BOOK (bool | None): Overwrite downloaded books
+        - CREATE_PDF (bool | None): Merge images to a PDF
+        - KEEP_IMGS (bool | None): Keep images after merging to PDF
+        - LOG (bool | None): Log
+        - LOG_LEVEL (str | None): Log level
     """
-    load_dotenv(dotenv_path='config.env')
+    global LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG, LOG_LEVEL
+    prepareYAMLConfigFile()
     args: Namespace = src.utils.argparse.argParse()
-    setupVariablesFromArgsAndDotenv(args=args)
+    setupVariablesFromArgsAndConfigFile(args=args, config_file='config.yml')
+    print()
     userInputVariables()
+    checkValidLinks(links=LINKS)
+    return LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG, LOG_LEVEL
