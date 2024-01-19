@@ -13,9 +13,7 @@ parser.add_argument('--create-pdf', '-pdf', action='store_true',
 parser.add_argument('--keep-imgs', '-k', action='store_true',
                     default=None, help='Keep images after merging to PDF')
 parser.add_argument('--log', '-l', action='store_true',
-                    default=False, help='Log the process to logs folder')
-parser.add_argument('--log-level', '-ll', type=str, default='',
-                    help='Options: DEBUG, INFO, WARNING, ERROR, CRITICAL (Default: INFO)')
+                    default=False, help='Log the processed books information to logs folder')
 
 args: Namespace = parser.parse_args()
 
@@ -29,13 +27,4 @@ def argParse() -> Namespace:
     Returns:
         - None
     """
-    if args.log_level and not args.log:
-        parser.error(message='--log-level requires --log to be set.')
-    if args.log and not args.log_level:
-        args.log_level = 'INFO'
-        printInfo(
-            message=f'--log is set. But --log-level is not set. Therefore --log-level is set to Default: {args.log_level}')
-    if args.log and args.log_level not in ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']:
-        parser.error(
-            message=f'Invalid log level "{args.log_level}". Options: DEBUG, INFO, WARNING, ERROR, CRITICAL')
     return args
