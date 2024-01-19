@@ -1,7 +1,11 @@
 """Print out with tag, color, format, background"""
 
-from print_color.print_color import print as printColor
 from os import get_terminal_size
+
+from print_color.print_color import print as printColor
+
+
+TERMINAL_SIZE_COLUMNS: int = get_terminal_size().columns
 
 
 def printTitle(message: str) -> None:
@@ -13,8 +17,7 @@ def printTitle(message: str) -> None:
     Returns:
         - None
     """
-    print()
-    printColor(message.center(get_terminal_size().columns),
+    printColor(message.center(int(TERMINAL_SIZE_COLUMNS)),
                color='magenta', format='bold', background='blue', end='\n\n')
 
 

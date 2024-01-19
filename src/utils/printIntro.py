@@ -17,7 +17,7 @@ def printBanner(lines: list[str]) -> None:
     """
     for line in lines:
         printColor(line.center(TERMINAL_SIZE_COLUMNS),
-                   color='purple')
+                   color='yan')
 
 
 def printAuthors(authors: str) -> None:

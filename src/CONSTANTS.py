@@ -16,5 +16,5 @@ BANNER: str = """
 ╚═════╝  ╚═════╝  ╚══╝╚══╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
 """
 LOGGER_MODE: list[str] = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
-DOTENV_TRUE_VALUES: list[str] = ['True', 'true', '1']
-DOTENV_FALSE_VALUES: list[str] = ['False', 'false', '0', '', ' ']
+USER_INPUT_YES: list[str] = ['Y', 'YES', '', '1']
+USER_INPUT_NO: list[str] = ['N', 'NO', '', '0']
