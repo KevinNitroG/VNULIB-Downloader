@@ -40,9 +40,8 @@ def checkExistYAMLConfigFile(file_name: str = 'config.yml') -> bool:
     """
     if path.exists(path=file_name):
         return True
-    else:
-        printInfo(message=f'{file_name} does not exist')
-        return False
+    printInfo(message=f'{file_name} does not exist')
+    return False
 
 
 def prepareYAMLConfigFile(file_name: str = 'config.yml') -> None:

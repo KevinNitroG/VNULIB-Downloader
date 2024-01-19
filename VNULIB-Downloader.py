@@ -26,6 +26,7 @@ def main() -> None:
     LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG = setupVariables(
         config_file=CONFIG_FILE)
     LOGGER: Logger | None = setupLogger(LOG=LOG)
+    print(LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG, LOGGER)
 
 
 if __name__ == '__main__':

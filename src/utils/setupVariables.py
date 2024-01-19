@@ -2,7 +2,6 @@
 
 
 from re import compile as reCompile, search as reSearch
-from logging import Logger
 
 from yaml import safe_load
 from argparse import Namespace
@@ -161,7 +160,7 @@ def checkValidLinks(links: list[str] | None) -> None:
         r'http[s]?://ir\.vnulib\.edu\.vn/flowpaper/simple_document\.php\?subfolder=.+&doc=\d+&bitsid=.+')
     book_link_pattern = reCompile(
         r'http[s]?://ir\.vnulib\.edu\.vn/handle/VNUHCM/\d+')
-    if links == None or links == [] or links == ['']:
+    if links in [[], ['']] or links == None:
         printError(message='LINKS is None')
         raise ValueError('LINKS is None')
     for link in links:
@@ -192,7 +191,7 @@ def setupVariables(config_file: str = 'config.yml'):
         - CREATE_PDF (bool | None): Merge images to a PDF
         - KEEP_IMGS (bool | None): Keep images after merging to PDF
     """
-    global LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG
+    # global LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG
     prepareYAMLConfigFile()
     args: Namespace = argParse()
     setupVariablesFromArgsAndConfigFile(args=args, config_file=config_file)
