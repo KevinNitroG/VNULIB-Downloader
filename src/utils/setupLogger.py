@@ -1,43 +1,54 @@
 """Setup the logger"""
 
 
-from logging import basicConfig
+from logging import Logger, getLogger, Formatter, FileHandler, INFO, DEBUG, WARNING, ERROR, CRITICAL
 from datetime import datetime
-from tkinter.font import BOLD
 
-from src.utils.setupVariables import LOG
 from .utils import createDirectory
-from ..utils.printColor import printInfo
 
 
-def setupLoggerNow(level: str | None = 'INFO') -> None:
+def setupLoggerNow(LOG_LEVEL: str | None = 'INFO') -> Logger:
     """Setup the logger
 
     Params:
-        - level (str | None): The level to log at. Only accept DEBUG, INFO, WARNING, ERROR, CRITICAL
+        - LOG_LEVEL (str | None): The level to log at. Only accept DEBUG, INFO, WARNING, ERROR, CRITICAL
 
     Returns:
-        - None
+        - Logger: The logger
     """
-    createDirectory('logs')
     file_name: str = datetime.now().strftime(format='%Y-%m-%d-%H-%M-%S') + '.log'
-    basicConfig(
-        filename=f'log/{file_name}',
-        format="%(asctime)s - %(levelname)s - %(message)s - %(filename)s:%(lineno)d",
-        level=level
-    )
+    LOGGER: Logger = getLogger()
+    match LOG_LEVEL:
+        case 'DEBUG':
+            LOGGER.setLevel(level=DEBUG)
+        case 'INFO':
+            LOGGER.setLevel(level=INFO)
+        case 'WARNING':
+            LOGGER.setLevel(level=WARNING)
+        case 'ERROR':
+            LOGGER.setLevel(level=ERROR)
+        case 'CRITICAL':
+            LOGGER.setLevel(level=CRITICAL)
+        case _:
+            LOGGER.setLevel(level=INFO)
+    file_handler: FileHandler = FileHandler(filename=f'logs/{file_name}')
+    log_format = Formatter(
+        '%(asctime)s - %(levelname)s - %(message)s - %(filename)s:%(lineno)d')
+    file_handler.setFormatter(fmt=log_format)
+    LOGGER.addHandler(hdlr=file_handler)
+    return LOGGER
 
 
-def setupLogger(LOG: bool | None, LOG_LEVEL: str | None) -> None:
+def setupLogger(LOG: bool | None) -> Logger | None:
     """Check to decide whether to setup the logger or not
 
     Params:
         - LOG (bool | None): The LOG variable
-        - LOG_LEVEL (str | None): The LOG_LEVEL variable
 
     Returns:
-        - None
+        - Logger | None: The logger
     """
     if LOG:
-        printInfo(message=f'LOG_LEVEL is set to {LOG_LEVEL}')
-        setupLoggerNow(level=LOG_LEVEL)
+        createDirectory('logs')
+        return setupLoggerNow()
+    return None

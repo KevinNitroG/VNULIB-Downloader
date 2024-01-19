@@ -7,7 +7,8 @@
 
 # COMMUNITY
 argparse
-python-dotenv
+# python-dotenv
+pyyaml
 requests
 print-color
 # colorama
