@@ -25,3 +25,25 @@ def mergeImageToPDF(path: str, output_filename: str):
 
     images[0].save(output_filename, "PDF", resolution=100.0,
                    save_all=True, append_images=images[1:])
+
+
+def createPDFInSubdirectories(path):
+    """Merge all The Images To PDF
+
+        Args:
+            - path (str): The path where the images are located
+
+        Return:
+
+            - None 
+    """
+    subdirectories: list = [os.path.join(path, d) for d in os.listdir(
+        path) if os.path.isdir(os.path.join(path, d))]
+
+    for subdirectory in subdirectories:
+        if any(file.endswith('.pdf') for file in os.listdir(subdirectory)):
+            continue
+
+        output_filename = os.path.join(
+            subdirectory, os.path.basename(subdirectory) + '.pdf')
+        mergeImageToPDF(subdirectory, output_filename)
