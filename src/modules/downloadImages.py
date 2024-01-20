@@ -92,7 +92,6 @@ def downloadAllImages(url: str, path: str):
             try:
                 current_url: str = re.sub(
                     r'page=\d+', f'page={page_number}', url)
-
                 futures.append(executor.submit(dowloadImage, current_url))
             except Exception as e:
                 if 'Error:Error converting document' in str(e):
