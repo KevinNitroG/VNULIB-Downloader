@@ -93,13 +93,13 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 1. Mở tool
 2. Nhập các user input
 
-| **VARIABLE**     | **GIÁ TRỊ**                 | **MẶC ĐỊNH** | **MÔ TẢ**                                                             | **VÍ DỤ**                                                                                                                                                                                                                                                              |
-| ---------------- | --------------------------- | ------------ | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `LINKS`          | `string string ...`         |              | Link ảnh trang sách _(Có thể nhiều sách, cách nhau bằng khoảng cách)_ | `https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=119407993845809379459430067212192785232&format=jpg&page=1&subfolder=11/94/07/ https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=12946732106750219640246592834&format=jpg&page=11&subfolder=13/12/06/` |
-| `OVERWRITE_BOOK` | `Yes`, `Y`, `y`, `1`, `...` | `N`          | Xoá các sách cũ đã tải về                                             | `n`                                                                                                                                                                                                                                                                    |
-| `CREATE_PDF`     | `Yes`, `Y`, `y`, `1`, `...` | `Y`          | Tạo file PDF từ các ảnh đã tải về                                     | `y`                                                                                                                                                                                                                                                                    |
-| `KEEP_IMGS`      | `Yes`, `Y`, `y`, `1`, `...` | `Y`          | Giữ lại các ảnh đã tải về sau khi tạo file PDF                        | `y`                                                                                                                                                                                                                                                                    |
-| `LOG`            | `Yes`, `Y`, `y`, `1`, `...` | `N`          | Ghi log sách đã tải vào folder `./logs`                               | `y`                                                                                                                                                                                                                                                                    |
+| **VARIABLE**     | **GIÁ TRỊ**                 | **MẶC ĐỊNH** | **MÔ TẢ**                                                             | **VÍ DỤ**       |
+| ---------------- | --------------------------- | ------------ | --------------------------------------------------------------------- | --------------- |
+| `LINKS`          | `string string ...`         |              | Link ảnh trang sách _(Có thể nhiều sách, cách nhau bằng khoảng cách)_ | `link_1 link_2` |
+| `OVERWRITE_BOOK` | `Yes`, `Y`, `y`, `1`, `...` | `N`          | Xoá các sách cũ đã tải về                                             | `n`             |
+| `CREATE_PDF`     | `Yes`, `Y`, `y`, `1`, `...` | `Y`          | Tạo file PDF từ các ảnh đã tải về                                     | `y`             |
+| `KEEP_IMGS`      | `Yes`, `Y`, `y`, `1`, `...` | `Y`          | Giữ lại các ảnh đã tải về sau khi tạo file PDF                        | `y`             |
+| `LOG`            | `Yes`, `Y`, `y`, `1`, `...` | `N`          | Ghi log sách đã tải vào folder `./logs`                               | `y`             |
 
 3. Ảnh và sách sẽ được tải về thư mục `./downloaded_books`
 
