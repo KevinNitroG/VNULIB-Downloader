@@ -5,9 +5,6 @@ import concurrent.futures
 
 from requests import get
 
-from ..utils.setupVariables import (LINKS, OVERWRITE_BOOK, CREATE_PDF,)
-from ..utils.utils import (createDirectory, reCreateDirectory)
-from re import Match
 from requests import Response
 
 folder_books_name: str = 'dowloaded_books'
