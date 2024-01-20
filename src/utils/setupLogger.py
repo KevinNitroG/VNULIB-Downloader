@@ -5,7 +5,7 @@ from logging import Logger, getLogger, Formatter, FileHandler, INFO, DEBUG, WARN
 from datetime import datetime
 from venv import create
 
-from .utils import createDirectory
+from ..utils import createDirectory
 
 
 def setupLoggerNow(LOG_LEVEL: str | None = 'INFO') -> Logger:

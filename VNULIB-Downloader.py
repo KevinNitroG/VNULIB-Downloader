@@ -3,7 +3,7 @@
 
 from logging import Logger
 
-from src.utils.utils import pause
+from src.utils import pause
 from src.utils.printIntro import printIntro
 from src.utils.printColor import printTitle
 from src.utils.setupVariables import setupVariables
