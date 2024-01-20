@@ -6,8 +6,11 @@ import concurrent.futures
 from requests import get
 
 from ..utils.setupVariables import (LINKS, OVERWRITE_BOOK, CREATE_PDF,)
+from ..utils.utils import (createDirectory, reCreateDirectory)
 from re import Match
 from requests import Response
+
+folder_books_name: str = 'dowloaded_books'
 
 
 def createNextBookFolderName(books_folder_path: str) -> str:
@@ -20,14 +23,10 @@ def createNextBookFolderName(books_folder_path: str) -> str:
         - next_book_folder (str): The name of the next book folder
     """
     folders: list[str] = os.listdir(books_folder_path)
-
     book_numbers: list[int] = [int(re.search(r'Book_(\d+)', folder).group(1))
-                               for folder in folders if re.search(r'Book_(\d+)', folder)]
-
+                               for folder in folders if re.search(r'Bookz_(\d+)', folder)]
     max_book_number: int = max(book_numbers) if book_numbers else 0
-
     next_book_folder: str = f"Book_{max_book_number + 1}"
-
     return next_book_folder
 
 
@@ -56,9 +55,7 @@ def dowloadImage(url: str) -> bytes:
     """
     response: Response = get(url, stream=True)
     response.raise_for_status()
-
     image_data: bytes = response.content
-
     return image_data
 
 
@@ -89,7 +86,6 @@ def downloadAllImages(url: str, path: str):
     book_folder: str = createNextBookFolderName(path)
     book_path: str = os.path.join(path, book_folder)
     os.makedirs(book_path, exist_ok=True)
-
     futures: list = []
     with concurrent.futures.ThreadPoolExecutor() as executor:
         for page_number in range(1, 10000):
@@ -104,13 +100,10 @@ def downloadAllImages(url: str, path: str):
                 else:
                     print(f"An error occurred: {e}")
                     continue
-
         for i, future in enumerate(futures, start=1):
             try:
                 image_data: bytes = future.result()
-
                 image_file_name: str = createJPGFileName(i)
-
                 saveImage(image_data, book_path, image_file_name)
             except Exception as e:
                 print(f"An error occurred while saving image: {e}")
