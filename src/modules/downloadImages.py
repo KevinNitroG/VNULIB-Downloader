@@ -114,3 +114,17 @@ def downloadAllImages(url: str, path: str):
                 saveImage(image_data, book_path, image_file_name)
             except Exception as e:
                 print(f"An error occurred while saving image: {e}")
+
+
+def dowloadAllImagesFromAllLinks(LINKS: list[str], path: str) -> None:
+    """Dowload All Images From All Links Input
+
+        Args:
+            -LINKS (list[str]):list of links input
+            -path (str):The path provide to put the folder
+
+        Returns:
+            -None
+    """
+    for link in LINKS:
+        downloadAllImages(link, path)
