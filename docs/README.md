@@ -49,15 +49,15 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
     - [⛏️ Pass by arguments](#️-pass-by-arguments)
     - [🤐 Python](#-python)
   - [📝 LICENSE](#-license)
-  - [😌 CREDIT](#-credit)
   - [🤥 DISCLAIMER](#-disclaimer)
+  - [😌 CREDIT](#-credit)
   - [⭐ STAR GRAPH](#-star-graph)
 
 ---
 
 ## 🎆 CHỨC NĂNG
 
-- Tải sách free _(có thể đọc preview online)_ trên [vnulib](https://vnulib.edu.vn/) (HCM)
+- Tải sách free _(có thể đọc preview online)_ trên [VNULIB](https://vnulib.edu.vn/) _(HCM)_
 - Tải một lúc nhiều sách
 - Merge ảnh của các trang sách đã tải thành file PDF
 
@@ -81,25 +81,21 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 - Vào preview sách
 - Lấy link ảnh trang sác của một trang bất kì
-
-> [!NOTE]
->
-> Có thể F12 để lấy link ảnh trang sách nếu chuột phải không có option `Copy image address`...
->
-> ![Lấy link ảnh trang sách bằng F12](../asset/video/huong_dan_get_link_anh_trang_sach.mp4)
+  > Có thể F12 để lấy link ảnh trang sách nếu chuột phải không có option `Copy image address`, ...
+  > ![Lấy link ảnh trang sách bằng F12](../asset/video/huong_dan_get_link_anh_trang_sach.mp4)
 
 ### 3️⃣ Mở lên và sử dụng
 
 1. Mở tool
 2. Nhập các user input
 
-| **VARIABLE**     | **GIÁ TRỊ**                 | **MẶC ĐỊNH** | **MÔ TẢ**                                                             | **VÍ DỤ**       |
-| ---------------- | --------------------------- | ------------ | --------------------------------------------------------------------- | --------------- |
-| `LINKS`          | `string string ...`         |              | Link ảnh trang sách _(Có thể nhiều sách, cách nhau bằng khoảng cách)_ | `link_1 link_2` |
-| `OVERWRITE_BOOK` | `Yes`, `Y`, `y`, `1`, `...` | `N`          | Xoá các sách cũ đã tải về                                             | `n`             |
-| `CREATE_PDF`     | `Yes`, `Y`, `y`, `1`, `...` | `Y`          | Tạo file PDF từ các ảnh đã tải về                                     | `y`             |
-| `KEEP_IMGS`      | `Yes`, `Y`, `y`, `1`, `...` | `Y`          | Giữ lại các ảnh đã tải về sau khi tạo file PDF                        | `y`             |
-| `LOG`            | `Yes`, `Y`, `y`, `1`, `...` | `N`          | Ghi log sách đã tải vào folder `./logs`                               | `y`             |
+| **VARIABLE**     | **VALUE**                 | **DEFAULT** | **DESCRIPTION**                                                       | **EXAMPLE**     |
+| ---------------- | ------------------------- | ----------- | --------------------------------------------------------------------- | --------------- |
+| `LINKS`          | `string string ...`       |             | Link ảnh trang sách _(Có thể nhiều sách, cách nhau bằng khoảng cách)_ | `link_1 link_2` |
+| `OVERWRITE_BOOK` | `Yes`, `Y`, `y`, `1`, ... | `N`         | Xoá các sách cũ đã tải về                                             | `n`             |
+| `CREATE_PDF`     | `Yes`, `Y`, `y`, `1`, ... | `Y`         | Tạo file PDF từ các ảnh đã tải về                                     | `y`             |
+| `KEEP_IMGS`      | `Yes`, `Y`, `y`, `1`, ... | `Y`         | Giữ lại các ảnh đã tải về sau khi tạo file PDF                        | `y`             |
+| `LOG`            | `Yes`, `Y`, `y`, `1`, ... | `N`         | Ghi log sách đã tải vào folder `./logs`                               | `y`             |
 
 3. Ảnh và sách sẽ được tải về thư mục `./downloaded_books`
 
@@ -113,8 +109,8 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ### 🗃️ Thiết lập giá trị biến trước
 
-1. Tạo file `config.yml` trong directory chứa file thực thi bằng các cách:
-   - Copy nội dung của file [`config.yml.example`](../config-sample.yml) và paste vào file `config.yml`
+1. Tạo file `config.yml` trong directory chứa file thực thi bằng 1 trong 2 cách:
+   - Copy nội dung của file [`config-sample.yml`](../config-sample.yml) và paste vào file `config.yml`
    - Chạy trước tool 1 lần sẽ tự tạo file `config.yml`
 2. Chỉnh các giá trị biến trong file `config.yml`
 
@@ -126,24 +122,21 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
   ```.ps1
   .\VNULIB-Downloader-windows.exe --help
-
-  .\VNULIB-Downloader-windows.exe "https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=119407993845809379459430067212192785232&format=jpg&page=1&subfolder=11/94/07/" "https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=12946732106750219640246592834&format=jpg&page=11&subfolder=13/12/06/" --overwrite-book --create-pdf --log
+  .\VNULIB-Downloader-windows.exe "link_1" "link2" --overwrite-book --create-pdf --log
   ```
 
 - Mac OS:
 
   ```sh
   ./VNULIB-Downloader-macos --help
-
-  ./VNULIB-Downloader-macos "https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=119407993845809379459430067212192785232&format=jpg&page=1&subfolder=11/94/07/" "https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=12946732106750219640246592834&format=jpg&page=11&subfolder=13/12/06/" --overwrite-book --create-pdf --log
+  ./VNULIB-Downloader-windows.exe "link_1" "link2" --overwrite-book --create-pdf --log
   ```
 
 - Ubuntu:
 
   ```sh
   ./VNULIB-Downloader-ubuntu --help
-
-  ./VNULIB-Downloader-ubuntu "https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=119407993845809379459430067212192785232&format=jpg&page=1&subfolder=11/94/07/" "https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=12946732106750219640246592834&format=jpg&page=11&subfolder=13/12/06/" --overwrite-book --create-pdf --log
+  ./VNULIB-Downloader-windows.exe "link_1" "link2" --overwrite-book --create-pdf --log
   ```
 
 ### 🤐 Python
@@ -164,13 +157,15 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ---
 
-## 😌 CREDIT
-
-- Inspired by [vnulib_downloader](https://github.com/tlatonf/vnulib_downloader/)
-
 ## 🤥 DISCLAIMER
 
 Dự án này không liên quan đến [VNULIB](https://vnulib.edu.vn/) hay bất kì tổ chức nào khác. Dự án chỉ mang tính học tập _(thực hành, làm việc nhóm, sử dụng ngôn ngữ lập trình, tổ chức một dự án, sử dụng Git, Github, CI/CD)_, không có mục đích thương mại. Chúng tôi không chịu trách nhiệm cho bất kì kết quả và hậu quả nào của việc sử dụng tool.
+
+---
+
+## 😌 CREDIT
+
+- Inspired by [vnulib_downloader](https://github.com/tlatonf/vnulib_downloader/)
 
 ---
 
