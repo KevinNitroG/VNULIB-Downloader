@@ -15,14 +15,10 @@ def mergeImageToPDF(path: str, output_filename: str):
     """
     image_files: list[str] = [
         f for f in os.listdir(path) if f.endswith('.jpg')]
-
     image_files.sort(key=lambda x: int(x.split('.')[0]))
-
     images = [Image.open(os.path.join(
         path, image_file)) for image_file in image_files]
-
     images = [image.convert('RGB') for image in images]
-
     images[0].save(output_filename, "PDF", resolution=100.0,
                    save_all=True, append_images=images[1:])
 
@@ -39,11 +35,9 @@ def createPDFInSubdirectories(path):
     """
     subdirectories: list = [os.path.join(path, d) for d in os.listdir(
         path) if os.path.isdir(os.path.join(path, d))]
-
     for subdirectory in subdirectories:
         if any(file.endswith('.pdf') for file in os.listdir(subdirectory)):
             continue
-
         output_filename = os.path.join(
             subdirectory, os.path.basename(subdirectory) + '.pdf')
         mergeImageToPDF(subdirectory, output_filename)
