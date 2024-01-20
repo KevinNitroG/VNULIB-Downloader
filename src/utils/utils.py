@@ -1,7 +1,10 @@
 """Contains utility functions for the project"""
 
 
-from os import makedirs, path, removedirs
+from os import makedirs, path
+from shutil import rmtree
+
+from src.utils.printColor import printInfo, printSuccess
 
 
 def pause() -> None:
@@ -16,30 +19,23 @@ def pause() -> None:
     _: str = input('Press Enter to continue . . .')
 
 
-def createDirectory(*directories: str) -> None:
-    """Create directories if they do not exist
+def createDirectory(*directories: str, force: bool = False) -> None:
+    """Remove (if force=True) and create a directory
 
     Params:
-        - *directories (str): The directories to create
-
-    Returns:
-        - None
-    """
-    for directory in directories:
-        if not path.exists(path=directory):
-            makedirs(name=directory)
-
-
-def reCreateDirectory(*directories: str) -> None:
-    """Delete directories and recreate them
-
-    Params:
-        - *directories (str): The directories to recreate
+        - *directories (str): The directory to create
+        - force (bool): Whether to remove the directory if it exists
 
     Returns:
         - None
     """
     for directory in directories:
         if path.exists(path=directory):
-            removedirs(name=directory)
+            if force:
+                rmtree(path=directory)
+                printSuccess(message=f'{directory} was removed recursively!')
+            else:
+                printInfo(
+                    message=f'{directory} was already created. Skip creating it')
+                return None
         makedirs(name=directory)
