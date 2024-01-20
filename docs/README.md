@@ -44,10 +44,10 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
     - [1️⃣ Tải tool _(file thực thi)_](#1️⃣-tải-tool-file-thực-thi)
     - [2️⃣ Lấy link trang sách](#2️⃣-lấy-link-trang-sách)
     - [3️⃣ Mở lên và sử dụng](#3️⃣-mở-lên-và-sử-dụng)
-  - [⚙️ SỬ DỤNG NÂNG CAO](#️-sử-dụng-nâng-cao)
-    - [🗃️ Config trước các option để không phải nhập lại](#️-config-trước-các-option-để-không-phải-nhập-lại)
-    - [⛏️ Mở tool truyền arguments](#️-mở-tool-truyền-arguments)
-    - [🤐 Dùng python](#-dùng-python)
+  - [⚙️ NÂNG CAO](#️-nâng-cao)
+    - [🗃️ Thiết lập giá trị biến trước](#️-thiết-lập-giá-trị-biến-trước)
+    - [⛏️ Pass by arguments](#️-pass-by-arguments)
+    - [🤐 Python](#-python)
   - [📝 LICENSE](#-license)
   - [😌 CREDIT](#-credit)
   - [🤥 DISCLAIMER](#-disclaimer)
@@ -93,28 +93,32 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 1. Mở tool
 2. Nhập các user input
 
-| **VARIABLE**     | **GIÁ TRỊ**             | **MẶC ĐỊNH** | **MÔ TẢ**                                                             | **VÍ DỤ**                                                                                                                                                                                                                                                              |
-| ---------------- | ----------------------- | ------------ | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `LINKS`          | `string string ...`     |              | Link ảnh trang sách _(Có thể nhiều sách, cách nhau bằng khoảng cách)_ | `https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=119407993845809379459430067212192785232&format=jpg&page=1&subfolder=11/94/07/ https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=12946732106750219640246592834&format=jpg&page=11&subfolder=13/12/06/` |
-| `OVERWRITE_BOOK` | `Yes`, `Y`, `y`, `1`... | `N`          | Xoá các sách cũ đã tải về                                             | `n`                                                                                                                                                                                                                                                                    |
-| `CREATE_PDF`     | `Yes`, `Y`, `y`, `1`... | `Y`          | Tạo file PDF từ các ảnh đã tải về                                     | `y`                                                                                                                                                                                                                                                                    |
-| `KEEP_IMGS`      | `Yes`, `Y`, `y`, `1`... | `Y`          | Giữ lại các ảnh đã tải về sau khi tạo file PDF                        | `y`                                                                                                                                                                                                                                                                    |
-| `LOG`            | `Yes`, `Y`, `y`, `1`... | `N`          | Ghi log sách đã tải vào folder `./logs`                               | `y`                                                                                                                                                                                                                                                                    |
+| **VARIABLE**     | **GIÁ TRỊ**                 | **MẶC ĐỊNH** | **MÔ TẢ**                                                             | **VÍ DỤ**                                                                                                                                                                                                                                                              |
+| ---------------- | --------------------------- | ------------ | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `LINKS`          | `string string ...`         |              | Link ảnh trang sách _(Có thể nhiều sách, cách nhau bằng khoảng cách)_ | `https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=119407993845809379459430067212192785232&format=jpg&page=1&subfolder=11/94/07/ https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=12946732106750219640246592834&format=jpg&page=11&subfolder=13/12/06/` |
+| `OVERWRITE_BOOK` | `Yes`, `Y`, `y`, `1`, `...` | `N`          | Xoá các sách cũ đã tải về                                             | `n`                                                                                                                                                                                                                                                                    |
+| `CREATE_PDF`     | `Yes`, `Y`, `y`, `1`, `...` | `Y`          | Tạo file PDF từ các ảnh đã tải về                                     | `y`                                                                                                                                                                                                                                                                    |
+| `KEEP_IMGS`      | `Yes`, `Y`, `y`, `1`, `...` | `Y`          | Giữ lại các ảnh đã tải về sau khi tạo file PDF                        | `y`                                                                                                                                                                                                                                                                    |
+| `LOG`            | `Yes`, `Y`, `y`, `1`, `...` | `N`          | Ghi log sách đã tải vào folder `./logs`                               | `y`                                                                                                                                                                                                                                                                    |
 
 3. Ảnh và sách sẽ được tải về thư mục `./downloaded_books`
 
 ---
 
-## ⚙️ SỬ DỤNG NÂNG CAO
+## ⚙️ NÂNG CAO
 
-### 🗃️ Config trước các option để không phải nhập lại
+> [!NOTE]
+>
+> Thứ tự ưu tiên giá trị biến: `arguments` > `config.yml` > `user input`
+
+### 🗃️ Thiết lập giá trị biến trước
 
 1. Tạo file `config.yml` trong directory chứa file thực thi bằng các cách:
    - Copy nội dung của file [`config.yml.example`](../config-sample.yml) và paste vào file `config.yml`
    - Chạy trước tool 1 lần sẽ tự tạo file `config.yml`
 2. Chỉnh các giá trị biến trong file `config.yml`
 
-### ⛏️ Mở tool truyền arguments
+### ⛏️ Pass by arguments
 
 **Ví dụ**
 
@@ -126,17 +130,31 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   .\VNULIB-Downloader-windows.exe "https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=119407993845809379459430067212192785232&format=jpg&page=1&subfolder=11/94/07/" "https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=12946732106750219640246592834&format=jpg&page=11&subfolder=13/12/06/" --overwrite-book --create-pdf --log
   ```
 
-- Mac OS & Ubuntu:
+- Mac OS:
 
-  ```bash
+  ```sh
   ./VNULIB-Downloader-macos --help
 
   ./VNULIB-Downloader-macos "https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=119407993845809379459430067212192785232&format=jpg&page=1&subfolder=11/94/07/" "https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=12946732106750219640246592834&format=jpg&page=11&subfolder=13/12/06/" --overwrite-book --create-pdf --log
   ```
 
-### 🤐 Dùng python
+- Ubuntu:
 
-- Không có gì để nói :))
+  ```sh
+  ./VNULIB-Downloader-ubuntu --help
+
+  ./VNULIB-Downloader-ubuntu "https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=119407993845809379459430067212192785232&format=jpg&page=1&subfolder=11/94/07/" "https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=12946732106750219640246592834&format=jpg&page=11&subfolder=13/12/06/" --overwrite-book --create-pdf --log
+  ```
+
+### 🤐 Python
+
+- Cài đặt các thư viện cần thiết
+
+  ```sh
+  pip install -r requirements.txt
+  ```
+
+- Chắc không cần phải nói thêm đâu ha 🤐
 
 ---
 
@@ -152,7 +170,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ## 🤥 DISCLAIMER
 
-Dự án này không liên quan đến [vnulib](https://vnulib.edu.vn/) hay bất kì tổ chức nào khác. Dự án chỉ mang tính học tập (thực hành, làm việc nhóm, sử dụng ngôn ngữ lập trình, tổ chức một dự án, sử dụng Git, Github, CI/CD), không có mục đích thương mại. Chúng tôi không chịu trách nhiệm cho bất kì kết quả và hậu quả nào của việc sử dụng tool.
+Dự án này không liên quan đến [VNULIB](https://vnulib.edu.vn/) hay bất kì tổ chức nào khác. Dự án chỉ mang tính học tập _(thực hành, làm việc nhóm, sử dụng ngôn ngữ lập trình, tổ chức một dự án, sử dụng Git, Github, CI/CD)_, không có mục đích thương mại. Chúng tôi không chịu trách nhiệm cho bất kì kết quả và hậu quả nào của việc sử dụng tool.
 
 ---
 
