@@ -10,7 +10,7 @@ from src.utils.argparse import argParse
 from .printColor import printError, printInfo
 from .setupyYAMLConfig import prepareYAMLConfigFile
 
-from ..CONSTANTS import USER_INPUT_YES
+from ..CONSTANTS import USER_INPUT_YES, USER_INPUT_NO
 
 
 LINKS: list[str] | None = None
@@ -136,7 +136,7 @@ def userInputVariables() -> None:
     LINKS = LINKS or list(input(
         'Enter the links of the book(s) to be downloaded (separated by space): ').strip().split(sep=' '))
     OVERWRITE_BOOK = OVERWRITE_BOOK or input(
-        'Overwrite downloaded books (Y/n): ').upper().strip() in USER_INPUT_YES
+        'Overwrite downloaded books (y/N): ').upper().strip() in USER_INPUT_NO
     CREATE_PDF = CREATE_PDF or input(
         'Merge images to a PDF (Y/n): ').upper().strip() in USER_INPUT_YES
     KEEP_IMGS = KEEP_IMGS or input(
