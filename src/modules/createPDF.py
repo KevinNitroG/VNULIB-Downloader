@@ -4,13 +4,14 @@ import os
 from PIL import Image
 
 
-def merge_images_to_pdf(path: str, output_filename: str):
+def mergeImageToPDF(path: str, output_filename: str):
     """Merge all images in a directory into a single PDF file
 
     Args:
         - path (str): The path where the images are located
         - output_filename (str): The name of the output PDF file
-
+    Returns:
+        - None
     """
     image_files: list[str] = [
         f for f in os.listdir(path) if f.endswith('.jpg')]
