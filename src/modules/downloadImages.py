@@ -10,20 +10,6 @@ from re import Match
 from requests import Response
 
 
-def getPageNumber(url: str) -> int:
-    """Get the Number of Page from URL
-
-    Args:
-        - url (str):The URL of The Page
-
-    Returns:
-        - page_number(int): The Number of Page
-    """
-    match: Match[str] | None = re.search(r'page=(\d+)', url)
-    page_number: int = int(Match[1])
-    return page_number
-
-
 def createNextBookFolderName(books_folder_path: str) -> str:
     """Create the next book folder name by finding the max book number in the path
 
@@ -45,17 +31,16 @@ def createNextBookFolderName(books_folder_path: str) -> str:
     return next_book_folder
 
 
-def createJPGFileName(url: str) -> str:
+def createJPGFileName(page_number: str) -> str:
     """Create JPG File Name By using the page number
 
     Args:
-        - url (str):The URL of The Page
+        - page_number (int):The number of p
 
     Returns:
         - jpg_file_name(str):the JPG file name
     """
-    page_number: int = getPageNumber(url)
-    jpg_file_name: str = str(page_number)+".jpg"
+    jpg_file_name = str(page_number)+'.jpg'
     return jpg_file_name
 
 
@@ -124,7 +109,7 @@ def downloadAllImages(url: str, path: str):
             try:
                 image_data: bytes = future.result()
 
-                image_file_name: str = f"{i}.jpg"
+                image_file_name: str = createJPGFileName(i)
 
                 saveImage(image_data, book_path, image_file_name)
             except Exception as e:
