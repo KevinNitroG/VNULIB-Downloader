@@ -6,6 +6,7 @@
 # collections.Counter
 
 # COMMUNITY
+requests
 argparse
 # python-dotenv
 pyyaml

@@ -6,7 +6,7 @@ from re import compile as reCompile, search as reSearch
 from yaml import safe_load
 from argparse import Namespace
 
-from src.utils.argparse import argParse
+from .toolArgparse import argParse
 from .printColor import printError, printInfo
 from .setupyYAMLConfig import prepareYAMLConfigFile
 
@@ -66,7 +66,7 @@ def setupVariablesFromArgsAndConfigFile(args: Namespace, config_file: str = 'con
     Returns:
         - None
     """
-    global LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG
+    global LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG, UPDATE
     with open(file=config_file, mode='r', encoding='utf-8') as file:
         config = safe_load(stream=file)
     # Links

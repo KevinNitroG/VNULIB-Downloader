@@ -21,5 +21,7 @@ def argParse() -> Namespace:
                         default=None, help='Keep images after merging to PDF')
     parser.add_argument('--log', '-l', action='store_true',
                         default=False, help='Log the processed books information to logs folder')
+    parser.add_argument('--update', '-u', action='store_true',
+                        default=False, help='Update the tool from Repository')
     args: Namespace = parser.parse_args()
     return args
