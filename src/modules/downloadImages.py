@@ -2,12 +2,14 @@
 import re
 import os
 import concurrent.futures
+import requests
 
 from requests import get
 
 from requests import Response
 
-folder_books_name: str = 'dowloaded_books'
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 def createNextBookFolderName(books_folder_path: str) -> str:
@@ -50,10 +52,25 @@ def dowloadImage(url: str) -> bytes:
         - image_data(bytes):the data of the Image
 
     """
-    response: Response = get(url, stream=True)
+    response: Response = get(url, stream=True, verify=False)
     response.raise_for_status()
     image_data: bytes = response.content
     return image_data
+
+
+def getTextFromURL(url: str) -> str:
+    """Get text content from a URL
+
+    Args:
+        - url (str): The URL to get text from
+
+    Returns:
+        - text (str): The text content of the URL
+    """
+    response = requests.get(url, verify=False)
+    response.raise_for_status()
+    text = response.text
+    return text
 
 
 def saveImage(image_data: bytes, folder: str, file_name: str) -> None:
@@ -84,11 +101,15 @@ def downloadAllImages(url: str, path: str):
     book_path: str = os.path.join(path, book_folder)
     os.makedirs(book_path, exist_ok=True)
     futures: list = []
+    page_number = 1
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        for page_number in range(1, 10000):
+        while True:
             try:
                 current_url: str = re.sub(
                     r'page=\d+', f'page={page_number}', url)
+                text: str = getTextFromURL(current_url)
+                if "Error:Error converting document" in text:
+                    break
                 futures.append(executor.submit(dowloadImage, current_url))
             except Exception as e:
                 if 'Error:Error converting document' in str(e):
@@ -96,6 +117,7 @@ def downloadAllImages(url: str, path: str):
                 else:
                     print(f"An error occurred: {e}")
                     continue
+        page_number += 1
         for i, future in enumerate(futures, start=1):
             try:
                 image_data: bytes = future.result()
@@ -105,7 +127,7 @@ def downloadAllImages(url: str, path: str):
                 print(f"An error occurred while saving image: {e}")
 
 
-def dowloadAllImagesFromAllLinks(LINKS: list[str], path: str) -> None:
+def dowloadAllImagesFromAllLinks(LINKS: list[str]) -> None:
     """Dowload All Images From All Links Input
 
         Args:
@@ -116,4 +138,4 @@ def dowloadAllImagesFromAllLinks(LINKS: list[str], path: str) -> None:
             -None
     """
     for link in LINKS:
-        downloadAllImages(link, path)
+        downloadAllImages(link, os.getcwd()+'//dowloaded_books')
