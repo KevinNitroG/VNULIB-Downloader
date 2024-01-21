@@ -4,6 +4,7 @@
 from logging import Logger
 
 from src.utils import pause
+from src.utils.toolArgparse import argParse
 from src.utils.printIntro import printIntro
 from src.utils.printColor import printTitle
 from src.utils.setupVariables import setupVariables
@@ -30,5 +31,8 @@ def main() -> None:
 
 
 if __name__ == '__main__':
-    main()
-    pause()
+    if argParse().update:
+        pass  # implement later
+    else:
+        main()
+        pause()

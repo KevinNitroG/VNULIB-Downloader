@@ -15,7 +15,8 @@ BANNER: str = """
 ██████╔╝╚██████╔╝╚███╔███╔╝██║ ╚████║███████╗╚██████╔╝██║  ██║██████╔╝███████╗██║  ██║
 ╚═════╝  ╚═════╝  ╚══╝╚══╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
 """
+REPOSITORY_URL: str = 'https://github.com/KevinNitroG/VNULIB-Downloader'
+CONFIG_FILE: str = 'config.yml'
 LOGGER_MODE: list[str] = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
 USER_INPUT_YES: list[str] = ['Y', 'YES', '', '1']
 USER_INPUT_NO: list[str] = ['N', 'NO', '', '0']
-CONFIG_FILE: str = 'config.yml'
