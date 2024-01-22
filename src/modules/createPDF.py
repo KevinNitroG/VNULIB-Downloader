@@ -19,7 +19,7 @@ def mergeImageToPDF(path: str, output_filename: str):
     images = [Image.open(os.path.join(
         path, image_file)) for image_file in image_files]
     images = [image.convert('RGB') for image in images]
-    images[0].save(output_filename, "PDF", resolution=100.0,
+    images[0].save(output_filename, 'PDF', resolution=100.0,
                    save_all=True, append_images=images[1:])
 
 

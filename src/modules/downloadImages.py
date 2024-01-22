@@ -1,4 +1,5 @@
 """Download all images of the book from a given URL of one page"""
+from ..utils import printInfo
 import re
 import os
 import concurrent.futures
@@ -15,7 +16,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 def createNextBookFolderName(books_folder_path: str) -> str:
     """Create the next book folder name by finding the max book number in the path
 
-    Args:
+    Params:
         - books_folder_path (str): The path where the book folders are located
 
     Returns:
@@ -32,36 +33,33 @@ def createNextBookFolderName(books_folder_path: str) -> str:
 def createJPGFileName(page_number: str) -> str:
     """Create JPG File Name By using the page number
 
-    Args:
+    Params:
         - page_number (int):The number of p
 
     Returns:
         - jpg_file_name(str):the JPG file name
     """
-    jpg_file_name = str(page_number)+'.jpg'
-    return jpg_file_name
+    return str(page_number)+'.jpg'
 
 
 def dowloadImage(url: str) -> bytes:
     """Dowload Image from URL
 
-    Args:
+    Params:
         - url (str):The URL of The Page
 
     Returns:
         - image_data(bytes):the data of the Image
-
     """
     response: Response = get(url, stream=True, verify=False)
     response.raise_for_status()
-    image_data: bytes = response.content
-    return image_data
+    return response.content
 
 
 def getTextFromURL(url: str) -> str:
     """Get text content from a URL
 
-    Args:
+    Params:
         - url (str): The URL to get text from
 
     Returns:
@@ -69,14 +67,13 @@ def getTextFromURL(url: str) -> str:
     """
     response = requests.get(url, verify=False)
     response.raise_for_status()
-    text = response.text
-    return text
+    return response.text
 
 
 def saveImage(image_data: bytes, folder: str, file_name: str) -> None:
     """Save Image data to a file
 
-    Args:
+    Params:
         - image_data (bytes): The data of the Image
         - folder (str): The path of the folder to save the image
         - file_name (str): The name of the file to save the image
@@ -92,7 +89,7 @@ def saveImage(image_data: bytes, folder: str, file_name: str) -> None:
 def downloadAllImages(url: str, path: str):
     """Download all images from a URL and save them in a book folder
 
-    Args:
+    Params:
         - url (str): The URL to download images from
         - path (str): The path to create the book folder in
 
@@ -108,34 +105,37 @@ def downloadAllImages(url: str, path: str):
                 current_url: str = re.sub(
                     r'page=\d+', f'page={page_number}', url)
                 text: str = getTextFromURL(current_url)
-                if "Error:Error converting document" in text:
+                if 'Error:Error converting document' in text:
                     break
                 futures.append(executor.submit(dowloadImage, current_url))
             except Exception as e:
                 if 'Error:Error converting document' in str(e):
                     break
                 else:
-                    print(f"An error occurred: {e}")
+                    # print(f"An error occurred: {e}")
+                    printInfo(message=f'Reach the end of the book')
                     continue
         page_number += 1
         for i, future in enumerate(futures, start=1):
             try:
                 image_data: bytes = future.result()
-                image_file_name: str = createJPGFileName(i)
+                image_file_name: str = createJPGFileName(str(i))
                 saveImage(image_data, book_path, image_file_name)
             except Exception as e:
                 print(f"An error occurred while saving image: {e}")
 
 
-def dowloadAllImagesFromAllLinks(LINKS: list[str]) -> None:
+def dowloadAllImagesFromAllLinks(LINKS: list[str] | None) -> None:
     """Dowload All Images From All Links Input
 
-        Args:
+        Params:
             -LINKS (list[str]):list of links input
             -path (str):The path provide to put the folder
 
         Returns:
             -None
     """
+    if LINKS is None:
+        return
     for link in LINKS:
-        downloadAllImages(link, os.getcwd()+'//dowloaded_books')
+        downloadAllImages(link, os.path.join(os.getcwd(), 'dowloaded_books'))
