@@ -105,24 +105,19 @@ def downloadAllImages(url: str, path: str):
                 current_url: str = re.sub(
                     r'page=\d+', f'page={page_number}', url)
                 text: str = getTextFromURL(current_url)
-                if 'Error:Error converting document' in text:
+                if "Error:Error converting document" in text:
                     break
-                futures.append(executor.submit(dowloadImage, current_url))
+                file_name = f"image_{page_number}.jpg"
+                file_path = os.path.join(book_path, file_name)
+                futures.append(executor.submit(
+                    dowloadImage, current_url, file_path))
             except Exception as e:
                 if 'Error:Error converting document' in str(e):
                     break
                 else:
-                    # print(f"An error occurred: {e}")
-                    printInfo(message=f'Reach the end of the book')
+                    print(f"An error occurred: {e}")
                     continue
-        page_number += 1
-        for i, future in enumerate(futures, start=1):
-            try:
-                image_data: bytes = future.result()
-                image_file_name: str = createJPGFileName(str(i))
-                saveImage(image_data, book_path, image_file_name)
-            except Exception as e:
-                print(f"An error occurred while saving image: {e}")
+            page_number += 1
 
 
 def dowloadAllImagesFromAllLinks(LINKS: list[str] | None) -> None:
