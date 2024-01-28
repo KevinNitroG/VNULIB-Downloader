@@ -99,7 +99,7 @@ def downloadAllImages(url: str, path: str):
     os.makedirs(book_path, exist_ok=True)
     futures: list = []
     page_number = 1
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
         while True:
             try:
                 current_url: str = re.sub(
