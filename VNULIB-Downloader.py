@@ -35,13 +35,13 @@ def main() -> None:
     LOGGER: Logger | None = setupLogger(LOG=LOG)
     print(LINKS, OVERWRITE_BOOK, CREATE_PDF, KEEP_IMGS, LOG, LOGGER)
     createDirectory('dowloaded_books')
-    createPDFInSubdirectories(os.getcwd()+'/dowloaded_books')
     if OVERWRITE_BOOK:
-        deleteAllBooks(os.getcwd()+'/dowloaded_books')
+        deleteAllBooks('dowloaded_books')
     dowloadAllImagesFromAllLinks(LINKS)
-
+    if CREATE_PDF:
+        createPDFInSubdirectories('dowloaded_books')
     if not KEEP_IMGS:
-        deleteAllJPGFile(os.getcwd()+'/dowloaded_books')
+        deleteAllJPGFile('dowloaded_books')
 
 
 if __name__ == '__main__':
