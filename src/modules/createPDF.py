@@ -15,7 +15,7 @@ def mergeImageToPDF(path: str, output_filename: str):
     """
     image_files: list[str] = [
         f for f in os.listdir(path) if f.endswith('.jpg')]
-    image_files.sort(key=lambda x: int(x.split('.')[0]))
+    image_files.sort(key=lambda x: int(x.split('_')[1].split('.')[0]))
     images = [Image.open(os.path.join(
         path, image_file)) for image_file in image_files]
     images = [image.convert('RGB') for image in images]
