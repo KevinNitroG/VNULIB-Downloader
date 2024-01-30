@@ -55,13 +55,14 @@ def dowloadImage(url: str, file_path: str) -> None:
         - file_path (str): The path to save the image to
     """
     try:
-        response: Response = get(url, stream=True, verify=False)
+        # Add timeout argument
+        response: Response = get(url, stream=True, verify=False, timeout=10)
         response.raise_for_status()
 
         with open(file_path, 'wb') as f:
             f.write(response.content)
 
-    except Exception as e:
+    except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
 
 
@@ -74,10 +75,13 @@ def getTextFromURL(url: str) -> str:
     Returns:
         - text (str): The text content of the URL
     """
-    response = requests.get(url, verify=False)
-    response.raise_for_status()
-    text = response.text
-    return text
+    try:
+        response: Response = get(url, verify=False, timeout=10)
+        response.raise_for_status()
+        return response.text
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        return ""
 
 
 def saveImage(image_data: bytes, folder: str, file_name: str) -> None:
@@ -121,7 +125,7 @@ def downloadAllImages(url: str, path: str):
                 file_path = os.path.join(book_path, file_name)
                 futures.append(executor.submit(
                     dowloadImage, current_url, file_path))
-            except Exception as e:
+            except requests.exceptions.RequestException as e:
                 if 'Error:Error converting document' in str(e):
                     break
                 else:
