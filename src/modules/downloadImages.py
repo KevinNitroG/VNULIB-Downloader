@@ -24,8 +24,11 @@ def createNextBookFolderName(books_folder_path: str) -> str:
         - next_book_folder (str): The name of the next book folder
     """
     folders: list[str] = os.listdir(books_folder_path)
-    book_numbers: list[int] = [int(re.search(r'Book_(\d+)', folder).group(1))
-                               for folder in folders if re.search(r'Bookz_(\d+)', folder)]
+    book_numbers: list[int] = []
+    for folder in folders:
+        match = re.search(r'Book_(\d+)', folder)
+        if match is not None:
+            book_numbers.append(int(match.group(1)))
     max_book_number: int = max(book_numbers) if book_numbers else 0
     next_book_folder: str = f"Book_{max_book_number + 1}"
     return next_book_folder
@@ -127,7 +130,7 @@ def downloadAllImages(url: str, path: str):
             page_number += 1
 
 
-def dowloadAllImagesFromAllLinks(LINKS: list[str]) -> None:
+def dowloadAllImagesFromAllLinks(LINKS: list[str] | None) -> None:
     """Dowload All Images From All Links Input
 
         Args:
@@ -137,5 +140,7 @@ def dowloadAllImagesFromAllLinks(LINKS: list[str]) -> None:
         Returns:
             -None
     """
+    if LINKS is None:
+        return
     for link in LINKS:
         downloadAllImages(link, os.path.join(os.getcwd(), 'dowloaded_books'))
