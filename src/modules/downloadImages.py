@@ -1,9 +1,10 @@
-"""Download all images of the book from a given URL of one page"""
-from ..utils import printInfo
-import re
 import os
+import re
 import concurrent.futures
 import requests
+
+
+from alive_progress import alive_bar
 
 from requests import get
 
@@ -16,7 +17,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 def createNextBookFolderName(books_folder_path: str) -> str:
     """Create the next book folder name by finding the max book number in the path
 
-    Params:
+    Args:
         - books_folder_path (str): The path where the book folders are located
 
     Returns:
@@ -33,33 +34,38 @@ def createNextBookFolderName(books_folder_path: str) -> str:
 def createJPGFileName(page_number: str) -> str:
     """Create JPG File Name By using the page number
 
-    Params:
+    Args:
         - page_number (int):The number of p
 
     Returns:
         - jpg_file_name(str):the JPG file name
     """
-    return str(page_number)+'.jpg'
+    jpg_file_name = str(page_number)+'.jpg'
+    return jpg_file_name
 
 
-def dowloadImage(url: str) -> bytes:
-    """Dowload Image from URL
+def dowloadImage(url: str, file_path: str) -> None:
+    """Download an image and save it to a file
 
-    Params:
-        - url (str):The URL of The Page
-
-    Returns:
-        - image_data(bytes):the data of the Image
+    Args:
+        - url (str): The URL to download the image from
+        - file_path (str): The path to save the image to
     """
-    response: Response = get(url, stream=True, verify=False)
-    response.raise_for_status()
-    return response.content
+    try:
+        response: Response = get(url, stream=True, verify=False)
+        response.raise_for_status()
+
+        with open(file_path, 'wb') as f:
+            f.write(response.content)
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 
 def getTextFromURL(url: str) -> str:
     """Get text content from a URL
 
-    Params:
+    Args:
         - url (str): The URL to get text from
 
     Returns:
@@ -67,13 +73,14 @@ def getTextFromURL(url: str) -> str:
     """
     response = requests.get(url, verify=False)
     response.raise_for_status()
-    return response.text
+    text = response.text
+    return text
 
 
 def saveImage(image_data: bytes, folder: str, file_name: str) -> None:
     """Save Image data to a file
 
-    Params:
+    Args:
         - image_data (bytes): The data of the Image
         - folder (str): The path of the folder to save the image
         - file_name (str): The name of the file to save the image
@@ -120,17 +127,15 @@ def downloadAllImages(url: str, path: str):
             page_number += 1
 
 
-def dowloadAllImagesFromAllLinks(LINKS: list[str] | None) -> None:
+def dowloadAllImagesFromAllLinks(LINKS: list[str]) -> None:
     """Dowload All Images From All Links Input
 
-        Params:
+        Args:
             -LINKS (list[str]):list of links input
             -path (str):The path provide to put the folder
 
         Returns:
             -None
     """
-    if LINKS is None:
-        return
     for link in LINKS:
         downloadAllImages(link, os.path.join(os.getcwd(), 'dowloaded_books'))
