@@ -8,7 +8,7 @@ from print_color.print_color import print as printColor
 TERMINAL_SIZE_COLUMNS: int = get_terminal_size().columns
 
 
-def printTitle(message: str) -> None:
+def print_title(message: str) -> None:
     """Print out title with center align
 
     Args:
@@ -21,7 +21,7 @@ def printTitle(message: str) -> None:
                color='magenta', format='bold', background='blue', end='\n\n')
 
 
-def printSuccess(message: str) -> None:
+def print_success(message: str) -> None:
     """Print out success message with green color
 
     Args:
@@ -33,7 +33,7 @@ def printSuccess(message: str) -> None:
     printColor(message, tag='Success', color='green')
 
 
-def printError(message: str) -> None:
+def print_error(message: str) -> None:
     """Print out error message with red color
 
     Args:
@@ -45,7 +45,7 @@ def printError(message: str) -> None:
     printColor(message, tag='Error', color='red')
 
 
-def printWarning(message: str) -> None:
+def print_warning(message: str) -> None:
     """Print out warning message with yellow color
 
     Args:
@@ -57,7 +57,7 @@ def printWarning(message: str) -> None:
     printColor(message, tag='Warning', color='yellow')
 
 
-def printRetry(message: str) -> None:
+def print_retry(message: str) -> None:
     """Print out retry message with blue color
 
     Args:
@@ -69,7 +69,7 @@ def printRetry(message: str) -> None:
     printColor(message, tag='Retry', color='blue')
 
 
-def printInfo(message: str) -> None:
+def print_info(message: str) -> None:
     """Print out info message with yan color
 
     Args:

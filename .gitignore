@@ -1,9 +1,8 @@
 # THIS PROJECT
 **/*test*
-downloaded-books/
-logs/
-config.env
 config.yml
+VNULIB-DOWNLOADER/
+Profiles/
 
 **/__pycache__
 **/*.exe

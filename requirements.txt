@@ -6,6 +6,8 @@
 # collections.Counter
 
 # COMMUNITY
+selenium
+webdriver-manager
 requests
 argparse
 # python-dotenv
