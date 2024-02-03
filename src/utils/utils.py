@@ -1,36 +1,70 @@
 """Contains utility functions for the project"""
 
 
-import os
-import shutil
+from os import makedirs, path
+from shutil import rmtree
+from src.modules.logger import logger
 
 
-def deleteAllBooks(path: str) -> None:
-    """Delete All The Book's Folders
+def pause() -> None:
+    """Pause the terminal until user hits Enter
 
-    Args:
-        - path (str): The path include all Book's Folders
+    Params:
+        - None
 
     Returns:
         - None
     """
-    subdirectories = [os.path.join(path, d) for d in os.listdir(
-        path) if os.path.isdir(os.path.join(path, d))]
-
-    for subdirectory in subdirectories:
-        shutil.rmtree(subdirectory)
+    _: str = input('Press Enter to continue . . .')
 
 
-def deleteAllJPGFile(path: str) -> None:
-    """Delete All JPG File
+def create_directory(*directories: str, force: bool = False) -> None:
+    """Remove (if force=True) and create a directory
 
-        Args:
-            -path(str): The path include Images and PDF file
+    Params:
+        - *directories (str): The directory to create
+        - force (bool): Whether to remove the directory if it exists
 
-        Returns:
-            -None
+    Returns:
+        - None
     """
-    for root, dirs, files in os.walk(path):
-        for file in files:
-            if file.endswith('.jpg'):
-                os.remove(os.path.join(root, file))
+    for directory in directories:
+        if path.exists(path=directory):
+            if force:
+                try:
+                    rmtree(path=directory)
+                except PermissionError as e:
+                    logger.error(
+                        msg=f'Error occurred while removing {directory}: {e}')
+                    raise
+                logger.info(msg=f'{directory} was removed recursively!')
+            else:
+                logger.info(
+                    msg=f'{directory} was already created. Skip creating it')
+                return
+        makedirs(name=directory)
+        logger.info(msg=f'{directory} was created!')
+    return
+
+
+def remove_directory(*directories: str) -> None:
+    """Remove a directory
+
+    Params:
+        - *directories (str): The directory to remove
+
+    Returns:
+        - None
+    """
+    for directory in directories:
+        if path.exists(path=directory):
+            try:
+                rmtree(path=directory)
+            except PermissionError as e:
+                logger.error(
+                    msg=f'Error occurred while removing {directory}: {e}')
+                raise
+            logger.info(msg=f'{directory} was removed recursively!')
+        else:
+            logger.info(
+                msg=f'{directory} was not found. Skip removing it')

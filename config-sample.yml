@@ -2,37 +2,19 @@
 # IT WON'T ASK YOU FOR CONFIGING AGAIN WHILE RUNNING THE SCRIPT / APP
 # STRING CAN BE IN DOUBLE QUOTES OR NON QUOTES
 
+#  A list of links of the first picture
+# Format can be like this:
+# LINKS:
+# - LINK1
+# - LINK2
+# or 
+# LINKS: [LINK1, LINK2]
+LINKS:
 
-BASIC_CONFIG:
+# Merge images to a PDF after downloading images
+# True, true, on / False, false, off
+CREATE_PDF:
 
-  #  A list of links of the first picture
-  # Format can be like this:
-  # LINKS:
-  # - LINK1
-  # - LINK2
-  # or 
-  # LINKS: [LINK1, LINK2]
-  LINKS:
-
-  # If the folder of images / PDF file of the book is already exist, then overwrite it
-  # True, true, on / False, false, off
-  OVERWRITE_BOOK:
-
-  # Merge images to a PDF after downloading images
-  # True, true, on / False, false, off
-  CREATE_PDF:
-
-  # Keep downloaded images, not delete them
-  # True, true, on / False, false, off
-  KEEP_IMGS:
-
-
-ADVANCED_CONFIG:
-
-  # Log the process to the log folder
-  # True, true, on / False, false, off
-  LOG:
-
-  # Log level
-  # DEBUG, INFO, WARNING, ERROR, CRITICAL
-  LOG_LEVEL:
+# Clean downloaded images
+# True, true, on / False, false, off
+CLEAN_IMGS:
