@@ -18,10 +18,14 @@ from webdriver_manager.core.os_manager import ChromeType
 # from webdriver_manager.firefox import GeckoDriverManager
 # from webdriver_manager.microsoft import IEDriverManager
 # from webdriver_manager.opera import OperaDriverManager
+from webdriver_manager.core.logger import set_logger
 
 from src.constants import BROWSER_ARGUMENTS
 
 from src.utils.logger import logger
+
+
+set_logger(logger)
 
 
 class Browser:

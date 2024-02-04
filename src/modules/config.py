@@ -46,7 +46,7 @@ class ToolConfig():
         """
         if path.exists(path=self.config_file_name):
             return True
-        logger.warning(msg=f'{self.config_file_name} does not exist')
+        logger.info(msg=f'{self.config_file_name} does not exist')
         return False
 
     def setup_config_file(self) -> None:

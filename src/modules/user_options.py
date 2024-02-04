@@ -3,7 +3,8 @@
 
 from argparse import Namespace
 from yaml import safe_load
-from src.utils.logger import logger
+
+from src.utils import logger
 from src.constants import USER_INPUT_YES, USER_INPUT_NO
 
 
@@ -15,21 +16,13 @@ class UserOptions:
         - config_file (str): Config file path
     """
 
-    def __init__(self, argparse: Namespace, config_file: str) -> None:
+    def __init__(self, argparse: Namespace, config_file: str, user_options: dict) -> None:
         self.argparse: Namespace = argparse
         with open(config_file, 'r', encoding='utf-8') as config:
             self.config = safe_load(config)
-        self.user_options: dict[str, list[str] | str | bool] = {
-            'username': '',
-            'password': '',
-            'links': [],
-            'browser': '',
-            'headless': False,
-            'create_pdf': True,
-            'clean_imgs': False,
-        }
+        self.user_options: dict = user_options
 
-    def setup(self) -> dict[str, list[str] | str | bool]:
+    def setup(self) -> dict:
         """Setup user options"""
         self.user_options['username'] = self.setup_username()
         self.user_options['password'] = self.setup_password()
@@ -94,7 +87,7 @@ class UserOptions:
             return self.config['BROWSER']
         self.log_set_by_user_input('browser')
         return input('Enter browser you are using'
-                     '(chrome, chromium, brave, edge, firefox, IE, opera, local (chromedriver only)): ').strip()
+                     ' (chrome, chromium, brave, local (chromedriver only)): ').strip()
 
     def setup_headless(self) -> bool:
         """Setup headless mode"""
@@ -142,7 +135,7 @@ class UserOptions:
         Returns:
             - None
         """
-        logger.info(msg=f'Variable: {var} - Set by argparse')
+        logger.debug(msg=f'Variable: {var} - Set by argparse')
 
     @staticmethod
     def log_set_by_config(var: str) -> None:
@@ -154,7 +147,7 @@ class UserOptions:
         Returns:
             - None
         """
-        logger.info(msg=f'Variable: {var} - Set by config file')
+        logger.debug(msg=f'Variable: {var} - Set by config file')
 
     @staticmethod
     def log_set_by_user_input(var: str) -> None:
@@ -166,5 +159,5 @@ class UserOptions:
         Returns:
             - None
         """
-        logger.info(msg=f'Variable: {var}'
-                    ' - Retrieve from user input')
+        logger.debug(msg=f'Variable: {var}'
+                     ' - Retrieve from user input')
