@@ -1,7 +1,6 @@
 """Print out with tag, color, format, background"""
 
 from os import get_terminal_size
-
 from print_color.print_color import print as printColor
 
 
