@@ -1,12 +1,10 @@
 """VNULIB Downloader"""
 
-from selenium.webdriver.chrome.webdriver import WebDriver
 
-from src.bot import Browser, Login
-from src.utils import logger
-from src.utils import print_title
-from src.modules import setup_argparse
-from src.modules import PrintIntro, ToolConfig, UserOptions, RawParseLinks, ConvertParseLink
+from src import (Browser, Login, PrintIntro,
+                 ToolConfig, UserOptions, LinkParse,
+                 setup_argparse, print_title,
+                 logger)
 from src.constants import CONFIG_FILE, CONFIG_FILE_URL
 
 
@@ -30,17 +28,17 @@ def main() -> None:
         argparse=setup_argparse(), config_file=CONFIG_FILE, user_options=user_options).setup()
 
     print_title(message='PARSE LINKS')
-    raw_parser = RawParseLinks(links=user_options['links'])
-    list_of_links: list[dict] = raw_parser.parse()
-    if raw_parser.need_to_convert:
+    link_parse = LinkParse(links=user_options['links'])
+    links_dict: list[dict] = link_parse.setup()
+    if link_parse.need_to_convert:
         logger.info('There is / are some link(s) need to be converted')
-        driver: WebDriver = Browser(browser=user_options['browser'],
-                                    headless=user_options['headless']).setup_browser()
+        driver = Browser(browser=user_options['browser'],
+                         headless=user_options['headless']).setup_browser()
         Login(driver=driver,
               username=user_options['username'],
               password=user_options['password']).login()
-        list_of_links = ConvertParseLink(
-            driver=driver, links=list_of_links).convert()
+        links_dict = LinkParse.convert(
+            driver=driver, links_dict=links_dict)
 
     print_title(message='DOWNLOAD')
 
