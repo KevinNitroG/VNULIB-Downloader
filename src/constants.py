@@ -20,15 +20,18 @@ BANNER: str = """
 """
 REPOSITORY_URL: str = 'https://github.com/KevinNitroG/VNULIB-Downloader'
 CONFIG_FILE: str = 'config.yml'
+CONFIG_FILE_URL: str = 'https://raw.githubusercontent.com/KevinNitroG/VNULIB-Downloader/main/config-sample.yml'
 LOGGING_FILE: str = 'src/logging_configuration.yml'
 DOWNLOAD_DIR: str = 'VNULIB-DOWNLOADER/Downloads'
 LOGGER_MODE: list[str] = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
 USER_INPUT_YES: list[str] = ['Y', 'YES', '', '1']
 USER_INPUT_NO: list[str] = ['N', 'NO', '', '0']
+LOGIN_URL: str = 'https://ir.vnulib.edu.vn/login/oa/dologin.jsp'
 # https://jtway.co/optimize-your-chrome-options-for-testing-to-get-x1-25-impact-4f19f071bf45
 BROWSER_ARGUMENTS: list[str] = ['--allow-running-insecure-content',
                                 '--autoplay-policy=user-gesture-required',
-                                '--disable-add-to-shelf', '--disable-background-networking',
+                                '--disable-add-to-shelf',
+                                '--disable-background-networking',
                                 '--disable-background-timer-throttling',
                                 '--disable-backgrounding-occluded-windows',
                                 '--disable-breakpad',
@@ -59,4 +62,5 @@ BROWSER_ARGUMENTS: list[str] = ['--allow-running-insecure-content',
                                 '--no-default-browser-check',
                                 '--no-first-run',
                                 '--no-sandbox',
-                                '--password-store=basic']
+                                '--password-store=basic'
+                                ]

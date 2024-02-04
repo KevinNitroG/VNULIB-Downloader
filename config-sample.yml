@@ -2,6 +2,13 @@
 # IT WON'T ASK YOU FOR CONFIGING AGAIN WHILE RUNNING THE SCRIPT / APP
 # STRING CAN BE IN DOUBLE QUOTES OR NON QUOTES
 
+
+# Username
+USERNAME:
+
+# Password
+PASSWORD:
+
 #  A list of links of the first picture
 # Format can be like this:
 # LINKS:
@@ -10,6 +17,14 @@
 # or 
 # LINKS: [LINK1, LINK2]
 LINKS:
+
+# Browser you are using (to use Selenium webdriver)
+# Options: chrome, chromium, brave, edge, firefox, IE, opera, local (chromedriver only)
+BROWSER:
+
+# Headless mode for the browser (No GUI)
+# True, true, on / False, false, off
+HEADLESS:
 
 # Merge images to a PDF after downloading images
 # True, true, on / False, false, off
