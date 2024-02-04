@@ -3,7 +3,7 @@
 
 from os import makedirs, path
 from shutil import rmtree
-from src.modules.logger import logger
+from src.utils.logger import logger
 
 
 def pause() -> None:

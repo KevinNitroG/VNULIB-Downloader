@@ -3,7 +3,7 @@
 
 from argparse import Namespace
 from yaml import safe_load
-from src.modules.logger import logger
+from src.utils.logger import logger
 from src.constants import USER_INPUT_YES, USER_INPUT_NO
 
 
@@ -46,6 +46,7 @@ class UserOptions:
         logger.debug(msg=f'Username: {self.user_options['username']}')
         logger.debug(msg=f'Links: {self.user_options['links']}')
         logger.debug(msg=f'Browser: {self.user_options['browser']}')
+        logger.debug(msg=f'Headless: {self.user_options['headless']}')
         logger.debug(msg=f'Create PDF: {self.user_options['create_pdf']}')
         logger.debug(msg=f'Clean images: {self.user_options['clean_imgs']}')
 
@@ -93,7 +94,7 @@ class UserOptions:
             return self.config['BROWSER']
         self.log_set_by_user_input('browser')
         return input('Enter browser you are using'
-                     '(chrome, chromium, brave, edge, firefox, IE, opera, local): ').strip()
+                     '(chrome, chromium, brave, edge, firefox, IE, opera, local (chromedriver only)): ').strip()
 
     def setup_headless(self) -> bool:
         """Setup headless mode"""
