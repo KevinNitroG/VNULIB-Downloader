@@ -17,8 +17,8 @@ def setup_logger(config_path: str) -> Logger:
     Returns:
         - Logger: The Logger
     """
-    if not path.exists('VNULIB-DOWNLOADER/logs'):
-        makedirs('VNULIB-DOWNLOADER/logs')
+    if not path.exists('VNULIB-Downloader/logs'):
+        makedirs('VNULIB-Downloader/logs')
     with open(config_path, 'r', encoding='utf-8') as config_file:
         dictConfig(safe_load(config_file))
     return getLogger("vnulib_downloader")

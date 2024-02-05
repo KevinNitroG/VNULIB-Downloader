@@ -41,28 +41,28 @@ class Browser:
     def setup_browser(self) -> ChromeWebDriver | EdgeWebDriver | FirefoxWebDriver | IEDriver | RemoteWebDriver:
         """Setup the browser"""
         logger.info(msg='Setting up the browser...')
-        self.setup_arguments()
+        self.__setup_arguments()
         match self.browser:
             case 'chrome':
-                self.driver = self.setup_chrome_browser()
+                self.driver = self.__setup_chrome_browser()
             case 'chromium':
-                self.driver = self.setup_chromium_browser()
+                self.driver = self.__setup_chromium_browser()
             case 'brave':
-                self.driver = self.setup_brave_browser()
+                self.driver = self.__setup_brave_browser()
             case 'edge':
-                self.driver = self.setup_edge_browser()
+                self.driver = self.__setup_edge_browser()
             case 'firefox':
-                self.driver = self.setup_firefox_browser()
+                self.driver = self.__setup_firefox_browser()
             case 'ie':
-                self.driver = self.setup_ie_browser()
+                self.driver = self.__setup_ie_browser()
             case 'opera':
-                self.driver = self.setup_opera_browser()
+                self.driver = self.__setup_opera_browser()
             case _:
-                self.driver = self.setup_local_chrome_browser()
+                self.driver = self.__setup_local_chrome_browser()
         logger.info(msg=f'Browser {self.browser} setup complete!')
         return self.driver
 
-    def setup_arguments(self) -> None:
+    def __setup_arguments(self) -> None:
         """Setup the browser arguments"""
         for argument in BROWSER_ARGUMENTS:
             self.options.add_argument(argument)
@@ -72,42 +72,42 @@ class Browser:
                 "prefs", {"profile.managed_default_content_settings.images": 2}
             )
 
-    def setup_chrome_browser(self) -> ChromeWebDriver:
+    def __setup_chrome_browser(self) -> ChromeWebDriver:
         """Setup Chrome Browser"""
         return webdriver.Chrome(
             options=self.options,
             service=ChromeService(ChromeDriverManager().install()))
 
-    def setup_chromium_browser(self) -> ChromeWebDriver:
+    def __setup_chromium_browser(self) -> ChromeWebDriver:
         """Setup Chromium Browser"""
         return webdriver.Chrome(
             service=ChromeService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()))
 
-    def setup_brave_browser(self) -> ChromeWebDriver:
+    def __setup_brave_browser(self) -> ChromeWebDriver:
         """Setup Brave Browser"""
         return webdriver.Chrome(
             service=ChromeService(ChromeDriverManager(chrome_type=ChromeType.BRAVE).install()))
 
-    def setup_local_chrome_browser(self) -> ChromeWebDriver:
+    def __setup_local_chrome_browser(self) -> ChromeWebDriver:
         """Setup Local Chrome Browser"""
-        return webdriver.Chrome(options=self.options, service=ChromeService(input('Enter the path to the ChromeDriver: )')))
+        return webdriver.Chrome(options=self.options, service=ChromeService(self.browser))
 
-    def setup_edge_browser(self) -> EdgeWebDriver:
+    def __setup_edge_browser(self) -> EdgeWebDriver:
         """Setup Edge Browser"""
         return webdriver.Edge(
             service=EdgeService(EdgeChromiumDriverManager().install()))
 
-    def setup_firefox_browser(self) -> FirefoxWebDriver:
+    def __setup_firefox_browser(self) -> FirefoxWebDriver:
         """Setup Firefox Browser"""
         return webdriver.Firefox(
             service=FirefoxService(GeckoDriverManager().install()))
 
-    def setup_ie_browser(self) -> IEDriver:
+    def __setup_ie_browser(self) -> IEDriver:
         """Setup IE Browser"""
         return webdriver.Ie(
             service=IEService(IEDriverManager().install()))
 
-    def setup_opera_browser(self) -> RemoteWebDriver:
+    def __setup_opera_browser(self) -> RemoteWebDriver:
         """Setup Opera Browser"""
         webdriver_service = service.Service(
             OperaDriverManager().install())
