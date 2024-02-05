@@ -12,28 +12,28 @@ class Action:
     """Bot actions for the bot to perform"""
 
     @staticmethod
-    def book_web_to_page(driver: ChromeWebDriver | EdgeWebDriver | FirefoxWebDriver | IEDriver | RemoteWebDriver, url: str) -> str:
+    def book_web_to_page(driver: ChromeWebDriver | EdgeWebDriver | FirefoxWebDriver | IEDriver | RemoteWebDriver, link: str) -> str:
         """Book website link to book page link
 
         Params:
             - driver (ChromeWebDriver | EdgeWebDriver | FirefoxWebDriver | IEDriver | RemoteWebDriver): Selenium WebDriver
-            - url (str): Book website link
+            - link (str): Book website link
 
         Returns:
 
         """
-        driver.get(url)
+        driver.get(link)
         return ''
 
     @staticmethod
-    def book_preview_to_page(driver: ChromeWebDriver | EdgeWebDriver | FirefoxWebDriver | IEDriver | RemoteWebDriver, url: str) -> str:
+    def book_preview_to_page(driver: ChromeWebDriver | EdgeWebDriver | FirefoxWebDriver | IEDriver | RemoteWebDriver, link: str) -> str:
         """Book preview link to book page link
 
         Params:
             - driver (ChromeWebDriver | EdgeWebDriver | FirefoxWebDriver | IEDriver | RemoteWebDriver): Selenium WebDriver
-            - url (str): Book preview link
+            - link (str): Book preview link
 
         Returns:
         """
-        driver.get(url)
+        driver.get(link)
         return ''

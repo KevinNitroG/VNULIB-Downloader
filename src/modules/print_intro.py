@@ -7,7 +7,11 @@ from src.constants import BANNER, AUTHORS, VERSION
 
 
 class PrintIntro:
-    """Print out the intro"""
+    """Print out the intro
+
+    Params:
+        - None
+    """
 
     def __init__(self) -> None:
         self.banner = BANNER.split('\n')
@@ -15,7 +19,7 @@ class PrintIntro:
         self.version = VERSION
 
     def print_intro(self) -> None:
-        """Print the intro
+        """Print the intro including the banner, authors, version
 
         Params:
             - None

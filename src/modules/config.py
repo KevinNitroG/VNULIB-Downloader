@@ -49,7 +49,7 @@ class ToolConfig():
         logger.info(msg=f'{self.config_file_name} does not exist')
         return False
 
-    def setup_config_file(self) -> None:
+    def setup(self) -> None:
         """Prepare the config file for the project"""
         if not self.check_exist_config_file():
             self.download_config_file()
