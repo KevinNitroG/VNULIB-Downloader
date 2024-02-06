@@ -2,14 +2,9 @@
 
 
 from re import compile as re_compile, search as re_search
-from urllib.parse import urlparse, urlunparse, parse_qs, urlencode
-from selenium.webdriver.chrome.webdriver import WebDriver as ChromeWebDriver
-from selenium.webdriver.edge.webdriver import WebDriver as EdgeWebDriver
-from selenium.webdriver.firefox.webdriver import WebDriver as FirefoxWebDriver
-from selenium.webdriver.ie.webdriver import WebDriver as IEDriver
-from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
+from selenium.webdriver.chrome.webdriver import WebDriver
 from .user_options import Links
-from ..bot import Action
+from ..bot.action import Action
 from ..utils import logger
 
 
@@ -34,11 +29,11 @@ class LinkParse:
         self.need_to_convert = False
 
     @staticmethod
-    def convert(driver: ChromeWebDriver | EdgeWebDriver | FirefoxWebDriver | IEDriver | RemoteWebDriver, links: list[Links]) -> list[Links]:
+    def convert(driver: WebDriver, links: list[Links]) -> list[Links]:
         """Convert all links to the page links format
 
         Params:
-            - driver (ChromeWebDriver | EdgeWebDriver | FirefoxWebDriver | IEDriver | RemoteWebDriver): The WebDriver
+            - driver (WebDriver): The WebDriver
             - links (list[Links]): List of links to convert
 
         Returns:
@@ -48,48 +43,32 @@ class LinkParse:
         for (i, _) in enumerate(links):
             match links[i].original_type:
                 case 'book':
-                    logger.info(
-                        msg=f'Converting {links[i].original_link} to page link')
-                    converted_link: str = Action.book_web_to_page(
+                    converted_link: str = Action.book_web_to_preview(
                         driver=driver, link=links[i].original_link)
+                    converted_link, pages = Action.book_preview_to_page(
+                        driver=driver, link=converted_link)
                     links[i].link = converted_link
+                    links[i].pages = pages
                     converted_links.append(links[i])
-                    logger.info(
-                        msg=f'Done for {links[i].original_link}')
+                    logger.debug(msg=f'Converted {links[i].original_link} '
+                                 f'to {converted_link}')
                 case 'preview':
-                    logger.info(
-                        msg=f'Converting {links[i].original_link} to page link')
-                    converted_link: str = Action.book_preview_to_page(
+                    converted_link, pages = Action.book_preview_to_page(
                         driver=driver, link=links[i].original_link)
                     links[i].link = converted_link
+                    links[i].pages = pages
                     converted_links.append(links[i])
-                    logger.info(
-                        msg=f'Done for {links[i].original_link}')
+                    logger.debug(msg=f'Converted {links[i].original_link} '
+                                 f'to {converted_link}')
                 case 'page':
-                    converted_links.append(links[i])
+                    logger.debug(msg='Not need to convert '
+                                 f'{links[i].original_link}')
+                    continue
                 case _:
                     logger.warning(
                         msg=f'Skip downloading link: {links[i].original_link}')
-            logger.debug(msg=f'Converted links: {converted_links}')
+        logger.debug(msg=f'Converted links: {converted_links}')
         return converted_links
-
-    @staticmethod
-    def remove_page_query(link: str) -> str:
-        """Parse the link to remove "page" query
-
-        Params:
-            - link (str): Link to parse
-
-        Returns:
-            - str: Parsed link without "page" query
-        """
-        parser = urlparse(link)
-        query = parse_qs(parser.query)
-        query.pop('page', None)
-        parsed_query = urlencode(query, doseq=True)
-        parsed_url = urlunparse(
-            (parser.scheme, parser.netloc, parser.path, parser.params, parsed_query, parser.fragment))
-        return parsed_url
 
     @staticmethod
     def categorise(link: str) -> str:
@@ -129,6 +108,7 @@ class LinkParse:
                     self.need_to_convert = True
                 case 'page':
                     self.links[i].original_type = 'page'
+                    self.links[i].link = self.links[i].original_link
                 case _:
                     self.links[i].original_type = 'unknown'
                     logger.warning(

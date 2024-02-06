@@ -19,7 +19,7 @@ PASSWORD:
 LINKS:
 
 # Browser you are using (to use Selenium webdriver)
-# Options: chrome, chromium, brave, path/to/local/google_chromedriver (google chromedriver only)
+# Options: chrome, path/to/local/google_chromedriver (google chromedriver only)
 BROWSER:
 
 # Headless mode for the browser (No GUI)
