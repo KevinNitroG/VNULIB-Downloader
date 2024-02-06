@@ -16,7 +16,7 @@ class Links:
     original_link: str = ''
     original_type: str = ''
     link: str = ''
-    page_number: int = -1
+    pages: int = -1
 
 
 class UserOptions:

@@ -26,7 +26,7 @@ DOWNLOAD_DIR: str = 'VNULIB-DOWNLOADER/Downloads'
 LOGGER_MODE: list[str] = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
 USER_INPUT_YES: list[str] = ['Y', 'YES', '', '1']
 USER_INPUT_NO: list[str] = ['N', 'NO', '', '0']
-LOGIN_URL: str = 'https://ir.vnulib.edu.vn/login/oa/dologin.jsp'
+LOGIN_URL: str = 'https://ir.vnulib.edu.vn/login/oa/dologin.jsp?RedirectURL=/'
 # https://jtway.co/optimize-your-chrome-options-for-testing-to-get-x1-25-impact-4f19f071bf45
 BROWSER_ARGUMENTS: list[str] = ['--allow-running-insecure-content',
                                 '--autoplay-policy=user-gesture-required',
@@ -63,4 +63,6 @@ BROWSER_ARGUMENTS: list[str] = ['--allow-running-insecure-content',
                                 '--no-first-run',
                                 '--no-sandbox',
                                 '--password-store=basic'
+                                '--ignore-ssl-errors',
+                                '--ignore-certificate-errors-spki-list'
                                 ]
