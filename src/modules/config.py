@@ -18,7 +18,7 @@ class ToolConfig():
         self.config_file_name: str = config_file_name
         self.url: str = url
 
-    def download_config_file(self) -> None:
+    def __download_config_file(self) -> None:
         """Download the config file file from repository"""
         logger.info(msg=f'Downloading {
                     self.config_file_name} from repository.'
@@ -33,12 +33,12 @@ class ToolConfig():
             except ConnectionError:
                 logger.error(
                     msg='Couldn\'t connect to Repository Source to download the config file.'
-                        ' Please check the connection or the source of the repo and try again.')
+                        'Please check the connection or the source of the repo and try again.')
             else:
                 file.write(content)
                 logger.info(msg='Downloaded config file successfully')
 
-    def check_exist_config_file(self) -> bool:
+    def __check_exist_config_file(self) -> bool:
         """Check if the config file exists or not
 
         Returns:
@@ -51,5 +51,5 @@ class ToolConfig():
 
     def setup(self) -> None:
         """Prepare the config file for the project"""
-        if not self.check_exist_config_file():
-            self.download_config_file()
+        if not self.__check_exist_config_file():
+            self.__download_config_file()

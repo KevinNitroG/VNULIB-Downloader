@@ -10,12 +10,19 @@ from ..constants import CONFIG_FILE, USER_INPUT_YES, USER_INPUT_NO
 from ..utils import logger
 
 
+@dataclass
+class BookFiles:
+    """Dataclass to store book files' information"""
+    page_link: str = ''
+    num_pages: int = -1
+
+
 @dataclass(slots=True)
 class Links:
     """Dataclass to store links' information"""
     original_link: str = ''
     original_type: str = ''
-    files: list[tuple[str, int]] = []
+    files: list[BookFiles] = []
 
 
 class UserOptions:

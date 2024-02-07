@@ -3,7 +3,7 @@
 
 from re import compile as re_compile, search as re_search
 from selenium.webdriver.chrome.webdriver import WebDriver
-from .user_options import Links
+from .user_options import BookFiles, Links
 from ..bot.action import Action
 from ..utils import logger
 
@@ -45,26 +45,28 @@ class LinkParse:
                 case 'book':
                     logger.info(msg=f'Converting {links[i].original_link} '
                                 'to page links')
+                    converted_link: Links = links[i]
                     preview_links: list[str] = Action.book_web_to_preview(
                         driver=driver, link=links[i].original_link)
+                    book_files: list[BookFiles] = []
                     for preview_link in preview_links:
-                        page_links_and_pages: tuple[str, int] = Action.book_preview_to_page_and_num_page(
+                        page_link, num_pages = Action.book_preview_to_page_and_num_page(
                             driver=driver, link=preview_link)
-                        converted_link: Links = links[i]
-                        converted_link.files.append(page_links_and_pages)
-                        converted_links.append(converted_link)
+                        book_files.append(BookFiles(page_link, num_pages))
+                    converted_link.files = book_files
+                    converted_links.append(converted_link)
                     logger.info(msg='Done converting '
                                 f'{links[i].original_link}')
                 case 'preview':
                     logger.info(msg=f'Converting {links[i].original_link} '
                                 ' to page link')
-                    page_links_and_pages: tuple[str, int] = Action.book_preview_to_page_and_num_page(
-                        driver=driver, link=links[i].original_link)
                     converted_link: Links = links[i]
-                    converted_link.files.append(page_links_and_pages)
+                    page_link, num_pages = Action.book_preview_to_page_and_num_page(
+                        driver=driver, link=links[i].original_link)
+                    converted_link.files = [BookFiles(page_link, num_pages)]
                     converted_links.append(converted_link)
-                    logger.info(msg=f'Converted {links[i].original_link} '
-                                f'to {page_links_and_pages[0]}')
+                    logger.info(msg='Done converting '
+                                f'{links[i].original_link}')
                 case 'page':
                     logger.info(msg='Not need to convert '
                                 f'{links[i].original_link}')
@@ -114,7 +116,8 @@ class LinkParse:
                     self.need_to_convert = True
                 case 'page':
                     self.links[i].original_type = 'page'
-                    self.links[i].files = [(self.links[i].original_link, -1)]
+                    self.links[i].files = [
+                        BookFiles(self.links[i].original_link, -1)]
                 case _:
                     self.links[i].original_type = 'unknown'
                     logger.warning(
