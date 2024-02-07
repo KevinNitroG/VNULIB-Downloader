@@ -4,10 +4,11 @@
 from urllib.parse import urlparse, urlunparse, parse_qs, urlencode
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
 import urllib3
 from .utils import wait_element_visible
-
+from ..utils import logger
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -35,18 +36,22 @@ class Action:
         return parsed_url
 
     @staticmethod
-    def book_preview_to_page(driver: WebDriver, link: str) -> tuple[str, int]:
-        """Book preview link to book page link
+    def book_preview_to_page_and_num_page(driver: WebDriver, link: str) -> tuple[str, int]:
+        """Book preview link to book page link and return number of pages
 
         Params:
             - driver (WebDriver): Selenium WebDriver
             - link (str): Book preview link
 
         Returns:
-            - str: Converted link to book page link
+            - list[str]: Page link from book preview link
             - int: Number of pages
         """
         driver.get(link)
+        wait_element_visible(
+            driver=driver, css_selector='#pageContainer_0_documentViewer')
+        driver.execute_script('window.scrollTo(0, 1000)')
+        driver.refresh()
         page_0_image: WebElement = wait_element_visible(
             driver=driver, css_selector='#page_0_documentViewer')
         page_0_image_link: str | None = page_0_image.get_attribute('src')
@@ -55,8 +60,8 @@ class Action:
         if page_0_image_link is not None and pages is not None:
             converted_link: str = Action.__remove_page_query(
                 link=page_0_image_link)
-            return (converted_link, int(pages[3:]))
-        return ('', -1)
+            return converted_link, int(pages.strip(' /'))
+        return '', -1
 
     # @staticmethod
     # def book_preview_to_page(link: str) -> str:
@@ -77,7 +82,7 @@ class Action:
     #     return converted_link
 
     @staticmethod
-    def book_web_to_preview(driver: WebDriver, link: str) -> str:
+    def book_web_to_preview(driver: WebDriver, link: str) -> list[str]:
         """Book website link to book preview link
 
         Params:
@@ -85,12 +90,17 @@ class Action:
             - link (str): Book website link
 
         Returns:
-            - str: Converted link to book preview link
+            - list[str]: List of book preview link(s)
         """
         driver.get(link)
-        view_online_button: WebElement = driver.find_element(
-            By.LINK_TEXT, 'Xem trực tuyến')
-        converted_link: str | None = view_online_button.get_attribute('href')
-        if converted_link is not None:
-            return converted_link
-        return ''
+        view_online_button: list[WebElement] = driver.find_elements(
+            By.CSS_SELECTOR, '.pdf-view.viewonline')
+        preview_links: list[str] = []
+        for preview_link_element in view_online_button:
+            preview_link: str | None = preview_link_element.get_attribute(
+                'href')
+            if preview_link is not None:
+                preview_links.append(preview_link)
+        logger.info(msg=f'Found {len(preview_links)} '
+                    f'preview link(s) for {link}')
+        return preview_links

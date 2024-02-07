@@ -43,26 +43,32 @@ class LinkParse:
         for (i, _) in enumerate(links):
             match links[i].original_type:
                 case 'book':
-                    converted_link: str = Action.book_web_to_preview(
+                    logger.info(msg=f'Converting {links[i].original_link} '
+                                'to page links')
+                    preview_links: list[str] = Action.book_web_to_preview(
                         driver=driver, link=links[i].original_link)
-                    converted_link, pages = Action.book_preview_to_page(
-                        driver=driver, link=converted_link)
-                    links[i].link = converted_link
-                    links[i].pages = pages
-                    converted_links.append(links[i])
-                    logger.debug(msg=f'Converted {links[i].original_link} '
-                                 f'to {converted_link}')
+                    for preview_link in preview_links:
+                        page_links_and_pages: tuple[str, int] = Action.book_preview_to_page_and_num_page(
+                            driver=driver, link=preview_link)
+                        converted_link: Links = links[i]
+                        converted_link.files.append(page_links_and_pages)
+                        converted_links.append(converted_link)
+                    logger.info(msg='Done converting '
+                                f'{links[i].original_link}')
                 case 'preview':
-                    converted_link, pages = Action.book_preview_to_page(
+                    logger.info(msg=f'Converting {links[i].original_link} '
+                                ' to page link')
+                    page_links_and_pages: tuple[str, int] = Action.book_preview_to_page_and_num_page(
                         driver=driver, link=links[i].original_link)
-                    links[i].link = converted_link
-                    links[i].pages = pages
-                    converted_links.append(links[i])
-                    logger.debug(msg=f'Converted {links[i].original_link} '
-                                 f'to {converted_link}')
+                    converted_link: Links = links[i]
+                    converted_link.files.append(page_links_and_pages)
+                    converted_links.append(converted_link)
+                    logger.info(msg=f'Converted {links[i].original_link} '
+                                f'to {page_links_and_pages[0]}')
                 case 'page':
-                    logger.debug(msg='Not need to convert '
-                                 f'{links[i].original_link}')
+                    logger.info(msg='Not need to convert '
+                                f'{links[i].original_link}')
+                    converted_links.append(links[i])
                     continue
                 case _:
                     logger.warning(
@@ -89,13 +95,13 @@ class LinkParse:
         return 'unknown'
 
     def parse(self) -> list[Links]:
-        """Setup links to return the list of dictionary contain links' information
+        """Categorise links into types. With 'page' type, the book atrribute will be set
 
         Params:
             - None
 
         Returns:
-        - list[Links]: List of parsed links' information
+        - list[Links]: List of categorised links
         """
         for (i, _) in enumerate(self.links):
             link_type: str = self.categorise(self.links[i].original_link)
@@ -108,7 +114,7 @@ class LinkParse:
                     self.need_to_convert = True
                 case 'page':
                     self.links[i].original_type = 'page'
-                    self.links[i].link = self.links[i].original_link
+                    self.links[i].files = [(self.links[i].original_link, -1)]
                 case _:
                     self.links[i].original_type = 'unknown'
                     logger.warning(
