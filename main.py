@@ -33,8 +33,9 @@ def main() -> None:
                 driver=driver, links=user_options.links)
         except Exception as e:
             logger.error(msg=e)
-            driver.quit()
             raise e
+        finally:
+            driver.quit()
 
     print_title(message='DOWNLOAD')
 

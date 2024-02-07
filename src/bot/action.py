@@ -2,6 +2,7 @@
 
 
 from urllib.parse import urlparse, urlunparse, parse_qs, urlencode
+from time import sleep
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -50,11 +51,13 @@ class Action:
         driver.get(link)
         wait_element_visible(
             driver=driver, css_selector='#pageContainer_0_documentViewer')
-        driver.execute_script('window.scrollTo(0, 1000)')
+        driver.execute_script('window.scrollTo(0, 5000)')
+        sleep(1)
         driver.refresh()
         page_0_image: WebElement = wait_element_visible(
             driver=driver, css_selector='#page_0_documentViewer')
-        page_0_image_link: str | None = page_0_image.get_attribute('src')
+        page_0_image_link: str | None = driver.execute_script(
+            "return arguments[0].getAttribute('src');", page_0_image)
         pages: str | None = wait_element_visible(
             driver=driver, css_selector='.flowpaper_lblTotalPages.flowpaper_tblabel').get_attribute('innerHTML')
         if page_0_image_link is not None and pages is not None:
