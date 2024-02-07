@@ -15,8 +15,7 @@ class Links:
     """Dataclass to store links' information"""
     original_link: str = ''
     original_type: str = ''
-    link: str = ''
-    pages: int = -1
+    files: list[tuple[str, int]] = []
 
 
 class UserOptions:

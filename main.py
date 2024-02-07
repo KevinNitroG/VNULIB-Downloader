@@ -25,11 +25,16 @@ def main() -> None:
         logger.info('There is / are some link(s) need to be converted')
         driver = Browser(browser=user_options.browser,
                          headless=user_options.headless).setup_browser()
-        Login(driver=driver,
-              username=user_options.username,
-              password=user_options.password).login()
-        user_options.links = LinkParse.convert(
-            driver=driver, links=user_options.links)
+        try:
+            Login(driver=driver,
+                  username=user_options.username,
+                  password=user_options.password).login()
+            user_options.links = LinkParse.convert(
+                driver=driver, links=user_options.links)
+        except Exception as e:
+            logger.error(msg=e)
+            driver.quit()
+            raise e
 
     print_title(message='DOWNLOAD')
 
