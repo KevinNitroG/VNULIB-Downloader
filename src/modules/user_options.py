@@ -10,7 +10,7 @@ from ..constants import CONFIG_FILE, USER_INPUT_YES, USER_INPUT_NO
 from ..utils import logger
 
 
-@dataclass
+@dataclass(slots=True)
 class BookFiles:
     """Dataclass to store book files' information"""
     page_link: str = ''
@@ -20,9 +20,9 @@ class BookFiles:
 @dataclass(slots=True)
 class Links:
     """Dataclass to store links' information"""
-    original_link: str = ''
-    original_type: str = ''
-    files: list[BookFiles] = []
+    original_link: str
+    original_type: str
+    files: list[BookFiles]
 
 
 class UserOptions:
@@ -93,12 +93,12 @@ class UserOptions:
         """Setup links"""
         if self.argparse.links is not None:
             self.__log_set_by_argparse('links')
-            return [Links(original_link=link) for link in self.argparse.links]
+            return [Links(original_link=link, original_type='', files=[BookFiles()]) for link in self.argparse.links]
         if self.config['LINKS'] is not None:
             self.__log_set_by_config('links')
-            return [Links(original_link=link) for link in self.config['LINKS']]
+            return [Links(original_link=link, original_type='', files=[BookFiles()]) for link in self.config['LINKS']]
         self.__log_set_by_user_input('links')
-        return list(Links(original_link=link) for link in
+        return list(Links(original_link=link, original_type='', files=[BookFiles()]) for link in
                     input('Enter link(s), separate by space: ').strip().split(' '))
 
     def __setup_browser(self) -> str:
