@@ -43,38 +43,41 @@ class LinkParse:
         for (i, _) in enumerate(links):
             match links[i].original_type:
                 case 'book':
-                    logger.info(msg=f'Converting {links[i].original_link} '
-                                'to page links')
+                    book_link: str = links[i].original_link
+                    logger.info(msg=f'Processing {book_link}')
                     converted_link: Links = links[i]
                     preview_links: list[str] = Action.book_web_to_preview(
-                        driver=driver, link=links[i].original_link)
+                        driver=driver, link=book_link)
                     book_files: list[BookFiles] = []
                     for preview_link in preview_links:
-                        page_link, num_pages = Action.book_preview_to_page_and_num_page(
-                            driver=driver, link=preview_link)
+                        page_link, num_pages = Action.book_preview_to_page_and_pages(driver=driver,
+                                                                                     link=preview_link)
                         book_files.append(BookFiles(page_link, num_pages))
                     converted_link.files = book_files
                     converted_links.append(converted_link)
-                    logger.info(msg='Done converting '
-                                f'{links[i].original_link}')
+                    logger.info(msg=f'Done processing {book_link}')
                 case 'preview':
-                    logger.info(msg=f'Converting {links[i].original_link} '
-                                ' to page link')
+                    preview_link: str = links[i].original_link
+                    logger.info(msg=f'Processing {preview_link}')
                     converted_link: Links = links[i]
-                    page_link, num_pages = Action.book_preview_to_page_and_num_page(
-                        driver=driver, link=links[i].original_link)
+                    page_link, num_pages = Action.book_preview_to_page_and_pages(driver=driver,
+                                                                                 link=preview_link)
                     converted_link.files = [BookFiles(page_link, num_pages)]
                     converted_links.append(converted_link)
-                    logger.info(msg='Done converting '
-                                f'{links[i].original_link}')
+                    logger.info(msg=f'Done processing {preview_link}')
                 case 'page':
-                    logger.info(msg='Not need to convert '
-                                f'{links[i].original_link}')
-                    converted_links.append(links[i])
+                    logger.info(msg=f'Not need to process {
+                                links[i].original_link}')
+                    converted_link: Links = links[i]
+                    page_link: str = Action.remove_page_query(
+                        links[i].original_link)
+                    converted_link.files = [BookFiles(
+                        page_link=page_link, num_pages=-1)]
+                    converted_links.append(converted_link)
                     continue
                 case _:
                     logger.warning(
-                        msg=f'Skip downloading link: {links[i].original_link}')
+                        msg=f'Skip: {links[i].original_link}')
         logger.debug(msg=f'Converted links: {converted_links}')
         return converted_links
 

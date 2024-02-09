@@ -22,7 +22,7 @@ def main() -> None:
     link_parse = LinkParse(links=user_options.links)
     user_options.links = link_parse.parse()
     if link_parse.need_to_convert:
-        logger.info('There is / are some link(s) need to be converted')
+        logger.info('There is / are some link(s) need to be processed')
         driver = Browser(browser=user_options.browser,
                          headless=user_options.headless).setup_browser()
         try:
