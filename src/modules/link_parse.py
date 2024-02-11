@@ -1,9 +1,10 @@
 """Convert parse links to convert all the links to the page links format"""
 
 
+from datetime import datetime
 from re import compile as re_compile, search as re_search
 from selenium.webdriver.chrome.webdriver import WebDriver
-from .user_options import BookFiles, Links
+from .user_options import LinkFile, Link
 from ..bot.action import Action
 from ..utils import logger
 
@@ -13,7 +14,7 @@ PATTERN_BOOK = re_compile(
 PATTERN_PREVIEW = re_compile(
     r'http[s]?://ir\.vnulib\.edu\.vn/flowpaper/simple_document\.php\?subfolder=.+&doc=\d+&bitsid=.+')
 PATTERN_PAGE = re_compile(
-    r'http[s]?://ir\.vnulib\.edu\.vn/flowpaper/services/view\.php\?.+(page=\d+).+')
+    r'http[s]?://ir\.vnulib\.edu\.vn/flowpaper/services/view\.php\?.+page=\d+.+')
 
 
 class LinkParse:
@@ -23,63 +24,10 @@ class LinkParse:
         - links (list[Links]): List of links to parse
     """
 
-    def __init__(self, links: list[Links]) -> None:
-        self.links: list[Links] = links
+    def __init__(self, links: list[Link]) -> None:
+        self.links: list[Link] = links
         self.links_list: list[str] = [link.original_link for link in links]
         self.need_to_convert = False
-
-    @staticmethod
-    def convert(driver: WebDriver, links: list[Links]) -> list[Links]:
-        """Convert all links to the page links format
-
-        Params:
-            - driver (WebDriver): The WebDriver
-            - links (list[Links]): List of links to convert
-
-        Returns:
-        - list: A list contains converted links to page links format
-        """
-        converted_links: list[Links] = []
-        for (i, _) in enumerate(links):
-            match links[i].original_type:
-                case 'book':
-                    book_link: str = links[i].original_link
-                    logger.info(msg=f'Processing {book_link}')
-                    converted_link: Links = links[i]
-                    preview_links: list[str] = Action.book_web_to_preview(
-                        driver=driver, link=book_link)
-                    book_files: list[BookFiles] = []
-                    for preview_link in preview_links:
-                        page_link, num_pages = Action.book_preview_to_page_and_pages(driver=driver,
-                                                                                     link=preview_link)
-                        book_files.append(BookFiles(page_link, num_pages))
-                    converted_link.files = book_files
-                    converted_links.append(converted_link)
-                    logger.info(msg=f'Done processing {book_link}')
-                case 'preview':
-                    preview_link: str = links[i].original_link
-                    logger.info(msg=f'Processing {preview_link}')
-                    converted_link: Links = links[i]
-                    page_link, num_pages = Action.book_preview_to_page_and_pages(driver=driver,
-                                                                                 link=preview_link)
-                    converted_link.files = [BookFiles(page_link, num_pages)]
-                    converted_links.append(converted_link)
-                    logger.info(msg=f'Done processing {preview_link}')
-                case 'page':
-                    logger.info(msg=f'Not need to process {
-                                links[i].original_link}')
-                    converted_link: Links = links[i]
-                    page_link: str = Action.remove_page_query(
-                        links[i].original_link)
-                    converted_link.files = [BookFiles(
-                        page_link=page_link, num_pages=-1)]
-                    converted_links.append(converted_link)
-                    continue
-                case _:
-                    logger.warning(
-                        msg=f'Skip: {links[i].original_link}')
-        logger.debug(msg=f'Converted links: {converted_links}')
-        return converted_links
 
     @staticmethod
     def categorise(link: str) -> str:
@@ -99,7 +47,72 @@ class LinkParse:
             return 'page'
         return 'unknown'
 
-    def parse(self) -> list[Links]:
+    @staticmethod
+    def datetime_name() -> str:
+        """Get the datetime name (%Y-%m-%d %H-%M-%S-%f)
+
+        Params:
+            - None
+
+        Returns:
+            - str: The datetime name
+        """
+        return datetime.now().strftime('%Y-%m-%d %H-%M-%S-%f')
+
+    @staticmethod
+    def convert(driver: WebDriver, links: list[Link]) -> list[Link]:
+        """Convert all links to the page links format
+
+        Params:
+            - driver (WebDriver): The WebDriver
+            - links (list[Links]): List of links to convert
+
+        Returns:
+        - list: A list contains converted links to page links format
+        """
+        converted_links: list[Link] = []
+        for (i, _) in enumerate(links):
+            match links[i].original_type:
+                case 'book':
+                    book_link: str = links[i].original_link
+                    logger.info(msg=f'Processing {book_link}')
+                    converted_link: Link = links[i]
+                    preview_links: list[str] = Action.book_web_to_preview(
+                        driver=driver, link=book_link)
+                    book_files: list[LinkFile] = []
+                    for preview_link in preview_links:
+                        page_link, num_pages = Action.book_preview_to_page_and_book_pages(driver=driver,
+                                                                                          link=preview_link)
+                        book_files.append(LinkFile(page_link, num_pages))
+                    converted_link.files = book_files
+                    converted_links.append(converted_link)
+                    logger.info(msg=f'Done processing {book_link}')
+                case 'preview':
+                    preview_link: str = links[i].original_link
+                    logger.info(msg=f'Processing {preview_link}')
+                    converted_link: Link = links[i]
+                    page_link, num_pages = Action.book_preview_to_page_and_book_pages(driver=driver,
+                                                                                      link=preview_link)
+                    converted_link.files = [LinkFile(page_link, num_pages)]
+                    converted_links.append(converted_link)
+                    logger.info(msg=f'Done processing {preview_link}')
+                case 'page':
+                    logger.info(msg=f'Not need to process {
+                                links[i].original_link}')
+                    converted_link: Link = links[i]
+                    page_link: str = Action.remove_page_query(
+                        links[i].original_link)
+                    converted_link.files = [LinkFile(
+                        page_link=page_link, num_pages=-1, name=LinkParse.datetime_name())]
+                    converted_links.append(converted_link)
+                    continue
+                case _:
+                    logger.warning(
+                        msg=f'Skip: {links[i].original_link}')
+        logger.debug(msg=f'Converted links: {converted_links}')
+        return converted_links
+
+    def parse(self) -> list[Link]:
         """Categorise links into types. With 'page' type, the book atrribute will be set
 
         Params:
@@ -120,7 +133,7 @@ class LinkParse:
                 case 'page':
                     self.links[i].original_type = 'page'
                     self.links[i].files = [
-                        BookFiles(self.links[i].original_link, -1)]
+                        LinkFile(self.links[i].original_link, -1)]
                 case _:
                     self.links[i].original_type = 'unknown'
                     logger.warning(

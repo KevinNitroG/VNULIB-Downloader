@@ -25,9 +25,8 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ![GitHub repo size](https://img.shields.io/github/repo-size/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=D8B4F8)
 [![GitHub contributors](https://img.shields.io/github/contributors/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=FBF0B2)](../../graphs/contributors)
 [![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/KevinNitroG/VNULIB-Downloader?style=for-the-badge)](https://www.codefactor.io/repository/github/kevinnitrog/VNULIB-Downloader)
-[![wakatime](https://wakatime.com/badge/user/018b410d-fa7b-44ba-a5de-f025fcbeb499/project/018d034e-ab72-4111-95fa-bd5dc58c6ae7.svg?style=for-the-badge)](https://wakatime.com/badge/user/018b410d-fa7b-44ba-a5de-f025fcbeb499/project/018d034e-ab72-4111-95fa-bd5dc58c6ae7)
+[![wakatime of KevinNitroG](https://wakatime.com/badge/user/018b410d-fa7b-44ba-a5de-f025fcbeb499/project/018d747b-a2e0-42a1-8363-a1cc4bcbbb6c.svg?style=for-the-badge)](https://wakatime.com/badge/user/018b410d-fa7b-44ba-a5de-f025fcbeb499/project/018d747b-a2e0-42a1-8363-a1cc4bcbbb6c)
 
-[![DeepSource](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=code+coverage&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G)](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader/)
 [![DeepSource](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=active+issues&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G)](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader/)
 [![DeepSource](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=resolved+issues&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G)](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader/)
 
@@ -41,13 +40,13 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   - [🎆 CHỨC NĂNG](#-chức-năng)
   - [🥂 DEMO](#-demo)
   - [🪴 HƯỚNG DẪN SỬ DỤNG](#-hướng-dẫn-sử-dụng)
-    - [1️⃣ Tải tool _(file thực thi)_](#1️⃣-tải-tool-file-thực-thi)
-    - [2️⃣ Lấy link trang sách](#2️⃣-lấy-link-trang-sách)
-    - [3️⃣ Mở lên và sử dụng](#3️⃣-mở-lên-và-sử-dụng)
+    - [1️⃣ Tải tool](#1️⃣-tải-tool)
+    - [3️⃣ Sử dụng](#3️⃣-sử-dụng)
   - [⚙️ NÂNG CAO](#️-nâng-cao)
-    - [🗃️ Thiết lập giá trị biến trước](#️-thiết-lập-giá-trị-biến-trước)
+    - [🗃️ Pre-config](#️-pre-config)
     - [⛏️ Pass by arguments](#️-pass-by-arguments)
     - [🤐 Python](#-python)
+    - [🤔 More notes](#-more-notes)
   - [📝 LICENSE](#-license)
   - [🤥 DISCLAIMER](#-disclaimer)
   - [😌 CREDIT](#-credit)
@@ -57,8 +56,10 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ## 🎆 CHỨC NĂNG
 
-- Tải sách free _(có thể đọc preview online)_ trên [VNULIB](https://vnulib.edu.vn/) _(HCM)_
+- Tải sách _(có thể đọc preview online)_ trên [VNULIB](https://vnulib.edu.vn/) _(HCM)_
+- Hỗ trợ link: `Sách`, `Preview sách`, `Link trang sách`
 - Tải một lúc nhiều sách
+- Sử dụng multi thread để tải sách
 - Merge ảnh của các trang sách đã tải thành file PDF
 
 ---
@@ -71,33 +72,34 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ## 🪴 HƯỚNG DẪN SỬ DỤNG
 
-### 1️⃣ Tải tool _(file thực thi)_
+### 1️⃣ Tải tool
 
 - [![Windows](https://img.shields.io/badge/Windows-a0c4ff?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/download/latest/VNULIB-Downloader-windows.exe)
 - [![Mac OS](https://img.shields.io/badge/MAC_OS-bdb2ff?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/download/latest/VNULIB-Downloader-macos)
-- [![Ubuntu](https://img.shields.io/badge/Ubuntu-ffadad?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/download/latest/VNULIB-Downloader-ubuntu)
+- [![Linux](https://img.shields.io/badge/Ubuntu-ffadad?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/download/latest/VNULIB-Downloader-ubuntu)
 
-### 2️⃣ Lấy link trang sách
-
-- Vào preview sách
-- Lấy link ảnh trang sác của một trang bất kì
-  > Có thể F12 để lấy link ảnh trang sách nếu chuột phải không có option `Copy image address`, ...
-  > ![Lấy link ảnh trang sách bằng F12](../asset/video/huong_dan_get_link_anh_trang_sach.mp4)
-
-### 3️⃣ Mở lên và sử dụng
+### 3️⃣ Sử dụng
 
 1. Mở tool
-2. Nhập các user input
+2. Input
 
-| **VARIABLE**     | **VALUE**                 | **DEFAULT** | **DESCRIPTION**                                                       | **EXAMPLE**     |
-| ---------------- | ------------------------- | ----------- | --------------------------------------------------------------------- | --------------- |
-| `LINKS`          | `string string ...`       |             | Link ảnh trang sách _(Có thể nhiều sách, cách nhau bằng khoảng cách)_ | `link_1 link_2` |
-| `OVERWRITE_BOOK` | `Yes`, `Y`, `y`, `1`, ... | `N`         | Xoá các sách cũ đã tải về                                             | `n`             |
-| `CREATE_PDF`     | `Yes`, `Y`, `y`, `1`, ... | `Y`         | Tạo file PDF từ các ảnh đã tải về                                     | `y`             |
-| `KEEP_IMGS`      | `Yes`, `Y`, `y`, `1`, ... | `Y`         | Giữ lại các ảnh đã tải về sau khi tạo file PDF                        | `y`             |
-| `LOG`            | `Yes`, `Y`, `y`, `1`, ... | `N`         | Ghi log sách đã tải vào folder `./logs`                               | `y`             |
+| **VARIABLE** | **VALUE**                 | **DEFAULT** | **DESCRIPTION**                                                        | **EXAMPLE**     |
+| ------------ | ------------------------- | ----------- | ---------------------------------------------------------------------- | --------------- |
+| `USERNAME`   | `string`                  |             | Username tài khoản                                                     | `1500023520000` |
+| `PASSWORD`   | `string`                  |             | Password tài khoản                                                     | `examplePass`   |
+| `LINKS`      | `string string ...`       |             | Link ảnh trang sách _(Có thể nhiều sách, cách nhau bằng khoảng cách)_  | `link_1 link_2` |
+| `BROWSER`    | `chrome`, `path/to/local` | `chrome`    | Trình duyệt để sử dụng Selenium khi có cần xử lý Book, Preview website | `chrome`        |
+| `HEADLESS`   | `Yes`, `Y`, `y`, `1`, ... | `Y`         | Khi sử dụng Selenium, chạy trình duyệt ẩn                              | `y`             |
+| `CREATE_PDF` | `Yes`, `Y`, `y`, `1`, ... | `Y`         | Tạo file PDF từ các ảnh đã tải về                                      | `y`             |
+| `CLEAN_IMGS` | `Yes`, `Y`, `y`, `1`, ... | `Y`         | Xoá ảnh sau khi đã tạo PDF                                             | `y`             |
 
-3. Ảnh và sách sẽ được tải về thư mục `./downloaded_books`
+3. Ảnh và sách sẽ được tải về thư mục `./VNULIB-Downloader/Downloads/`
+
+> [!NOTE]
+>
+> Khi có hơn 1 link là `book`, `preview`: Tool sẽ sử dụng Selenium để xử lý, cần phải dùng tài khoản thư viện để login
+>
+> Khi toàn bộ link là `page`: Tool không cần dùng Selenium, nhập bừa tài khoản 😏
 
 ---
 
@@ -107,7 +109,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 >
 > Thứ tự ưu tiên giá trị biến: `arguments` > `config.yml` > `user input`
 
-### 🗃️ Thiết lập giá trị biến trước
+### 🗃️ Pre-config
 
 1. Tạo file `config.yml` trong directory chứa file thực thi bằng 1 trong 2 cách:
    - Copy nội dung của file [`config-sample.yml`](../config-sample.yml) và paste vào file `config.yml`
@@ -116,38 +118,53 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ### ⛏️ Pass by arguments
 
-**Ví dụ**
-
 - Windows:
 
   ```.ps1
   .\VNULIB-Downloader-windows.exe --help
-  .\VNULIB-Downloader-windows.exe "link_1" "link2" --overwrite-book --create-pdf --log
   ```
 
 - Mac OS:
 
   ```sh
   ./VNULIB-Downloader-macos --help
-  ./VNULIB-Downloader-windows.exe "link_1" "link2" --overwrite-book --create-pdf --log
   ```
 
-- Ubuntu:
+- Linux:
 
   ```sh
   ./VNULIB-Downloader-ubuntu --help
-  ./VNULIB-Downloader-windows.exe "link_1" "link2" --overwrite-book --create-pdf --log
   ```
+
+> [!NOTE]
+>
+> Ví dụ _(Windows)_:
+>
+> .\VNULIB-Downloader-windows.exe --link "link1" "link2" --username 1500023520000 --password examplePass --browser chrome --headless --create-pdf --clean-imgs
 
 ### 🤐 Python
 
-- Cài đặt các thư viện cần thiết
+1. Create virtual environment _(optional)_
 
-  ```sh
-  pip install -r requirements.txt
-  ```
+2. Install requirements
 
-- Chắc không cần phải nói thêm đâu ha 🤐
+```sh
+pip install -r requirements.txt
+```
+
+3. Run tool
+
+```sh
+python main.py
+```
+
+### 🤔 More notes
+
+- Lấy link trang sách
+  - Vào preview sách
+  - Lấy link ảnh trang sác của một trang bất kì
+    > Có thể F12 để lấy link ảnh trang sách nếu chuột phải không có option `Copy image address`, ...
+    > ![Lấy link ảnh trang sách bằng F12](../asset/video/huong_dan_get_link_anh_trang_sach.mp4)
 
 ---
 
