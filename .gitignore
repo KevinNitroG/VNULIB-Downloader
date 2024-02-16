@@ -1,12 +1,12 @@
 # THIS PROJECT
 **/*test*
-downloaded-books/
-logs/
-config.env
 config.yml
+VNULIB-DOWNLOADER/
+Profiles/
 
 **/__pycache__
 **/*.exe
+.mypy_cache/
 
 # FROM https://github.com/github/gitignore/blob/main/Python.gitignore
 

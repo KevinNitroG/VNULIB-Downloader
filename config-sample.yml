@@ -3,36 +3,33 @@
 # STRING CAN BE IN DOUBLE QUOTES OR NON QUOTES
 
 
-BASIC_CONFIG:
+# Username
+USERNAME:
 
-  #  A list of links of the first picture
-  # Format can be like this:
-  # LINKS:
-  # - LINK1
-  # - LINK2
-  # or 
-  # LINKS: [LINK1, LINK2]
-  LINKS:
+# Password
+PASSWORD:
 
-  # If the folder of images / PDF file of the book is already exist, then overwrite it
-  # True, true, on / False, false, off
-  OVERWRITE_BOOK:
+#  A list of links of the first picture
+# Format can be like this:
+# LINKS:
+# - LINK1
+# - LINK2
+# or 
+# LINKS: [LINK1, LINK2]
+LINKS:
 
-  # Merge images to a PDF after downloading images
-  # True, true, on / False, false, off
-  CREATE_PDF:
+# Browser you are using (to use Selenium webdriver)
+# Options: chrome, path/to/local/google_chromedriver (google chromedriver only)
+BROWSER:
 
-  # Keep downloaded images, not delete them
-  # True, true, on / False, false, off
-  KEEP_IMGS:
+# Headless mode for the browser (No GUI)
+# True, true, on / False, false, off
+HEADLESS:
 
+# Merge images to a PDF after downloading images
+# True, true, on / False, false, off
+CREATE_PDF:
 
-ADVANCED_CONFIG:
-
-  # Log the process to the log folder
-  # True, true, on / False, false, off
-  LOG:
-
-  # Log level
-  # DEBUG, INFO, WARNING, ERROR, CRITICAL
-  LOG_LEVEL:
+# Clean downloaded images
+# True, true, on / False, false, off
+CLEAN_IMGS:
