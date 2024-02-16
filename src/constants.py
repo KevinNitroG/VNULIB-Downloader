@@ -1,7 +1,7 @@
 """Constant variables throughout the program"""
 
 
-VERSION: str = '0.7-beta'
+VERSION: str = '0.8-beta'
 AUTHORS: str = 'KevinNitroG & NTGNguyen'
 BANNER: str = """
 ██╗   ██╗███╗   ██╗██╗   ██╗██╗     ██╗██████╗ 
