@@ -1,12 +1,13 @@
-"""Update the tool"""
+"""Update the tool
+Not implemented yet .-.
+I think it is abandoned :>
+"""
 
 
-from requests import get, Response
 from json import loads
-
-from ..utils.printColor import printInfo, printSuccess, printError, printWarning
-
-from ..CONSTANTS import REPOSITORY_URL, VERSION
+from requests import get, Response
+from .prints import print_info, print_success, print_error, print_warning
+from ..constants import REPOSITORY_URL, VERSION
 
 
 def getVersionsFromRepository(repo_url: str = REPOSITORY_URL) -> list[str]:
@@ -25,10 +26,10 @@ def getVersionsFromRepository(repo_url: str = REPOSITORY_URL) -> list[str]:
         versions = []
         for version in loads(response.text):
             versions.append(version['name'])
-        printInfo(message='Successfully get versions from repository')
+        print_info(message='Successfully get versions from repository')
         return versions
     else:
-        printError(message='Failed to get versions from repository')
+        print_error(message='Failed to get versions from repository')
         return []
 
 
@@ -65,26 +66,26 @@ def checkNeedToUpdate(current_version: str, VERSIONS: list[str]) -> bool:
         for version in [version for version in VERSIONS if 'beta' in version]:
             match compareVersion(version=current_version, to_compare_version=version):
                 case -1:
-                    printInfo(message='Your tool is not up-to-date')
+                    print_info(message='Your tool is not up-to-date')
                     return True
                 case 0:
-                    printSuccess(message='Your tool is up-to-date')
+                    print_success(message='Your tool is up-to-date')
                     return False
                 case 1:
-                    printWarning(
+                    print_warning(
                         message='Your tool version is not in the repository')
                     return False
     else:
         for version in [version for version in VERSIONS if 'beta' not in version]:
             match compareVersion(version=current_version, to_compare_version=version):
                 case -1:
-                    printInfo(message='Your tool is not up-to-date')
+                    print_info(message='Your tool is not up-to-date')
                     return True
                 case 0:
-                    printSuccess(message='Your tool is up-to-date')
+                    print_success(message='Your tool is up-to-date')
                     return False
                 case 1:
-                    printWarning(
+                    print_warning(
                         message='Your tool version is not in the repository')
                     return False
     return False
@@ -102,7 +103,7 @@ def updateTheTool() -> None:
     versions: list[str] = getVersionsFromRepository(
         repo_url=REPOSITORY_URL)
     if checkNeedToUpdate(current_version=VERSION, VERSIONS=versions):
-        printInfo(message='Updating the tool... (Not implemented yet)')
+        print_info(message='Updating the tool... (Not implemented yet)')
         pass  # implement later
     else:
-        printInfo(message='Skip updating the tool')
+        print_info(message='Skip updating the tool')

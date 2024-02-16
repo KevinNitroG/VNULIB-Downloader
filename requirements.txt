@@ -1,19 +1,9 @@
-# IN BUILT
-# os
-# sys
-# logging
-# concurrent.futures
-# collections.Counter
-
-# COMMUNITY
+selenium
+webdriver-manager
 requests
 argparse
-# python-dotenv
 pyyaml
 requests
 print-color
-# colorama
 tqdm
 pillow
-# img2pdf
-pyinstaller
