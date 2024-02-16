@@ -1,7 +1,5 @@
 """Modules"""
 
-# skipcq: PY-W2000
-
 
 from .config import ToolConfig
 from .print_intro import PrintIntro
