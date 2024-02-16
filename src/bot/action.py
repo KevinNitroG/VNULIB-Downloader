@@ -5,14 +5,10 @@ from urllib.parse import urlparse, urlunparse, parse_qs, urlencode
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-# import urllib3
 from ..modules.link_parse import Link, LinkFile
 from .utils import wait_element_visible
 from ..utils import logger
 from ..utils.utils import datetime_name, slugify
-
-
-# urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class Action:
