@@ -113,8 +113,8 @@ class UserOptions:
             self.__log_set_by_config('links')
             return [Link(original_link=link, original_type='', files=[LinkFile()]) for link in self.config['LINKS']]
         self.__log_set_by_user_input('links')
-        return list(Link(original_link=link, original_type='', files=[LinkFile()]) for link in
-                    input('Enter link(s), separate by space: ').strip().split(' '))
+        return [Link(original_link=link, original_type='', files=[LinkFile()]) for link in
+                input('Enter link(s), separate by space: ').strip().split(' ')]
 
     def __setup_browser(self) -> str:
         """Setup browser"""
