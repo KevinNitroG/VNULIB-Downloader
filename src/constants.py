@@ -64,5 +64,6 @@ BROWSER_ARGUMENTS: list[str] = ['--allow-running-insecure-content',
                                 '--no-sandbox',
                                 '--password-store=basic'
                                 '--ignore-ssl-errors',
-                                '--ignore-certificate-errors-spki-list'
+                                '--ignore-certificate-errors-spki-list',
+                                '--log-level=2'
                                 ]
