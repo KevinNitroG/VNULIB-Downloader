@@ -50,7 +50,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   - [📝 LICENSE](#-license)
   - [🤥 DISCLAIMER](#-disclaimer)
   - [😌 CREDIT](#-credit)
-  - [⭐ STAR GRAPH](#-star-graph)
+  - [⭐ STARGAZER](#-stargazer)
 
 ---
 
@@ -76,7 +76,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 - [![Windows](https://img.shields.io/badge/Windows-a0c4ff?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/download/latest/VNULIB-Downloader-windows.exe)
 - [![Mac OS](https://img.shields.io/badge/MAC_OS-bdb2ff?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/download/latest/VNULIB-Downloader-macos)
-- [![Linux](https://img.shields.io/badge/Ubuntu-ffadad?style=for-the-badge&logo=ubuntu&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/download/latest/VNULIB-Downloader-ubuntu)
+- [![Linux](https://img.shields.io/badge/Linux-ffadad?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/download/latest/VNULIB-Downloader-ubuntu)
 
 ### 3️⃣ Sử dụng
 
@@ -112,8 +112,8 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ### 🗃️ Pre-config
 
 1. Tạo file `config.yml` trong directory chứa file thực thi bằng 1 trong 2 cách:
-   - Copy nội dung của file [`config-sample.yml`](../config-sample.yml) và paste vào file `config.yml`
    - Chạy trước tool 1 lần sẽ tự tạo file `config.yml`
+   - Copy nội dung của file [`config-sample.yml`](../config-sample.yml) và paste vào file `config.yml`
 2. Chỉnh các giá trị biến trong file `config.yml`
 
 ### ⛏️ Pass by arguments
@@ -140,7 +140,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 >
 > Ví dụ _(Windows)_:
 >
-> .\VNULIB-Downloader-windows.exe --link "link1" "link2" --username 1500023520000 --password examplePass --browser chrome --headless --create-pdf --clean-imgs
+> `.\VNULIB-Downloader-windows.exe --link "link1" "link2" --username 1500023520000 --password examplePass --browser chrome --headless --create-pdf --clean-imgs`
 
 ### 🤐 Python
 
@@ -158,9 +158,13 @@ pip install -r requirements.txt
 python main.py
 ```
 
+> [!NOTE]
+>
+> Linux / Mac hãy thử pip/pip3 và python/python3 trong lệnh
+
 ### 🤔 More notes
 
-- Lấy link trang sách
+- Lấy link trang sách:
   - Vào preview sách
   - Lấy link ảnh trang sác của một trang bất kì
     > Có thể F12 để lấy link ảnh trang sách nếu chuột phải không có option `Copy image address`, ...
@@ -186,7 +190,7 @@ Dự án này không liên quan đến [VNULIB](https://vnulib.edu.vn/) hay bấ
 
 ---
 
-## ⭐ STAR GRAPH
+## ⭐ STARGAZER
 
 <a href="https://star-history.com/#KevinNitroG/VNULIB-Downloader&Timeline">
   <picture>
