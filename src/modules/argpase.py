@@ -18,7 +18,7 @@ def setup_argparse() -> Namespace:
                         help='Your VNULIB username')
     parser.add_argument('--password', '-p', type=str,
                         help='Your VNULIB password')
-    parser.add_argument('--links', type=list, nargs='+',
+    parser.add_argument('--link', type=str, nargs='*',
                         help='Links of the book(s) to be downloaded')
     parser.add_argument('--browser', '-b',
                         default=None, help='Browser you are using, to use the correct webdriver'

@@ -1,20 +1,18 @@
 """Convert parse links to convert all the links to the page links format"""
 
 
-from datetime import datetime
 from re import compile as re_compile, search as re_search
-from selenium.webdriver.chrome.webdriver import WebDriver
 from .user_options import LinkFile, Link
-from ..bot.action import Action
 from ..utils import logger
+from ..utils.utils import datetime_name
 
 
 PATTERN_BOOK = re_compile(
-    r'http[s]?://ir\.vnulib\.edu\.vn/handle/VNUHCM/\d+')
+    r'^https?:\/\/ir\.vnulib\.edu\.vn\/handle\/VNUHCM\/\d+$')
 PATTERN_PREVIEW = re_compile(
-    r'http[s]?://ir\.vnulib\.edu\.vn/flowpaper/simple_document\.php\?subfolder=.+&doc=\d+&bitsid=.+')
+    r'^https?:\/\/ir\.vnulib\.edu\.vn\/flowpaper\/simple_document\.php\?(?=.*\bsubfolder=[^&]+\b)(?=.*\bbitsid=[^&]+\b)(?=.*\bdoc=\d*\b).*$')
 PATTERN_PAGE = re_compile(
-    r'http[s]?://ir\.vnulib\.edu\.vn/flowpaper/services/view\.php\?.+page=\d+.+')
+    r'https?:\/\/ir\.vnulib\.edu\.vn\/flowpaper\/services\/view\.php\?(?=.*\bdoc=\d*\b)(?=.*\bformat=jpg&\b)(?=.*\bsubfolder=[^&]+\b).*$')
 
 
 class LinkParse:
@@ -26,7 +24,6 @@ class LinkParse:
 
     def __init__(self, links: list[Link]) -> None:
         self.links: list[Link] = links
-        self.links_list: list[str] = [link.original_link for link in links]
         self.need_to_convert = False
 
     @staticmethod
@@ -47,71 +44,6 @@ class LinkParse:
             return 'page'
         return 'unknown'
 
-    @staticmethod
-    def datetime_name() -> str:
-        """Get the datetime name (%Y-%m-%d %H-%M-%S-%f)
-
-        Params:
-            - None
-
-        Returns:
-            - str: The datetime name
-        """
-        return datetime.now().strftime('%Y-%m-%d %H-%M-%S-%f')
-
-    @staticmethod
-    def convert(driver: WebDriver, links: list[Link]) -> list[Link]:
-        """Convert all links to the page links format
-
-        Params:
-            - driver (WebDriver): The WebDriver
-            - links (list[Links]): List of links to convert
-
-        Returns:
-        - list: A list contains converted links to page links format
-        """
-        converted_links: list[Link] = []
-        for (i, _) in enumerate(links):
-            match links[i].original_type:
-                case 'book':
-                    book_link: str = links[i].original_link
-                    logger.info(msg=f'Processing {book_link}')
-                    converted_link: Link = links[i]
-                    preview_links: list[str] = Action.book_web_to_preview(
-                        driver=driver, link=book_link)
-                    book_files: list[LinkFile] = []
-                    for preview_link in preview_links:
-                        page_link, num_pages = Action.book_preview_to_page_and_book_pages(driver=driver,
-                                                                                          link=preview_link)
-                        book_files.append(LinkFile(page_link, num_pages))
-                    converted_link.files = book_files
-                    converted_links.append(converted_link)
-                    logger.info(msg=f'Done processing {book_link}')
-                case 'preview':
-                    preview_link: str = links[i].original_link
-                    logger.info(msg=f'Processing {preview_link}')
-                    converted_link: Link = links[i]
-                    page_link, num_pages = Action.book_preview_to_page_and_book_pages(driver=driver,
-                                                                                      link=preview_link)
-                    converted_link.files = [LinkFile(page_link, num_pages)]
-                    converted_links.append(converted_link)
-                    logger.info(msg=f'Done processing {preview_link}')
-                case 'page':
-                    logger.info(msg=f'Not need to process {
-                                links[i].original_link}')
-                    converted_link: Link = links[i]
-                    page_link: str = Action.remove_page_query(
-                        links[i].original_link)
-                    converted_link.files = [LinkFile(
-                        page_link=page_link, num_pages=-1, name=LinkParse.datetime_name())]
-                    converted_links.append(converted_link)
-                    continue
-                case _:
-                    logger.warning(
-                        msg=f'Skip: {links[i].original_link}')
-        logger.debug(msg=f'Converted links: {converted_links}')
-        return converted_links
-
     def parse(self) -> list[Link]:
         """Categorise links into types. With 'page' type, the book atrribute will be set
 
@@ -121,21 +53,24 @@ class LinkParse:
         Returns:
         - list[Links]: List of categorised links
         """
-        for (i, _) in enumerate(self.links):
-            link_type: str = self.categorise(self.links[i].original_link)
+        modified_links: list[Link] = []
+        for link in self.links:
+            link_type: str = self.categorise(link.original_link)
             match link_type:
                 case 'book':
-                    self.links[i].original_type = 'book'
                     self.need_to_convert = True
+                    link.original_type = 'book'
+                    modified_links.append(link)
                 case 'preview':
-                    self.links[i].original_type = 'preview'
                     self.need_to_convert = True
+                    link.original_type = 'preview'
+                    modified_links.append(link)
                 case 'page':
-                    self.links[i].original_type = 'page'
-                    self.links[i].files = [
-                        LinkFile(self.links[i].original_link, -1)]
+                    link.original_type = 'page'
+                    link.files = [
+                        LinkFile(page_link=link.original_link, num_pages=-1, name=datetime_name())]
+                    modified_links.append(link)
                 case _:
-                    self.links[i].original_type = 'unknown'
                     logger.warning(
-                        msg=f'Unknown link type: {self.links[i].original_link}')
-        return self.links
+                        msg=f'Unknown link type for: {link.original_link}')
+        return modified_links

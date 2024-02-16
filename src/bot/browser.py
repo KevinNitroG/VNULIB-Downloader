@@ -22,7 +22,7 @@ class Browser:
         self.options = webdriver.ChromeOptions()
         self.driver: WebDriver
 
-    def setup_browser(self) -> WebDriver:
+    def __enter__(self) -> WebDriver:
         """Setup the browser"""
         logger.info(msg='Setting up the browser...')
         self.__setup_arguments()
@@ -34,6 +34,10 @@ class Browser:
         self.driver.implicitly_wait(30)
         logger.info(msg=f'Browser {self.browser} setup complete!')
         return self.driver
+
+    def __exit__(self, exc_type, exc_value, traceback) -> None:
+        logger.info(msg='Quit the browser')
+        self.driver.quit()
 
     def __setup_arguments(self) -> None:
         """Setup the browser arguments"""

@@ -11,18 +11,33 @@ from ..utils import logger
 
 
 @dataclass(slots=True)
-class BookFiles:
-    """Dataclass to store book files' information"""
+class LinkFile:
+    """Dataclass to store book file's information
+
+    Params:
+        - page_link (str): Page link
+        - num_pages (int): Number of pages
+        - name (str): Name of the file. If original link is preview link, it will be datetime format
+    """
     page_link: str = ''
     num_pages: int = -1
+    name: str = ''
 
 
 @dataclass(slots=True)
-class Links:
-    """Dataclass to store links' information"""
+class Link:
+    """Dataclass to store links' information
+
+    Params:
+        - original_link (str): Original link
+        - original_type (str): Original type of the link
+        - files (list[LinkFile]): List of book files from the book
+        - name (str): Name of the book. If preview link, it will be ''
+    """
     original_link: str
     original_type: str
-    files: list[BookFiles]
+    files: list[LinkFile]
+    name: str = ''
 
 
 class UserOptions:
@@ -38,7 +53,7 @@ class UserOptions:
             self.config = safe_load(config)
         self.username: str
         self.password: str
-        self.links: list[Links]
+        self.links: list[Link]
         self.browser: str
         self.headless: bool
         self.create_pdf: bool
@@ -89,16 +104,16 @@ class UserOptions:
         self.__log_set_by_user_input('password')
         return input('Enter your VNULIB password: ').strip()
 
-    def __setup_links(self) -> list[Links]:
+    def __setup_links(self) -> list[Link]:
         """Setup links"""
-        if self.argparse.links is not None:
+        if self.argparse.link is not None:
             self.__log_set_by_argparse('links')
-            return [Links(original_link=link, original_type='', files=[BookFiles()]) for link in self.argparse.links]
+            return [Link(original_link=link, original_type='', files=[LinkFile()]) for link in self.argparse.link]
         if self.config['LINKS'] is not None:
             self.__log_set_by_config('links')
-            return [Links(original_link=link, original_type='', files=[BookFiles()]) for link in self.config['LINKS']]
+            return [Link(original_link=link, original_type='', files=[LinkFile()]) for link in self.config['LINKS']]
         self.__log_set_by_user_input('links')
-        return list(Links(original_link=link, original_type='', files=[BookFiles()]) for link in
+        return list(Link(original_link=link, original_type='', files=[LinkFile()]) for link in
                     input('Enter link(s), separate by space: ').strip().split(' '))
 
     def __setup_browser(self) -> str:
