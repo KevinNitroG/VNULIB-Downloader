@@ -22,7 +22,7 @@ LINKS:
 # Options: chrome, path/to/local/google_chromedriver (google chromedriver only)
 BROWSER:
 
-# Headless mode for the browser (No GUI)
+# Headless mode for the browser, but there will be some warning logs
 # True, true, on / False, false, off
 HEADLESS:
 

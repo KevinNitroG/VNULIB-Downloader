@@ -22,9 +22,9 @@ def setup_logger(config_path: str, logging_path: str) -> Logger:
     if not path.exists(logging_path):
         makedirs(logging_path)
     if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
-        config_path = path.join(sys._MEIPASS, config_path)
+        config_path = path.join(sys._MEIPASS, config_path)  # skipcq: PYL-W0212
     with open(config_path, 'r', encoding='utf-8') as config_file:
-        dictConfig(safe_load(config_file))
+        dictConfig(safe_load(config_file))  # skipcq: PY-A6006
     return getLogger("vnulib_downloader")
 
 

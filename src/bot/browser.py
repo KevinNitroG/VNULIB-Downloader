@@ -28,7 +28,7 @@ class Browser:
     """
 
     def __init__(self, browser: str, headless: bool) -> None:
-        self.browser: str = browser
+        self.browser: str = browser  # skipcq: PTC-W0052
         self.headless: bool = headless
         self.options = webdriver.ChromeOptions()
         self.driver: WebDriver

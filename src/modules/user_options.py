@@ -19,6 +19,7 @@ class LinkFile:
         - num_pages (int): Number of pages
         - name (str): Name of the file. If original link is preview link, it will be datetime format
     """
+
     page_link: str = ''
     num_pages: int = -1
     name: str = ''
@@ -34,6 +35,7 @@ class Link:
         - files (list[LinkFile]): List of book files from the book
         - name (str): Name of the book. If preview link, it will be ''
     """
+
     original_link: str
     original_type: str
     files: list[LinkFile]
@@ -158,7 +160,7 @@ class UserOptions:
             return self.config['HEADLESS']
         self.__log_set_by_user_input('headless')
         return input('Open the browser in headless mode'
-                     '(no GUI) [Y/n]: ').strip().upper() in USER_INPUT_YES
+                     '[Y/n]: ').strip().upper() in USER_INPUT_YES
 
     def __setup_create_pdf(self) -> bool:
         """Setup create pdf

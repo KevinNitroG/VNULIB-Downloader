@@ -166,7 +166,8 @@ class Action:
             LinkFile(page_link=page_link, num_pages=num_pages, name=datetime_name())]
         return link
 
-    def process_page(self, link: Link) -> Link:
+    @staticmethod
+    def process_page(link: Link) -> Link:
         """Process page link handler
 
         Args:
