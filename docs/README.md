@@ -58,7 +58,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 - Tải sách _(có thể đọc preview online)_ trên [VNULIB](https://vnulib.edu.vn/) _(HCM)_
 - Hỗ trợ link: Sách _(`book`)_, Preview sách _(`preview`)_, Link trang sách bất kì _(`page`)_
-- Tải một lúc nhiều sách
+- Tải một lúc nhiều sách _(lần lượt từng sách)_
 - Sử dụng multi thread để tải sách
 - Merge ảnh của các trang sách đã tải thành file PDF
 
@@ -83,15 +83,15 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 1. Mở tool
 2. Input
 
-| **VARIABLE** | **VALUE**                 | **DEFAULT** | **DESCRIPTION**                                                        | **EXAMPLE**     |
-| ------------ | ------------------------- | ----------- | ---------------------------------------------------------------------- | --------------- |
-| `USERNAME`   | `string`                  |             | Username tài khoản                                                     | `1500023520000` |
-| `PASSWORD`   | `string`                  |             | Password tài khoản                                                     | `examplePass`   |
-| `LINKS`      | `string string ...`       |             | Link ảnh trang sách _(Có thể nhiều sách, cách nhau bằng khoảng cách)_  | `link_1 link_2` |
-| `BROWSER`    | `chrome`, `path/to/local` | `chrome`    | Trình duyệt để sử dụng Selenium khi có cần xử lý Book, Preview website | `chrome`        |
-| `HEADLESS`   | `Yes`, `Y`, `y`, `1`, ... | `Y`         | Khi sử dụng Selenium, chạy trình duyệt ẩn                              | `y`             |
-| `CREATE_PDF` | `Yes`, `Y`, `y`, `1`, ... | `Y`         | Tạo file PDF từ các ảnh đã tải về                                      | `y`             |
-| `CLEAN_IMGS` | `Yes`, `Y`, `y`, `1`, ... | `Y`         | Xoá ảnh sau khi đã tạo PDF                                             | `y`             |
+| **VARIABLE** | **VALUE**                               | **DEFAULT** | **DESCRIPTION**                                                        | **EXAMPLE**     |
+| ------------ | --------------------------------------- | ----------- | ---------------------------------------------------------------------- | --------------- |
+| `USERNAME`   | `string`                                |             | Username tài khoản                                                     | `1500023520000` |
+| `PASSWORD`   | `string`                                |             | Password tài khoản                                                     | `examplePass`   |
+| `LINKS`      | `string string ...`                     |             | Link ảnh trang sách _(Có thể nhiều sách, cách nhau bằng khoảng cách)_  | `link_1 link_2` |
+| `BROWSER`    | `chrome`, `path/to/local/chrome_driver` | `chrome`    | Trình duyệt để sử dụng Selenium khi có cần xử lý Book, Preview website | `chrome`        |
+| `HEADLESS`   | `Yes`, `Y`, `y`, `1`, ...               | `Y`         | Khi sử dụng Selenium, chạy trình duyệt ẩn                              | `y`             |
+| `CREATE_PDF` | `Yes`, `Y`, `y`, `1`, ...               | `Y`         | Tạo file PDF từ các ảnh đã tải về                                      | `y`             |
+| `CLEAN_IMGS` | `Yes`, `Y`, `y`, `1`, ...               | `Y`         | Xoá ảnh sau khi đã tạo PDF                                             | `y`             |
 
 3. Ảnh và sách sẽ được tải về thư mục `./VNULIB-Downloader/Downloads/`
 
@@ -143,7 +143,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   ```
 - Ví dụ _(Windows)_:
   ```.ps1
-  .\VNULIB-Downloader-windows.exe --link "link1" "link2" --username 1500023520000 --password examplePass --browser chrome --headless --create-pdf --clean-imgs
+  .\VNULIB-Downloader-windows.exe --link "link1" "link2" --username "1500023520000" --password "examplePass" --browser "~/chrome_driver.exe" --headless --create-pdf --clean-imgs
   ```
 
 ### 🤐 Python
