@@ -5,7 +5,7 @@
 import os
 import logging
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.core.logger import set_logger
 from webdriver_manager.chrome import ChromeDriverManager
@@ -47,7 +47,7 @@ class Browser:
                 self.driver = self.__setup_chrome_browser()
             case _:
                 self.driver = self.__setup_local_chrome_browser()
-        self.driver.implicitly_wait(30)
+        self.driver.implicitly_wait(15)
         logger.info(msg=f'Browser \'{self.browser}\' setup complete!')
         return self.driver
 
@@ -76,7 +76,7 @@ class Browser:
         """
         return webdriver.Chrome(
             options=self.options,
-            service=ChromeService(ChromeDriverManager().install()))
+            service=Service(ChromeDriverManager().install()))
 
     def __setup_local_chrome_browser(self) -> WebDriver:
         """Setup Local Chrome Browser
@@ -84,4 +84,4 @@ class Browser:
         Returns:
             - WebDriver: Selenium WebDriver
         """
-        return webdriver.Chrome(options=self.options, service=ChromeService(self.browser))
+        return webdriver.Chrome(options=self.options, service=Service(self.browser))
