@@ -100,6 +100,8 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 > Khi có hơn 1 link là `book`, `preview`: Tool sẽ sử dụng Selenium để xử lý, cần phải dùng tài khoản thư viện để login
 >
 > Khi toàn bộ link là `page`: Tool không cần dùng Selenium, nhập bừa tài khoản 😏
+>
+> Khi sử dụng `headless`, tool sẽ hiện vài log warning, và tui không biết tắt 🥴
 
 ---
 
