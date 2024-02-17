@@ -1,4 +1,5 @@
-"""Constant variables throughout the program"""
+"""Constant variables throughout the program
+"""
 
 
 VERSION: str = '0.8-beta'
@@ -19,9 +20,10 @@ BANNER: str = """
 ╚═════╝  ╚═════╝  ╚══╝╚══╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
 """
 REPOSITORY_URL: str = 'https://github.com/KevinNitroG/VNULIB-Downloader'
-CONFIG_FILE: str = 'config.yml'
-CONFIG_FILE_URL: str = 'https://raw.githubusercontent.com/KevinNitroG/VNULIB-Downloader/main/config-sample.yml'
-LOGGING_FILE: str = 'src/logging_configuration.yml'
+CONFIG_FILE: str = 'VNULIB-Downloader/config.yml'
+CONFIG_FILE_URL: str = 'https://raw.githubusercontent.com/KevinNitroG/VNULIB-Downloader/main/VNULIB-Downloader/config-sample.yml'
+LOGGING_CONFIG_FILE: str = 'src/logging_configuration.yml'
+LOGGING_DIR: str = 'VNULIB-Downloader/logs'
 DOWNLOAD_DIR: str = 'VNULIB-DOWNLOADER/Downloads'
 LOGGER_MODE: list[str] = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
 USER_INPUT_YES: list[str] = ['Y', 'YES', '', '1']

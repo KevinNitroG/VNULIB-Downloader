@@ -1,7 +1,7 @@
 """Modules"""
 
 
-from .config import ToolConfig
+from .config import Config
 from .print_intro import PrintIntro
 from .user_options import UserOptions
 from .link_parse import LinkParse

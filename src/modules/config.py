@@ -1,29 +1,31 @@
-"""Setup config file for VNULIB-DOWNLOADER"""
+"""Setup pre config file for VNULIB-Downloader
+"""
 
 
 from os import path
 from requests import get
-from src.utils.logger import logger
+from ..utils import logger
+from ..constants import CONFIG_FILE, CONFIG_FILE_URL
 
 
-class ToolConfig():
+class Config():
     """Setup tool config file
 
-    Params:
-        - config_file_name (str): The config file name
+    Args:
+        - config_file (str): The config file name
         - url (str): The link of the raw config file
     """
 
-    def __init__(self, config_file_name: str, url: str) -> None:
-        self.config_file_name: str = config_file_name
+    def __init__(self, config_file: str = CONFIG_FILE, url: str = CONFIG_FILE_URL) -> None:
+        self.config_file: str = config_file
         self.url: str = url
 
-    def __download_config_file(self) -> None:
-        """Download the config file file from repository"""
-        logger.info(msg=f'Downloading {
-                    self.config_file_name} from repository.'
-                    ' Don\'t worry it will downloade once')
-        with open(file=self.config_file_name, mode='w', encoding='utf-8') as file:
+    def download_config_file(self) -> None:
+        """Download the config file file from repository
+        """
+        logger.info(msg=f'Downloading \'{self.config_file}\' from repository.'
+                    ' It will download once')
+        with open(file=self.config_file, mode='w', encoding='utf-8') as file:
             try:
                 content = get(
                     url=self.url,
@@ -36,20 +38,22 @@ class ToolConfig():
                         'Please check the connection or the source of the repo and try again.')
             else:
                 file.write(content)
-                logger.info(msg='Downloaded config file successfully')
+                logger.info(msg='Downloaded config file successfully at '
+                            f'\'{self.config_file}\'')
 
-    def __check_exist_config_file(self) -> bool:
+    def check_exist_config_file(self) -> bool:
         """Check if the config file exists or not
 
         Returns:
             - bool: True if the config file exists, False otherwise
         """
-        if path.exists(path=self.config_file_name):
+        if path.exists(path=self.config_file):
             return True
-        logger.info(msg=f'{self.config_file_name} does not exist')
+        logger.info(msg=f'{self.config_file} does not exist')
         return False
 
     def setup(self) -> None:
-        """Prepare the config file for the project"""
-        if not self.__check_exist_config_file():
-            self.__download_config_file()
+        """Prepare the config file for the project
+        """
+        if not self.check_exist_config_file():
+            self.download_config_file()

@@ -1,4 +1,5 @@
-"""Argparse for VNULIB-DOWNLOADER"""
+"""Argparse for VNULIB-Downloader
+"""
 
 
 from argparse import ArgumentParser, Namespace
@@ -7,11 +8,8 @@ from argparse import ArgumentParser, Namespace
 def setup_argparse() -> Namespace:
     """Parse the arguments
 
-    Params:
-        - None
-
     Returns:
-        - None
+        - Namespace: The parsed arguments
     """
     parser = ArgumentParser()
     parser.add_argument('--username', '-u', type=str,
