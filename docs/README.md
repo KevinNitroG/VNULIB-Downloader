@@ -25,7 +25,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ![GitHub repo size](https://img.shields.io/github/repo-size/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=D8B4F8)
 [![GitHub contributors](https://img.shields.io/github/contributors/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=FBF0B2)](../../graphs/contributors)
 [![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/KevinNitroG/VNULIB-Downloader?style=for-the-badge)](https://www.codefactor.io/repository/github/kevinnitrog/VNULIB-Downloader)
-[![wakatime of KevinNitroG](https://wakatime.com/badge/user/018b410d-fa7b-44ba-a5de-f025fcbeb499/project/018d747b-a2e0-42a1-8363-a1cc4bcbbb6c.svg?style=for-the-badge)](https://wakatime.com/badge/user/018b410d-fa7b-44ba-a5de-f025fcbeb499/project/018d747b-a2e0-42a1-8363-a1cc4bcbbb6c)
+[![wakatime of KevinNitroG](https://wakatime.com/badge/github/KevinNitroG/VNULIB-Downloader.svg?style=for-the-badge)](https://wakatime.com/badge/github/KevinNitroG/VNULIB-Downloader)
 
 [![DeepSource](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=active+issues&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G)](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader/)
 [![DeepSource](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=resolved+issues&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G)](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader/)
@@ -46,7 +46,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
     - [🗃️ Pre-config](#️-pre-config)
     - [⛏️ Pass by arguments](#️-pass-by-arguments)
     - [🤐 Python](#-python)
-    - [🤔 More notes](#-more-notes)
+  - [🤔 More notes](#-more-notes)
   - [📝 LICENSE](#-license)
   - [🤥 DISCLAIMER](#-disclaimer)
   - [😌 CREDIT](#-credit)
@@ -57,7 +57,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ## 🎆 CHỨC NĂNG
 
 - Tải sách _(có thể đọc preview online)_ trên [VNULIB](https://vnulib.edu.vn/) _(HCM)_
-- Hỗ trợ link: `Sách`, `Preview sách`, `Link trang sách`
+- Hỗ trợ link: Sách _(`book`)_, Preview sách _(`preview`)_, Link trang sách bất kì _(`page`)_
 - Tải một lúc nhiều sách
 - Sử dụng multi thread để tải sách
 - Merge ảnh của các trang sách đã tải thành file PDF
@@ -76,7 +76,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 - [![Windows](https://img.shields.io/badge/Windows-a0c4ff?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/download/latest/VNULIB-Downloader-windows.exe)
 - [![Mac OS](https://img.shields.io/badge/MAC_OS-bdb2ff?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/download/latest/VNULIB-Downloader-macos)
-- [![Linux](https://img.shields.io/badge/Linux-ffadad?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/download/latest/VNULIB-Downloader-ubuntu)
+- [![Linux](https://img.shields.io/badge/Linux-ffc6ff?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/download/latest/VNULIB-Downloader-ubuntu)
 
 ### 3️⃣ Sử dụng
 
@@ -95,17 +95,26 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 3. Ảnh và sách sẽ được tải về thư mục `./VNULIB-Downloader/Downloads/`
 
+> [!IMPORTANT]
+>
+> Nếu trong tương lai việc sử dụng link `book` hay `preview` không được, hãy thử link `page` _(vì các phần tử trang web có thể thay đổi)_
+
 > [!NOTE]
 >
 > Khi có hơn 1 link là `book`, `preview`: Tool sẽ sử dụng Selenium để xử lý, cần phải dùng tài khoản thư viện để login
 >
-> Khi toàn bộ link là `page`: Tool không cần dùng Selenium, nhập bừa tài khoản 😏
+> Khi toàn bộ link là `page`: Tool không cần dùng Selenium, không cần tài khoản chính xác 😏
 >
 > Khi sử dụng `headless`, tool sẽ hiện vài log warning, và tui không biết tắt 🥴
 
 ---
 
 ## ⚙️ NÂNG CAO
+
+- Có thể chạy tool theo các cách:
+  - [Pre config](#🗃️-pre-config) để không phải nhập input mỗi lần chạy
+  - [Pass by arguments](#⛏️-pass-by-arguments)
+  - [Python](#🤐-python) Clone cả repo về chạy python
 
 > [!NOTE]
 >
@@ -121,50 +130,42 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ### ⛏️ Pass by arguments
 
 - Windows:
-
   ```.ps1
   .\VNULIB-Downloader-windows.exe --help
   ```
-
 - Mac OS:
-
   ```sh
   ./VNULIB-Downloader-macos --help
   ```
-
 - Linux:
-
   ```sh
   ./VNULIB-Downloader-ubuntu --help
   ```
-
-> [!NOTE]
->
-> Ví dụ _(Windows)_:
->
-> `.\VNULIB-Downloader-windows.exe --link "link1" "link2" --username 1500023520000 --password examplePass --browser chrome --headless --create-pdf --clean-imgs`
+- Ví dụ _(Windows)_:
+  ```.ps1
+  .\VNULIB-Downloader-windows.exe --link "link1" "link2" --username 1500023520000 --password examplePass --browser chrome --headless --create-pdf --clean-imgs
+  ```
 
 ### 🤐 Python
 
-1. Create virtual environment _(optional)_
-
-2. Install requirements
-
-```sh
-pip install -r requirements.txt
-```
-
-3. Run tool
-
-```sh
-python main.py
-```
+1. Install [Python](https://www.python.org/downloads/)
+2. Create virtual environment _(optional)_
+3. Install requirements
+   ```sh
+   pip install -r requirements.txt
+   ```
+4. Run tool
+   ```sh
+   python main.py
+   ```
 
 > [!NOTE]
 >
-> Linux / Mac hãy thử pip/pip3 và python/python3 trong lệnh
+> **Linux** / **Mac** hãy thử `pip3` và `python3` nếu `pip` và `python` không chạy
 
-### 🤔 More notes
+---
+
+## 🤔 More notes
 
 - Lấy link trang sách:
   - Vào preview sách
