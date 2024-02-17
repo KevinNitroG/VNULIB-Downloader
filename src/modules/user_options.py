@@ -1,5 +1,4 @@
-"""Setup user input, priority: argparse > config file > user input
-"""
+"""Setup user input, priority: argparse > config file > user input"""
 
 
 from dataclasses import dataclass
@@ -42,8 +41,7 @@ class Link:
 
 
 class UserOptions:
-    """Setup user input
-    """
+    """Setup user input"""
 
     def __init__(self) -> None:
         self.argparse: Namespace = setup_argparse()
@@ -58,8 +56,7 @@ class UserOptions:
         self.clean_imgs: bool
 
     def setup(self) -> None:
-        """Setup user options
-        """
+        """Setup user options"""
         self.username = self.__setup_username()
         self.password = self.__setup_password()
         self.links = self.__setup_links()
@@ -70,8 +67,7 @@ class UserOptions:
         self.__log_the_variables()
 
     def __log_the_variables(self) -> None:
-        """Log the variable to log file
-        """
+        """Log the variable to log file"""
         logger.debug(msg=f'User options:\n{self}')
 
     def __str__(self) -> str:
