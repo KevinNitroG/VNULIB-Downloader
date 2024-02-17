@@ -1,4 +1,5 @@
-"""Setup user input, priority: argparse > config file > user input"""
+"""Setup user input, priority: argparse > config file > user input
+"""
 
 
 from dataclasses import dataclass
@@ -14,7 +15,7 @@ from ..utils import logger
 class LinkFile:
     """Dataclass to store book file's information
 
-    Params:
+    Args:
         - page_link (str): Page link
         - num_pages (int): Number of pages
         - name (str): Name of the file. If original link is preview link, it will be datetime format
@@ -28,7 +29,7 @@ class LinkFile:
 class Link:
     """Dataclass to store links' information
 
-    Params:
+    Args:
         - original_link (str): Original link
         - original_type (str): Original type of the link
         - files (list[LinkFile]): List of book files from the book
@@ -42,9 +43,6 @@ class Link:
 
 class UserOptions:
     """Setup user input
-
-    Params:
-        - None
     """
 
     def __init__(self) -> None:
@@ -60,7 +58,8 @@ class UserOptions:
         self.clean_imgs: bool
 
     def setup(self) -> None:
-        """Setup user options"""
+        """Setup user options
+        """
         self.username = self.__setup_username()
         self.password = self.__setup_password()
         self.links = self.__setup_links()
@@ -71,10 +70,16 @@ class UserOptions:
         self.__log_the_variables()
 
     def __log_the_variables(self) -> None:
-        """Log the variable to log file"""
+        """Log the variable to log file
+        """
         logger.debug(msg=f'User options:\n{self}')
 
     def __str__(self) -> str:
+        """For debug printing purpose
+
+        Returns:
+            str: object information
+        """
         return f'Username: {self.username}\n' \
             f'Links: {self.links}\n' \
             f'Browser: {self.browser}\n' \
@@ -83,7 +88,11 @@ class UserOptions:
             f'Clean images: {self.clean_imgs}'
 
     def __setup_username(self) -> str:
-        """Setup username"""
+        """Setup username
+
+        Returns:
+            - str: Username
+        """
         if self.argparse.username is not None:
             self.__log_set_by_argparse('username')
             return self.argparse.username
@@ -94,7 +103,11 @@ class UserOptions:
         return input('Enter your VNULIB username: ').strip()
 
     def __setup_password(self) -> str:
-        """Setup password"""
+        """Setup password
+
+        Returns:
+            - str: Password
+        """
         if self.argparse.password is not None:
             self.__log_set_by_argparse('password')
             return self.argparse.password
@@ -105,7 +118,11 @@ class UserOptions:
         return input('Enter your VNULIB password: ').strip()
 
     def __setup_links(self) -> list[Link]:
-        """Setup links"""
+        """Setup links
+
+        Returns:
+            - list[Link]: List of links object
+        """
         if self.argparse.link is not None:
             self.__log_set_by_argparse('links')
             return [Link(original_link=link, original_type='', files=[LinkFile()]) for link in self.argparse.link]
@@ -117,7 +134,11 @@ class UserOptions:
                 input('Enter link(s), separate by space: ').strip().split(' ')]
 
     def __setup_browser(self) -> str:
-        """Setup browser"""
+        """Setup browser
+
+        Returns:
+            - str: Browser
+        """
         if self.argparse.browser is not None:
             self.__log_set_by_argparse('browser')
             return self.argparse.browser
@@ -129,7 +150,11 @@ class UserOptions:
                      ' (chrome, chromium, brave, local (chromedriver only)): ').strip()
 
     def __setup_headless(self) -> bool:
-        """Setup headless mode"""
+        """Setup headless mode
+
+        Returns:
+            - bool: Headless mode
+        """
         if self.argparse.headless is not None:
             self.__log_set_by_argparse('headless')
             return self.argparse.headless
@@ -141,7 +166,11 @@ class UserOptions:
                      '(no GUI) [Y/n]: ').strip().upper() in USER_INPUT_YES
 
     def __setup_create_pdf(self) -> bool:
-        """Setup links"""
+        """Setup create pdf
+
+        Returns:
+            - bool: Create PDF
+        """
         if self.argparse.create_pdf is not None:
             self.__log_set_by_argparse('create_pdf')
             return self.argparse.create_pdf
@@ -153,7 +182,11 @@ class UserOptions:
                      'after being downloaded [Y/n]: ').strip().upper() in USER_INPUT_YES
 
     def __setup_clean_imgs(self) -> bool:
-        """Setup clean images"""
+        """Setup clean images
+
+        Returns:
+            - bool: Clean images
+        """
         if self.argparse.clean_imgs is not None:
             self.__log_set_by_argparse('clean_imgs')
             return self.argparse.create_pdf
@@ -168,11 +201,8 @@ class UserOptions:
     def __log_set_by_argparse(var: str) -> None:
         """Log variable set by argparse
 
-        Params:
+        Args:
             - var (str): Variable name
-
-        Returns:
-            - None
         """
         logger.debug(msg=f'Variable: {var} - Set by argparse')
 
@@ -180,11 +210,8 @@ class UserOptions:
     def __log_set_by_config(var: str) -> None:
         """Log variable set by config file
 
-        Params:
+        Args:
             - var (str): Variable name
-
-        Returns:
-            - None
         """
         logger.debug(msg=f'Variable: {var} - Set by config file')
 
@@ -192,11 +219,8 @@ class UserOptions:
     def __log_set_by_user_input(var: str) -> None:
         """Log variable retrieved from user input
 
-        Params:
+        Args:
             - var (str): Variable name
-
-        Returns:
-            - None
         """
         logger.debug(msg=f'Variable: {var}'
                      ' - Retrieve from user input')

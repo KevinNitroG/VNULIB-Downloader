@@ -1,4 +1,5 @@
-"""Contains utility functions for the project"""
+"""Contains utility functions for the project
+"""
 
 
 from os import makedirs, path
@@ -12,12 +13,6 @@ from ..constants import USER_INPUT_YES
 
 def pause() -> None:
     """Pause the terminal until user hits Enter
-
-    Params:
-        - None
-
-    Returns:
-        - None
     """
     _: str = input('Press Enter to continue . . .')
 
@@ -25,12 +20,9 @@ def pause() -> None:
 def create_directory(*directories: str, force: bool | None = None) -> None:
     """Remove (if force=True) and create a directory
 
-    Params:
+    Args:
         - *directories (str): The directory to create
         - force (bool): Whether to remove the directory if it exists
-
-    Returns:
-        - None
     """
     for directory in directories:
         if path.exists(path=directory):
@@ -57,11 +49,8 @@ def create_directory(*directories: str, force: bool | None = None) -> None:
 def remove_directory(*directories: str) -> None:
     """Remove a directory
 
-    Params:
+    Args:
         - *directories (str): The directory to remove
-
-    Returns:
-        - None
     """
     for directory in directories:
         if path.exists(path=directory):
@@ -79,9 +68,6 @@ def remove_directory(*directories: str) -> None:
 
 def datetime_name() -> str:
     """Get the datetime name (%Y-%m-%d %H-%M-%S-%f)
-
-    Params:
-        - None
 
     Returns:
         - str: The datetime name

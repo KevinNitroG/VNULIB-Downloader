@@ -1,4 +1,5 @@
-"""Print out the banner, authors, version"""
+"""Print out the banner, authors, version
+"""
 
 
 from print_color import print as printColor
@@ -8,9 +9,6 @@ from src.constants import BANNER, AUTHORS, VERSION
 
 class PrintIntro:
     """Print out the intro
-
-    Params:
-        - None
     """
 
     def __init__(self) -> None:
@@ -20,12 +18,6 @@ class PrintIntro:
 
     def print_intro(self) -> None:
         """Print the intro including the banner, authors, version
-
-        Params:
-            - None
-
-        Retuns:
-            - None
         """
         self.print_banner(lines=self.banner)
         self.print_authors(authors=self.authors)
@@ -36,11 +28,8 @@ class PrintIntro:
     def print_banner(lines: list[str]) -> None:
         """Print out the banner
 
-        Params:
+        Args:
             - lines (list[str]): List of lines of the banner
-
-        Returns:
-            - None
         """
         for line in lines:
             printColor(line.center(TERMINAL_SIZE_COLUMNS),
@@ -50,11 +39,8 @@ class PrintIntro:
     def print_authors(authors: str) -> None:
         """Print out the authors
 
-        Params:
+        Args:
             - authors (str): Authors
-
-        Returns:
-            - None
         """
         to_print_authors: str = f'\033[94m\033[43m {authors} \033[0m'
         print(to_print_authors.rjust(TERMINAL_SIZE_COLUMNS))
@@ -63,11 +49,8 @@ class PrintIntro:
     def print_version(version: str) -> None:
         """Print out the version
 
-        Params:
+        Args:
             - version (str): Version
-
-        Returns:
-            - None
         """
         to_print_version: str = f'\033[45m\033[44m {version} \033[0m'
         print(to_print_version.rjust(TERMINAL_SIZE_COLUMNS))

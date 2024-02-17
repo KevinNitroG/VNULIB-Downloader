@@ -1,22 +1,21 @@
-"""VNULIB Downloader"""
+"""VNULIB Downloader
+"""
 
 
 from pprint import pformat
 from src import (Browser, Login, Action,
-                 PrintIntro,
-                 ToolConfig, UserOptions, LinkParse,
+                 PrintIntro, Config, UserOptions, LinkParse,
                  print_title,
                  logger)
-from src.constants import CONFIG_FILE, CONFIG_FILE_URL
 
 
 def main() -> None:
-    """Main function to run VNULIB Downloader"""
+    """Main function to run VNULIB Downloader
+    """
     PrintIntro().print_intro()
 
     print_title(message='SETUP')
-    ToolConfig(
-        config_file_name=CONFIG_FILE, url=CONFIG_FILE_URL).setup()
+    Config().setup()
     user_options = UserOptions()
     user_options.setup()
 
@@ -33,7 +32,7 @@ def main() -> None:
             user_options.links = LinkParse(links=user_options.links).parse()
             user_options.links = Action(driver=driver,
                                         links=user_options.links).action()
-    logger.debug(msg='LINKS AFTER PARSING:\n'
+    logger.debug(msg='LINKS OBJECT:\n'
                  f'{pformat(user_options.links)}')
 
     print_title(message='DOWNLOAD')

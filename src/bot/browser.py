@@ -1,4 +1,5 @@
-"""Setup Selenium Browser"""
+"""Setup Selenium Browser
+"""
 
 
 from selenium import webdriver
@@ -14,7 +15,12 @@ set_logger(logger)
 
 
 class Browser:
-    """Setup Selenium Browser"""
+    """Setup Selenium Browser
+
+    Args:
+        - browser (str): The browser to setup
+        - headless (bool): Headless mode
+    """
 
     def __init__(self, browser: str, headless: bool) -> None:
         self.browser: str = browser
@@ -23,7 +29,11 @@ class Browser:
         self.driver: WebDriver
 
     def __enter__(self) -> WebDriver:
-        """Setup the browser"""
+        """Setup the browser when entering the context manager
+
+        Returns:
+            - WebDriver: Selenium WebDriver
+        """
         logger.info(msg='Setting up the browser...')
         self.__setup_arguments()
         match self.browser:
@@ -32,15 +42,18 @@ class Browser:
             case _:
                 self.driver = self.__setup_local_chrome_browser()
         self.driver.implicitly_wait(30)
-        logger.info(msg=f'Browser {self.browser} setup complete!')
+        logger.info(msg=f'Browser \'{self.browser}\' setup complete!')
         return self.driver
 
     def __exit__(self, exc_type, exc_value, traceback) -> None:
+        """Exit the context manager
+        """
         logger.info(msg='Quit the browser')
         self.driver.quit()
 
     def __setup_arguments(self) -> None:
-        """Setup the browser arguments"""
+        """Setup the browser arguments
+        """
         for argument in BROWSER_ARGUMENTS:
             self.options.add_argument(argument)
         if self.headless:
@@ -50,11 +63,19 @@ class Browser:
             )
 
     def __setup_chrome_browser(self) -> WebDriver:
-        """Setup Chrome Browser"""
+        """Setup Chrome Browser
+
+        Returns:
+            - WebDriver: Selenium WebDriver
+        """
         return webdriver.Chrome(
             options=self.options,
             service=ChromeService(ChromeDriverManager().install()))
 
     def __setup_local_chrome_browser(self) -> WebDriver:
-        """Setup Local Chrome Browser"""
+        """Setup Local Chrome Browser
+
+        Returns:
+            - WebDriver: Selenium WebDriver
+        """
         return webdriver.Chrome(options=self.options, service=ChromeService(self.browser))

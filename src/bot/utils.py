@@ -1,4 +1,5 @@
-"""Utils for Bot"""
+"""Utils for Bot
+"""
 
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
@@ -13,7 +14,7 @@ TIMEOUT = 30
 def wait_element_visible(driver: WebDriver, css_selector: str) -> WebElement:
     """Wait for the element to be visible in DOM
 
-    Params:
+    Args:
         - driver (WebDriver): Selenium WebDriver
         - css_selector (str): CSS selector
 
@@ -28,7 +29,7 @@ def wait_element_visible(driver: WebDriver, css_selector: str) -> WebElement:
 def wait_element_clickable(driver: WebDriver, css_selector: str) -> WebElement:
     """Wait for the element to be clickable
 
-    Params:
+    Args:
         - driver (WebDriver): Selenium WebDriver
         - css_selector (str): CSS selector
 

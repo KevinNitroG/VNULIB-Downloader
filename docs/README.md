@@ -111,7 +111,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ### 🗃️ Pre-config
 
-1. Tạo file `config.yml` trong directory chứa file thực thi bằng 1 trong 2 cách:
+1. Tạo file `config.yml` trong directory `VNULIB-Downloader` bằng 1 trong 2 cách:
    - Chạy trước tool 1 lần sẽ tự tạo file `config.yml`
    - Copy nội dung của file [`config-sample.yml`](../config-sample.yml) và paste vào file `config.yml`
 2. Chỉnh các giá trị biến trong file `config.yml`

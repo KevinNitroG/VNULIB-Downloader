@@ -13,7 +13,7 @@ from ..constants import REPOSITORY_URL, VERSION
 def getVersionsFromRepository(repo_url: str = REPOSITORY_URL) -> list[str]:
     """Get versions from repository exclude beta versions
 
-    Params:
+    Args:
         - repo_url (str) = REPOSITORY_URL: Repository URL
 
     Returns:
@@ -36,7 +36,7 @@ def getVersionsFromRepository(repo_url: str = REPOSITORY_URL) -> list[str]:
 def compareVersion(version: str, to_compare_version: str) -> int:
     """Compare two versions
 
-    Params:
+    Args:
         - version (str): Version to compare
         - to_compare_version (str): Version to be compared
 
@@ -55,7 +55,7 @@ def compareVersion(version: str, to_compare_version: str) -> int:
 def checkNeedToUpdate(current_version: str, VERSIONS: list[str]) -> bool:
     """Check if it needs to update the tool or not
 
-    Params:
+    Args:
         - current_version (str): Current version
         - VERSIONS (list[str]): List of versions from repository
 
@@ -94,7 +94,7 @@ def checkNeedToUpdate(current_version: str, VERSIONS: list[str]) -> bool:
 def updateTheTool() -> None:
     """Update thee tool function
 
-    Params:
+    Args:
         - None
 
     Returns:

@@ -1,7 +1,7 @@
 # THIS PROJECT
 **/*test*
-config.yml
-VNULIB-DOWNLOADER/
+**/*log*
+VNULIB-Downloader/config.yml
 Profiles/
 
 **/__pycache__

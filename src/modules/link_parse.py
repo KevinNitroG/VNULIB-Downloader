@@ -1,4 +1,5 @@
-"""Convert parse links to convert all the links to the page links format"""
+"""Categorise links, remove invalid links
+"""
 
 
 from re import compile as re_compile, search as re_search
@@ -16,25 +17,25 @@ PATTERN_PAGE = re_compile(
 
 
 class LinkParse:
-    """Parse links to get the links' information
+    """Parse links to categorise and remove invalid links
 
-    Params:
+    Args:
         - links (list[Links]): List of links to parse
     """
 
     def __init__(self, links: list[Link]) -> None:
         self.links: list[Link] = links
-        self.need_to_convert = False
+        self.need_to_convert: bool = False
 
     @staticmethod
     def categorise(link: str) -> str:
-        """Categorise the links to the type of links
+        """Categorise the links using regex
 
-        Params:
+        Args:
             - link (str): Link to categorise
 
         Returns:
-            - str: 'book', 'preview', 'page' or 'unknown'
+            - str: 'book', 'preview', 'page' or ''
         """
         if re_search(PATTERN_BOOK, link):
             return 'book'
@@ -42,16 +43,13 @@ class LinkParse:
             return 'preview'
         if re_search(PATTERN_PAGE, link):
             return 'page'
-        return 'unknown'
+        return ''
 
     def parse(self) -> list[Link]:
-        """Categorise links into types. With 'page' type, the book atrribute will be set
-
-        Params:
-            - None
+        """Categorise links, remvoe invalid links, pre-set for 'page' type links
 
         Returns:
-        - list[Links]: List of categorised links
+        - list[Links]: List of parsed links object
         """
         modified_links: list[Link] = []
         for link in self.links:
@@ -72,5 +70,6 @@ class LinkParse:
                     modified_links.append(link)
                 case _:
                     logger.warning(
-                        msg=f'Unknown link type for: {link.original_link}')
+                        msg='Unknown link type for: '
+                        f'\'{link.original_link}\'')
         return modified_links
