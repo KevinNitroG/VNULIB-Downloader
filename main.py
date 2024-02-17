@@ -1,7 +1,6 @@
 """VNULIB Downloader
 """
 
-
 from pprint import pformat
 from src import (Browser, Login, Action,
                  PrintIntro, Config, UserOptions, LinkParse,
