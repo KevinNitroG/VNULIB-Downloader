@@ -4,6 +4,7 @@
 from argparse import ArgumentParser, Namespace
 
 
+# skipcq: PY-W0069
 def setup_argparse() -> Namespace:
     """Parse the arguments
 
@@ -27,9 +28,7 @@ def setup_argparse() -> Namespace:
                         default=None, help='Merge images to a PDF')
     parser.add_argument('--clean-imgs', '-c', action='store_true',
                         default=None, help='Delete images after merging to PDF')
-    # skipcq: PY-W0069
     # parser.add_argument('--update', '-u', action='store_true',
-    # skipcq: PY-W0069
     #                     default=False, help='Update the tool from Repository')
     args: Namespace = parser.parse_args()
     return args
