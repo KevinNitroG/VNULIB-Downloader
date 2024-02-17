@@ -1,5 +1,4 @@
-"""Setup pre config file for VNULIB-Downloader
-"""
+"""Setup pre config file for VNULIB-Downloader"""
 
 
 from os import path
@@ -21,8 +20,7 @@ class Config():
         self.url: str = url
 
     def download_config_file(self) -> None:
-        """Download the config file file from repository
-        """
+        """Download the config file file from repository"""
         logger.info(msg=f'Downloading \'{self.config_file}\' from repository.'
                     ' It will download once')
         with open(file=self.config_file, mode='w', encoding='utf-8') as file:
@@ -53,7 +51,6 @@ class Config():
         return False
 
     def setup(self) -> None:
-        """Prepare the config file for the project
-        """
+        """Prepare the config file for the project"""
         if not self.check_exist_config_file():
             self.download_config_file()

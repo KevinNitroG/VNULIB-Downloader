@@ -1,5 +1,4 @@
-"""Argparse for VNULIB-Downloader
-"""
+"""Argparse for VNULIB-Downloader"""
 
 
 from argparse import ArgumentParser, Namespace

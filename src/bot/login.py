@@ -1,5 +1,4 @@
-"""Use Selenium to login to the website
-"""
+"""Use Selenium to login to the website"""
 
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
@@ -26,8 +25,7 @@ class Login:
         self.url = LOGIN_URL
 
     def __fill_in(self) -> None:
-        """Fill in the login form
-        """
+        """Fill in the login form"""
         self.driver.find_element(
             By.CSS_SELECTOR, '.form-control[name="username"]').send_keys(self.username)
         self.driver.find_element(

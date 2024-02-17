@@ -1,5 +1,4 @@
-"""Categorise links, remove invalid links
-"""
+"""Categorise links, remove invalid links"""
 
 
 from re import compile as re_compile, search as re_search

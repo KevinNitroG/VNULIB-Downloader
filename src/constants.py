@@ -1,5 +1,4 @@
-"""Constant variables throughout the program
-"""
+"""Constant variables throughout the program"""
 
 
 VERSION: str = '0.9-beta'

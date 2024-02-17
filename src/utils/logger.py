@@ -1,5 +1,4 @@
-"""Setup the logger
-"""
+"""Setup the logger"""
 
 
 import sys

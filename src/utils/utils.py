@@ -1,5 +1,4 @@
-"""Contains utility functions for the project
-"""
+"""Contains utility functions for the project"""
 
 
 from os import makedirs, path
@@ -12,8 +11,7 @@ from ..constants import USER_INPUT_YES
 
 
 def pause() -> None:
-    """Pause the terminal until user hits Enter
-    """
+    """Pause the terminal until user hits Enter"""
     _: str = input('Press Enter to continue . . .')
 
 
