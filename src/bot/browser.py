@@ -14,7 +14,7 @@ from src.utils.logger import logger
 
 
 set_logger(logger)
-os.environ['WDM_LOG'] = str(logging.NOTSET)
+os.environ['WDM_LOG'] = str(logging.DEBUG)
 os.environ['WDM_SSL_VERIFY'] = '0'
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 

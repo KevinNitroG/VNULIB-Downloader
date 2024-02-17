@@ -2,9 +2,9 @@
 
 
 from dataclasses import dataclass
+from pprint import pformat
 from argparse import Namespace
 from yaml import safe_load
-
 from .argpase import setup_argparse
 from ..constants import CONFIG_FILE, USER_INPUT_YES, USER_INPUT_NO
 from ..utils import logger
@@ -78,11 +78,13 @@ class UserOptions:
         Returns:
             str: object information
         """
-        return f'Username: {self.username}\n' \
-            f'Browser: {self.browser}\n' \
-            f'Headless: {self.headless}\n' \
-            f'Create PDF: {self.create_pdf}\n' \
-            f'Clean images: {self.clean_imgs}'
+        debug_object = {'username': self.username,
+                        'browser': self.browser,
+                        'headless': self.headless,
+                        'create_pdf': self.create_pdf,
+                        'clean_imgs': self.clean_imgs}
+        return 'User options:\n' \
+            f'{pformat(debug_object)}'
 
     def __setup_username(self) -> str:
         """Setup username

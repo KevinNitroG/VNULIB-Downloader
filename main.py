@@ -3,7 +3,7 @@
 from pprint import pformat
 from src import (Browser, Login, Action,
                  PrintIntro, Config, UserOptions, LinkParse,
-                 print_title,
+                 print_title, pause,
                  logger)
 
 
@@ -39,3 +39,4 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
+    pause()
