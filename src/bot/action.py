@@ -55,8 +55,8 @@ class Action:
         query = parse_qs(parser.query)
         subfolder_value: str = query.get('subfolder', '')[0]
         doc_value: str = query.get('doc', '')[0]
-        page_link: str = f'https//ir.vnulib.edu.vn/flowpaper/services/view.php?doc={
-            doc_value}&format=jpg&subfolder={subfolder_value}'
+        page_link: str = f'https//ir.vnulib.edu.vn/flowpaper/services/view.php?doc = {
+            doc_value} & format = jpg & subfolder = {subfolder_value}'
         return page_link
 
     @staticmethod
