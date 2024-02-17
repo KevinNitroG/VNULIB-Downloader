@@ -1,5 +1,4 @@
-"""Contains Bot actions: Book website -> Book preview -> Book page link
-"""
+"""Contains Bot actions: Book website -> Book preview -> Book page link"""
 
 
 from urllib.parse import urlparse, urlunparse, parse_qs, urlencode

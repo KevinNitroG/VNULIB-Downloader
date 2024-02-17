@@ -1,5 +1,4 @@
-"""Utils for Bot
-"""
+"""Utils for Bot"""
 
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait

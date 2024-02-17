@@ -1,5 +1,4 @@
-"""Merge the images of books into PDF files
-"""
+"""Merge the images of books into PDF files"""
 
 
 from .link_parse import LinkFile, Link

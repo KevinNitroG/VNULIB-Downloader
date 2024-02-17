@@ -1,5 +1,4 @@
-"""Download book's images
-"""
+"""Download book's images"""
 
 
 from .link_parse import LinkFile, Link

@@ -1,5 +1,4 @@
-"""Setup Selenium Browser
-"""
+"""Setup Selenium Browser"""
 
 
 import os
@@ -52,14 +51,12 @@ class Browser:
         return self.driver
 
     def __exit__(self, exc_type, exc_value, traceback) -> None:
-        """Exit the context manager
-        """
+        """Exit the context manager"""
         logger.info(msg='Quit the browser')
         self.driver.quit()
 
     def __setup_arguments(self) -> None:
-        """Setup the browser arguments
-        """
+        """Setup the browser arguments"""
         for argument in BROWSER_ARGUMENTS:
             self.options.add_argument(argument)
         if self.headless:

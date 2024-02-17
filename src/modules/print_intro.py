@@ -1,5 +1,4 @@
-"""Print out the banner, authors, version
-"""
+"""Print out the banner, authors, version"""
 
 
 from print_color import print as printColor
@@ -8,8 +7,7 @@ from src.constants import BANNER, AUTHORS, VERSION
 
 
 class PrintIntro:
-    """Print out the intro
-    """
+    """Print out the intro"""
 
     def __init__(self) -> None:
         self.banner = BANNER.split('\n')
@@ -17,8 +15,7 @@ class PrintIntro:
         self.version = VERSION
 
     def print_intro(self) -> None:
-        """Print the intro including the banner, authors, version
-        """
+        """Print the intro including the banner, authors, version"""
         self.print_banner(lines=self.banner)
         self.print_authors(authors=self.authors)
         self.print_version(version=self.version)

@@ -1,5 +1,4 @@
-"""Print functions with tag, color, format, background
-"""
+"""Print functions with tag, color, format, background"""
 
 
 from os import get_terminal_size

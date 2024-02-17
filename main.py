@@ -1,5 +1,4 @@
-"""VNULIB Downloader
-"""
+"""VNULIB Downloader"""
 
 from pprint import pformat
 from src import (Browser, Login, Action,
@@ -9,8 +8,7 @@ from src import (Browser, Login, Action,
 
 
 def main() -> None:
-    """Main function to run VNULIB Downloader
-    """
+    """Main function to run VNULIB Downloader"""
     PrintIntro().print_intro()
 
     print_title(message='SETUP')
