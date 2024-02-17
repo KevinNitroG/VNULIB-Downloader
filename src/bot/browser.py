@@ -2,16 +2,22 @@
 """
 
 
+import os
+import logging
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.core.logger import set_logger
 from webdriver_manager.chrome import ChromeDriverManager
+import urllib3
 from src.constants import BROWSER_ARGUMENTS
 from src.utils.logger import logger
 
 
 set_logger(logger)
+os.environ['WDM_LOG'] = str(logging.NOTSET)
+os.environ['WDM_SSL_VERIFY'] = '0'
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class Browser:

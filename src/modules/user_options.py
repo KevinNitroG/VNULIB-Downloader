@@ -81,7 +81,6 @@ class UserOptions:
             str: object information
         """
         return f'Username: {self.username}\n' \
-            f'Links: {self.links}\n' \
             f'Browser: {self.browser}\n' \
             f'Headless: {self.headless}\n' \
             f'Create PDF: {self.create_pdf}\n' \
