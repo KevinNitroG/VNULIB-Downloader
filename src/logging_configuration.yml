@@ -2,9 +2,9 @@ version: 1
 disable_existing_loggers: False
 formatters:
   simple:
-    "format": "%(levelname)s\t: %(message)s"
+    "format": "[%(levelname)-7s] - %(message)s"
   verbose:
-    "format": "%(asctime)s - %(levelname)s - %(message)s - %(filename)s:%(lineno)d"
+    "format": "%(asctime)s [%(levelname)-7s] - %(message)s (%(filename)s:%(lineno)d)"
 handlers:
   stdout:
     class: logging.StreamHandler
@@ -15,7 +15,7 @@ handlers:
     class: logging.handlers.RotatingFileHandler
     formatter: verbose
     filename: "VNULIB-DOWNLOADER/logs/tool.log"
-    maxBytes: 20000 # 2KB
+    maxBytes: 100000 # 10KB
     backupCount: 3
     level: DEBUG
     encoding: utf-8
