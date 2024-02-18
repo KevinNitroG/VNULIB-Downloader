@@ -21,6 +21,7 @@ def main() -> None:
     user_options.links = link_parse.parse()
     if link_parse.need_to_convert:
         logger.info('There is / are some link(s) need to be processed')
+        print_title(message='CONVERT LINKS')
         with Browser(browser=user_options.browser,
                      headless=user_options.headless) as driver:
             Login(driver=driver,
