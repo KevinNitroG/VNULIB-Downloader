@@ -15,53 +15,62 @@ def pause() -> None:
     _: str = input('Press Enter to continue . . .')
 
 
-def create_directory(*directories: str, force: bool | None = None) -> None:
+def create_directory(directory: str, force: bool | None = None) -> bool:
     """Remove (if force=True) and create a directory
 
     Args:
-        - *directories (str): The directory to create
-        - force (bool): Whether to remove the directory if it exists
+        - directory (str): A directory to create
+        - force (bool | None): Whether to remove the directory if it exists. Default to None to ask for user input [Y/n]
+
+    Raise:
+        - PermissionError: If the directory cannot be removed due to permission error
+
+    Returns:
+        - bool: True if the directory was created, False if it was already created
     """
-    for directory in directories:
-        if path.exists(path=directory):
-            if force is False:
-                continue
-            if force is True or input(
-                    f'{directory} already exists. Force create it [Y/n]: ') in USER_INPUT_YES:
-                try:
-                    rmtree(path=directory)
-                except PermissionError as e:
-                    logger.error(
-                        msg=f'Error occurred while removing {directory}: {e}')
-                    raise e
-                logger.info(msg=f'{directory} was removed recursively!')
-            else:
-                logger.info(
-                    msg=f'{directory} was already created. Skip creating it')
-                return
-        makedirs(name=directory)
-        logger.info(msg=f'{directory} was created!')
-    return
-
-
-def remove_directory(*directories: str) -> None:
-    """Remove a directory
-
-    Args:
-        - *directories (str): The directory to remove
-    """
-    for directory in directories:
-        if path.exists(path=directory):
+    if path.exists(path=directory):
+        if force is False:
+            pass
+        elif force is True or input(
+                f'{directory} already exists. Force create it [Y/n]: ') in USER_INPUT_YES:
             try:
                 rmtree(path=directory)
             except PermissionError as e:
-                logger.error(
-                    msg=f'Error occurred while removing {directory}: {e}')
-                raise
+                logger.error(msg=e)
+                raise e
             logger.info(msg=f'{directory} was removed recursively!')
         else:
             logger.info(
-                msg=f'{directory} was not found. Skip removing it')
+                msg=f'Skip creating {directory}')
+            return False
+    makedirs(name=directory)
+    logger.info(msg=f'{directory} was created!')
+    return True
+
+
+def remove_directory(directory: str) -> bool:
+    """Remove a directory
+
+    Args:
+        - directory (str): A directory to remove
+
+    Raise:
+        - PermissionError: If the directory cannot be removed due to permission error
+
+    Returns:
+        - bool: True if the directory was removed, False if it was not found
+    """
+    if path.exists(path=directory):
+        try:
+            rmtree(path=directory)
+        except PermissionError as e:
+            logger.error(msg=e)
+            raise e
+        logger.info(msg=f'{directory} was removed recursively!')
+        return True
+    logger.info(
+        msg=f'{directory} was not found. Skip removing it')
+    return False
 
 
 def datetime_name() -> str:
