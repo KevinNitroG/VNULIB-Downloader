@@ -33,7 +33,7 @@ class Link:
         - original_link (str): Original link
         - original_type (str): Original type of the link
         - files (list[LinkFile]): List of book files from the book
-        - name (str): Name of the book. If preview link, it will be ''
+        - name (str): Name of the book. If preview / page link, it will be ''
     """
 
     original_link: str
