@@ -4,7 +4,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
 from .utils import wait_element_clickable
-from ..utils.logger import logger
+from ..utils import logger
 from ..constants import LOGIN_URL
 
 
