@@ -6,6 +6,7 @@ from shutil import rmtree
 from datetime import datetime
 import unicodedata
 import re
+
 from .logger import logger
 from ..constants import USER_INPUT_YES
 
@@ -102,3 +103,19 @@ def slugify(value, allow_unicode=True):
         )
     value = re.sub(r"[^\w\s-]", "", value.lower())
     return re.sub(r"[-\s]+", "-", value).strip("-_")
+
+
+def create_page_link(link: str) -> str:
+    """create the page link
+    Agrs:
+        - link : link without page
+
+    Returns:
+        - link with page
+    """
+    if re.search(r'&page=\d+', link):
+        # If it exists, return the URL as is
+        return link
+    else:
+        # If it doesn't exist, add the &page=1 parameter to the URL
+        return f"{link}&page=1"
