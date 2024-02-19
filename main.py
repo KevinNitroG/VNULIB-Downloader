@@ -9,19 +9,19 @@ from src import (Browser, Login, Action,
 
 def main() -> None:
     """Main function to run VNULIB Downloader"""
-    PrintIntro().print_intro()
+    PrintIntro()
 
-    print_title(message='SETUP')
-    Config().setup()
+    print_title(message='USER OPTIONS')
+    Config()
     user_options = UserOptions()
     user_options.setup()
 
     print_title(message='PARSE LINKS')
     link_parse = LinkParse(links=user_options.links)
     user_options.links = link_parse.parse()
-    if link_parse.need_to_convert:
+    if link_parse.need_to_process:
         logger.info('There is / are some link(s) need to be processed')
-        print_title(message='CONVERT LINKS')
+        print_title(message='PROCESS LINKS')
         with Browser(browser=user_options.browser,
                      headless=user_options.headless) as driver:
             Login(driver=driver,

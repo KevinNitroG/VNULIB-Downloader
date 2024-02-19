@@ -3,14 +3,14 @@
 
 import os
 import logging
+import urllib3
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.core.logger import set_logger
 from webdriver_manager.chrome import ChromeDriverManager
-import urllib3
 from src.constants import BROWSER_ARGUMENTS
-from src.utils.logger import logger
+from ..utils import logger
 
 
 set_logger(logger)
