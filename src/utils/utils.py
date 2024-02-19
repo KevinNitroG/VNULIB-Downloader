@@ -114,8 +114,6 @@ def create_page_link(link: str) -> str:
         - link with page
     """
     if re.search(r'&page=\d+', link):
-        # If it exists, return the URL as is
         return link
     else:
-        # If it doesn't exist, add the &page=1 parameter to the URL
         return f"{link}&page=1"
