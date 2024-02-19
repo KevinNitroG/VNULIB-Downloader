@@ -46,7 +46,9 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
     - [🗃️ Pre-config](#️-pre-config)
     - [⛏️ Pass by arguments](#️-pass-by-arguments)
     - [🤐 Python](#-python)
-  - [🤔 More notes](#-more-notes)
+  - [🤔 NOTES](#-notes)
+    - [Giải thích thuật ngữ](#giải-thích-thuật-ngữ)
+    - [Lấy `page` link](#lấy-page-link)
   - [📝 LICENSE](#-license)
   - [🤥 DISCLAIMER](#-disclaimer)
   - [😌 CREDIT](#-credit)
@@ -57,7 +59,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ## 🎆 CHỨC NĂNG
 
 - Tải sách _(có thể đọc preview online)_ trên [VNULIB](https://vnulib.edu.vn/) _(HCM)_
-- Hỗ trợ link: Sách _(`book`)_, Preview sách _(`preview`)_, Link trang sách bất kì _(`page`)_
+- Hỗ trợ link: `book`, `preview`, `page` _([giải thích](#giải-thích-thuật-ngữ))_
 - Tải một lúc nhiều sách _(lần lượt từng sách)_
 - Sử dụng multi thread để tải sách
 - Merge ảnh của các trang sách đã tải thành file PDF
@@ -112,9 +114,9 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ## ⚙️ NÂNG CAO
 
 - Có thể chạy tool theo các cách:
-  - [Pre config](#🗃️-pre-config) để không phải nhập input mỗi lần chạy
+  - [Pre config](#🗃️-pre-config): Để không phải nhập input mỗi lần chạy
   - [Pass by arguments](#⛏️-pass-by-arguments)
-  - [Python](#🤐-python) Clone cả repo về chạy python
+  - [Python](#🤐-python): Clone cả repo về chạy python
 
 > [!NOTE]
 >
@@ -165,13 +167,23 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ---
 
-## 🤔 More notes
+## 🤔 NOTES
 
-- Lấy link trang sách:
-  - Vào preview sách
-  - Lấy link ảnh trang sác của một trang bất kì
-    > Có thể F12 để lấy link ảnh trang sách nếu chuột phải không có option `Copy image address`, ...
-    > ![Lấy link ảnh trang sách bằng F12](../asset/video/huong_dan_get_link_anh_trang_sach.mp4)
+### Giải thích thuật ngữ
+
+| **WORD**   | **EXPLANTION**                                                                                                                                                                                                      |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `book`     | Link của sách<br>_(Ví dụ: `https://ir.vnulib.edu.vn/handle/VNUHCM/8108`)_                                                                                                                                           |
+| `preview`  | Preview link của sách<br>_(Ví dụ: `https://ir.vnulib.edu.vn/flowpaper/simple_document.php?subfolder=11/94/07/&doc=914783209473971&bitsid=c3558fcc-95bb-4a92-a492-46f61eccfadc&uid=237ys-b676-45b0-855b-12iuiwdT5`)_ |
+| `page`     | Link ảnh của 1 trang sách<br>_(Ví dụ: `https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=914783209473971&format=jpg&page=1&subfolder=11/94/07/`)_                                                            |
+| `selenium` | Một cái gì đó sử dụng trình duyệt hỗ trợ automation                                                                                                                                                                 |
+
+### Lấy `page` link
+
+- Vào `preview` sách
+- Lấy link ảnh trang sác của một trang bất kì
+  > Có thể F12 để lấy link ảnh trang sách nếu chuột phải không có option `Copy image address`, ...
+  > ![Lấy link ảnh trang sách bằng F12](../asset/video/huong_dan_get_link_anh_trang_sach.mp4)
 
 ---
 
