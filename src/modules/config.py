@@ -18,6 +18,7 @@ class Config():
     def __init__(self, config_file: str = CONFIG_FILE, url: str = CONFIG_FILE_URL) -> None:
         self.config_file: str = config_file
         self.url: str = url
+        self.setup()
 
     def download_config_file(self) -> None:
         """Download the config file file from repository"""

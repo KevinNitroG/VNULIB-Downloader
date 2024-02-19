@@ -13,13 +13,13 @@ class PrintIntro:
         self.banner = BANNER.split('\n')
         self.authors = AUTHORS
         self.version = VERSION
+        self.print_intro()
 
     def print_intro(self) -> None:
         """Print the intro including the banner, authors, version"""
         self.print_banner(lines=self.banner)
         self.print_authors(authors=self.authors)
         self.print_version(version=self.version)
-        print()
 
     @staticmethod
     def print_banner(lines: list[str]) -> None:

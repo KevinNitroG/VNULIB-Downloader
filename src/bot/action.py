@@ -1,7 +1,7 @@
 """Contains Bot actions: Book website -> Book preview -> Book page link"""
 
 
-from urllib.parse import urlparse, urlunparse, parse_qs, urlencode
+from urllib.parse import parse_qs, urlparse
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
@@ -21,25 +21,6 @@ class Action:
     def __init__(self, driver: WebDriver, links: list[Link]) -> None:
         self.driver: WebDriver = driver
         self.links: list[Link] = links
-
-    @staticmethod
-    def remove_page_query(link: str) -> str:
-        """Parse the link to remove "page" query
-
-        Args:
-            - link (str): Link to parse
-
-        Returns:
-            - str: Parsed link without "page" query
-        """
-        parser = urlparse(link)
-        query = parse_qs(parser.query)
-        query.pop('page', None)
-        parsed_query: str = urlencode(query, doseq=True)
-        parsed_url: str = urlunparse(
-            (parser.scheme, parser.netloc, parser.path,
-             parser.params, parsed_query, parser.fragment))
-        return parsed_url
 
     @staticmethod
     def __book_preview_to_page(link: str) -> str:
@@ -165,21 +146,6 @@ class Action:
             LinkFile(page_link=page_link, num_pages=num_pages, name=datetime_name())]
         return link
 
-    @staticmethod
-    def process_page(link: Link) -> Link:
-        """Process page link handler
-
-        Args:
-            - link (Link): Current link object
-
-        Returns:
-            - Link: Processed link object
-        """
-        page_link: str = Action.remove_page_query(link=link.original_link)
-        link.files = [LinkFile(
-            page_link=page_link, num_pages=-1, name=datetime_name())]
-        return link
-
     def action(self) -> list[Link]:
         """Convert all links to the page links format
 
@@ -198,6 +164,6 @@ class Action:
                     converted_links.append(
                         self.process_preview(link=link))
                 case 'page':
-                    converted_links.append(self.process_page(link=link))
+                    converted_links.append(link)
         logger.info(msg='Done processing all links')
         return converted_links
