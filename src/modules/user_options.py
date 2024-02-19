@@ -42,7 +42,7 @@ class Link:
     name: str = ''
 
 
-class UserOptions:
+class UserOptions:  # pylint: disable=too-many-instance-attributes
     """Setup user input"""
 
     def __init__(self) -> None:
@@ -67,6 +67,7 @@ class UserOptions:
         self.create_pdf = self.__setup_create_pdf()
         self.clean_imgs = self.__setup_clean_imgs()
         self.__log_the_variables()
+        logger.info(msg='User options setup completed')
 
     def __log_the_variables(self) -> None:
         """Log the variable to log file"""
@@ -78,11 +79,13 @@ class UserOptions:
         Returns:
             str: object information
         """
-        debug_object = {'username': self.username,
-                        'browser': self.browser,
-                        'headless': self.headless,
-                        'create_pdf': self.create_pdf,
-                        'clean_imgs': self.clean_imgs}
+        debug_object = {
+            'username': self.username,
+            'browser': self.browser,
+            'headless': self.headless,
+            'create_pdf': self.create_pdf,
+            'clean_imgs': self.clean_imgs
+        }
         return 'User options:\n' \
             f'{pformat(debug_object)}'
 

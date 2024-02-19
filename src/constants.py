@@ -20,9 +20,9 @@ BANNER: str = """
 """
 REPOSITORY_URL: str = 'https://github.com/KevinNitroG/VNULIB-Downloader'
 CONFIG_FILE: str = 'VNULIB-Downloader/config.yml'
-CONFIG_FILE_URL: str = 'https://raw.githubusercontent.com/KevinNitroG/VNULIB-Downloader/main/VNULIB-Downloader/config-sample.yml'  # skipcq: FLK-E501
-LOGGING_CONFIG_FILE: str = 'src/logging_configuration.yml'
-LOGGING_DIR: str = 'VNULIB-Downloader/logs'
+CONFIG_FILE_URL: str = 'https://raw.githubusercontent.com/KevinNitroG/VNULIB-Downloader/main/VNULIB-Downloader/config-sample.yml'  # skipcq: FLK-E501 #pylint: disable=line-too-long # nopep8
+LOGGING_CONFIG_FILE_PATH: str = 'src/logging_configuration.yml'
+LOGGING_PATH: str = 'VNULIB-Downloader/logs'
 DOWNLOAD_DIR: str = 'VNULIB-DOWNLOADER/Downloads'
 LOGGER_MODE: list[str] = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
 USER_INPUT_YES: list[str] = ['Y', 'YES', '', '1']
@@ -67,6 +67,7 @@ BROWSER_ARGUMENTS: list[str] = [
     '--password-store=basic'
     '--ignore-certificate-errors-spki-list',
     '--ignore-ssl-errors',
-    '--log-level=3'
+    '--log-level=3',
+    '--silent',
     '--disable-gpu'
 ]

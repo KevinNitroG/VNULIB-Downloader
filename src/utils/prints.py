@@ -14,6 +14,7 @@ def print_title(message: str) -> None:
     Args:
         - Message (str): Message of Title
     """
+    print()
     printColor(message.center(int(TERMINAL_SIZE_COLUMNS)),
                color='magenta', format='bold', background='blue', end='\n\n')
 

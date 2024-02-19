@@ -2,5 +2,5 @@
 
 
 from .prints import print_title
-from .logger import logger
 from .utils import *
+from .logger import logger
