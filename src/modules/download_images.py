@@ -23,7 +23,7 @@ class DownloadImages:
         self.links: list[Link] = links
 
     @staticmethod
-    def download_image_from_page(link: LinkFile) -> bytes:
+    def download_image_from_page(link: str) -> bytes:
         """Dowload image from page
 
         Args:
@@ -33,7 +33,7 @@ class DownloadImages:
             - Bytes : The datas of images
         """
         response: Response = requests.get(
-            link.page_link, stream=True, timeout=10)
+            link, stream=True, timeout=10)
         return response.content
 
     @staticmethod
@@ -50,14 +50,14 @@ class DownloadImages:
         folder_path: str = os.path.join(download_directory, folder_name)
         create_directory(folder_path)
         number_of_pages: int = link.num_pages
-        with alive_bar(number_of_pages) as bar:  # [disallowed-name]
+        with alive_bar(number_of_pages) as bar:  # pylint: disable=disallowed-name
             for page_num in range(number_of_pages):
                 sub_link = create_page_link(link.page_link)
                 sub_link: str = re.sub(
                     r'page=\d+', f'page={page_num}', link.page_link)
                 image_bytes: bytes = DownloadImages.download_image_from_page(
                     sub_link)
-                image: Image = Image.open(BytesIO(image_bytes))
+                image = Image.open(BytesIO(image_bytes))
                 image_path: str = os.path.join(
                     download_directory, f"image_{page_num}.jpg")
                 image.save(image_path)
