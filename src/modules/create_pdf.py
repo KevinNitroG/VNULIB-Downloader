@@ -13,7 +13,7 @@ class CreatePDF:
     """
 
     def __init__(self, links: list[Link]) -> None:
-        self.links = links
+        self.links: list[Link] = links
 
     @staticmethod
     def merge_jpg_to_pdf(directory: str, book_name: str) -> None:
@@ -26,7 +26,8 @@ class CreatePDF:
         Returns:
             None
         """
-        jpg_files = [f for f in os.listdir(directory) if f.endswith('.jpg')]
+        jpg_files: list[str] = [f for f in os.listdir(
+            directory) if f.endswith('.jpg')]
         jpg_files.sort()
         jpg_files = [os.path.join(directory, f) for f in jpg_files]
         if jpg_files:
@@ -38,7 +39,7 @@ class CreatePDF:
             print("No JPG images found in the directory.")
 
     @staticmethod
-    def merge_jpg_to_pdf_previewlink(directory: str) -> None:
+    def merge_jpg_to_pdf_book_link(directory: str) -> None:
         """
         For each subdirectory in a directory, merge all JPG images into a single PDF.
         The PDF is saved in the same subdirectory with the name of the subdirectory.
@@ -51,3 +52,23 @@ class CreatePDF:
             if subdir.is_dir():
                 CreatePDF.merge_jpg_to_pdf(os.path.join(
                     directory, subdir.path), os.path.basename(subdir.path))
+
+    @staticmethod
+    def create_pdf(directory: str) -> None:
+        """
+        For each subdirectory in a directory, if there are JPG images, merge them into a single PDF.
+        If there are no JPG images, use the merge_jpg_to_pdf_book_link function.
+
+        Ars:
+            directory (str): The directory containing the subdirectories.
+        """
+        for subdir in os.scandir(directory):
+            if subdir.is_dir():
+                jpg_files = [f for f in os.listdir(
+                    subdir.path) if f.endswith('.jpg')]
+
+                if jpg_files:
+                    CreatePDF.merge_jpg_to_pdf(
+                        subdir.path, f"{os.path.basename(subdir.path)}.pdf")
+                else:
+                    CreatePDF.merge_jpg_to_pdf_book_link(subdir.path)
