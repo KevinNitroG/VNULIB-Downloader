@@ -41,14 +41,14 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   - [🥂 DEMO](#-demo)
   - [🪴 HƯỚNG DẪN SỬ DỤNG](#-hướng-dẫn-sử-dụng)
     - [1️⃣ Tải tool](#1️⃣-tải-tool)
-    - [3️⃣ Sử dụng](#3️⃣-sử-dụng)
+    - [2️⃣ Sử dụng](#2️⃣-sử-dụng)
   - [⚙️ NÂNG CAO](#️-nâng-cao)
     - [🗃️ Pre-config](#️-pre-config)
     - [⛏️ Pass by arguments](#️-pass-by-arguments)
     - [🤐 Python](#-python)
   - [🤔 NOTES](#-notes)
     - [Giải thích thuật ngữ](#giải-thích-thuật-ngữ)
-    - [Lấy `page` link](#lấy-page-link)
+    - [Cách lấy page link](#cách-lấy-page-link)
   - [📝 LICENSE](#-license)
   - [🤥 DISCLAIMER](#-disclaimer)
   - [😌 CREDIT](#-credit)
@@ -59,9 +59,10 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ## 🎆 CHỨC NĂNG
 
 - Tải sách _(có thể đọc preview online)_ trên [VNULIB](https://vnulib.edu.vn/) _(HCM)_
-- Hỗ trợ link: `book`, `preview`, `page` _([giải thích](#giải-thích-thuật-ngữ))_
+  > Ví dụ: https://ir.vnulib.edu.vn/handle/VNUHCM/8108
+- Hỗ trợ link: `book`, `preview`, `page` [<sup>giải thích</sup>](#giải-thích-thuật-ngữ)
 - Tải một lúc nhiều sách _(lần lượt từng sách)_
-- Sử dụng multi thread để tải sách
+- Sử dụng multi thread _(đa luồng)_ để tải sách
 - Merge ảnh của các trang sách đã tải thành file PDF
 
 ---
@@ -80,21 +81,19 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 - [![Mac OS](https://img.shields.io/badge/MAC_OS-bdb2ff?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/download/latest/VNULIB-Downloader-macos)
 - [![Linux](https://img.shields.io/badge/Linux-ffc6ff?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/download/latest/VNULIB-Downloader-ubuntu)
 
-### 3️⃣ Sử dụng
+### 2️⃣ Sử dụng
 
 1. Mở tool
 2. Input
-
-| **VARIABLE** | **VALUE**                               | **DEFAULT** | **DESCRIPTION**                                                        | **EXAMPLE**     |
-| ------------ | --------------------------------------- | ----------- | ---------------------------------------------------------------------- | --------------- |
-| `USERNAME`   | `string`                                |             | Username tài khoản                                                     | `1500023520000` |
-| `PASSWORD`   | `string`                                |             | Password tài khoản                                                     | `examplePass`   |
-| `LINKS`      | `string string ...`                     |             | Link ảnh trang sách _(Có thể nhiều sách, cách nhau bằng khoảng cách)_  | `link_1 link_2` |
-| `BROWSER`    | `chrome`, `path/to/local/chrome_driver` | `chrome`    | Trình duyệt để sử dụng Selenium khi có cần xử lý Book, Preview website | `chrome`        |
-| `HEADLESS`   | `Yes`, `Y`, `y`, `1`, ...               | `Y`         | Khi sử dụng Selenium, chạy trình duyệt ẩn                              | `y`             |
-| `CREATE_PDF` | `Yes`, `Y`, `y`, `1`, ...               | `Y`         | Tạo file PDF từ các ảnh đã tải về                                      | `y`             |
-| `CLEAN_IMGS` | `Yes`, `Y`, `y`, `1`, ...               | `Y`         | Xoá ảnh sau khi đã tạo PDF                                             | `y`             |
-
+   | **VARIABLE** | **VALUE** | **DEFAULT** | **DESCRIPTION** | **EXAMPLE** |
+   | ----------------------------------------------- | --------------------------------------- | ----------- | ---------------------------------------------------------------------------- | --------------- |
+   | `USERNAME` | `string` | | Username tài khoản | `1500023520000` |
+   | `PASSWORD` | `string` | | Password tài khoản | `examplePass` |
+   | `LINKS` | `string string ...` | | Link ảnh trang sách<br>_(Có thể nhiều sách, cách nhau bằng khoảng cách)_ | `link_1 link_2` |
+   | `BROWSER` | `chrome`,<br> `path/to/local/chrome_driver` | `chrome` | Trình duyệt để sử dụng Selenium Webdriver khi có cần xử lý `book`, `preview` | `chrome` |
+   | `HEADLESS`[<sup>?</sup>](#giải-thích-thuật-ngữ) | `y`, `n`, ... | `y` | Selenium Webdriver headless mode | `y` |
+   | `CREATE_PDF` | `y`, `n`, ... | `y` | Tạo file PDF từ các ảnh đã tải về | `y` |
+   | `CLEAN_IMGS` | `y`, `n`, ... | `y` | Xoá ảnh sau khi đã tạo PDF | `y` |
 3. Ảnh và sách sẽ được tải về thư mục `./VNULIB-Downloader/Downloads/`
 
 > [!IMPORTANT]
@@ -103,7 +102,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 > [!NOTE]
 >
-> Khi có hơn 1 link là `book`, `preview`: Tool sẽ sử dụng Selenium để xử lý, cần phải dùng tài khoản thư viện để login
+> Khi có hơn 1 link là `book`, `preview`: Tool sẽ sử dụng Selenium Webdriver để xử lý, cần phải dùng tài khoản thư viện để login
 >
 > `preview` link của mỗi tài khoản là khác nhau _(dựa trên `uid`)_
 >
@@ -171,14 +170,15 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ### Giải thích thuật ngữ
 
-| **WORD**   | **EXPLANTION**                                                                                                                                                                                                      |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `book`     | Link của sách<br>_(Ví dụ: `https://ir.vnulib.edu.vn/handle/VNUHCM/8108`)_                                                                                                                                           |
-| `preview`  | Preview link của sách<br>_(Ví dụ: `https://ir.vnulib.edu.vn/flowpaper/simple_document.php?subfolder=11/94/07/&doc=914783209473971&bitsid=c3558fcc-95bb-4a92-a492-46f61eccfadc&uid=237ys-b676-45b0-855b-12iuiwdT5`)_ |
-| `page`     | Link ảnh của 1 trang sách<br>_(Ví dụ: `https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=914783209473971&format=jpg&page=1&subfolder=11/94/07/`)_                                                            |
-| `selenium` | Một cái gì đó sử dụng trình duyệt hỗ trợ automation                                                                                                                                                                 |
+| **TERM**             | **EXPLANTION**                                                                                                                                                                                               |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `book`               | Link của sách<br>Ex: `https://ir.vnulib.edu.vn/handle/VNUHCM/8108`                                                                                                                                           |
+| `preview`            | Preview link của sách<br>Ex: `https://ir.vnulib.edu.vn/flowpaper/simple_document.php?subfolder=11/94/07/&doc=914783209473971&bitsid=c3558fcc-95bb-4a92-a492-46f61eccfadc&uid=237ys-b676-45b0-855b-12iuiwdT5` |
+| `page`               | Link ảnh của 1 trang sách<br>Ex: `https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=914783209473971&format=jpg&page=1&subfolder=11/94/07/_                                                            |
+| `Selenium Webdriver` | Hỗ trợ automation bằng trình duyệt                                                                                                                                                                           |
+| `headless`           | Khi chạy trình duyệt sẽ không hiện ra thành cửa sổ, chỉ ẩn dưới nền                                                                                                                                          |
 
-### Lấy `page` link
+### Cách lấy page link
 
 - Vào `preview` sách
 - Lấy link ảnh trang sác của một trang bất kì
