@@ -105,15 +105,15 @@ def slugify(value, allow_unicode=True):
     return re.sub(r"[-\s]+", "-", value).strip("-_")
 
 
-def create_page_link(link: str) -> str:
+def create_page_link(link: str, page_num: int) -> str:
     """create the page link
     Agrs:
-        - link : link without page
-
+        - link(str) : link without page
+        - page_num(int):The number of page
     Returns:
         - link with page
     """
     if re.search(r'&page=\d+', link):
-        return link
+        return re.sub(r'&page=\d+', f'&page={page_num}', link)
     else:
-        return f"{link}&page=1"
+        return f"{link}&page={page_num}"
