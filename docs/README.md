@@ -102,11 +102,11 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 > [!NOTE]
 >
-> Khi có hơn 1 link là `book`, `preview`: Tool sẽ sử dụng Selenium Webdriver để xử lý, cần phải dùng tài khoản thư viện để login
+> - Khi có hơn 1 link là `book`, `preview`: Tool sẽ sử dụng Selenium Webdriver để xử lý, cần phải dùng tài khoản thư viện để login
 >
-> `preview` link của mỗi tài khoản là khác nhau _(dựa trên `uid`)_
+> - `preview` link của mỗi tài khoản là khác nhau _(dựa trên `uid`)_
 >
-> Khi toàn bộ link là `page`: Tool không cần dùng Selenium, không cần tài khoản chính xác 😏
+> - Khi toàn bộ link là `page`: Tool không cần dùng Selenium Webdriver, không cần tài khoản chính xác 😏
 
 ---
 
@@ -123,9 +123,9 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ### 🗃️ Pre-config
 
-1. Tạo file `config.yml` trong directory `VNULIB-Downloader` bằng 1 trong 2 cách:
+1. Tạo file `config.yml` trong đường dẫn `./VNULIB-Downloader/` bằng 1 trong 2 cách:
    - Chạy trước tool 1 lần sẽ tự tạo file `config.yml`
-   - Copy nội dung của file [`config-sample.yml`](../config-sample.yml) và paste vào file `config.yml`
+   - Copy nội dung của file [`config-sample.yml`](../VNULIB-Downloader/config-sample.yml) và paste vào file `config.yml`
 2. Chỉnh các giá trị biến trong file `config.yml`
 
 ### ⛏️ Pass by arguments
@@ -152,11 +152,11 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 1. Install [Python](https://www.python.org/downloads/)
 2. Create virtual environment _(optional)_
 3. Install requirements
-   ```sh
+   ```ps1
    pip install -r requirements.txt
    ```
 4. Run tool
-   ```sh
+   ```ps1
    python main.py
    ```
 
