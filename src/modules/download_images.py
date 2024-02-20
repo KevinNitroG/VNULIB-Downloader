@@ -58,7 +58,7 @@ class DownloadImages:
                 bar()  # pylint: disable=not-callable
 
     @staticmethod
-    def download_images_from_preview_link(links: Link, download_directory: str) -> None:
+    def download_images_from_book_link(links: Link, download_directory: str) -> None:
         """Download images from the preview link.
 
         Args:
@@ -71,3 +71,20 @@ class DownloadImages:
         create_directory(folder_path)
         for link in links.files:
             DownloadImages.download_images_from_page_link(link, folder_path)
+
+    @staticmethod
+    def dowload_images(links: list[Link], download_directory: str) -> None:
+        """Dowload Images from list of Link
+
+            Args:
+                -links (list[Link]):List of Link
+                -download_directory(str):the directory save dowloads folder
+
+        """
+        for link in links:
+            if link.original_type == 'page' or link.original_type == 'preview':
+                DownloadImages.download_images_from_page_link(
+                    link.files[0], download_directory)
+            if link.original_type == 'book':
+                DownloadImages.download_images_from_book_link(
+                    link, download_directory)
