@@ -102,11 +102,11 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 > [!NOTE]
 >
-> - Khi có hơn 1 link là `book`, `preview`: Tool sẽ sử dụng Selenium Webdriver để xử lý, cần phải dùng tài khoản thư viện để login
+> - `preview` link của mỗi tài khoản là khác nhau _(dựa trên query `uid`)_
 >
-> - `preview` link của mỗi tài khoản là khác nhau _(dựa trên `uid`)_
+> - Khi có >= 1 link là `book` / `preview`: Tool sẽ sử dụng Selenium Webdriver để xử lý, cần phải dùng tài khoản thư viện để login
 >
-> - Khi toàn bộ link là `page`: Tool không cần dùng Selenium Webdriver, không cần tài khoản chính xác 😏
+> - Trái lại, khi toàn bộ link là `page`: Tool không cần dùng Selenium Webdriver, nên `USERNAME`, `PASSWORD`, `BROSWER`, `HEADLESS` không còn quan trọng _(nhập bừa / để trống)_
 
 ---
 
