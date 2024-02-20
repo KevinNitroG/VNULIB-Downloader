@@ -16,7 +16,7 @@ class CreatePDF:
         self.links = links
 
     @staticmethod
-    def merge_jpg_to_pdf(directory, book_name) -> None:
+    def merge_jpg_to_pdf(directory: str, book_name: str) -> None:
         """Merge all JPG images in a directory into a single PDF.
 
         Args:
@@ -30,9 +30,24 @@ class CreatePDF:
         jpg_files.sort()
         jpg_files = [os.path.join(directory, f) for f in jpg_files]
         if jpg_files:
-            pdf_bytes = img2pdf.convert(jpg_files)
+            pdf_bytes: bytes | None = img2pdf.convert(jpg_files)
             if pdf_bytes is not None:
                 with open(book_name, 'wb') as f:
                     f.write(pdf_bytes)
         else:
             print("No JPG images found in the directory.")
+
+    @staticmethod
+    def merge_jpg_to_pdf_previewlink(directory: str) -> None:
+        """
+        For each subdirectory in a directory, merge all JPG images into a single PDF.
+        The PDF is saved in the same subdirectory with the name of the subdirectory.
+
+        Args:
+            directory (str): The directory containing the subdirectories.
+
+        """
+        for subdir in os.scandir(directory):
+            if subdir.is_dir():
+                CreatePDF.merge_jpg_to_pdf(os.path.join(
+                    directory, subdir.path), os.path.basename(subdir.path))
