@@ -62,6 +62,11 @@ def print_info(message: str) -> None:
 
 
 def terminal_size() -> int:
+    """Get current terminal's size in columns
+
+    Returns:
+        - int: Terminal's size in columns
+    """
     try:
         size: int = get_terminal_size().columns
     except OSError:
