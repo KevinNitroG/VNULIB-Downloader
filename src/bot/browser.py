@@ -1,17 +1,17 @@
 """Setup Selenium Browser"""
 
-
-import os
 import logging
+import os
+
 import urllib3
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.webdriver import WebDriver
-from webdriver_manager.core.logger import set_logger
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.logger import set_logger
+
 from src.constants import BROWSER_ARGUMENTS
 from ..utils import logger
-
 
 set_logger(logger)
 os.environ['WDM_LOG'] = str(logging.DEBUG)
@@ -23,7 +23,7 @@ class Browser:
     """Setup Selenium Browser
 
     Args:
-        - browser (str): The browser to setup
+        - browser (str): The browser to set up
         - headless (bool): Headless mode
     """
 
@@ -34,7 +34,7 @@ class Browser:
         self.driver: WebDriver
 
     def __enter__(self) -> WebDriver:
-        """Setup the browser when entering the context manager
+        """Set up the browser when entering the context manager
 
         Returns:
             - WebDriver: Selenium WebDriver
@@ -56,7 +56,7 @@ class Browser:
         self.driver.quit()
 
     def __setup_arguments(self) -> None:
-        """Setup the browser arguments"""
+        """Set up the browser arguments"""
         for argument in BROWSER_ARGUMENTS:
             self.options.add_argument(argument)
         if self.headless:

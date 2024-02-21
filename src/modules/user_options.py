@@ -1,10 +1,11 @@
 """Setup user input, priority: argparse > config file > user input"""
 
-
+from argparse import Namespace
 from dataclasses import dataclass
 from pprint import pformat
-from argparse import Namespace
+
 from yaml import safe_load
+
 from .argpase import setup_argparse
 from ..constants import CONFIG_FILE, USER_INPUT_YES, USER_INPUT_NO
 from ..utils import logger
@@ -49,13 +50,14 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         self.argparse: Namespace = setup_argparse()
         with open(CONFIG_FILE, 'r', encoding='utf-8') as config:
             self.config = safe_load(config)
-        self.username: str
-        self.password: str
-        self.links: list[Link]
-        self.browser: str
-        self.headless: bool
-        self.create_pdf: bool
-        self.clean_imgs: bool
+        self.username: str = ''
+        self.password: str = ''
+        self.links: list[Link] = []
+        self.browser: str = ''
+        self.headless: bool = False
+        self.create_pdf: bool = True
+        self.clean_img: bool = True
+        # Just pre-set the variables, not really matter
 
     def setup(self) -> None:
         """Setup user options"""
@@ -65,7 +67,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         self.browser = self.__setup_browser().lower()
         self.headless = self.__setup_headless()
         self.create_pdf = self.__setup_create_pdf()
-        self.clean_imgs = self.__setup_clean_imgs()
+        self.clean_img = self.__setup_clean_img()
         self.__log_the_variables()
         logger.info(msg='User options setup completed')
 
@@ -84,10 +86,10 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
             'browser': self.browser,
             'headless': self.headless,
             'create_pdf': self.create_pdf,
-            'clean_imgs': self.clean_imgs
+            'clean_img': self.clean_img
         }
         return 'User options:\n' \
-            f'{pformat(debug_object)}'
+               f'{pformat(debug_object)}'
 
     def __setup_username(self) -> str:
         """Setup username
@@ -183,19 +185,19 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         return input('Create PDF of book(s)'
                      'after being downloaded [Y/n]: ').strip().upper() in USER_INPUT_YES
 
-    def __setup_clean_imgs(self) -> bool:
+    def __setup_clean_img(self) -> bool:
         """Setup clean images
 
         Returns:
             - bool: Clean images
         """
-        if self.argparse.clean_imgs is not None:
-            self.__log_set_by_argparse('clean_imgs')
-            return self.argparse.create_pdf
-        if self.config['CLEAN_IMGS'] is not None:
-            self.__log_set_by_config('clean_imgs')
-            return self.config['CLEAN_IMGS']
-        self.__log_set_by_user_input('clean_imgs')
+        if self.argparse.clean_img is not None:
+            self.__log_set_by_argparse('clean_img')
+            return self.argparse.clean_img
+        if self.config['CLEAN_IMG'] is not None:
+            self.__log_set_by_config('clean_img')
+            return self.config['CLEAN_IMG']
+        self.__log_set_by_user_input('clean_img')
         return input('Create images of book(s)'
                      'after being merged into PDF [y/N]: ').strip().upper() in USER_INPUT_NO
 
@@ -225,4 +227,4 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
             - var (str): Variable name
         """
         logger.debug(msg=f'Variable: {var}'
-                     ' - Retrieve from user input')
+                         ' - Retrieve from user input')
