@@ -24,7 +24,7 @@ class Config():
     def download_config_file(self) -> None:
         """Download the config file from repository"""
         logger.info(msg=f'Downloading \'{self.config_file}\' from repository.'
-                        ' It will download once')
+                    ' It will download once')
         with open(file=self.config_file, mode='w', encoding='utf-8') as file:
             try:
                 content = get(
@@ -35,7 +35,7 @@ class Config():
             except ConnectionError:
                 logger.error(
                     msg='Couldn\'t connect to Repository Source to download the config file.'
-                        'Please check the connection or the source of the repo and try again.')
+                    'Please check the connection or the source of the repo and try again.')
             else:
                 file.write(content)
                 logger.info(msg='Downloaded config file successfully at '
