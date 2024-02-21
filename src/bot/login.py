@@ -1,11 +1,12 @@
-"""Use Selenium to login to the website"""
+"""Use Selenium to log in to the website"""
 
 from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
+
 from .utils import wait_element_clickable
-from ..utils import logger
 from ..constants import LOGIN_URL
+from ..utils import logger
 
 
 class Login:

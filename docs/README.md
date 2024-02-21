@@ -37,22 +37,22 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ---
 
 - [✨ VNULIB DOWNLOADER ✨](#-vnulib-downloader-)
-  - [🎆 CHỨC NĂNG](#-chức-năng)
-  - [🥂 DEMO](#-demo)
-  - [🪴 HƯỚNG DẪN SỬ DỤNG](#-hướng-dẫn-sử-dụng)
-    - [1️⃣ Tải tool](#1️⃣-tải-tool)
-    - [2️⃣ Sử dụng](#2️⃣-sử-dụng)
-  - [⚙️ NÂNG CAO](#️-nâng-cao)
-    - [🗃️ Pre-config](#️-pre-config)
-    - [⛏️ Pass by arguments](#️-pass-by-arguments)
-    - [🤐 Python](#-python)
-  - [🤔 NOTES](#-notes)
-    - [Giải thích thuật ngữ](#giải-thích-thuật-ngữ)
-    - [Cách lấy page link](#cách-lấy-page-link)
-  - [📝 LICENSE](#-license)
-  - [🤥 DISCLAIMER](#-disclaimer)
-  - [😌 CREDIT](#-credit)
-  - [⭐ STARGAZER](#-stargazer)
+    - [🎆 CHỨC NĂNG](#-chức-năng)
+    - [🥂 DEMO](#-demo)
+    - [🪴 HƯỚNG DẪN SỬ DỤNG](#-hướng-dẫn-sử-dụng)
+        - [1️⃣ Tải tool](#1️⃣-tải-tool)
+        - [2️⃣ Sử dụng](#2️⃣-sử-dụng)
+    - [⚙️ NÂNG CAO](#️-nâng-cao)
+        - [🗃️ Pre-config](#️-pre-config)
+        - [⛏️ Pass by arguments](#️-pass-by-arguments)
+        - [🤐 Python](#-python)
+    - [🤔 NOTES](#-notes)
+        - [Giải thích thuật ngữ](#giải-thích-thuật-ngữ)
+        - [Cách lấy page link](#cách-lấy-page-link)
+    - [📝 LICENSE](#-license)
+    - [🤥 DISCLAIMER](#-disclaimer)
+    - [😌 CREDIT](#-credit)
+    - [⭐ STARGAZER](#-stargazer)
 
 ---
 
@@ -85,37 +85,42 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 1. Mở tool
 2. Input
-   | **VARIABLE** | **VALUE** | **DEFAULT** | **DESCRIPTION** | **EXAMPLE** |
-   | ----------------------------------------------- | --------------------------------------- | ----------- | ---------------------------------------------------------------------------- | --------------- |
-   | `USERNAME` | `string` | | Username tài khoản | `1500023520000` |
-   | `PASSWORD` | `string` | | Password tài khoản | `examplePass` |
-   | `LINKS` | `string string ...` | | Link ảnh trang sách<br>_(Có thể nhiều sách, cách nhau bằng khoảng cách)_ | `link_1 link_2` |
-   | `BROWSER` | `chrome`,<br> `path/to/local/chrome_driver` | `chrome` | Trình duyệt để sử dụng Selenium Webdriver khi có cần xử lý `book`, `preview` | `chrome` |
-   | `HEADLESS`[<sup>?</sup>](#giải-thích-thuật-ngữ) | `y`, `n`, ... | `y` | Selenium Webdriver headless mode | `y` |
-   | `CREATE_PDF` | `y`, `n`, ... | `y` | Tạo file PDF từ các ảnh đã tải về | `y` |
-   | `CLEAN_IMGS` | `y`, `n`, ... | `y` | Xoá ảnh sau khi đã tạo PDF | `y` |
-3. Ảnh và sách sẽ được tải về thư mục `./VNULIB-Downloader/Downloads/`
+
+| **VARIABLE**                                    | **VALUE**                                   | **DEFAULT** | **DESCRIPTION**                                                              | **EXAMPLE**     |
+|-------------------------------------------------|---------------------------------------------|-------------|------------------------------------------------------------------------------|-----------------|
+| `USERNAME`                                      | `string`                                    |             | Username tài khoản                                                           | `1500023520000` |
+| `PASSWORD`                                      | `string`                                    |             | Password tài khoản                                                           | `examplePass`   |
+| `LINKS`                                         | `string string ...`                         |             | Link ảnh trang sách<br>_(Có thể nhiều sách, cách nhau bằng khoảng cách)_     | `link_1 link_2` |
+| `BROWSER`                                       | `chrome`,<br> `path/to/local/chrome_driver` | `chrome`    | Trình duyệt để sử dụng Selenium Webdriver khi có cần xử lý `book`, `preview` | `chrome`        |
+| `HEADLESS`[<sup>?</sup>](#giải-thích-thuật-ngữ) | `y`, `n`, ...                               | `y`         | Selenium Webdriver headless mode                                             | `y`             |
+| `CREATE_PDF`                                    | `y`, `n`, ...                               | `y`         | Tạo file PDF từ các ảnh đã tải về                                            | `y`             |
+| `CLEAN_IMG`                                     | `y`, `n`, ...                               | `y`         | Xoá ảnh sau khi đã tạo PDF                                                   | `y`             |
+
+4. Ảnh và sách sẽ được tải về thư mục `./VNULIB-Downloader/Downloads/`
 
 > [!IMPORTANT]
 >
-> Nếu trong tương lai việc sử dụng link `book` hay `preview` không được, hãy thử link `page` _(vì các phần tử trang web có thể thay đổi)_
+> Nếu trong tương lai việc sử dụng link `book` hay `preview` không được, hãy thử link `page` _(vì các phần tử trang web
+có thể thay đổi)_
 
 > [!NOTE]
 >
 > - `preview` link của mỗi tài khoản là khác nhau _(dựa trên query `uid`)_
 >
-> - Khi có >= 1 link là `book` / `preview`: Tool sẽ sử dụng Selenium Webdriver để xử lý, cần phải dùng tài khoản thư viện để login
+> - Khi có >= 1 link là `book` / `preview`: Tool sẽ sử dụng Selenium Webdriver để xử lý, cần phải dùng tài khoản thư
+    viện để login
 >
-> - Trái lại, khi toàn bộ link là `page`: Tool không cần dùng Selenium Webdriver, nên `USERNAME`, `PASSWORD`, `BROSWER`, `HEADLESS` không còn quan trọng _(nhập bừa / để trống)_
+> - Trái lại, khi toàn bộ link là `page`: Tool không cần dùng Selenium Webdriver,
+    nên `USERNAME`, `PASSWORD`, `BROSWER`, `HEADLESS` không còn quan trọng _(nhập bừa / để trống)_
 
 ---
 
 ## ⚙️ NÂNG CAO
 
 - Có thể chạy tool theo các cách:
-  - [Pre config](#🗃️-pre-config): Để không phải nhập input mỗi lần chạy
-  - [Pass by arguments](#⛏️-pass-by-arguments)
-  - [Python](#🤐-python): Clone cả repo về chạy python
+    - [Pre config](#🗃️-pre-config): Để không phải nhập input mỗi lần chạy
+    - [Pass by arguments](#⛏️-pass-by-arguments)
+    - [Python](#🤐-python): Clone cả repo về chạy python
 
 > [!NOTE]
 >
@@ -124,8 +129,9 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ### 🗃️ Pre-config
 
 1. Tạo file `config.yml` trong đường dẫn `./VNULIB-Downloader/` bằng 1 trong 2 cách:
-   - Chạy trước tool 1 lần sẽ tự tạo file `config.yml`
-   - Copy nội dung của file [`config-sample.yml`](../VNULIB-Downloader/config-sample.yml) và paste vào file `config.yml`
+    - Chạy trước tool 1 lần sẽ tự tạo file `config.yml`
+    - Copy nội dung của file [`config-sample.yml`](../VNULIB-Downloader/config-sample.yml) và paste vào
+      file `config.yml`
 2. Chỉnh các giá trị biến trong file `config.yml`
 
 ### ⛏️ Pass by arguments
@@ -171,7 +177,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ### Giải thích thuật ngữ
 
 | **TERM**             | **EXPLANTION**                                                                                                                                                                                               |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `book`               | Link của sách<br>Ex: `https://ir.vnulib.edu.vn/handle/VNUHCM/8108`                                                                                                                                           |
 | `preview`            | Preview link của sách<br>Ex: `https://ir.vnulib.edu.vn/flowpaper/simple_document.php?subfolder=11/94/07/&doc=914783209473971&bitsid=c3558fcc-95bb-4a92-a492-46f61eccfadc&uid=237ys-b676-45b0-855b-12iuiwdT5` |
 | `page`               | Link ảnh của 1 trang sách<br>Ex: `https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=914783209473971&format=jpg&page=1&subfolder=11/94/07/_                                                            |
@@ -195,7 +201,9 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ## 🤥 DISCLAIMER
 
-Dự án này không liên quan đến [VNULIB](https://vnulib.edu.vn/) hay bất kì tổ chức nào khác. Dự án chỉ mang tính học tập _(thực hành, làm việc nhóm, sử dụng ngôn ngữ lập trình, tổ chức một dự án, sử dụng Git, Github, CI/CD)_, không có mục đích thương mại. Chúng tôi không chịu trách nhiệm cho bất kì kết quả và hậu quả nào của việc sử dụng tool.
+Dự án này không liên quan đến [VNULIB](https://vnulib.edu.vn/) hay bất kì tổ chức nào khác. Dự án chỉ mang tính học tập
+_(thực hành, làm việc nhóm, sử dụng ngôn ngữ lập trình, tổ chức một dự án, sử dụng Git, Github, CI/CD)_, không có mục
+đích thương mại. Chúng tôi không chịu trách nhiệm cho bất kì kết quả và hậu quả nào của việc sử dụng tool.
 
 ---
 

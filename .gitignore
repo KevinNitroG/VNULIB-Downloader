@@ -7,6 +7,10 @@ Profiles/
 **/__pycache__
 **/*.exe
 .mypy_cache/
+venv/
+
+# Pycharm
+.idea/
 
 # FROM https://github.com/github/gitignore/blob/main/Python.gitignore
 

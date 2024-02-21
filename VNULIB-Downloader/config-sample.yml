@@ -32,4 +32,4 @@ CREATE_PDF:
 
 # Clean downloaded images
 # True, true, on / False, false, off
-CLEAN_IMGS:
+CLEAN_IMG:

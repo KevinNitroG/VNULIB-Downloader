@@ -25,7 +25,7 @@ def setup_argparse() -> Namespace:
                         default=None, help='Open the browser in headless mode (no GUI)')
     parser.add_argument('--create-pdf', '-pdf', action='store_true',
                         default=None, help='Merge images to a PDF')
-    parser.add_argument('--clean-imgs', '-c', action='store_true',
+    parser.add_argument('--clean-img', '-c', action='store_true',
                         default=None, help='Delete images after merging to PDF')
     # skipcq: PY-W0069
     # parser.add_argument('--update', '-u', action='store_true',
