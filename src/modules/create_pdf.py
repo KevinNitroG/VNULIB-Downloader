@@ -51,7 +51,7 @@ class CreatePDF:
         for subdir in os.scandir(directory):
             if subdir.is_dir():
                 CreatePDF.merge_jpg_to_pdf(os.path.join(
-                    directory, subdir.path), os.path.basename(subdir.path))
+                    directory, subdir.path), f"{os.path.basename(subdir.path)}.pdf")
 
     @staticmethod
     def create_pdf(directory: str) -> None:
