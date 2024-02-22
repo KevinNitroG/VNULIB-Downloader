@@ -227,4 +227,4 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
             - var (str): Variable name
         """
         logger.debug(msg=f'Variable: {var}'
-                         ' - Retrieve from user input')
+                     ' - Retrieve from user input')
