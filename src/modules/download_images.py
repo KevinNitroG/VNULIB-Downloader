@@ -35,7 +35,7 @@ class DownloadImages:
         return response.content
 
     @staticmethod
-    def download_images_from_page_link(link: LinkFile, download_directory: str) -> None:
+    def download_images_from_page_link_or_preview_link(link: LinkFile, download_directory: str) -> None:
         """Dowload All book's images from page link
 
         Args:
@@ -70,7 +70,7 @@ class DownloadImages:
         folder_path: str = os.path.join(download_directory, folder_book_name)
         if create_directory(folder_path):
             for link in links.files:
-                DownloadImages.download_images_from_page_link(
+                DownloadImages.download_images_from_page_link_or_preview_link(
                     link, folder_path)
 
     @staticmethod
@@ -84,7 +84,7 @@ class DownloadImages:
         """
         for link in links:
             if link.original_type == 'page' or link.original_type == 'preview':
-                DownloadImages.download_images_from_page_link(
+                DownloadImages.download_images_from_page_link_or_preview_link(
                     link.files[0], download_directory)
             if link.original_type == 'book':
                 DownloadImages.download_images_from_book_link(
