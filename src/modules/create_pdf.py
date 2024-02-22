@@ -2,7 +2,7 @@
 
 import os
 import img2pdf
-from .link_parse import LinkFile, Link
+from .link_parse import Link, LinkFile
 
 
 class CreatePDF:
@@ -16,30 +16,21 @@ class CreatePDF:
         self.links: list[Link] = links
 
     @staticmethod
-    def merge_jpg_to_pdf_page_link_or_preview_link(directory: str, book_name: str) -> None:
+    def merge_jpg_to_pdf_page_link_or_preview_link(page_directory: str, link_page: LinkFile) -> None:
         """Merge all JPG images in a directory into a single PDF.
 
         Args:
             directory (str): The directory containing the JPG images.
-            output_filename (str): The filename of the output PDF.
-
-        Returns:
-            None
+            link (LinkFile): The link of the which use to download JPG use to merge to PDF
         """
-        jpg_files: list[str] = [f for f in os.listdir(
-            directory) if f.endswith('.jpg')]
-        jpg_files.sort()
-        jpg_files = [os.path.join(directory, f) for f in jpg_files]
-        if jpg_files:
-            pdf_bytes: bytes | None = img2pdf.convert(jpg_files)
-            if pdf_bytes is not None:
-                with open(book_name, 'wb') as f:
-                    f.write(pdf_bytes)
-        else:
-            print("No JPG images found in the directory.")
+        jpg_files: list[str] = [os.path.join(page_directory, f) for f in os.listdir('.') if f.endswith('.jpg')]
+        converted_pdf: bytes | None = img2pdf.convert([i for i in jpg_files if i.endswith('.jpg')])
+        if converted_pdf is not None:
+            with open(f'{link_page.name}.pdf', 'wb') as f:
+                f.write(converted_pdf)
 
     @staticmethod
-    def merge_jpg_to_pdf_book_link(directory: str) -> None:
+    def merge_jpg_to_pdf_book_link(book_directory: str, link: Link) -> None:
         """
         For each subdirectory in a directory, merge all JPG images into a single PDF.
         The PDF is saved in the same subdirectory with the name of the subdirectory.
@@ -48,13 +39,11 @@ class CreatePDF:
             directory (str): The directory containing the subdirectories.
 
         """
-        for subdir in os.scandir(directory):
-            if subdir.is_dir():
-                CreatePDF.merge_jpg_to_pdf_page_link_or_preview_link(os.path.join(
-                    directory, subdir.path), f"{os.path.basename(subdir.path)}.pdf")
+        for link_page in link.files:
+            CreatePDF.merge_jpg_to_pdf_page_link_or_preview_link(os.path.join(book_directory, link_page.name), link_page)
 
     @staticmethod
-    def create_pdf(directory: str) -> None:
+    def create_pdf(dowload_directory: str, links: list[Link]) -> None:
         """
         For each subdirectory in a directory, if there are JPG images, merge them into a single PDF.
         If there are no JPG images, use the merge_jpg_to_pdf_book_link function.
@@ -62,13 +51,8 @@ class CreatePDF:
         Ars:
             directory (str): The directory containing the subdirectories.
         """
-        for subdir in os.scandir(directory):
-            if subdir.is_dir():
-                jpg_files = [f for f in os.listdir(
-                    subdir.path) if f.endswith('.jpg')]
-
-                if jpg_files:
-                    CreatePDF.merge_jpg_to_pdf_page_link_or_preview_link(
-                        subdir.path, f"{os.path.basename(subdir.path)}.pdf")
-                else:
-                    CreatePDF.merge_jpg_to_pdf_book_link(subdir.path)
+        for link in links:
+            if link.original_type == 'book':
+                CreatePDF.merge_jpg_to_pdf_book_link(os.path.join(dowload_directory, link.name), link)
+            else:
+                CreatePDF.merge_jpg_to_pdf_page_link_or_preview_link(os.path.join(dowload_directory, link.name), link.files[0])
