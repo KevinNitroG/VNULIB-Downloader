@@ -5,6 +5,11 @@ from src import (Browser, Login, Action,
                  PrintIntro, Config, UserOptions, LinkParse,
                  print_title, pause,
                  logger)
+from src.constants import DOWNLOAD_DIR
+from src.utils.utils import create_directory
+from src.modules.download_images import DownloadImages
+from src.modules.create_pdf import CreatePDF
+from src.modules.delete_img import DeleteIMG
 
 
 def main() -> None:
@@ -35,6 +40,12 @@ def main() -> None:
     print_title('DOWNLOAD')
 
     print_title('PDF')
+    if create_directory(DOWNLOAD_DIR):
+        DownloadImages.dowload_images(user_options.links, DOWNLOAD_DIR)
+        if user_options.create_pdf:
+            CreatePDF.create_pdf(DOWNLOAD_DIR, user_options.links)
+        if user_options.clean_img:
+            DeleteIMG.delete_jpg(DOWNLOAD_DIR, user_options.links)
 
 
 if __name__ == '__main__':
