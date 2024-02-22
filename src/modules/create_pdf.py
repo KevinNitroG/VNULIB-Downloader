@@ -37,7 +37,7 @@ class CreatePDF:
 
         Args:
             directory (str): The directory containing the subdirectories.
-
+            link (Link): The book's Link
         """
         for link_page in link.files:
             CreatePDF.merge_jpg_to_pdf_page_link_or_preview_link(os.path.join(book_directory, link_page.name), link_page)
@@ -50,6 +50,7 @@ class CreatePDF:
 
         Ars:
             directory (str): The directory containing the subdirectories.
+            links (list[Link]): list of Link
         """
         for link in links:
             if link.original_type == 'book':
