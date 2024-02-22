@@ -23,7 +23,7 @@ class CreatePDF:
             directory (str): The directory containing the JPG images.
             link (LinkFile): The link of the which use to download JPG use to merge to PDF
         """
-        jpg_files: list[str] = [os.path.join(page_directory, f) for f in os.listdir('.') if f.endswith('.jpg')]
+        jpg_files: list[str] = [os.path.join(page_directory, f) for f in os.listdir(page_directory) if f.endswith('.jpg')]
         converted_pdf: bytes | None = img2pdf.convert([i for i in jpg_files if i.endswith('.jpg')])
         if converted_pdf is not None:
             with open(f'{link_page.name}.pdf', 'wb') as f:
