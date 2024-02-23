@@ -9,6 +9,7 @@ Profiles/
 .mypy_cache/
 venv/
 .venv/
+**/tempCodeRunnerFile.py
 
 # Pycharm
 .idea/
