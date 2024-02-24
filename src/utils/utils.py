@@ -31,7 +31,7 @@ def create_directory(directory: str, force: bool | None = None) -> bool:
     """
     if path.exists(path=directory):
         if force is False:
-            pass
+            return True
         elif force is True or input(
                 f'{directory} already exists. Force create it [Y/n]: ') in USER_INPUT_YES:
             try:
@@ -103,17 +103,3 @@ def slugify(value, allow_unicode=True):
         )
     value = re.sub(r"[^\w\s-]", "", value.lower())
     return re.sub(r"[-\s]+", "-", value).strip("-_")
-
-
-def create_page_link(link: str, page_num: int) -> str:
-    """create the page link
-    Agrs:
-        - link(str) : link without page
-        - page_num(int):The number of page
-    Returns:
-        - link with page
-    """
-    if re.search(r'&page=\d+', link):
-        return re.sub(r'&page=\d+', f'&page={page_num}', link)
-    else:
-        return f"{link}&page={page_num}"
