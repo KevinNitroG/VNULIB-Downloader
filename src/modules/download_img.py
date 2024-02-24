@@ -57,7 +57,7 @@ class DownloadIMG:
             - Bytes: The datas of images
         """
         try:
-            return requests.get(link, stream=True, timeout=20, verify=False).content  # skipcq: BAN-B501
+            return requests.get(link, stream=True, timeout=20, verify=False).content  # skipcq: BAN-B501, PTC-W6001
         except requests.exceptions.ReadTimeout:
             logger.error(msg=f'Error page for {link}')
             return ERROR_PAGE_IMAGE
@@ -72,7 +72,7 @@ class DownloadIMG:
         Returns:
             - str: Text content of link
         """
-        return requests.get(link, stream=True, timeout=20, verify=False).text  # skipcq: BAN-B501
+        return requests.get(link, stream=True, timeout=20, verify=False).text  # skipcq: BAN-B501, PTC-W6001
 
     @staticmethod
     def multithreading_for_known_page(image_link: str, image_path: str, bar) -> None:  # pylint: disable=disallowed-name
@@ -83,7 +83,7 @@ class DownloadIMG:
             image_path (str): Image path
             bar: The alivebar
         """
-        with open(image_path, 'wb') as file:
+        with open(image_path, 'wb') as file:  # skipcq: PTC-W6004
             file.write(DownloadIMG.get_images_bytes(image_link))
         bar()
 
@@ -98,7 +98,7 @@ class DownloadIMG:
         """
         if OUT_PAGE_ERROR_TEXT in DownloadIMG.get_content_pages(image_link):
             raise IndexError
-        with open(image_path, 'wb') as file:
+        with open(image_path, 'wb') as file:  # skipcq: PTC-W6004
             file.write(DownloadIMG.get_images_bytes(image_link))
         bar()
 
