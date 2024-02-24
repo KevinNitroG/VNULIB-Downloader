@@ -62,7 +62,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   > Ví dụ: https://ir.vnulib.edu.vn/handle/VNUHCM/8108
 - Hỗ trợ link: `book`, `preview`, `page` [<sup>giải thích</sup>](#giải-thích-thuật-ngữ)
 - Tải một lúc nhiều sách _(lần lượt từng sách)_
-- Sử dụng multi thread _(đa luồng)_ để tải sách
+- Sử dụng multi thread _(đa luồng)_ để tải sách _(trừ `page`)_
 - Merge ảnh của các trang sách đã tải thành file PDF
 
 ---

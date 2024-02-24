@@ -87,21 +87,6 @@ class DownloadIMG:
             file.write(DownloadIMG.get_images_bytes(image_link))
         bar()
 
-    @staticmethod
-    def multithreading_for_unknown_page(image_link: str, image_path: str, bar) -> None:   # pylint: disable=disallowed-name
-        """Multithreading download function for unkown page link (page)
-
-        Args:
-            image_link (str): Image link
-            image_path (str): Image path
-            bar: The alivebar
-        """
-        if OUT_PAGE_ERROR_TEXT in DownloadIMG.get_content_pages(image_link):
-            raise IndexError
-        with open(image_path, 'wb') as file:  # skipcq: PTC-W6004
-            file.write(DownloadIMG.get_images_bytes(image_link))
-        bar()
-
     def download_with_known_page(self, link: LinkFile, download_path: str) -> None:
         """Download images for link with known page nums (each link of book | preview)
 
@@ -126,16 +111,15 @@ class DownloadIMG:
         """
         page_num = count(start=1)
         with alive_bar() as bar:  # pylint: disable=disallowed-name
-            try:
-                while True:
-                    current_page: str = str(next(page_num))
-                    image_link: str = f'{link.page_link}&page={current_page}'
-                    image_path: str = os.path.join(download_path, f'image_{current_page}.jpg')
-                    thread = threading.Thread(target=self.multithreading_for_unknown_page, args=(image_link, image_path, bar))
-                    thread.start()
-                    thread.join()
-            except IndexError:
-                pass
+            while True:
+                current_page: str = str(next(page_num))
+                image_link: str = f'{link.page_link}&page={current_page}'
+                image_path: str = os.path.join(download_path, f'image_{current_page}.jpg')
+                if OUT_PAGE_ERROR_TEXT in DownloadIMG.get_content_pages(image_link):
+                    raise IndexError
+                with open(image_path, 'wb') as file:  # skipcq: PTC-W6004
+                    file.write(DownloadIMG.get_images_bytes(image_link))
+                bar()  # pylint: disable=not-callable
 
     def book_handler(self, links: Link) -> None:
         """Download images from the book link
