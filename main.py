@@ -37,14 +37,14 @@ def main() -> None:
                                         links=user_options.links).action()
     logger.debug(msg=f'LINKS OBJECT:\n{pformat(user_options.links)}')
 
-    print_title('DOWNLOAD')
-
-    print_title('PDF')
-    if create_directory(DOWNLOAD_DIR):
+    if create_directory(DOWNLOAD_DIR, True):
+        print_title('DOWNLOAD')
         DownloadImages.dowload_images(user_options.links, DOWNLOAD_DIR)
         if user_options.create_pdf:
+            print_title('PDF')
             CreatePDF.create_pdf(DOWNLOAD_DIR, user_options.links)
         if user_options.clean_img:
+            print_title('DELETE_IMG')
             DeleteIMG.delete_jpg(DOWNLOAD_DIR, user_options.links)
 
 
