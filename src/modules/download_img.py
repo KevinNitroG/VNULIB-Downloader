@@ -57,7 +57,7 @@ class DownloadIMG:
             - Bytes: The datas of images
         """
         try:
-            return requests.get(link, stream=True, timeout=20, verify=False).content
+            return requests.get(link, stream=True, timeout=20, verify=False).content  # skipcq: BAN-B501
         except requests.exceptions.ReadTimeout:
             logger.error(msg=f'Error page for {link}')
             return ERROR_PAGE_IMAGE
@@ -72,7 +72,7 @@ class DownloadIMG:
         Returns:
             - str: Text content of link
         """
-        return requests.get(link, stream=True, timeout=20, verify=False).text
+        return requests.get(link, stream=True, timeout=20, verify=False).text  # skipcq: BAN-B501
 
     @staticmethod
     def multithreading_for_known_page(image_link: str, image_path: str, bar) -> None:  # pylint: disable=disallowed-name
