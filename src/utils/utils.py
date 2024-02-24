@@ -39,13 +39,13 @@ def create_directory(directory: str, force: bool | None = None) -> bool:
             except PermissionError as e:
                 logger.error(msg=e)
                 raise e
-            logger.info(msg=f'{directory} was removed recursively!')
+            logger.info(msg=f'\'{directory}\' was removed recursively!')
         else:
             logger.info(
-                msg=f'Skip creating {directory}')
+                msg=f'Skip creating \'{directory}\'')
             return False
     makedirs(name=directory)
-    logger.info(msg=f'{directory} was created!')
+    logger.info(msg=f'\'{directory}\' was created!')
     return True
 
 
@@ -67,10 +67,10 @@ def remove_directory(directory: str) -> bool:
         except PermissionError as e:
             logger.error(msg=e)
             raise e
-        logger.info(msg=f'{directory} was removed recursively!')
+        logger.info(msg=f'\'{directory}\' was removed recursively!')
         return True
     logger.info(
-        msg=f'{directory} was not found. Skip removing it')
+        msg=f'\'{directory}\' was not found. Skip removing it')
     return False
 
 
