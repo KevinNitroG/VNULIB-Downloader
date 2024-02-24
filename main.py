@@ -3,7 +3,7 @@
 from pprint import pformat
 from src import (Browser, Login, Action,
                  PrintIntro, Config, UserOptions, LinkParse,
-                 DownloadImages, CreatePDF, DeleteIMG,
+                 DownloadIMG, CreatePDF, DeleteIMG,
                  print_title, pause, create_directory,
                  logger)
 from src.constants import DOWNLOAD_DIR
@@ -37,7 +37,7 @@ def main() -> None:
     create_directory(DOWNLOAD_DIR, force=False)
 
     print_title('DOWNLOAD')
-    DownloadImages(user_options.links, DOWNLOAD_DIR).dowload_images()
+    DownloadIMG(user_options.links, DOWNLOAD_DIR).dowload_images()
 
     if user_options.create_pdf:
         print_title('PDF')
