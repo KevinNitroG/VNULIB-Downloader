@@ -116,7 +116,7 @@ class DownloadIMG:
                 image_link: str = f'{link.page_link}&page={current_page}'
                 image_path: str = os.path.join(download_path, f'image_{current_page}.jpg')
                 if OUT_PAGE_ERROR_TEXT in DownloadIMG.get_content_pages(image_link):
-                    raise IndexError
+                    break
                 with open(image_path, 'wb') as file:  # skipcq: PTC-W6004
                     file.write(DownloadIMG.get_images_bytes(image_link))
                 bar()  # pylint: disable=not-callable
