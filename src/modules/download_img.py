@@ -34,7 +34,7 @@ OUT_PAGE_ERROR_TEXT: str = 'Error:Error converting document'
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-class DownloadImages:
+class DownloadIMG:
     """Download book's images
 
     Args:
@@ -84,7 +84,7 @@ class DownloadImages:
             bar: The alivebar
         """
         with open(image_path, 'wb') as file:
-            file.write(DownloadImages.get_images_bytes(image_link))
+            file.write(DownloadIMG.get_images_bytes(image_link))
         bar()
 
     @staticmethod
@@ -96,10 +96,10 @@ class DownloadImages:
             image_path (str): Image path
             bar: The alivebar
         """
-        if OUT_PAGE_ERROR_TEXT in DownloadImages.get_content_pages(image_link):
+        if OUT_PAGE_ERROR_TEXT in DownloadIMG.get_content_pages(image_link):
             raise IndexError
         with open(image_path, 'wb') as file:
-            file.write(DownloadImages.get_images_bytes(image_link))
+            file.write(DownloadIMG.get_images_bytes(image_link))
         bar()
 
     def download_with_known_page(self, link: LinkFile, download_path: str) -> None:
