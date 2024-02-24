@@ -5,9 +5,10 @@ import requests
 from PIL import Image
 from PIL.Image import Image as ImagePIL
 from alive_progress import alive_bar
-from requests import Response
 from .link_parse import LinkFile, Link
 from ..utils.utils import create_directory, create_page_link
+
+out_page_error_text: str = 'Error:Error converting document'
 
 
 class DownloadImages:
@@ -23,8 +24,8 @@ class DownloadImages:
         self.download_directory: str = os.pathsep.join(download_directory.split('/'))
 
     @staticmethod
-    def download_image_from_page(link: str) -> bytes:
-        """Dowload image from page
+    def get_images_bytes(link: str) -> bytes:
+        """Get images bytes
 
         Args:
             - link (str): the page link
@@ -33,6 +34,12 @@ class DownloadImages:
             - Bytes : The datas of images
         """
         return requests.get(link, stream=True, timeout=10).content
+
+    @staticmethod
+    def get_content_pages(link: str) -> str:
+        """Get text from page
+        """
+        return requests.get(link, stream=True, timeout=10).text
 
     def book_download(self, link: LinkFile, folder_path: str) -> None:
         """Download images for book
@@ -46,7 +53,7 @@ class DownloadImages:
             with alive_bar(number_of_pages) as bar:  # pylint: disable=disallowed-name
                 for page_num in range(1, number_of_pages + 1):
                     sub_link: str = create_page_link(link.page_link, page_num)
-                    image_bytes: bytes = self.download_image_from_page(
+                    image_bytes: bytes = self.get_images_bytes(
                         sub_link)
                     image: ImagePIL = Image.open(BytesIO(image_bytes))
                     image_path: str = os.path.join(
@@ -64,21 +71,27 @@ class DownloadImages:
         if create_directory(folder_path, force=True):
             for link in links.files:
                 self.book_download(link=link, folder_path=folder_path)
-    
-    # Nguyen Xu lys di nha:))
+
     def preview_and_page_download(self, link: LinkFile, folder_path: str) -> None:
-            if create_directory(folder_path, force=True):
-            number_of_pages: int = link.num_pages
-            with alive_bar(number_of_pages) as bar:  # pylint: disable=disallowed-name
-                for page_num in range(1, number_of_pages + 1):
-                    sub_link: str = create_page_link(link.page_link, page_num)
-                    image_bytes: bytes = self.download_image_from_page(
-                        sub_link)
-                    image: ImagePIL = Image.open(BytesIO(image_bytes))
-                    image_path: str = os.path.join(
-                        self.download_directory, f'image_{page_num}.jpg')
-                    image.save(image_path)
-                    bar()  # pylint: disable=not-callable
+        """Download images from the preview and page link.
+
+        Args:
+            links (LinkFile): The preview and page link
+            folder_path(str):
+
+        """
+        if create_directory(folder_path, force=True):
+            page_num = 1
+            while True:
+                sub_link: str = create_page_link(link.page_link, page_num)
+                if out_page_error_text in self.get_content_pages(sub_link):
+                    break
+                image_bytes: bytes = self.get_images_bytes(
+                    sub_link)
+                image: ImagePIL = Image.open(BytesIO(image_bytes))
+                image_path: str = os.path.join(
+                    self.download_directory, f'image_{page_num}.jpg')
+                image.save(image_path)
 
     def preview_and_page_handler(self, link: LinkFile) -> None:
         """Dowload All book's images from page link and previews link
@@ -89,7 +102,7 @@ class DownloadImages:
         folder_name: str = link.name
         folder_path: str = os.path.join(self.download_directory, folder_name)
         if create_directory(folder_path, force=True):
-            self.download_image_from_page(link=link, folder_path=folder_path)
+            self.preview_and_page_download(link=link, folder_path=folder_path)
 
     def dowload_images(self) -> None:
         """Dowload Images from list of Link"""
