@@ -34,15 +34,18 @@ def main() -> None:
                                         links=user_options.links).action()
     logger.debug(msg=f'LINKS OBJECT:\n{pformat(user_options.links)}')
 
-    if create_directory(DOWNLOAD_DIR, True):
-        print_title('DOWNLOAD')
-        DownloadImages(user_options.links, DOWNLOAD_DIR).dowload_images()
-        if user_options.create_pdf:
-            print_title('PDF')
-            CreatePDF.create_pdf(DOWNLOAD_DIR, user_options.links)
-        if user_options.clean_img:
-            print_title('DELETE_IMG')
-            DeleteIMG.delete_jpg(DOWNLOAD_DIR, user_options.links)
+    create_directory(DOWNLOAD_DIR, force=False)
+
+    print_title('DOWNLOAD')
+    DownloadImages(user_options.links, DOWNLOAD_DIR).dowload_images()
+
+    if user_options.create_pdf:
+        print_title('PDF')
+        CreatePDF.create_pdf(DOWNLOAD_DIR, user_options.links)
+
+    if user_options.clean_img:
+        print_title('DELETE IMAGES')
+        DeleteIMG.delete_jpg(DOWNLOAD_DIR, user_options.links)
 
 
 if __name__ == '__main__':
