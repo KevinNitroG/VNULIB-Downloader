@@ -1,6 +1,5 @@
 """Download book's images"""
 
-
 import os
 import sys
 from itertools import count
@@ -21,17 +20,17 @@ def get_error_page_bytes() -> bytes:
     Returns:
         bytes: The error image bytes
     """
-    if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+    if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
         error_page_path = os.path.join(sys._MEIPASS, ERROR_PAGE_IMAGE_PATH)  # type: ignore # skipcq: PYL-W0212 # pylint: disable=protected-access # nopep8
     else:
         error_page_path = ERROR_PAGE_IMAGE_PATH
-    with open(error_page_path, 'rb') as file:
+    with open(error_page_path, "rb") as file:
         content = file.read()
     return content
 
 
 ERROR_PAGE_IMAGE: bytes = get_error_page_bytes()
-OUT_PAGE_ERROR_TEXT: str = 'Error:Error converting document'
+OUT_PAGE_ERROR_TEXT: str = "Error:Error converting document"
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
@@ -60,10 +59,12 @@ class DownloadCore:  # pylint: disable=too-few-public-methods
             - Bytes: The datas of images
         """
         try:
-            with self.session.get(link, stream=True, timeout=self.timeout, verify=False) as reponse:
+            with self.session.get(
+                link, stream=True, timeout=self.timeout, verify=False
+            ) as reponse:
                 return reponse.content  # skipcq: BAN-B501, PTC-W6001
         except requests.exceptions.ReadTimeout:
-            logger.error(msg=f'Error page for {link}')
+            logger.error(msg=f"Error page for {link}")
             return ERROR_PAGE_IMAGE
 
 
@@ -98,20 +99,26 @@ class SingleThreadDownload(DownloadCore):
         Returns:
             - str: Text content of link
         """
-        return self.session.get(link, stream=True, timeout=self.timeout, verify=False).text  # skipcq: BAN-B501, PTC-W6001
+        return self.session.get(
+            link, stream=True, timeout=self.timeout, verify=False
+        ).text  # skipcq: BAN-B501, PTC-W6001
 
     def download(self) -> None:
         """Download"""
-        self.session = requests.Session()  # pylint: disable=attribute-defined-outside-init
+        self.session = (
+            requests.Session()
+        )  # pylint: disable=attribute-defined-outside-init
         page_num = count(start=1, step=1)
         while True:
             with alive_bar() as bar:  # pylint: disable=disallowed-name
                 current_page: str = str(next(page_num))
-                image_link: str = f'{self.link.page_link}&page={current_page}'
-                image_path: str = os.path.join(self.download_path, f'image_{current_page}.jpg')
+                image_link: str = f"{self.link.page_link}&page={current_page}"
+                image_path: str = os.path.join(
+                    self.download_path, f"image_{current_page}.jpg"
+                )
                 if OUT_PAGE_ERROR_TEXT in self.get_content_pages(image_link):
                     break
-                with open(image_path, 'wb') as file:  # skipcq: PTC-W6004
+                with open(image_path, "wb") as file:  # skipcq: PTC-W6004
                     file.write(self.get_images_bytes(image_link))
                 bar()  # pylint: disable=not-callable
 
@@ -140,24 +147,30 @@ class MultiThreadingDownload(DownloadCore):
             self.thread_local.session = requests.Session()
         return self.thread_local.session
 
-    def download_to_file(self, image_link: str, image_path: str) -> None:  # pylint: disable=disallowed-name
+    def download_to_file(
+        self, image_link: str, image_path: str
+    ) -> None:  # pylint: disable=disallowed-name
         """Multithreading download function for known page link (book | preview)
 
         Args:
             - image_link (str): Image link
             - image_path (str): Image path
         """
-        with open(image_path, 'wb') as file:  # skipcq: PTC-W6004
+        with open(image_path, "wb") as file:  # skipcq: PTC-W6004
             file.write(self.get_images_bytes(image_link))
         self.bar()  # pylint: disable=not-callable
 
     def download(self) -> None:
         """Download images"""
-        with alive_bar(total=self.link.num_pages) as self.bar:  # pylint: disable=[disallowed-name, attribute-defined-outside-init]
+        with alive_bar(
+            total=self.link.num_pages
+        ) as self.bar:  # pylint: disable=[disallowed-name, attribute-defined-outside-init]
             with ThreadPoolExecutor() as executor:
                 for page_num in range(1, self.link.num_pages + 1):
-                    sub_link: str = f'{self.link.page_link}&page={page_num}'
-                    image_path: str = os.path.join(self.download_path, f'image_{page_num}.jpg')
+                    sub_link: str = f"{self.link.page_link}&page={page_num}"
+                    image_path: str = os.path.join(
+                        self.download_path, f"image_{page_num}.jpg"
+                    )
                     executor.submit(self.download_to_file, sub_link, image_path)
 
 
@@ -170,9 +183,11 @@ class DownloadIMG:
         - timeout (int): Timeout (s) for Request to fetch each image
     """
 
-    def __init__(self, links: list[Link], download_directory: str, timeout: int) -> None:
+    def __init__(
+        self, links: list[Link], download_directory: str, timeout: int
+    ) -> None:
         self.links: list[Link] = links
-        self.download_directory: str = os.sep.join(download_directory.split('/'))
+        self.download_directory: str = os.sep.join(download_directory.split("/"))
         self.timeout: int = timeout
 
     def book_handler(self, links: Link) -> None:
@@ -186,7 +201,9 @@ class DownloadIMG:
             for link in links.files:
                 sub_path: str = os.path.join(folder_path, link.name)
                 if create_directory(sub_path):
-                    MultiThreadingDownload(link=link, download_path=sub_path, timeout=self.timeout).download()
+                    MultiThreadingDownload(
+                        link=link, download_path=sub_path, timeout=self.timeout
+                    ).download()
 
     def preview_handler(self, link: LinkFile) -> None:
         """Download images from the preview & page link (known num pages)
@@ -196,7 +213,9 @@ class DownloadIMG:
         """
         folder_path: str = os.path.join(self.download_directory, link.name)
         if create_directory(folder_path):
-            MultiThreadingDownload(link=link, download_path=folder_path, timeout=self.timeout).download()
+            MultiThreadingDownload(
+                link=link, download_path=folder_path, timeout=self.timeout
+            ).download()
 
     def page_handler(self, link: LinkFile) -> None:
         """Dowload All book's images from page link (for unkown num pages)
@@ -206,18 +225,20 @@ class DownloadIMG:
         """
         folder_path: str = os.path.join(self.download_directory, link.name)
         if create_directory(folder_path, force=True):
-            SingleThreadDownload(link=link, download_path=folder_path, timeout=self.timeout).download()
+            SingleThreadDownload(
+                link=link, download_path=folder_path, timeout=self.timeout
+            ).download()
 
     def dowload_images(self) -> None:
         """Dowload Images from list of Link"""
         for link in self.links:
             logger.info(msg=f'Downloading: "{link.original_link}"')
             match link.original_type:
-                case 'book':
+                case "book":
                     self.book_handler(link)
-                case 'preview':
+                case "preview":
                     self.preview_handler(link.files[0])
-                case 'page':
+                case "page":
                     if link.files[0].num_pages > 1:
                         self.preview_handler(link.files[0])
                     else:
