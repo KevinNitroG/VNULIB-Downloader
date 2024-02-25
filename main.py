@@ -39,13 +39,13 @@ def main() -> None:
     print_title('DOWNLOAD')
     DownloadIMG(user_options.links, DOWNLOAD_DIR).dowload_images()
 
-    if user_options.create_pdf:
-        print_title('PDF')
-        CreatePDF.create_pdf(DOWNLOAD_DIR, user_options.links)
+    # if user_options.create_pdf:
+    #     print_title('PDF')
+    #     CreatePDF.create_pdf(DOWNLOAD_DIR, user_options.links)
 
-    if user_options.clean_img:
-        print_title('DELETE IMAGES')
-        DeleteIMG.delete_jpg(DOWNLOAD_DIR, user_options.links)
+    # if user_options.clean_img:
+    #     print_title('DELETE IMAGES')
+    #     DeleteIMG.delete_jpg(DOWNLOAD_DIR, user_options.links)
 
 
 if __name__ == '__main__':

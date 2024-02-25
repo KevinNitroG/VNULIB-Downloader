@@ -46,6 +46,22 @@ class LinkParse:
         return ''
 
     @staticmethod
+    def __get_page_num_from_page_query(link: str) -> int:
+        """Get limit number of pages from page query (use for page link)
+
+        Args:
+            link (str): Page link
+
+        Returns:
+            int: The desire num pages
+        """
+        query = parse_qs(urlparse(link).query)
+        current_num_pages = query.get('page')
+        if current_num_pages is not None:
+            int_current_num_pages = int(current_num_pages[0])
+        return int_current_num_pages if int_current_num_pages > 1 else -1
+
+    @staticmethod
     def remove_page_query(link: str) -> str:
         """Parse the link to remove "page" query
 
@@ -69,15 +85,16 @@ class LinkParse:
         """Process page link handler
 
         Args:
-            - link (Link): Current link object
+            - link (Link): Current link page object
 
         Returns:
-            - Link: Processed link object
+            - Link: Processed link page object
         """
         link.original_type = 'page'
         page_link: str = LinkParse.remove_page_query(link=link.original_link)
+        num_pages: int = LinkParse.__get_page_num_from_page_query(link=link.original_link)
         link.files = [LinkFile(
-            page_link=page_link, num_pages=-1, name=datetime_name())]
+            page_link=page_link, num_pages=num_pages, name=datetime_name())]
         return link
 
     def parse(self) -> list[Link]:
@@ -101,6 +118,7 @@ class LinkParse:
                 case 'page':
                     link = self.process_page(link)
                     modified_links.append(link)
+                    logger.info(msg=f'Set \'{link.files[0].num_pages}\' for \'{link.original_link}\'')
                 case _:
                     logger.warning(
                         msg='Unknown link type for: '
