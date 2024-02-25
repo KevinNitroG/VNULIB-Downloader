@@ -38,8 +38,8 @@ def main() -> None:
     create_directory(DOWNLOAD_DIR, force=False)
 
     print_title('DOWNLOAD')
-    DownloadIMG(user_options.links,
-                DOWNLOAD_DIR,
+    DownloadIMG(links=user_options.links,
+                download_directory=DOWNLOAD_DIR,
                 timeout=user_options.timeout).dowload_images()
 
     # if user_options.create_pdf:

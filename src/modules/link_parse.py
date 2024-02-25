@@ -119,10 +119,10 @@ class LinkParse:
                 case 'page':
                     link = self.process_page(link)
                     modified_links.append(link)
-                    logger.info(msg=f'Set \'{link.files[0].num_pages}\' page for \'{link.original_link}\'')
+                    logger.info(msg=f'Set "{link.files[0].num_pages}" page for "{link.original_link}" as "page"')
                     sleep(0.1)  # Sleep to avoid same folder name in any case
                 case _:
                     logger.warning(
                         msg='Unknown link type for: '
-                        f'\'{link.original_link}\'')
+                        f'"{link.original_link}"')
         return modified_links
