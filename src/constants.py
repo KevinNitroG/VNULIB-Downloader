@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-VERSION: str = "0.9-beta"
+VERSION: str = "1.0"
 AUTHORS: str = "KevinNitroG & NTGNguyen"
 BANNER: str = """
 ██╗   ██╗███╗   ██╗██╗   ██╗██╗     ██╗██████╗
