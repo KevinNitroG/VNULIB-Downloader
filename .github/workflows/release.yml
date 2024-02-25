@@ -74,13 +74,17 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@main
 
+      - name: Get last commit message
+        id: last-commit
+        run: echo "message=$(git log -1 --pretty=%s)" >> $GITHUB_OUTPUT
+
       - name: Upload to Release
         uses: svenstaro/upload-release-action@master
         with:
-          body: ${{ needs.prepare.outputs.VERSION }}
+          body: ${{ steps.last-commit.outputs.message }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./VNULIB-Downloader-*/VNULIB-Downloader-*
-          release_name: VNULIB Downloader ${{ needs.prepare.outputs.VERSION }}
+          release_name: ${{ needs.prepare.outputs.VERSION }}
           tag: ${{ needs.prepare.outputs.VERSION }}
           file_glob: true
           overwrite: false
