@@ -26,9 +26,17 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 [![GitHub contributors](https://img.shields.io/github/contributors/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=FBF0B2)](../../graphs/contributors)
 [![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/KevinNitroG/VNULIB-Downloader?style=for-the-badge)](https://www.codefactor.io/repository/github/kevinnitrog/VNULIB-Downloader)
 [![wakatime of KevinNitroG](https://wakatime.com/badge/github/KevinNitroG/VNULIB-Downloader.svg?style=for-the-badge)](https://wakatime.com/badge/github/KevinNitroG/VNULIB-Downloader)
-
+![Hit](https://hits.sh/github.com/KevinNitroG/VNULIB-Downloader.svg?view=today-total&style=for-the-badge&label=hits)
 [![DeepSource](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=active+issues&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G)](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader/)
 [![DeepSource](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=resolved+issues&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G)](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader/)
+
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)
+![Selenium](https://img.shields.io/badge/-selenium-%43B02A?style=for-the-badge&logo=selenium&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+
+<!-- ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white) -->
 
 > [!CAUTION]
 >
@@ -62,7 +70,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   > Ví dụ: https://ir.vnulib.edu.vn/handle/VNUHCM/8108
 - Hỗ trợ link: `book`, `preview`, `page` [<sup>giải thích</sup>](#giải-thích-thuật-ngữ)
 - Tải một lúc nhiều sách _(lần lượt từng sách)_
-- Sử dụng multi thread _(đa luồng)_ để tải sách [<sup>lưu ý</sup>]()
+- Sử dụng multi thread _(đa luồng)_ để tải sách
 - Merge ảnh của các trang sách đã tải thành file PDF
 
 ---
