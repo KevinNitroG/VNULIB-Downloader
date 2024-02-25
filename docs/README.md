@@ -112,7 +112,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 > - Trái lại, khi toàn bộ link là `page`: Tool không cần dùng Selenium Webdriver, nên `USERNAME`, `PASSWORD`, `BROSWER`, `HEADLESS` không còn quan trọng _(nhập bừa / để trống)_
 > - `page` link: Trong link có query `&page=`:
 >   - `1`: Tool sẽ tự động check và tải trang sách đến khi đạt giới hạn _(không dùng multi threading)_
->   - > `1`: Tool tự nhận đấy là limit của file sách hoặc chủ đích sử dụng tải tới trang đấy, dùng multi threading
+>   - \> `1`: Tool tự nhận đấy là limit của file sách hoặc chủ đích sử dụng tải tới trang đấy _(dùng multi threading)_
 
 ---
 
