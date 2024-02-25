@@ -10,7 +10,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.logger import set_logger
 
-from src.constants import BROWSER_ARGUMENTS, PROCESSING_TIMEOUT
+from src.constants import BROWSER_ARGUMENTS
 from ..utils import logger
 
 set_logger(logger)
@@ -25,13 +25,15 @@ class Browser:
     Args:
         - browser (str): The browser to set up
         - headless (bool): Headless mode
+        - timeout (int): Timeout for implicit wait for Selenium
     """
 
-    def __init__(self, browser: str, headless: bool) -> None:
+    def __init__(self, browser: str, headless: bool, timeout: int) -> None:
         self.browser: str = browser  # skipcq: PTC-W0052
         self.headless: bool = headless
         self.options = webdriver.ChromeOptions()
         self.driver: WebDriver
+        self.timeout: int = timeout
 
     def __enter__(self) -> WebDriver:
         """Set up the browser when entering the context manager
@@ -46,7 +48,7 @@ class Browser:
                 self.driver = self.__setup_chrome_browser()
             case _:
                 self.driver = self.__setup_local_chrome_browser()
-        self.driver.implicitly_wait(PROCESSING_TIMEOUT)
+        self.driver.implicitly_wait(self.timeout)
         logger.info(msg=f'Browser \'{self.browser}\' setup complete!')
         return self.driver
 

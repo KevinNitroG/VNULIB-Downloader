@@ -25,7 +25,8 @@ def main() -> None:
         logger.info('There is / are some link(s) need to be processed')
         print_title('PROCESS LINKS')
         with Browser(browser=user_options.browser,
-                     headless=user_options.headless) as driver:
+                     headless=user_options.headless,
+                     timeout=user_options.timeout) as driver:
             Login(driver=driver,
                   username=user_options.username,
                   password=user_options.password).login()
@@ -37,7 +38,9 @@ def main() -> None:
     create_directory(DOWNLOAD_DIR, force=False)
 
     print_title('DOWNLOAD')
-    DownloadIMG(user_options.links, DOWNLOAD_DIR).dowload_images()
+    DownloadIMG(user_options.links,
+                DOWNLOAD_DIR,
+                timeout=user_options.timeout).dowload_images()
 
     # if user_options.create_pdf:
     #     print_title('PDF')

@@ -53,6 +53,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         self.username: str = ''
         self.password: str = ''
         self.links: list[Link] = []
+        self.timeout: int = 0
         self.browser: str = ''
         self.headless: bool = False
         self.create_pdf: bool = True
@@ -64,6 +65,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         self.username = self.__setup_username()
         self.password = self.__setup_password()
         self.links = self.__setup_links()
+        self.timeout = self.__setup_timeout()
         self.browser = self.__setup_browser().lower()
         self.headless = self.__setup_headless()
         self.create_pdf = self.__setup_create_pdf()
@@ -83,6 +85,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         """
         debug_object = {
             'username': self.username,
+            'timeout': self.timeout,
             'browser': self.browser,
             'headless': self.headless,
             'create_pdf': self.create_pdf,
@@ -136,6 +139,23 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         self.__log_set_by_user_input('links')
         return [Link(original_link=link, original_type='', files=[LinkFile()]) for link in
                 input('Enter link(s), separate by space: ').strip().split(' ')]
+
+    def __setup_timeout(self) -> int:
+        """Setup timeout
+
+        Returns:
+            int: Timeout
+        """
+        if self.argparse.timeout is not None:
+            self.__log_set_by_argparse('timeout')
+            return int(self.argparse.browser)
+        if self.config['TIMEOUT'] is not None:
+            self.__log_set_by_config('timeout')
+            return int(self.config['TIMEOUT'])
+        user_timeout: str = input('Enter timeout for Selenium & request [20]').strip()
+        if user_timeout == '':
+            return 20
+        return int(user_timeout)
 
     def __setup_browser(self) -> str:
         """Setup browser

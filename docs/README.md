@@ -91,6 +91,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 | `USERNAME`                                      | `string`                                    |             | Username tài khoản                                                           | `1500023520000` |
 | `PASSWORD`                                      | `string`                                    |             | Password tài khoản                                                           | `examplePass`   |
 | `LINKS`                                         | `string string ...`                         |             | Link ảnh trang sách<br>_(Có thể nhiều sách, cách nhau bằng khoảng cách)_     | `link_1 link_2` |
+| `TIMEOUT`                                       | `int`                                       | `20`        | Timeout _(s)_ khi sử dụng Selenium và request lấy mỗi ảnh từ server          | `20`            |
 | `BROWSER`                                       | `chrome`,<br> `path/to/local/chrome_driver` | `chrome`    | Trình duyệt để sử dụng Selenium Webdriver khi có cần xử lý `book`, `preview` | `chrome`        |
 | `HEADLESS`[<sup>?</sup>](#giải-thích-thuật-ngữ) | `y`, `n`, ...                               | `y`         | Selenium Webdriver headless mode                                             | `y`             |
 | `CREATE_PDF`                                    | `y`, `n`, ...                               | `y`         | Tạo file PDF từ các ảnh đã tải về                                            | `y`             |
@@ -201,9 +202,9 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ## 🤥 DISCLAIMER
 
-Dự án này không liên quan đến [VNULIB](https://vnulib.edu.vn/) hay bất kì tổ chức nào khác. Dự án chỉ mang tính học tập
+Dự án không dưới quyền [VNULIB](https://vnulib.edu.vn/) hay bất kì tổ chức nào khác. Dự án chỉ mang tính học tập
 _(thực hành, làm việc nhóm, sử dụng ngôn ngữ lập trình, tổ chức một dự án, sử dụng Git, Github, CI/CD)_, không có mục
-đích thương mại. Chúng tôi không chịu trách nhiệm cho bất kì kết quả và hậu quả nào của việc sử dụng tool.
+đích thương mại, phá hoại _(DDOS,...)_. Chúng tôi không chịu trách nhiệm cho bất kì kết quả và hậu quả nào của việc sử dụng tool.
 
 ---
 
