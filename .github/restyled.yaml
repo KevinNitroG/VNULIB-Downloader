@@ -1,0 +1,51 @@
+# See https://github.com/restyled-io/restyled.io/wiki/Configuring-Restyled
+
+enabled: true
+
+exclude:
+  - ".github/workflows/**/*" # https://github.com/restyled-io/restyler/issues/73
+
+also_exclude: []
+
+changed_paths:
+  maximum: 1000
+  outcome: error
+
+remote_files: []
+
+auto: false
+
+commit_template: |
+  🎨 Format: Restyled by ${restyler.name}
+
+pull_requests: true
+
+comments: false
+
+statuses:
+  skipped: true
+  differences: true
+  no_differences: true
+
+request_review: none
+
+labels: [format]
+
+ignore_authors:
+  - "*[bot]"
+
+ignore_branches:
+  - "renovate/*"
+
+ignore_labels:
+  - restyled-ignore
+
+restylers_version: stable
+
+restylers:
+  - name: autopep8
+    include:
+      - "**/*.py"
+      - "main.py"
+  - "!black"
+  - "!pyment"
