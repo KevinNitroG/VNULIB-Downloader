@@ -1,6 +1,9 @@
 """Delete the images in folder"""
 
+from __future__ import annotations
+
 import os
+
 from .link_parse import Link
 
 
@@ -21,7 +24,11 @@ class DeleteIMG:
         Args:
             directory (str): The directory containing the JPG images.
         """
-        jpg_files: list[str] = [os.path.join(page_directory, f) for f in os.listdir(page_directory) if f.endswith('.jpg')]
+        jpg_files: list[str] = [
+            os.path.join(page_directory, f)
+            for f in os.listdir(page_directory)
+            if f.endswith(".jpg")
+        ]
         for jpg_file in jpg_files:
             os.remove(jpg_file)
 
@@ -36,7 +43,9 @@ class DeleteIMG:
             link (Link): The book's link
         """
         for link_page in link.files:
-            DeleteIMG.delete_jpg_page_link_or_preview_link(os.path.join(book_directory, link_page.name))
+            DeleteIMG.delete_jpg_page_link_or_preview_link(
+                os.path.join(book_directory, link_page.name)
+            )
 
     @staticmethod
     def delete_jpg(dowload_directory: str, links: list[Link]) -> None:
@@ -48,7 +57,11 @@ class DeleteIMG:
             links(list[Link]): The list of Link
         """
         for link in links:
-            if link.original_type == 'book':
-                DeleteIMG.delete_jpg_book_link(os.path.join(dowload_directory, link.name), link)
+            if link.original_type == "book":
+                DeleteIMG.delete_jpg_book_link(
+                    os.path.join(dowload_directory, link.name), link
+                )
             else:
-                DeleteIMG.delete_jpg_page_link_or_preview_link(os.path.join(dowload_directory, link.name))
+                DeleteIMG.delete_jpg_page_link_or_preview_link(
+                    os.path.join(dowload_directory, link.name)
+                )

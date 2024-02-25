@@ -1,5 +1,6 @@
 # THIS PROJECT
 **/*test*
+**/.?*cache*
 **/*log*
 VNULIB-Downloader/*
 Profiles/

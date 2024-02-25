@@ -1,11 +1,14 @@
 """Setup the logger"""
 
+from __future__ import annotations
 
 import sys
-from os import path, makedirs
+from logging import Logger, getLogger
 from logging.config import dictConfig
-from logging import getLogger, Logger
+from os import makedirs, path
+
 from yaml import safe_load
+
 from src.constants import LOGGING_CONFIG_FILE_PATH, LOGGING_PATH
 
 
@@ -17,7 +20,11 @@ class ToolLogger:
         - logging_path (str): The logging directory. Default to LOGGING_PATH
     """
 
-    def __init__(self, config_path: str = LOGGING_CONFIG_FILE_PATH, logging_path: str = LOGGING_PATH) -> None:
+    def __init__(
+        self,
+        config_path: str = LOGGING_CONFIG_FILE_PATH,
+        logging_path: str = LOGGING_PATH,
+    ) -> None:
         self.config_path: str = config_path
         self.logging_path = logging_path
 
@@ -28,14 +35,15 @@ class ToolLogger:
 
     def reset_config_path(self) -> None:
         """Reset the config path depends on pyinstaller environment or not"""
-        if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+        if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
             self.config_path = path.join(
-                sys._MEIPASS, self.config_path)  # type: ignore # skipcq: PYL-W0212 # pylint: disable=protected-access # nopep8
+                sys._MEIPASS, self.config_path
+            )  # type: ignore # skipcq: PYL-W0212 # pylint: disable=protected-access # nopep8
 
     def read_logging_config(self) -> None:
         """Read the logging config file"""
         self.reset_config_path()
-        with open(self.config_path, 'r', encoding='utf-8') as config_file:
+        with open(self.config_path, encoding="utf-8") as config_file:
             dictConfig(safe_load(config_file))  # skipcq: PY-A6006
 
 

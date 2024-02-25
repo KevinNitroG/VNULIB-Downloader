@@ -1,10 +1,10 @@
-selenium==4.17.2
-webdriver-manager==4.0.1
-requests==2.31.0
-urllib3==2.2.1
-argparse==1.4.0
-pyyaml==6.0.1
-print-color==0.4.6
 alive-progress==3.1.5
+argparse==1.4.0
 img2pdf==0.5.1
 pillow==10.2.0
+print-color==0.4.6
+pyyaml==6.0.1
+requests==2.31.0
+selenium==4.17.2
+urllib3==2.2.1
+webdriver-manager==4.0.1

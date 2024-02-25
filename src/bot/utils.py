@@ -1,11 +1,12 @@
 """Utils for Bot"""
 
+from __future__ import annotations
+
 from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-
+from selenium.webdriver.support.wait import WebDriverWait
 
 TIMEOUT = 30
 
@@ -36,4 +37,5 @@ def wait_element_clickable(driver: WebDriver, css_selector: str) -> WebElement:
         - WebElement: The element
     """
     return WebDriverWait(driver, timeout=TIMEOUT).until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, css_selector)))
+        EC.element_to_be_clickable((By.CSS_SELECTOR, css_selector))
+    )

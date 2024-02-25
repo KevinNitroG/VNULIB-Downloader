@@ -1,7 +1,11 @@
 """Merge the images of books into PDF files"""
 
+from __future__ import annotations
+
 import os
+
 import img2pdf
+
 from .link_parse import Link, LinkFile
 
 
@@ -16,17 +20,25 @@ class CreatePDF:
         self.links: list[Link] = links
 
     @staticmethod
-    def merge_jpg_to_pdf_page_link_or_preview_link(page_directory: str, link_page: LinkFile) -> None:
+    def merge_jpg_to_pdf_page_link_or_preview_link(
+        page_directory: str, link_page: LinkFile
+    ) -> None:
         """Merge all JPG images in a directory into a single PDF.
 
         Args:
             directory (str): The directory containing the JPG images.
             link (LinkFile): The link of the which use to download JPG use to merge to PDF
         """
-        jpg_files: list[str] = [os.path.join(page_directory, f) for f in os.listdir(page_directory) if f.endswith('.jpg')]
-        converted_pdf: bytes | None = img2pdf.convert([i for i in jpg_files if i.endswith('.jpg')])
+        jpg_files: list[str] = [
+            os.path.join(page_directory, f)
+            for f in os.listdir(page_directory)
+            if f.endswith(".jpg")
+        ]
+        converted_pdf: bytes | None = img2pdf.convert(
+            [i for i in jpg_files if i.endswith(".jpg")]
+        )
         if converted_pdf is not None:
-            with open(f'{link_page.name}.pdf', 'wb') as f:
+            with open(f"{link_page.name}.pdf", "wb") as f:
                 f.write(converted_pdf)
 
     @staticmethod
@@ -40,7 +52,9 @@ class CreatePDF:
             link (Link): The book's Link
         """
         for link_page in link.files:
-            CreatePDF.merge_jpg_to_pdf_page_link_or_preview_link(os.path.join(book_directory, link_page.name), link_page)
+            CreatePDF.merge_jpg_to_pdf_page_link_or_preview_link(
+                os.path.join(book_directory, link_page.name), link_page
+            )
 
     @staticmethod
     def create_pdf(dowload_directory: str, links: list[Link]) -> None:
@@ -53,7 +67,11 @@ class CreatePDF:
             links (list[Link]): list of Link
         """
         for link in links:
-            if link.original_type == 'book':
-                CreatePDF.merge_jpg_to_pdf_book_link(os.path.join(dowload_directory, link.name), link)
+            if link.original_type == "book":
+                CreatePDF.merge_jpg_to_pdf_book_link(
+                    os.path.join(dowload_directory, link.name), link
+                )
             else:
-                CreatePDF.merge_jpg_to_pdf_page_link_or_preview_link(os.path.join(dowload_directory, link.name), link.files[0])
+                CreatePDF.merge_jpg_to_pdf_page_link_or_preview_link(
+                    os.path.join(dowload_directory, link.name), link.files[0]
+                )

@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Vui lòng giữ emoji "🐛" ở tiêu đề 
+        Vui lòng giữ emoji "🐛" ở tiêu đề
   - type: textarea
     id: bug-description
     attributes:

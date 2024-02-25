@@ -1,17 +1,21 @@
 """Download book's images"""
 
+from __future__ import annotations
+
 import os
 import sys
-from itertools import count
-from concurrent.futures import ThreadPoolExecutor
 import threading
+from concurrent.futures import ThreadPoolExecutor
+from itertools import count
 from typing import Any
+
 import requests
 import urllib3
 from alive_progress import alive_bar
-from .link_parse import LinkFile, Link
-from ..utils import logger, create_directory
+
 from ..constants import ERROR_PAGE_IMAGE_PATH
+from ..utils import create_directory, logger
+from .link_parse import Link, LinkFile
 
 
 def get_error_page_bytes() -> bytes:

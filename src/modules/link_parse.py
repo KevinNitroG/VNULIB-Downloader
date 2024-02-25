@@ -1,20 +1,23 @@
 """Categorise links, remove invalid links"""
 
+from __future__ import annotations
 
-from urllib.parse import urlparse, urlunparse, parse_qs, urlencode
-from re import compile as re_compile, search as re_search
+from re import compile as re_compile
+from re import search as re_search
 from time import sleep
-from .user_options import LinkFile, Link
+from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
+
 from ..utils import logger
 from ..utils.utils import datetime_name
+from .user_options import Link, LinkFile
 
-
-PATTERN_BOOK = re_compile(
-    r'^https?:\/\/ir\.vnulib\.edu\.vn\/handle\/VNUHCM\/\d+$')
+PATTERN_BOOK = re_compile(r"^https?:\/\/ir\.vnulib\.edu\.vn\/handle\/VNUHCM\/\d+$")
 PATTERN_PREVIEW = re_compile(
-    r'^https?:\/\/ir\.vnulib\.edu\.vn\/flowpaper\/simple_document\.php\?(?=.*\bsubfolder=[^&]+\b)(?=.*\bbitsid=[^&]+\b)(?=.*\bdoc=\d*\b).*$')  # pylint: disable=line-too-long
+    r"^https?:\/\/ir\.vnulib\.edu\.vn\/flowpaper\/simple_document\.php\?(?=.*\bsubfolder=[^&]+\b)(?=.*\bbitsid=[^&]+\b)(?=.*\bdoc=\d*\b).*$"
+)  # pylint: disable=line-too-long
 PATTERN_PAGE = re_compile(
-    r'https?:\/\/ir\.vnulib\.edu\.vn\/flowpaper\/services\/view\.php\?(?=.*\bdoc=\d*\b)(?=.*\bformat=jpg&\b)(?=.*\bsubfolder=[^&]+\b).*$')  # pylint: disable=line-too-long
+    r"https?:\/\/ir\.vnulib\.edu\.vn\/flowpaper\/services\/view\.php\?(?=.*\bdoc=\d*\b)(?=.*\bformat=jpg&\b)(?=.*\bsubfolder=[^&]+\b).*$"
+)  # pylint: disable=line-too-long
 
 
 class LinkParse:
@@ -39,12 +42,12 @@ class LinkParse:
             - str: 'book', 'preview', 'page' or ''
         """
         if re_search(PATTERN_BOOK, link):
-            return 'book'
+            return "book"
         if re_search(PATTERN_PREVIEW, link):
-            return 'preview'
+            return "preview"
         if re_search(PATTERN_PAGE, link):
-            return 'page'
-        return ''
+            return "page"
+        return ""
 
     @staticmethod
     def __get_page_num_from_page_query(link: str) -> int:
@@ -57,7 +60,7 @@ class LinkParse:
             int: The desire num pages
         """
         query = parse_qs(urlparse(link).query)
-        current_num_pages = query.get('page')
+        current_num_pages = query.get("page")
         if current_num_pages is not None:
             int_current_num_pages = int(current_num_pages[0])
         return int_current_num_pages if int_current_num_pages > 1 else -1
@@ -74,11 +77,18 @@ class LinkParse:
         """
         parser = urlparse(link)
         query = parse_qs(parser.query)
-        query.pop('page', None)
+        query.pop("page", None)
         parsed_query: str = urlencode(query, doseq=True)
         parsed_url: str = urlunparse(
-            (parser.scheme, parser.netloc, parser.path,
-             parser.params, parsed_query, parser.fragment))
+            (
+                parser.scheme,
+                parser.netloc,
+                parser.path,
+                parser.params,
+                parsed_query,
+                parser.fragment,
+            )
+        )
         return parsed_url
 
     @staticmethod
@@ -91,11 +101,14 @@ class LinkParse:
         Returns:
             - Link: Processed link page object
         """
-        link.original_type = 'page'
+        link.original_type = "page"
         page_link: str = LinkParse.remove_page_query(link=link.original_link)
-        num_pages: int = LinkParse.__get_page_num_from_page_query(link=link.original_link)
-        link.files = [LinkFile(
-            page_link=page_link, num_pages=num_pages, name=datetime_name())]
+        num_pages: int = LinkParse.__get_page_num_from_page_query(
+            link=link.original_link
+        )
+        link.files = [
+            LinkFile(page_link=page_link, num_pages=num_pages, name=datetime_name())
+        ]
         return link
 
     def parse(self) -> list[Link]:
@@ -108,21 +121,23 @@ class LinkParse:
         for link in self.links:
             link_type: str = self.categorise(link.original_link)
             match link_type:
-                case 'book':
+                case "book":
                     self.need_to_process = True
-                    link.original_type = 'book'
+                    link.original_type = "book"
                     modified_links.append(link)
-                case 'preview':
+                case "preview":
                     self.need_to_process = True
-                    link.original_type = 'preview'
+                    link.original_type = "preview"
                     modified_links.append(link)
-                case 'page':
+                case "page":
                     link = self.process_page(link)
                     modified_links.append(link)
-                    logger.info(msg=f'Set "{link.files[0].num_pages}" page for "{link.original_link}" as "page"')
+                    logger.info(
+                        msg=f'Set "{link.files[0].num_pages}" page for "{link.original_link}" as "page"'
+                    )
                     sleep(0.1)  # Sleep to avoid same folder name in any case
                 case _:
                     logger.warning(
-                        msg='Unknown link type for: '
-                        f'"{link.original_link}"')
+                        msg="Unknown link type for: " f'"{link.original_link}"'
+                    )
         return modified_links
