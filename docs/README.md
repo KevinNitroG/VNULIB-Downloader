@@ -1,14 +1,14 @@
 # ✨ VNULIB DOWNLOADER ✨
 
 <pre align="center">
-██╗   ██╗███╗   ██╗██╗   ██╗██╗     ██╗██████╗ 
+██╗   ██╗███╗   ██╗██╗   ██╗██╗     ██╗██████╗
 ██║   ██║████╗  ██║██║   ██║██║     ██║██╔══██╗
 ██║   ██║██╔██╗ ██║██║   ██║██║     ██║██████╔╝
 ╚██╗ ██╔╝██║╚██╗██║██║   ██║██║     ██║██╔══██╗
  ╚████╔╝ ██║ ╚████║╚██████╔╝███████╗██║██████╔╝
-  ╚═══╝  ╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚═╝╚═════╝ 
+  ╚═══╝  ╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚═╝╚═════╝
 
-██████╗  ██████╗ ██╗    ██╗███╗   ██╗██╗      ██████╗  █████╗ ██████╗ ███████╗██████╗ 
+██████╗  ██████╗ ██╗    ██╗███╗   ██╗██╗      ██████╗  █████╗ ██████╗ ███████╗██████╗
 ██╔══██╗██╔═══██╗██║    ██║████╗  ██║██║     ██╔═══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗
 ██║  ██║██║   ██║██║ █╗ ██║██╔██╗ ██║██║     ██║   ██║███████║██║  ██║█████╗  ██████╔╝
 ██║  ██║██║   ██║██║███╗██║██║╚██╗██║██║     ██║   ██║██╔══██║██║  ██║██╔══╝  ██╔══██╗
@@ -28,7 +28,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   <img src="https://wakatime.com/badge/github/KevinNitroG/VNULIB-Downloader.svg?style=for-the-badge" alt="wakatime of KevinNitroG">
   <img src="https://hits.sh/github.com/KevinNitroG/VNULIB-Downloader.svg?view=today-total&style=for-the-badge&label=hits" alt="Hit">
   <img src="https://img.shields.io/codefactor/grade/github/KevinNitroG/VNULIB-Downloader?style=for-the-badge" alt="CodeFactor Grade">
-  
+
   <img src="https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=active+issues&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G" alt="DeepSource active issues">
   <img src="https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=resolved+issues&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G" alt="DeepSource resolved issues">
   <br>

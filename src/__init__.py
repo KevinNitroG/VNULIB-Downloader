@@ -1,8 +1,9 @@
 """Contains classes, function, object to be imported in main
 """
 
+from __future__ import annotations
 
-from .bot import Browser, Login, Action
-from .modules import PrintIntro, Config, UserOptions, LinkParse, DownloadIMG, CreatePDF, DeleteIMG
-from .modules import setup_argparse
-from .utils import logger, print_title, pause, create_directory
+from .bot import Action, Browser, Login
+from .modules import (Config, CreatePDF, DeleteIMG, DownloadIMG, LinkParse,
+                      PrintIntro, UserOptions, setup_argparse)
+from .utils import create_directory, logger, pause, print_title

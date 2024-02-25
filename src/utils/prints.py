@@ -1,5 +1,7 @@
 """Print functions with tag, color, format, background"""
 
+from __future__ import annotations
+
 from os import get_terminal_size
 
 from print_color.print_color import print as print_color
@@ -12,8 +14,13 @@ def print_title(message: str) -> None:
         - Message (str): Message of Title
     """
     print()
-    print_color(message.center(int(TERMINAL_SIZE_COLUMNS)),
-                color='magenta', format='bold', background='blue', end='\n\n')
+    print_color(
+        message.center(int(TERMINAL_SIZE_COLUMNS)),
+        color="magenta",
+        format="bold",
+        background="blue",
+        end="\n\n",
+    )
 
 
 def print_success(message: str) -> None:
@@ -22,7 +29,7 @@ def print_success(message: str) -> None:
     Args:
         - Message (str): Message of Success
     """
-    print_color(message, tag='Success', color='green')
+    print_color(message, tag="Success", color="green")
 
 
 def print_error(message: str) -> None:
@@ -31,7 +38,7 @@ def print_error(message: str) -> None:
     Args:
         - Message (str): Message of Error
     """
-    print_color(message, tag='Error', color='red')
+    print_color(message, tag="Error", color="red")
 
 
 def print_warning(message: str) -> None:
@@ -40,7 +47,7 @@ def print_warning(message: str) -> None:
     Args:
         - Message (str): Message of Warning
     """
-    print_color(message, tag='Warning', color='yellow')
+    print_color(message, tag="Warning", color="yellow")
 
 
 def print_retry(message: str) -> None:
@@ -49,7 +56,7 @@ def print_retry(message: str) -> None:
     Args:
         - Message (str): Message of Retry
     """
-    print_color(message, tag='Retry', color='blue')
+    print_color(message, tag="Retry", color="blue")
 
 
 def print_info(message: str) -> None:
@@ -58,7 +65,7 @@ def print_info(message: str) -> None:
     Args:
         - Message (str): Message of Info
     """
-    print_color(message, tag='Info', color='yan')
+    print_color(message, tag="Info", color="yan")
 
 
 def terminal_size() -> int:

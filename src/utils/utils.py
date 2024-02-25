@@ -1,19 +1,20 @@
 """Contains utility functions for the project"""
 
+from __future__ import annotations
 
+import re
+import unicodedata
+from datetime import datetime
 from os import makedirs, path
 from shutil import rmtree
-from datetime import datetime
-import unicodedata
-import re
 
-from .logger import logger
 from ..constants import USER_INPUT_YES
+from .logger import logger
 
 
 def pause() -> None:
     """Pause the terminal until user hits Enter"""
-    _: str = input('Press Enter to continue . . .')
+    _: str = input("Press Enter to continue . . .")
 
 
 def create_directory(directory: str, force: bool | None = None) -> bool:
@@ -32,8 +33,11 @@ def create_directory(directory: str, force: bool | None = None) -> bool:
     if path.exists(path=directory):
         if force is False:
             return True
-        if force is True or input(
-                f'{directory} already exists. Force create it [Y/n]: ').upper() in USER_INPUT_YES:
+        if (
+            force is True
+            or input(f"{directory} already exists. Force create it [Y/n]: ").upper()
+            in USER_INPUT_YES
+        ):
             try:
                 rmtree(path=directory)
             except PermissionError as e:
@@ -41,8 +45,7 @@ def create_directory(directory: str, force: bool | None = None) -> bool:
                 raise e
             logger.info(msg=f'"{directory}" was removed recursively!')
         else:
-            logger.info(
-                msg=f'Skip creating "{directory}"')
+            logger.info(msg=f'Skip creating "{directory}"')
             return False
     makedirs(name=directory)
     logger.info(msg=f'"{directory}" was created!')
@@ -69,8 +72,7 @@ def remove_directory(directory: str) -> bool:
             raise e
         logger.info(msg=f'"{directory}" was removed recursively!')
         return True
-    logger.info(
-        msg=f'"{directory}" was not found. Skip removing it')
+    logger.info(msg=f'"{directory}" was not found. Skip removing it')
     return False
 
 
@@ -80,7 +82,7 @@ def datetime_name() -> str:
     Returns:
         - str: The datetime name
     """
-    return datetime.now().strftime('%Y-%m-%d %H-%M-%S-%f')
+    return datetime.now().strftime("%Y-%m-%d %H-%M-%S-%f")
 
 
 def slugify(value, allow_unicode=True):

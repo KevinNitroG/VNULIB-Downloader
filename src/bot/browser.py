@@ -1,5 +1,7 @@
 """Setup Selenium Browser"""
 
+from __future__ import annotations
+
 import logging
 import os
 
@@ -11,11 +13,12 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.logger import set_logger
 
 from src.constants import BROWSER_ARGUMENTS
+
 from ..utils import logger
 
 set_logger(logger)
-os.environ['WDM_LOG'] = str(logging.DEBUG)
-os.environ['WDM_SSL_VERIFY'] = '0'
+os.environ["WDM_LOG"] = str(logging.DEBUG)
+os.environ["WDM_SSL_VERIFY"] = "0"
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
@@ -41,10 +44,10 @@ class Browser:
         Returns:
             - WebDriver: Selenium WebDriver
         """
-        logger.info(msg='Setting up the browser...')
+        logger.info(msg="Setting up the browser...")
         self.__setup_arguments()
         match self.browser:
-            case 'chrome':
+            case "chrome":
                 self.driver = self.__setup_chrome_browser()
             case _:
                 self.driver = self.__setup_local_chrome_browser()
@@ -54,7 +57,7 @@ class Browser:
 
     def __exit__(self, exc_type, exc_value, traceback) -> None:
         """Exit the context manager"""
-        logger.info(msg='Quit the browser')
+        logger.info(msg="Quit the browser")
         self.driver.quit()
 
     def __setup_arguments(self) -> None:
@@ -62,7 +65,7 @@ class Browser:
         for argument in BROWSER_ARGUMENTS:
             self.options.add_argument(argument)
         if self.headless:
-            self.options.add_argument('--headless')
+            self.options.add_argument("--headless")
             self.options.add_experimental_option(
                 "prefs", {"profile.managed_default_content_settings.images": 2}
             )
@@ -74,8 +77,8 @@ class Browser:
             - WebDriver: Selenium WebDriver
         """
         return webdriver.Chrome(
-            options=self.options,
-            service=Service(ChromeDriverManager().install()))
+            options=self.options, service=Service(ChromeDriverManager().install())
+        )
 
     def __setup_local_chrome_browser(self) -> WebDriver:
         """Setup Local Chrome Browser
