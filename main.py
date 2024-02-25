@@ -4,9 +4,22 @@ from __future__ import annotations
 
 from pprint import pformat
 
-from src import (Action, Browser, Config, CreatePDF, DeleteIMG, DownloadIMG,
-                 LinkParse, Login, PrintIntro, UserOptions, create_directory,
-                 logger, pause, print_title)
+from src import (
+    Action,
+    Browser,
+    Config,
+    CreatePDF,
+    DeleteIMG,
+    DownloadIMG,
+    LinkParse,
+    Login,
+    PrintIntro,
+    UserOptions,
+    create_directory,
+    logger,
+    pause,
+    print_title,
+)
 from src.constants import DOWNLOAD_DIR
 
 

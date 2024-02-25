@@ -198,7 +198,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
             return self.config["HEADLESS"]
         self.__log_set_by_user_input("headless")
         return (
-            input("Open the browser in headless mode" "[Y/n]: ").strip().upper()
+            input("Open the browser in headless mode [Y/n]: ").strip().upper()
             in USER_INPUT_YES
         )
 
@@ -216,7 +216,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
             return self.config["CREATE_PDF"]
         self.__log_set_by_user_input("create_pdf")
         return (
-            input("Create PDF of book(s)" "after being downloaded [Y/n]: ")
+            input("Create PDF of book(s) after being downloaded [Y/n]: ")
             .strip()
             .upper()
             in USER_INPUT_YES
@@ -236,7 +236,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
             return self.config["CLEAN_IMG"]
         self.__log_set_by_user_input("clean_img")
         return (
-            input("Create images of book(s)" "after being merged into PDF [y/N]: ")
+            input("Create images of book(s) after being merged into PDF [y/N]: ")
             .strip()
             .upper()
             in USER_INPUT_NO

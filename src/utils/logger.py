@@ -37,7 +37,7 @@ class ToolLogger:
         """Reset the config path depends on pyinstaller environment or not"""
         if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
             self.config_path = path.join(
-                sys._MEIPASS, self.config_path
+                sys._MEIPASS, self.config_path  # type: ignore # skipcq: PYL-W0212
             )  # type: ignore # skipcq: PYL-W0212 # pylint: disable=protected-access # nopep8
 
     def read_logging_config(self) -> None:

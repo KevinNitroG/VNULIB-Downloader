@@ -96,7 +96,7 @@ class Action:
             preview_link: str | None = preview_link_element.get_attribute("href")
             if preview_link is not None:
                 preview_links.append(preview_link)
-        logger.info(msg=f"Found {len(preview_links)} " f'preview link(s) for "{link}"')
+        logger.info(msg=f'Found "{len(preview_links)}" preview link(s) for "{link}"')
         return preview_links
 
     def get_book_files_name(self) -> list[str]:
@@ -169,7 +169,7 @@ class Action:
         converted_links: list[Link] = []
         for link in self.links:
             logger.info(
-                msg=f'Processing "{link.original_link}" ' f'as "{link.original_type}"'
+                msg=f'Processing "{link.original_link}" as "{link.original_type}"'
             )
             match link.original_type:
                 case "book":
