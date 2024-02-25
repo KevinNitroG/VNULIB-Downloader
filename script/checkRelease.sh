@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=$(grep VERSION "src/constants.py" | cut -d "=" -f 2 | sed 's/'\''//g' | sed 's/ //g' | sed 's/\r//')
+VERSION=$(grep VERSION "src/constants.py" | cut -d "=" -f 2 | sed 's/'\''//g' | sed 's/"//g' | sed 's/ //g' | sed 's/\r//')
 echo "Current version: $VERSION"
 echo "VERSION=$VERSION" >>"$GITHUB_OUTPUT"
 
