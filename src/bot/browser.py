@@ -49,7 +49,7 @@ class Browser:
             case _:
                 self.driver = self.__setup_local_chrome_browser()
         self.driver.implicitly_wait(self.timeout)
-        logger.info(msg=f'Browser \'{self.browser}\' setup complete!')
+        logger.info(msg=f'Browser "{self.browser}" setup complete!')
         return self.driver
 
     def __exit__(self, exc_type, exc_value, traceback) -> None:

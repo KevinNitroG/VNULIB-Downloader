@@ -6,13 +6,12 @@ import sys
 from itertools import count
 from concurrent.futures import ThreadPoolExecutor
 import threading
-from typing import override
+from typing import Any
 import requests
 import urllib3
 from alive_progress import alive_bar
 from .link_parse import LinkFile, Link
-from ..utils.utils import create_directory
-from ..utils import logger
+from ..utils import logger, create_directory
 from ..constants import ERROR_PAGE_IMAGE_PATH
 
 
@@ -36,8 +35,8 @@ OUT_PAGE_ERROR_TEXT: str = 'Error:Error converting document'
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-class SingleThreadDownload:
-    """Single Thread download for unkown num pages
+class DownloadCore:  # pylint: disable=too-few-public-methods
+    """Download Core class for being inherited
 
     Args:
         - link (LinkFile): Link object
@@ -49,6 +48,7 @@ class SingleThreadDownload:
         self.link: LinkFile = link
         self.download_path: str = download_path
         self.timeout: int = timeout
+        self.session: Any
 
     def get_images_bytes(self, link: str) -> bytes:
         """Get images bytes
@@ -66,6 +66,29 @@ class SingleThreadDownload:
             logger.error(msg=f'Error page for {link}')
             return ERROR_PAGE_IMAGE
 
+
+class SingleThreadDownload(DownloadCore):
+    """Single Thread download for unkown num pages
+
+    Args:
+        - link (LinkFile): Link object
+        - download_path (str): Path for images to be downloaded
+        - timeout (int): Timeout for Request
+    """
+
+    def __init__(self, link: LinkFile, download_path: str, timeout: int) -> None:
+        super().__init__(link=link, download_path=download_path, timeout=timeout)
+        self.session = self.session
+
+    @staticmethod
+    def get_session():
+        """Get session
+
+        Returns:
+            - Session: Session
+        """
+        return requests.Session()
+
     def get_content_pages(self, link: str) -> str:
         """Get text from page
 
@@ -75,14 +98,14 @@ class SingleThreadDownload:
         Returns:
             - str: Text content of link
         """
-        return requests.get(link, stream=True, timeout=self.timeout, verify=False).text  # skipcq: BAN-B501, PTC-W6001
+        return self.session.get(link, stream=True, timeout=self.timeout, verify=False).text  # skipcq: BAN-B501, PTC-W6001
 
     def download(self) -> None:
         """Download"""
         self.session = requests.Session()  # pylint: disable=attribute-defined-outside-init
-        page_num = count(start=1)
-        with alive_bar() as bar:  # pylint: disable=disallowed-name
-            while True:
+        page_num = count(start=1, step=1)
+        while True:
+            with alive_bar() as bar:  # pylint: disable=disallowed-name
                 current_page: str = str(next(page_num))
                 image_link: str = f'{self.link.page_link}&page={current_page}'
                 image_path: str = os.path.join(self.download_path, f'image_{current_page}.jpg')
@@ -93,7 +116,7 @@ class SingleThreadDownload:
                 bar()  # pylint: disable=not-callable
 
 
-class MultiThreadingDownload(SingleThreadDownload):
+class MultiThreadingDownload(DownloadCore):
     """Multi Threading download, only for known page
 
     Args:
@@ -128,10 +151,9 @@ class MultiThreadingDownload(SingleThreadDownload):
             file.write(self.get_images_bytes(image_link))
         self.bar()  # pylint: disable=not-callable
 
-    @override
     def download(self) -> None:
         """Download images"""
-        with alive_bar(self.link.num_pages) as self.bar:  # pylint: disable=[disallowed-name, attribute-defined-outside-init]
+        with alive_bar(total=self.link.num_pages) as self.bar:  # pylint: disable=[disallowed-name, attribute-defined-outside-init]
             with ThreadPoolExecutor() as executor:
                 for page_num in range(1, self.link.num_pages + 1):
                     sub_link: str = f'{self.link.page_link}&page={page_num}'
@@ -145,6 +167,7 @@ class DownloadIMG:
     Args:
         - links (list[Link]): The list of links object
         - download_directory (str): Download directory
+        - timeout (int): Timeout (s) for Request to fetch each image
     """
 
     def __init__(self, links: list[Link], download_directory: str, timeout: int) -> None:
@@ -188,7 +211,7 @@ class DownloadIMG:
     def dowload_images(self) -> None:
         """Dowload Images from list of Link"""
         for link in self.links:
-            logger.info(msg=f'Downloading: \'{link.original_link}\'')
+            logger.info(msg=f'Downloading: "{link.original_link}"')
             match link.original_type:
                 case 'book':
                     self.book_handler(link)
@@ -199,5 +222,5 @@ class DownloadIMG:
                         self.preview_handler(link.files[0])
                     else:
                         self.page_handler(link.files[0])
-            logger.info(msg=f'Done: \'{link.original_link}\'')
+            logger.info(msg=f'Done:"{link.original_link}"')
             print()
