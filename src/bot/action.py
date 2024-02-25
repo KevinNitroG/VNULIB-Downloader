@@ -158,11 +158,9 @@ class Action:
                         f'as \'{link.original_type}\'')
             match link.original_type:
                 case 'book':
-                    converted_links.append(
-                        self.process_book(link=link))
+                    converted_links.append(self.process_book(link=link))
                 case 'preview':
-                    converted_links.append(
-                        self.process_preview(link=link))
+                    converted_links.append(self.process_preview(link=link))
                 case 'page':
                     converted_links.append(link)
         logger.info(msg='Done processing all links')

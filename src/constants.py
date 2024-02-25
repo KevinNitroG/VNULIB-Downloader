@@ -18,6 +18,7 @@ BANNER: str = """
 ██████╔╝╚██████╔╝╚███╔███╔╝██║ ╚████║███████╗╚██████╔╝██║  ██║██████╔╝███████╗██║  ██║
 ╚═════╝  ╚═════╝  ╚══╝╚══╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
 """
+PROCESSING_TIMEOUT: int = 20
 REPOSITORY_URL: str = 'https://github.com/KevinNitroG/VNULIB-Downloader'
 CONFIG_FILE: str = 'VNULIB-Downloader/config.yml'
 CONFIG_FILE_URL: str = 'https://raw.githubusercontent.com/KevinNitroG/VNULIB-Downloader/main/VNULIB-Downloader/config-sample.yml'  # skipcq: FLK-E501

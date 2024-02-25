@@ -10,7 +10,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.logger import set_logger
 
-from src.constants import BROWSER_ARGUMENTS
+from src.constants import BROWSER_ARGUMENTS, PROCESSING_TIMEOUT
 from ..utils import logger
 
 set_logger(logger)
@@ -46,7 +46,7 @@ class Browser:
                 self.driver = self.__setup_chrome_browser()
             case _:
                 self.driver = self.__setup_local_chrome_browser()
-        self.driver.implicitly_wait(15)
+        self.driver.implicitly_wait(PROCESSING_TIMEOUT)
         logger.info(msg=f'Browser \'{self.browser}\' setup complete!')
         return self.driver
 

@@ -62,7 +62,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   > Ví dụ: https://ir.vnulib.edu.vn/handle/VNUHCM/8108
 - Hỗ trợ link: `book`, `preview`, `page` [<sup>giải thích</sup>](#giải-thích-thuật-ngữ)
 - Tải một lúc nhiều sách _(lần lượt từng sách)_
-- Sử dụng multi thread _(đa luồng)_ để tải sách _(trừ `page`)_
+- Sử dụng multi thread _(đa luồng)_ để tải sách [<sup>lưu ý</sup>]()
 - Merge ảnh của các trang sách đã tải thành file PDF
 
 ---
@@ -100,20 +100,18 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 > [!IMPORTANT]
 >
-> Nếu trong tương lai việc sử dụng link `book` hay `preview` không được, hãy thử link `page` _(vì các phần tử trang web
-> có thể thay đổi)_
+> - Nếu trong tương lai việc sử dụng link `book` hay `preview` không được, hãy thử link `page` _(vì các phần tử trang web
+>   có thể thay đổi)_
+> - Nếu dùng để tải nhiều sách _(sử dụng multi threading)_ có thể khiến server bị quá tải, dẫn đến download fail
 
 > [!NOTE]
 >
 > - `preview` link của mỗi tài khoản là khác nhau _(dựa trên query `uid`)_
->
-> - Khi có >= 1 link là `book` / `preview`: Tool sẽ sử dụng Selenium Webdriver để xử lý, cần phải dùng tài khoản thư
-
-    viện để login
-
-> - Trái lại, khi toàn bộ link là `page`: Tool không cần dùng Selenium Webdriver,
-
-    nên `USERNAME`, `PASSWORD`, `BROSWER`, `HEADLESS` không còn quan trọng _(nhập bừa / để trống)_
+> - Khi có >= 1 link là `book` / `preview`: Tool sẽ sử dụng Selenium Webdriver để xử lý, cần phải dùng tài khoản thư viện để login
+> - Trái lại, khi toàn bộ link là `page`: Tool không cần dùng Selenium Webdriver, nên `USERNAME`, `PASSWORD`, `BROSWER`, `HEADLESS` không còn quan trọng _(nhập bừa / để trống)_
+> - `page` link: Trong link có query `&page=`:
+>   - `1`: Tool sẽ tự động check và tải trang sách đến khi đạt giới hạn _(không dùng multi threading)_
+>   - > `1`: Tool tự nhận đấy là limit của file sách hoặc chủ đích sử dụng tải tới trang đấy, dùng multi threading
 
 ---
 
