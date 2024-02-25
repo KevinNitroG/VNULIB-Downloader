@@ -18,23 +18,27 @@
 Python CLI tool download sách từ <strong>VNULIB</strong>
 </pre>
 
-[![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=CAEDFF)](../../commits/main)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/KevinNitroG/VNULIB-Downloader/release.yml?style=for-the-badge&label=RELEASE)
-![GitHub issues](https://img.shields.io/github/issues-raw/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=ffadad)
-![GitHub closed issues](https://img.shields.io/github/issues-closed/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=%23ffc6ff)
-![GitHub repo size](https://img.shields.io/github/repo-size/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=D8B4F8)
-[![GitHub contributors](https://img.shields.io/github/contributors/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=FBF0B2)](../../graphs/contributors)
-[![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/KevinNitroG/VNULIB-Downloader?style=for-the-badge)](https://www.codefactor.io/repository/github/kevinnitrog/VNULIB-Downloader)
-[![wakatime of KevinNitroG](https://wakatime.com/badge/github/KevinNitroG/VNULIB-Downloader.svg?style=for-the-badge)](https://wakatime.com/badge/github/KevinNitroG/VNULIB-Downloader)
-![Hit](https://hits.sh/github.com/KevinNitroG/VNULIB-Downloader.svg?view=today-total&style=for-the-badge&label=hits)
-[![DeepSource](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=active+issues&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G)](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader/)
-[![DeepSource](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=resolved+issues&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G)](https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader/)
-
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)
-![Selenium](https://img.shields.io/badge/-selenium-%43B02A?style=for-the-badge&logo=selenium&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
-![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+<div align="center">
+  <img src="https://img.shields.io/github/last-commit/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=CAEDFF" alt="GitHub last commit (by committer)">
+  <img src="https://img.shields.io/github/actions/workflow/status/KevinNitroG/VNULIB-Downloader/release.yml?style=for-the-badge&label=RELEASE" alt="GitHub Actions Workflow Status">
+  <img src="https://img.shields.io/github/issues-raw/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=ffadad" alt="GitHub issues">
+  <img src="https://img.shields.io/github/issues-closed/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=%23ffc6ff" alt="GitHub closed issues">
+  <img src="https://img.shields.io/github/repo-size/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=D8B4F8" alt="GitHub repo size">
+  <img src="https://img.shields.io/github/contributors/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=FBF0B2" alt="GitHub contributors">
+  <img src="https://wakatime.com/badge/github/KevinNitroG/VNULIB-Downloader.svg?style=for-the-badge" alt="wakatime of KevinNitroG">
+  <img src="https://hits.sh/github.com/KevinNitroG/VNULIB-Downloader.svg?view=today-total&style=for-the-badge&label=hits" alt="Hit">
+  <img src="https://img.shields.io/codefactor/grade/github/KevinNitroG/VNULIB-Downloader?style=for-the-badge" alt="CodeFactor Grade">
+  
+  <img src="https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=active+issues&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G" alt="DeepSource active issues">
+  <img src="https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=resolved+issues&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G" alt="DeepSource resolved issues">
+  <br>
+  <br>
+  <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python">
+  <img src="https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white" alt="Shell Script">
+  <img src="https://img.shields.io/badge/-selenium-%43B02A?style=for-the-badge&logo=selenium&logoColor=white" alt="Selenium">
+  <img src="https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white" alt="GitHub Actions">
+  <img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="Visual Studio Code">
+</div>
 
 <!-- ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white) -->
 
