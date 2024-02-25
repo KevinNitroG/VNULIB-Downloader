@@ -18,6 +18,10 @@ PASSWORD:
 # LINKS: [LINK1, LINK2]
 LINKS:
 
+# Timeout (s) for Selenium & request each image from server
+# 10, 20,...
+TIMEOUT:
+
 # Browser you are using (to use Selenium webdriver)
 # Options: chrome, path/to/local/google_chromedriver (google chromedriver only)
 BROWSER:

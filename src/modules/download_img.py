@@ -11,7 +11,7 @@ from alive_progress import alive_bar
 from .link_parse import LinkFile, Link
 from ..utils.utils import create_directory
 from ..utils import logger
-from ..constants import ERROR_PAGE_IMAGE_PATH, PROCESSING_TIMEOUT
+from ..constants import ERROR_PAGE_IMAGE_PATH
 
 
 def get_error_page_bytes() -> bytes:
@@ -42,12 +42,12 @@ class DownloadIMG:
         - download_directory (str): Download directory
     """
 
-    def __init__(self, links: list[Link], download_directory: str) -> None:
+    def __init__(self, links: list[Link], download_directory: str, timeout: int) -> None:
         self.links: list[Link] = links
         self.download_directory: str = os.sep.join(download_directory.split('/'))
+        self.timeout: int = timeout
 
-    @staticmethod
-    def get_images_bytes(link: str) -> bytes:
+    def get_images_bytes(self, link: str) -> bytes:
         """Get images bytes
 
         Args:
@@ -57,13 +57,12 @@ class DownloadIMG:
             - Bytes: The datas of images
         """
         try:
-            return requests.get(link, stream=True, timeout=PROCESSING_TIMEOUT, verify=False).content  # skipcq: BAN-B501, PTC-W6001
+            return requests.get(link, stream=True, timeout=self.timeout, verify=False).content  # skipcq: BAN-B501, PTC-W6001
         except requests.exceptions.ReadTimeout:
             logger.error(msg=f'Error page for {link}')
             return ERROR_PAGE_IMAGE
 
-    @staticmethod
-    def get_content_pages(link: str) -> str:
+    def get_content_pages(self, link: str) -> str:
         """Get text from page
 
         Args:
@@ -72,10 +71,9 @@ class DownloadIMG:
         Returns:
             - str: Text content of link
         """
-        return requests.get(link, stream=True, timeout=PROCESSING_TIMEOUT, verify=False).text  # skipcq: BAN-B501, PTC-W6001
+        return requests.get(link, stream=True, timeout=self.timeout, verify=False).text  # skipcq: BAN-B501, PTC-W6001
 
-    @staticmethod
-    def multithreading_for_known_page(image_link: str, image_path: str, tuple_bar: tuple) -> None:  # pylint: disable=disallowed-name
+    def multithreading_for_known_page(self, image_link: str, image_path: str, tuple_bar: tuple) -> None:  # pylint: disable=disallowed-name
         """Multithreading download function for known page link (book | preview)
 
         Args:
@@ -84,7 +82,7 @@ class DownloadIMG:
             tuple_bar (tuple): The tuple only contains bar, for pass by reference
         """
         with open(image_path, 'wb') as file:  # skipcq: PTC-W6004
-            file.write(DownloadIMG.get_images_bytes(image_link))
+            file.write(self.get_images_bytes(image_link))
         tuple_bar[0]()
 
     def download_with_known_page(self, link: LinkFile, download_path: str) -> None:
@@ -114,10 +112,10 @@ class DownloadIMG:
                 current_page: str = str(next(page_num))
                 image_link: str = f'{link.page_link}&page={current_page}'
                 image_path: str = os.path.join(download_path, f'image_{current_page}.jpg')
-                if OUT_PAGE_ERROR_TEXT in DownloadIMG.get_content_pages(image_link):
+                if OUT_PAGE_ERROR_TEXT in self.get_content_pages(image_link):
                     break
                 with open(image_path, 'wb') as file:  # skipcq: PTC-W6004
-                    file.write(DownloadIMG.get_images_bytes(image_link))
+                    file.write(self.get_images_bytes(image_link))
                 bar()  # pylint: disable=not-callable
 
     def book_handler(self, links: Link) -> None:
