@@ -43,9 +43,10 @@ ignore_labels:
 restylers_version: stable
 
 restylers:
-  - name: autopep8
+  - "*"
+  - name: black
     include:
       - "**/*.py"
       - "main.py"
-  - "!black"
+  - "!autopep8"
   - "!pyment"
