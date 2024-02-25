@@ -33,7 +33,7 @@ def create_directory(directory: str, force: bool | None = None) -> bool:
         if force is False:
             return True
         if force is True or input(
-                f'{directory} already exists. Force create it [Y/n]: ') in USER_INPUT_YES:
+                f'{directory} already exists. Force create it [Y/n]: ').upper() in USER_INPUT_YES:
             try:
                 rmtree(path=directory)
             except PermissionError as e:

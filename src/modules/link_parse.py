@@ -3,6 +3,7 @@
 
 from urllib.parse import urlparse, urlunparse, parse_qs, urlencode
 from re import compile as re_compile, search as re_search
+from time import sleep
 from .user_options import LinkFile, Link
 from ..utils import logger
 from ..utils.utils import datetime_name
@@ -118,7 +119,8 @@ class LinkParse:
                 case 'page':
                     link = self.process_page(link)
                     modified_links.append(link)
-                    logger.info(msg=f'Set \'{link.files[0].num_pages}\' for \'{link.original_link}\'')
+                    logger.info(msg=f'Set \'{link.files[0].num_pages}\' page for \'{link.original_link}\'')
+                    sleep(0.1)  # Sleep to avoid same folder name in any case
                 case _:
                     logger.warning(
                         msg='Unknown link type for: '
