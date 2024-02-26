@@ -1,14 +1,14 @@
 # ✨ VNULIB DOWNLOADER ✨
 
 <pre align="center">
-██╗   ██╗███╗   ██╗██╗   ██╗██╗     ██╗██████╗
+██╗   ██╗███╗   ██╗██╗   ██╗██╗     ██╗██████╗ 
 ██║   ██║████╗  ██║██║   ██║██║     ██║██╔══██╗
 ██║   ██║██╔██╗ ██║██║   ██║██║     ██║██████╔╝
 ╚██╗ ██╔╝██║╚██╗██║██║   ██║██║     ██║██╔══██╗
  ╚████╔╝ ██║ ╚████║╚██████╔╝███████╗██║██████╔╝
-  ╚═══╝  ╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚═╝╚═════╝
+  ╚═══╝  ╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚═╝╚═════╝ 
 
-██████╗  ██████╗ ██╗    ██╗███╗   ██╗██╗      ██████╗  █████╗ ██████╗ ███████╗██████╗
+██████╗  ██████╗ ██╗    ██╗███╗   ██╗██╗      ██████╗  █████╗ ██████╗ ███████╗██████╗ 
 ██╔══██╗██╔═══██╗██║    ██║████╗  ██║██║     ██╔═══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗
 ██║  ██║██║   ██║██║ █╗ ██║██╔██╗ ██║██║     ██║   ██║███████║██║  ██║█████╗  ██████╔╝
 ██║  ██║██║   ██║██║███╗██║██║╚██╗██║██║     ██║   ██║██╔══██║██║  ██║██╔══╝  ██╔══██╗
@@ -18,16 +18,15 @@
 Python CLI tool download sách từ <strong>VNULIB</strong>
 </pre>
 
-<div align="center">
-  <a href="../../commits/main"><img src="https://img.shields.io/github/last-commit/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=CAEDFF" alt="GitHub last commit (by committer)"></a>
-  <img src="https://img.shields.io/github/actions/workflow/status/KevinNitroG/VNULIB-Downloader/release.yml?style=for-the-badge&label=RELEASE" alt="GitHub Actions Workflow Status">
-  <a href="../../issues"><img src="https://img.shields.io/github/issues-raw/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=ffadad" alt="GitHub issues"></a>
-  <a href="../../issues"><img src="https://img.shields.io/github/issues-closed/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=%23ffc6ff" alt="GitHub closed issues"></a>
-  <img src="https://img.shields.io/github/repo-size/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=D8B4F8" alt="GitHub repo size">
-  <a href="../../graphs/contributors"><img src="https://img.shields.io/github/contributors/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=FBF0B2" alt="GitHub contributors"></a>
-  <a href="https://wakatime.com/badge/github/KevinNitroG/VNULIB-Downloader"><img src="https://wakatime.com/badge/github/KevinNitroG/VNULIB-Downloader.svg?style=for-the-badge" alt="Wakatime"></a>
-  <img src="https://hits.sh/github.com/KevinNitroG/VNULIB-Downloader.svg?view=today-total&style=for-the-badge&label=hits" alt="Hit">
-  <a href="https://www.codefactor.io/repository/github/kevinnitrog/VNULIB-Downloader"><img src="https://img.shields.io/codefactor/grade/github/KevinNitroG/VNULIB-Downloader?style=for-the-badge" alt="CodeFactor Grade"></a>
+<a href="../../commits/main"><img src="https://img.shields.io/github/last-commit/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=CAEDFF" alt="GitHub last commit (by committer)"></a>
+<img src="https://img.shields.io/github/actions/workflow/status/KevinNitroG/VNULIB-Downloader/release.yml?style=for-the-badge&label=RELEASE" alt="GitHub Actions Workflow Status">
+<a href="../../issues"><img src="https://img.shields.io/github/issues-raw/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=ffadad" alt="GitHub issues"></a>
+<a href="../../issues"><img src="https://img.shields.io/github/issues-closed/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=%23ffc6ff" alt="GitHub closed issues"></a>
+<img src="https://img.shields.io/github/repo-size/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=D8B4F8" alt="GitHub repo size">
+<a href="../../graphs/contributors"><img src="https://img.shields.io/github/contributors/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=FBF0B2" alt="GitHub contributors"></a>
+<a href="https://wakatime.com/badge/github/KevinNitroG/VNULIB-Downloader"><img src="https://wakatime.com/badge/github/KevinNitroG/VNULIB-Downloader.svg?style=for-the-badge" alt="Wakatime"></a>
+<img src="https://hits.sh/github.com/KevinNitroG/VNULIB-Downloader.svg?view=today-total&style=for-the-badge&label=hits" alt="Hit">
+<a href="https://www.codefactor.io/repository/github/kevinnitrog/VNULIB-Downloader"><img src="https://img.shields.io/codefactor/grade/github/KevinNitroG/VNULIB-Downloader?style=for-the-badge" alt="CodeFactor Grade"></a>
 
 <a href="https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader/"><img src="https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=active+issues&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G" alt="DeepSource active issues"></a>
 <a href="https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader/"><img src="https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=resolved+issues&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G" alt="DeepSource resolved issues"></a>
@@ -39,8 +38,6 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 <img src="https://img.shields.io/badge/pre--commit-FAB040.svg?style=for-the-badge&logo=precommit&logoColor=white" alt="Pre-commit">
 <img src="https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white" alt="GitHub Actions">
 <img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="Visual Studio Code">
-
-</div>
 
 <!-- ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white) -->
 
@@ -195,7 +192,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `book`               | Link của sách<br>Ex: `https://ir.vnulib.edu.vn/handle/VNUHCM/8108`                                                                                                                                           |
 | `preview`            | Preview link của sách<br>Ex: `https://ir.vnulib.edu.vn/flowpaper/simple_document.php?subfolder=11/94/07/&doc=914783209473971&bitsid=c3558fcc-95bb-4a92-a492-46f61eccfadc&uid=237ys-b676-45b0-855b-12iuiwdT5` |
-| `page`               | Link ảnh của 1 trang sách<br>Ex: `https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=914783209473971&format=jpg&page=1&subfolder=11/94/07/_                                                            |
+| `page`               | Link ảnh của 1 trang sách<br>Ex: `https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=914783209473971&format=jpg&page=1&subfolder=11/94/07/`                                                            |
 | `Selenium Webdriver` | Hỗ trợ automation bằng trình duyệt                                                                                                                                                                           |
 | `headless`           | Khi chạy trình duyệt sẽ không hiện ra thành cửa sổ, chỉ ẩn dưới nền                                                                                                                                          |
 
