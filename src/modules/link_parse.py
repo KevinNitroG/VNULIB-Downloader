@@ -137,7 +137,5 @@ class LinkParse:
                     )
                     sleep(0.1)  # Sleep to avoid same folder name in any case
                 case _:
-                    logger.warning(
-                        msg=f'Unknown link type for: " "{link.original_link}"'
-                    )
+                    logger.warning(msg=f'Unknown link type for: "{link.original_link}"')
         return modified_links
