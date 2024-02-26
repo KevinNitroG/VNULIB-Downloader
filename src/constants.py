@@ -5,7 +5,7 @@ import sys
 
 
 if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
-    BUNDLE_DIR: str = sys._MEIPASS  # type: ignore # skipcq: PYL-W0212 # pylint: disable=protected-access # nopep8
+    BUNDLE_DIR: str = sys._MEIPASS + "/"  # type: ignore # skipcq: PYL-W0212 # pylint: disable=protected-access # nopep8
 else:
     BUNDLE_DIR = ""
 
