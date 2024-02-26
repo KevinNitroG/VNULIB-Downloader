@@ -71,6 +71,9 @@ jobs:
       - build
     if: ${{ needs.prepare.outputs.CONTINUE == 'true' }}
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@main
+
       - name: Download Artifact
         uses: actions/download-artifact@main
 
@@ -84,7 +87,7 @@ jobs:
           body: ${{ steps.last-commit.outputs.message }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./VNULIB-Downloader-*/VNULIB-Downloader-*
-          release_name: ${{ needs.prepare.outputs.VERSION }}
+          release_name: VNULIB Downloader ${{ needs.prepare.outputs.VERSION }}
           tag: ${{ needs.prepare.outputs.VERSION }}
           file_glob: true
           overwrite: false
