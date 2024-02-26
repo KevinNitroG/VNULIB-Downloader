@@ -1,2 +1,7 @@
 *py text eol=crlf
 *sh text eol=lf
+*yml text eol=crlf
+*yaml text eol=crlf
+*toml text eol=crlf
+*json text eol=crlf
+*txt text eol=crlf
