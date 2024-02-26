@@ -8,6 +8,8 @@ import img2pdf
 
 from .link_parse import Link, LinkFile
 
+from concurrent.futures import ThreadPoolExecutor
+
 
 class CreatePDF:
     """Merge the images of books into PDF files
@@ -51,10 +53,13 @@ class CreatePDF:
             directory (str): The directory containing the subdirectories.
             link (Link): The book's Link
         """
-        for link_page in link.files:
-            CreatePDF.merge_jpg_to_pdf_page_link_or_preview_link(
-                os.path.join(book_directory, link_page.name), link_page
-            )
+        with ThreadPoolExecutor() as executor:
+            for link_page in link.files:
+                executor.submit(
+                    CreatePDF.merge_jpg_to_pdf_page_link_or_preview_link,
+                    os.path.join(book_directory, link_page.name),
+                    link_page,
+                )
 
     @staticmethod
     def create_pdf(dowload_directory: str, links: list[Link]) -> None:
