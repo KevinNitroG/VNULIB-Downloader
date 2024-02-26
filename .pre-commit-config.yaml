@@ -21,6 +21,7 @@ repos:
         args:
           - "--allow-multiple-documents"
       - id: trailing-whitespace
+        exclude: "docs/README.md"
       - id: end-of-file-fixer
       - id: debug-statements
       # - id: double-quote-string-fixer
@@ -57,3 +58,4 @@ repos:
     rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
+        exclude: "config-sample.yml"
