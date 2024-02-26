@@ -2,8 +2,7 @@
 **/*test*
 **/.?*cache*
 **/*log*
-VNULIB-Downloader/*
-Profiles/
+config.yml
 
 **/__pycache__
 **/*.exe
