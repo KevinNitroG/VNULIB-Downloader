@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from os import path
 
-from requests import get
+from shutil import copyfile
 
-from ..constants import CONFIG_FILE, CONFIG_FILE_URL
+from ..constants import CONFIG_FILE, CONFIG_SAMPLE_FILE
 from ..utils import logger
 
 
@@ -19,34 +19,18 @@ class Config:
     """
 
     def __init__(
-        self, config_file: str = CONFIG_FILE, url: str = CONFIG_FILE_URL
+        self,
+        config_file: str = CONFIG_FILE,
+        config_sample_file: str = CONFIG_SAMPLE_FILE,
     ) -> None:
         self.config_file: str = config_file
-        self.url: str = url
+        self.config_sample_file: str = config_sample_file
         self.setup()
 
-    def download_config_file(self) -> None:
-        """Download the config file from repository"""
-        logger.info(
-            msg=f'Downloading "{self.config_file}" from repository.'
-            " It will download once"
-        )
-        with open(file=self.config_file, mode="w", encoding="utf-8") as file:
-            try:
-                content = get(
-                    url=self.url, allow_redirects=True, timeout=10
-                ).content.decode(encoding="utf-8")
-            except ConnectionError:
-                logger.error(
-                    msg="Couldn't connect to Repository Source to download the config file."
-                    "Please check the connection or the source of the repo and try again."
-                )
-            else:
-                file.write(content)
-                logger.info(
-                    msg="Downloaded config file successfully at "
-                    f'"{self.config_file}"'
-                )
+    def prepare_config_file(self) -> None:
+        """Copy config sample file to config file"""
+        copyfile(self.config_sample_file, self.config_file)
+        logger.info(msg=f'Created tool config: "{self.config_file}"')
 
     def check_exist_config_file(self) -> bool:
         """Check if the config file exists or not
@@ -62,4 +46,4 @@ class Config:
     def setup(self) -> None:
         """Prepare the config file for the project"""
         if not self.check_exist_config_file():
-            self.download_config_file()
+            self.prepare_config_file()

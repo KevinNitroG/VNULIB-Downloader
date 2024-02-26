@@ -11,6 +11,7 @@ from typing import Any
 
 import requests
 import urllib3
+from requests.sessions import Session
 from alive_progress import alive_bar
 
 from ..constants import ERROR_PAGE_IMAGE_PATH
@@ -83,10 +84,10 @@ class SingleThreadDownload(DownloadCore):
 
     def __init__(self, link: LinkFile, download_path: str, timeout: int) -> None:
         super().__init__(link=link, download_path=download_path, timeout=timeout)
-        self.session = self.session
+        self.session: Session = self.get_session()
 
     @staticmethod
-    def get_session():
+    def get_session() -> Session:
         """Get session
 
         Returns:
@@ -125,6 +126,7 @@ class SingleThreadDownload(DownloadCore):
                 with open(image_path, "wb") as file:  # skipcq: PTC-W6004
                     file.write(self.get_images_bytes(image_link))
                 bar()  # pylint: disable=not-callable
+        self.session.close()
 
 
 class MultiThreadingDownload(DownloadCore):
@@ -139,9 +141,9 @@ class MultiThreadingDownload(DownloadCore):
     def __init__(self, link: LinkFile, download_path: str, timeout: int) -> None:
         super().__init__(link=link, download_path=download_path, timeout=timeout)
         self.thread_local = threading.local()
-        self.session = self.get_session()
+        self.session: Session = self.get_session()
 
-    def get_session(self):
+    def get_session(self) -> Session:
         """Get session for thread
 
         Returns:

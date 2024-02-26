@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import sys
 from logging import Logger, getLogger
 from logging.config import dictConfig
 from os import makedirs, path
@@ -33,16 +32,8 @@ class ToolLogger:
         if not path.exists(self.logging_path):
             makedirs(self.logging_path)
 
-    def reset_config_path(self) -> None:
-        """Reset the config path depends on pyinstaller environment or not"""
-        if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
-            self.config_path = path.join(
-                sys._MEIPASS, self.config_path  # type: ignore # skipcq: PYL-W0212
-            )  # type: ignore # skipcq: PYL-W0212 # pylint: disable=protected-access # nopep8
-
     def read_logging_config(self) -> None:
         """Read the logging config file"""
-        self.reset_config_path()
         with open(self.config_path, encoding="utf-8") as config_file:
             dictConfig(safe_load(config_file))  # skipcq: PY-A6006
 

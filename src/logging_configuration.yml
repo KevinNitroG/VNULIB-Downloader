@@ -14,7 +14,7 @@ handlers:
   file:
     class: logging.handlers.RotatingFileHandler
     formatter: verbose
-    filename: "VNULIB-DOWNLOADER/logs/tool.log"
+    filename: "log/tool.log"
     maxBytes: 20000 # 2KB
     backupCount: 3
     level: DEBUG
@@ -22,5 +22,5 @@ handlers:
 root:
   level: DEBUG
   handlers:
-  - stdout
-  - file
+    - stdout
+    - file
