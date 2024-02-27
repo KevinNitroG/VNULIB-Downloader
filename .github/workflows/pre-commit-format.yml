@@ -1,10 +1,14 @@
 name: Pre-commit format
+concurrency:
+  cancel-in-progress: true
+  group: Pre-commit-format
 on: push
 jobs:
   format-code:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    continue-on-error: true
     steps:
       - uses: actions/checkout@main
 
