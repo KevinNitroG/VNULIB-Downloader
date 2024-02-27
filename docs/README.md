@@ -60,6 +60,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   - [🤔 NOTES](#-notes)
     - [Giải thích thuật ngữ](#giải-thích-thuật-ngữ)
     - [Cách lấy page link](#cách-lấy-page-link)
+  - [👨‍💻 DEVELOP / CONTRIBUTE](#-develop--contribute)
   - [📝 LICENSE](#-license)
   - [🤥 DISCLAIMER](#-disclaimer)
   - [😌 CREDIT](#-credit)
@@ -72,9 +73,9 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 - Tải sách _(có thể đọc preview online)_ trên [VNULIB](https://vnulib.edu.vn/) _(HCM)_
   > Ví dụ: https://ir.vnulib.edu.vn/handle/VNUHCM/8108
 - Hỗ trợ link: `book`, `preview`, `page` [<sup>giải thích</sup>](#giải-thích-thuật-ngữ)
-- Tải một lúc nhiều sách _(lần lượt từng sách)_
-- Sử dụng multi thread _(đa luồng)_ để tải sách
-- Merge ảnh của các trang sách đã tải thành file PDF
+- Hỗ trợ tải nhiều sách _(lần lượt từng sách)_
+- Tải sách - Multi threading _(đa luồng)_
+- Merge các ảnh thành PDF - Multi processing _(đa xử lý)_
 
 ---
 
@@ -108,15 +109,22 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 | `CREATE_PDF`                                    | `y`, `n`, ...                               | `y`         | Tạo file PDF từ các ảnh đã tải về                                            | `y`             |
 | `CLEAN_IMG`                                     | `y`, `n`, ...                               | `y`         | Xoá ảnh sau khi đã tạo PDF                                                   | `y`             |
 
-4. Ảnh và sách sẽ được tải về thư mục `./VNULIB-Downloader/Downloads/`
+> [!NOTE]
+>
+> - Ảnh và sách sẽ được tải về thư mục `./Downloads/`
+>
+> - Kiểm tra log tại `./log`
+
+> [!WARNING]
+>
+> - Vì sử dụng Multi threading, nếu tải quá nhiều sách có thể ảnh hưởng đến server
 
 > [!IMPORTANT]
 >
 > - Nếu trong tương lai việc sử dụng link `book` hay `preview` không được, hãy thử link `page` _(vì các phần tử trang web
 >   có thể thay đổi)_
-> - Nếu dùng để tải nhiều sách _(sử dụng multi threading)_ có thể khiến server bị quá tải, dẫn đến download fail
 
-> [!NOTE]
+> [!TIP]
 >
 > - `preview` link của mỗi tài khoản là khác nhau _(dựa trên query `uid`)_
 > - Khi có >= 1 link là `book` / `preview`: Tool sẽ sử dụng Selenium Webdriver để xử lý, cần phải dùng tài khoản thư viện để login
@@ -168,12 +176,30 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ### 🤐 Python
 
 1. Install [Python](https://www.python.org/downloads/)
-2. Create virtual environment _(optional)_
-3. Install requirements
+2. Clone repo
+   ```.ps1
+   git clone https://github.com/KevinNitroG/VNULIB-Downloader --depth 1
+   ```
+3. Create virtual environment _(optional)_
+   - Windows
+     ```.ps1
+     pip install virtualenv
+     python -m venv .env
+     myenv\Scripts\activate
+     deactivate
+     ```
+   - Mac / Linux
+     ```.sh
+     pip3 install virtualenv
+     virtualenv .env
+     source .env/bin/activate
+     deactivate
+     ```
+4. Install requirements
    ```ps1
    pip install -r requirements.txt
    ```
-4. Run tool
+5. Run tool
    ```ps1
    python main.py
    ```
@@ -202,6 +228,16 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 - Lấy link ảnh trang sác của một trang bất kì
   > Có thể F12 để lấy link ảnh trang sách nếu chuột phải không có option `Copy image address`, ...
   > ![Lấy link ảnh trang sách bằng F12](../asset/video/huong_dan_get_link_anh_trang_sach.mp4)
+
+---
+
+## 👨‍💻 DEVELOP / CONTRIBUTE
+
+- Format:
+  - Python pep8: [`black`](https://github.com/psf/black) formatter
+  - [Prettier](https://prettier.io/)
+- Docstring: [Google format](https://github.com/NilsJPWerner/autoDocstring/blob/master/docs/google.md#google-docstring-format)
+- Requirement of python: Need specific version
 
 ---
 
