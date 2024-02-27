@@ -17,6 +17,7 @@ jobs:
       VERSION: ${{ steps.get_variables.outputs.VERSION }}
       SET_PRE_RELEASE: ${{ steps.get_variables.outputs.SET_PRE_RELEASE }}
       CONTINUE: ${{ steps.get_variables.outputs.CONTINUE }}
+      LAST_COMMIT: ${{ steps.last-commit.outputs.message }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@main
@@ -24,6 +25,10 @@ jobs:
       - name: Prepare Version & Set Pre Release
         id: get_variables
         run: script/checkRelease.sh
+
+      - name: Get last commit message
+        id: last-commit
+        run: echo "message=$(git log -1 --pretty=%s)" >> $GITHUB_OUTPUT
 
   build:
     name: build
@@ -71,20 +76,13 @@ jobs:
       - build
     if: ${{ needs.prepare.outputs.CONTINUE == 'true' }}
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@main
-
       - name: Download Artifact
         uses: actions/download-artifact@main
-
-      - name: Get last commit message
-        id: last-commit
-        run: echo "message=$(git log -1 --pretty=%s)" >> $GITHUB_OUTPUT
 
       - name: Upload to Release
         uses: svenstaro/upload-release-action@master
         with:
-          body: ${{ steps.last-commit.outputs.message }}
+          body: ${{ needs.prepare.outputs.LAST_COMMIT }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./VNULIB-Downloader-*/VNULIB-Downloader-*
           release_name: VNULIB Downloader ${{ needs.prepare.outputs.VERSION }}
