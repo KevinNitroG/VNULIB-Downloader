@@ -8,7 +8,7 @@ import img2pdf
 
 from .link_parse import Link, LinkFile
 
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
 
 
 class CreatePDF:
@@ -53,7 +53,7 @@ class CreatePDF:
             directory (str): The directory containing the subdirectories.
             link (Link): The book's Link
         """
-        with ThreadPoolExecutor() as executor:
+        with ProcessPoolExecutor() as executor:
             for link_page in link.files:
                 executor.submit(
                     CreatePDF.merge_jpg_to_pdf_page_link_or_preview_link,
