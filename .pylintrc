@@ -11,3 +11,7 @@ disable=
     protected-access,
     too-few-public-methods,
     disallowed-name
+
+[MASTER]
+
+init-hook='import sys; sys.path.append(".venv/Lib/site-packages/")'
