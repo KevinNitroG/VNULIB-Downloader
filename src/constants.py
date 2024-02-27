@@ -13,14 +13,14 @@ else:
 VERSION: str = "1.2"
 AUTHORS: str = "KevinNitroG & NTGNguyen"
 BANNER: str = """
-██╗   ██╗███╗   ██╗██╗   ██╗██╗     ██╗██████╗
+██╗   ██╗███╗   ██╗██╗   ██╗██╗     ██╗██████╗ 
 ██║   ██║████╗  ██║██║   ██║██║     ██║██╔══██╗
 ██║   ██║██╔██╗ ██║██║   ██║██║     ██║██████╔╝
 ╚██╗ ██╔╝██║╚██╗██║██║   ██║██║     ██║██╔══██╗
  ╚████╔╝ ██║ ╚████║╚██████╔╝███████╗██║██████╔╝
-  ╚═══╝  ╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚═╝╚═════╝
+  ╚═══╝  ╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚═╝╚═════╝ 
 
-██████╗  ██████╗ ██╗    ██╗███╗   ██╗██╗      ██████╗  █████╗ ██████╗ ███████╗██████╗
+██████╗  ██████╗ ██╗    ██╗███╗   ██╗██╗      ██████╗  █████╗ ██████╗ ███████╗██████╗ 
 ██╔══██╗██╔═══██╗██║    ██║████╗  ██║██║     ██╔═══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗
 ██║  ██║██║   ██║██║ █╗ ██║██╔██╗ ██║██║     ██║   ██║███████║██║  ██║█████╗  ██████╔╝
 ██║  ██║██║   ██║██║███╗██║██║╚██╗██║██║     ██║   ██║██╔══██║██║  ██║██╔══╝  ██╔══██╗
@@ -42,7 +42,7 @@ USER_INPUT_YES: list[str] = ["Y", "YES", "", "1"]
 USER_INPUT_NO: list[str] = ["N", "NO", "", "0"]
 LOGIN_URL: str = "https://ir.vnulib.edu.vn/login/oa/dologin.jsp?RedirectURL=/"
 # https://jtway.co/optimize-your-chrome-options-for-testing-to-get-x1-25-impact-4f19f071bf45
-BROWSER_ARGUMENTS: list[str] = [
+BROWSER_ARGUMENTS: set[str] = {
     "--allow-running-insecure-content",
     "--autoplay-policy=user-gesture-required",
     "--disable-add-to-shelf",
@@ -83,4 +83,4 @@ BROWSER_ARGUMENTS: list[str] = [
     "--log-level=3",
     "--silent",
     "--disable-gpu",
-]
+}
