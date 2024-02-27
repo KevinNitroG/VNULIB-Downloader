@@ -10,7 +10,8 @@ disable=
     missing-docstring,
     protected-access,
     too-few-public-methods,
-    disallowed-name
+    disallowed-name,
+    import-error
 
 [MASTER]
 
