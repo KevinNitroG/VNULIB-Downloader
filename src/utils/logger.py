@@ -15,7 +15,8 @@ class ToolLogger:
     """Setup logger
 
     Args:
-        - config_path (str): The path of logging config file. Default to LOGGING_CONFIG_FILE_PATH
+        - config_path (str): The path of logging config file.
+                             Default to LOGGING_CONFIG_FILE_PATH
         - logging_path (str): The logging directory. Default to LOGGING_PATH
     """
 

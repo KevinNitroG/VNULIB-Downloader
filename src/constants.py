@@ -31,7 +31,7 @@ REPOSITORY_URL: str = "https://github.com/KevinNitroG/VNULIB-Downloader"
 CONFIG_FILE: str = "config.yml"
 CONFIG_SAMPLE_FILE: str = BUNDLE_DIR + "config-sample.yml"
 CONFIG_FILE_URL: str = (
-    "https://raw.githubusercontent.com/KevinNitroG/VNULIB-Downloader/main/config-sample.yml"  # skipcq: FLK-E501
+    "https://raw.githubusercontent.com/KevinNitroG/VNULIB-Downloader/main/config-sample.yml"  # skipcq: [FLK-E501, FLK-W505]
 )
 LOGGING_CONFIG_FILE_PATH: str = BUNDLE_DIR + "src/logging_configuration.yml"
 LOGGING_PATH: str = "log"

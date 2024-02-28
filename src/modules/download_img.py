@@ -72,7 +72,8 @@ class DownloadCore:  # pylint: disable=too-few-public-methods
             logger.error(msg=f"Error page for {link}")
             return ERROR_PAGE_IMAGE
 
-    def download(self): ...
+    def download(self):
+        """Define later in child classes"""
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
         self.download()
