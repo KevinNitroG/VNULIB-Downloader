@@ -16,3 +16,7 @@ disable=
 [MASTER]
 
 init-hook='import sys; sys.path.append(".venv/Lib/site-packages/")'
+
+[TYPECHECK]
+
+ignored-modules=typing
