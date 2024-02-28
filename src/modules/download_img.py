@@ -120,8 +120,8 @@ class SingleThreadDownload(DownloadCore):
         self.session = (
             requests.Session()
         )  # pylint: disable=attribute-defined-outside-init
-        while True:
-            with alive_bar() as bar:  # pylint: disable=disallowed-name
+        with alive_bar() as bar:  # pylint: disable=disallowed-name
+            while True:
                 current_page: str = str(next(self.count))  # skipcq: PTC-W0063
                 image_link: str = f"{self.link.page_link}&page={current_page}"
                 image_path: str = os.path.join(
