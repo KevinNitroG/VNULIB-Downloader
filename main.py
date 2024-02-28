@@ -61,7 +61,7 @@ def main() -> None:
         links=user_options.links,
         download_directory=DOWNLOAD_DIR,
         timeout=user_options.timeout,
-    ).dowload_images()
+    ).dowload()
 
     # if user_options.create_pdf:
     #     print_title('PDF')
