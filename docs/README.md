@@ -112,7 +112,6 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 > [!NOTE]
 >
 > - Ảnh và sách sẽ được tải về thư mục `./Downloads/`
->
 > - Kiểm tra log tại `./log`
 
 > [!WARNING]
