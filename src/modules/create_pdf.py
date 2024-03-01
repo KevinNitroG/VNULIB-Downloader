@@ -29,6 +29,8 @@ class CreatePDF:
             directory (str): The directory containing the JPG images
             name (str): Name of pdf file
         """
+        pdf_file_name: str = f"{directory}/{name}.pdf"
+        logger.info(msg=f'Creating PDF: "{pdf_file_name}"')
         list_files: list[str] = [
             os.path.join(directory, item) for item in os.listdir(directory)
         ]
@@ -36,9 +38,9 @@ class CreatePDF:
             return
         pdf_file: bytes | None = img2pdf.convert(list_files)
         if pdf_file is not None:
-            with open(pdf_file_name := f"{directory}/{name}.pdf", "wb") as f:
+            with open(pdf_file_name, "wb") as f:
                 f.write(pdf_file)
-            logger.info(msg=f'Created: "{pdf_file_name}"')
+            logger.info(msg=f'Created PDF: "{pdf_file_name}"')
 
     def book_handler(self, book_directory: str, link: Link) -> None:
         """Book handler, create PDF for Book's files

@@ -25,6 +25,7 @@ class CleanIMG:
         Args:
             directory (str): The directory containing the JPG images.
         """
+        logger.info(msg=f'Deleting images: "{page_directory}"')
         jpg_files: list[str] = [
             os.path.join(page_directory, f)
             for f in os.listdir(page_directory)
