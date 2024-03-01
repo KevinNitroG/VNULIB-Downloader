@@ -65,6 +65,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
     - [🤐 Python](#-python)
   - [🤔 NOTES](#-notes)
     - [Giải thích thuật ngữ](#giải-thích-thuật-ngữ)
+    - [Chú thích thêm](#chú-thích-thêm)
   - [👨‍💻 DEVELOP / CONTRIBUTE](#-develop--contribute)
   - [📝 LICENSE](#-license)
   - [🤥 DISCLAIMER](#-disclaimer)
@@ -79,8 +80,8 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   > Ví dụ: https://ir.vnulib.edu.vn/handle/VNUHCM/8108
 - Hỗ trợ link: `book`, `preview`, `page` [<sup>giải thích</sup>](#giải-thích-thuật-ngữ)
 - Hỗ trợ tải nhiều sách _(lần lượt từng sách)_
-- Tải sách - Multi threading _(đa luồng)_
-- Merge các ảnh thành PDF - Multi processing _(đa xử lý)_
+- Tải sách - Multithreading _(đa luồng)_
+- Merge các ảnh thành PDF - Multiprocessing _(đa xử lý)_
 - Xoá các ảnh sau khi tải, merge PDF
 
 ---
@@ -122,7 +123,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 > [!WARNING]
 >
-> - Vì sử dụng Multi threading, nếu tải quá nhiều sách có thể ảnh hưởng đến server
+> - Vì sử dụng Multithreading, nếu tải quá nhiều sách có thể ảnh hưởng đến server
 
 > [!IMPORTANT]
 >
@@ -131,12 +132,11 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 > [!TIP]
 >
-> - `preview` link của mỗi tài khoản là khác nhau _(dựa trên query `uid`)_
 > - Khi có >= 1 link là `book` / `preview`: Tool sẽ sử dụng Selenium Webdriver để xử lý, cần phải dùng tài khoản thư viện để login
 > - Trái lại, khi toàn bộ link là `page`: Tool không cần dùng Selenium Webdriver, nên `USERNAME`, `PASSWORD`, `BROSWER`, `HEADLESS` không còn quan trọng _(nhập bừa / để trống)_
 > - `page` link: Trong link có query `&page=`:
->   - `1`: Tool sẽ tự động check và tải trang sách đến khi đạt giới hạn _(không multi threading)_
->   - \> `1`: Tool tự nhận đấy là limit của file sách hoặc chủ đích sử dụng _(dùng threading)_
+>   - `1`: Tool sẽ tự động check và tải trang sách đến khi đạt giới hạn _(Single thread)_
+>   - \> `1`: Tool tự nhận đấy là limit của file sách hoặc chủ đích sử dụng _(Multithreading)_
 
 ---
 
@@ -232,6 +232,11 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 | `page`               | Link ảnh của 1 trang sách                                           | `https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=914783209473971&format=jpg&page=1&subfolder=11/94/07/`                                                                                                                                                     |
 | `Selenium Webdriver` | Hỗ trợ automation bằng trình duyệt                                  |
 | `headless`           | Khi chạy trình duyệt sẽ không hiện ra thành cửa sổ, chỉ ẩn dưới nền |
+
+### Chú thích thêm
+
+- Download các ảnh cho lần lượt từng link. 1 link sẽ có nhiều ảnh. Multithreading để tải các ảnh của 1 sách đồng thời _(concurrent)_
+- Merge song song từng folder thành PDF, phụ thuộc vào số nhân CPU _(parallel)_
 
 ---
 
