@@ -5,9 +5,7 @@ from __future__ import annotations
 from argparse import Namespace
 from dataclasses import dataclass
 from pprint import pformat
-
 from yaml import safe_load
-
 from ..constants import CONFIG_FILE, USER_INPUT_NO, USER_INPUT_YES
 from ..utils import logger
 from .argpase import setup_argparse

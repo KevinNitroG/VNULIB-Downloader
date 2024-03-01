@@ -7,7 +7,7 @@ from .bot import Action, Browser, Login
 from .modules import (
     Config,
     CreatePDF,
-    DeleteIMG,
+    CleanIMG,
     DownloadIMG,
     LinkParse,
     PrintIntro,

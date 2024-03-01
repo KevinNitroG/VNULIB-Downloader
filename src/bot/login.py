@@ -5,7 +5,6 @@ from __future__ import annotations
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-
 from ..constants import LOGIN_URL
 from ..utils import logger
 from .utils import wait_element_clickable
@@ -18,12 +17,14 @@ class Login:
         - driver (WebDriver): Selenium WebDriver
         - username (str): Username
         - password (str): Password
+        - timeout (int): Time to wait for element to be visible
     """
 
-    def __init__(self, driver: WebDriver, username, password) -> None:
+    def __init__(self, driver: WebDriver, username, password, timeout: int) -> None:
         self.driver: WebDriver = driver
         self.username: str = username
         self.password: str = password
+        self.timeout: int = timeout
         self.url = LOGIN_URL
 
     def __fill_in(self) -> None:
@@ -44,7 +45,9 @@ class Login:
         logger.info(msg="Logging in...")
         self.driver.get(self.url)
         submit_button: WebElement = wait_element_clickable(
-            driver=self.driver, css_selector='button[type="submit"]'
+            driver=self.driver,
+            css_selector='button[type="submit"]',
+            timeout=self.timeout,
         )
         self.__fill_in()
         submit_button.click()

@@ -41,10 +41,6 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 <!-- ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white) -->
 
-> [!CAUTION]
->
-> **WORK IN PROGRESS**
-
 ---
 
 - [✨ VNULIB DOWNLOADER ✨](#-vnulib-downloader-)
@@ -76,6 +72,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 - Hỗ trợ tải nhiều sách _(lần lượt từng sách)_
 - Tải sách - Multi threading _(đa luồng)_
 - Merge các ảnh thành PDF - Multi processing _(đa xử lý)_
+- Xoá các ảnh sau khi tải, merge PDF
 
 ---
 

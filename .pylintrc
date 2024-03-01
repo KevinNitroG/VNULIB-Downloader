@@ -11,7 +11,8 @@ disable=
     protected-access,
     too-few-public-methods,
     disallowed-name,
-    import-error
+    import-error,
+    duplicate-code
 
 [MASTER]
 

@@ -9,7 +9,7 @@ from src import (
     Browser,
     Config,
     CreatePDF,
-    DeleteIMG,
+    CleanIMG,
     DownloadIMG,
     LinkParse,
     Login,
@@ -47,9 +47,12 @@ def main() -> None:
                 driver=driver,
                 username=user_options.username,
                 password=user_options.password,
+                timeout=user_options.timeout,
             ).login()
             user_options.links = Action(
-                driver=driver, links=user_options.links
+                timeout=user_options.timeout,
+                driver=driver,
+                links=user_options.links,
             ).action()
     logger.debug(msg=f"LINKS OBJECT:\n{pformat(user_options.links)}")
 
@@ -68,7 +71,7 @@ def main() -> None:
 
     if user_options.clean_img:
         print_title("DELETE IMAGES")
-        DeleteIMG(user_options.links, DOWNLOAD_DIR).delete_img()
+        CleanIMG(user_options.links, DOWNLOAD_DIR).clean_img()
 
 
 if __name__ == "__main__":

@@ -8,15 +8,13 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 from itertools import count
 from typing import Any
-
 import requests
 import urllib3
 from requests.sessions import Session
 from alive_progress import alive_bar
-
+from .link_parse import Link, LinkFile
 from ..constants import ERROR_PAGE_IMAGE_PATH
 from ..utils import create_directory, logger
-from .link_parse import Link, LinkFile
 
 
 def get_error_page_bytes() -> bytes:
@@ -69,7 +67,7 @@ class DownloadCore:  # pylint: disable=too-few-public-methods
             ) as reponse:
                 return reponse.content  # skipcq: BAN-B501, PTC-W6001
         except requests.exceptions.ReadTimeout:
-            logger.error(msg=f"Error page for {link}")
+            logger.error(msg=f'"{link}": Error page')
             return ERROR_PAGE_IMAGE
 
 

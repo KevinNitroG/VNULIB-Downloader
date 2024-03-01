@@ -3,11 +3,9 @@
 from __future__ import annotations
 
 from urllib.parse import parse_qs, urlparse
-
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-
 from ..modules.link_parse import Link, LinkFile
 from ..utils import datetime_name, logger, slugify
 from .utils import wait_element_visible
@@ -19,11 +17,13 @@ class Action:
     Args:
         - driver (WebDriver): Selenium WebDriver
         - links (list[Link]): List of links object
+        - timeout (int): Time to wait for element to be visible
     """
 
-    def __init__(self, driver: WebDriver, links: list[Link]) -> None:
+    def __init__(self, driver: WebDriver, links: list[Link], timeout: int) -> None:
         self.driver: WebDriver = driver
         self.links: list[Link] = links
+        self.timeout: int = timeout
 
     @staticmethod
     def __book_preview_to_page(link: str) -> str:
@@ -44,8 +44,7 @@ class Action:
         )
         return page_link
 
-    @staticmethod
-    def __get_num_pages(driver: WebDriver) -> int:
+    def __get_num_pages(self, driver: WebDriver) -> int:
         """Get number of pages from book preview link, aready in book preview link
 
         Args:
@@ -55,7 +54,7 @@ class Action:
             - int: Number of pages
         """
         pages: str = wait_element_visible(
-            driver=driver, css_selector=".flowpaper_lblTotalPages"
+            driver=driver, css_selector=".flowpaper_lblTotalPages", timeout=self.timeout
         ).text.strip(" /")
         return int(pages)
 
@@ -71,11 +70,13 @@ class Action:
         self.driver.switch_to.window(self.driver.window_handles[0])
         self.driver.get(link)
         wait_element_visible(
-            driver=self.driver, css_selector="#pageContainer_0_documentViewer_textLayer"
+            driver=self.driver,
+            css_selector="#pageContainer_0_documentViewer_textLayer",
+            timeout=self.timeout,
         )
         preview_link: str = self.driver.current_url
-        page_link: str = Action.__book_preview_to_page(link=preview_link)
-        pages: int = Action.__get_num_pages(driver=self.driver)
+        page_link: str = self.__book_preview_to_page(link=preview_link)
+        pages: int = self.__get_num_pages(driver=self.driver)
         return page_link, pages
 
     def book_web_to_preview(self, link: str) -> list[str]:
@@ -96,7 +97,7 @@ class Action:
             preview_link: str | None = preview_link_element.get_attribute("href")
             if preview_link is not None:
                 preview_links.append(preview_link)
-        logger.info(msg=f'Found "{len(preview_links)}" preview link(s) for "{link}"')
+        logger.info(msg=f'"{link}": Found "{len(preview_links)}" preview link(s)')
         return preview_links
 
     def get_book_files_name(self) -> list[str]:
@@ -168,15 +169,13 @@ class Action:
         """
         converted_links: list[Link] = []
         for link in self.links:
-            logger.info(
-                msg=f'Processing "{link.original_link}" as "{link.original_type}"'
-            )
             match link.original_type:
                 case "book":
                     converted_links.append(self.process_book(link=link))
+                    logger.info(msg=f'"{link.original_link}": "{link.original_type}"')
                 case "preview":
                     converted_links.append(self.process_preview(link=link))
+                    logger.info(msg=f'"{link.original_link}": "{link.original_type}"')
                 case "page":
                     converted_links.append(link)
-        logger.info(msg="Done processing all links")
         return converted_links

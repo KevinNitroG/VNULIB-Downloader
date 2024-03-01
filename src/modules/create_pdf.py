@@ -4,13 +4,9 @@ from __future__ import annotations
 
 import os
 from concurrent.futures import ProcessPoolExecutor
-import logging
 import img2pdf
 from .link_parse import Link
 from ..utils import logger
-
-
-logging.getLogger("img2pdf").setLevel(logging.CRITICAL)
 
 
 class CreatePDF:

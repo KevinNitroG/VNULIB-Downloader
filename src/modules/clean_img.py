@@ -3,13 +3,11 @@
 from __future__ import annotations
 
 import os
-
 from .link_parse import Link
-
 from ..utils import logger
 
 
-class DeleteIMG:
+class CleanIMG:
     """Merge the images of books into PDF files
 
     Args:
@@ -34,7 +32,7 @@ class DeleteIMG:
         ]
         for jpg_file in jpg_files:
             os.remove(jpg_file)
-        logger.info(msg=f'Deleted images in: "{page_directory}"')
+        logger.info(msg=f'Deleted images: "{page_directory}"')
 
     @staticmethod
     def book_handler(book_directory: str, link: Link) -> None:
@@ -46,10 +44,10 @@ class DeleteIMG:
             link (Link): The book's link
         """
         for link_page in link.files:
-            DeleteIMG.process(os.path.join(book_directory, link_page.name))
+            CleanIMG.process(os.path.join(book_directory, link_page.name))
 
-    def delete_img(self) -> None:
-        """Delete images"""
+    def clean_img(self) -> None:
+        """Clean images"""
         for link in self.links:
             match link.original_type:
                 case "book":

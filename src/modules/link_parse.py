@@ -6,10 +6,10 @@ from re import compile as re_compile
 from re import search as re_search
 from time import sleep
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
-
+from .user_options import Link, LinkFile
 from ..utils import logger
 from ..utils.utils import datetime_name
-from .user_options import Link, LinkFile
+
 
 PATTERN_BOOK = re_compile(r"^https?:\/\/ir\.vnulib\.edu\.vn\/handle\/VNUHCM\/\d+$")
 PATTERN_PREVIEW = re_compile(
@@ -133,9 +133,9 @@ class LinkParse:
                     link = self.process_page(link)
                     modified_links.append(link)
                     logger.info(
-                        msg=f'Set "{link.files[0].num_pages}" page for "{link.original_link}" as "page"'
+                        msg=f'"{link.original_link}": "page" - "{link.files[0].num_pages}" page(s)'
                     )
                     sleep(0.1)  # Sleep to avoid same folder name in any case
                 case _:
-                    logger.warning(msg=f'Unknown link type for: "{link.original_link}"')
+                    logger.warning(msg=f'"{link.original_link}": Unknown link type')
         return modified_links

@@ -2,7 +2,6 @@
 # IT WON'T ASK YOU FOR CONFIGING AGAIN WHILE RUNNING THE SCRIPT / APP
 # STRING CAN BE IN DOUBLE QUOTES OR NON QUOTES
 
-
 # Username
 USERNAME:
 
@@ -18,7 +17,7 @@ PASSWORD:
 # LINKS: [LINK1, LINK2]
 LINKS:
 
-# Timeout (s) for Selenium & request each image from server
+# Timeout (s) for Selenium & request each image from server (default: 20)
 # 10, 20,...
 TIMEOUT:
 

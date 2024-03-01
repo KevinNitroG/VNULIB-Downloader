@@ -5,9 +5,8 @@ from __future__ import annotations
 from logging import Logger, getLogger
 from logging.config import dictConfig
 from os import makedirs, path
-
+from typing import Any
 from yaml import safe_load
-
 from src.constants import LOGGING_CONFIG_FILE_PATH, LOGGING_PATH
 
 
@@ -38,8 +37,10 @@ class ToolLogger:
         with open(self.config_path, encoding="utf-8") as config_file:
             dictConfig(safe_load(config_file))  # skipcq: PY-A6006
 
+    def __call__(self, *args: Any, **kwds: Any) -> Any:
+        self.log_folder()
+        self.read_logging_config()
 
-tool_logger = ToolLogger()
-tool_logger.log_folder()
-tool_logger.read_logging_config()
-logger: Logger = getLogger()
+
+tool_logger = ToolLogger()()
+logger: Logger = getLogger("vnulib_downloader")

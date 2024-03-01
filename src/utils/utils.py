@@ -7,9 +7,8 @@ import unicodedata
 from datetime import datetime
 from os import makedirs, path
 from shutil import rmtree
-
 from ..constants import USER_INPUT_YES
-from .logger import logger
+from ..utils import logger
 
 
 def pause() -> None:
@@ -35,7 +34,7 @@ def create_directory(directory: str, force: bool | None = None) -> bool:
             return True
         if (
             force is True
-            or input(f"{directory} already exists. Force create it [Y/n]: ").upper()
+            or input(f'"{directory}" already exists. Force create it [Y/n]: ').upper()
             in USER_INPUT_YES
         ):
             try:

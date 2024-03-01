@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from print_color import print as printColor
-
 from src.constants import AUTHORS, BANNER, VERSION
 from src.utils.prints import TERMINAL_SIZE_COLUMNS
 
