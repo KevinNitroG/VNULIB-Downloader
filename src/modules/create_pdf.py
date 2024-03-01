@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import os
 from concurrent.futures import ProcessPoolExecutor
+import multiprocessing
 import img2pdf
 from .link_parse import Link
 from ..utils import logger
@@ -20,6 +21,7 @@ class CreatePDF:
         self.links: list[Link] = links
         self.download_directory: str = download_directory
         self.executor = ProcessPoolExecutor()
+        multiprocessing.freeze_support()
 
     @staticmethod
     def process(directory: str, name: str) -> None:
