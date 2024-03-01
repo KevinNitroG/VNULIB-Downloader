@@ -61,11 +61,10 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
     - [2️⃣ Sử dụng](#2️⃣-sử-dụng)
   - [⚙️ NÂNG CAO](#️-nâng-cao)
     - [🗃️ Pre-config](#️-pre-config)
-    - [⛏️ Pass by arguments](#️-pass-by-arguments)
+    - [⛏️ Command line arguments](#️-command-line-arguments)
     - [🤐 Python](#-python)
   - [🤔 NOTES](#-notes)
     - [Giải thích thuật ngữ](#giải-thích-thuật-ngữ)
-    - [Cách lấy page link](#cách-lấy-page-link)
   - [👨‍💻 DEVELOP / CONTRIBUTE](#-develop--contribute)
   - [📝 LICENSE](#-license)
   - [🤥 DISCLAIMER](#-disclaimer)
@@ -88,7 +87,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ## 🥂 DEMO
 
-- Hong be oi
+- Chưa có nha chờ kiếp sau
 
 ---
 
@@ -119,7 +118,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 > [!NOTE]
 >
 > - Ảnh và sách sẽ được tải về thư mục `./Downloads/`
-> - Kiểm tra log tại `./log`
+> - Kiểm tra log tại `./log/`
 
 > [!WARNING]
 >
@@ -136,17 +135,17 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 > - Khi có >= 1 link là `book` / `preview`: Tool sẽ sử dụng Selenium Webdriver để xử lý, cần phải dùng tài khoản thư viện để login
 > - Trái lại, khi toàn bộ link là `page`: Tool không cần dùng Selenium Webdriver, nên `USERNAME`, `PASSWORD`, `BROSWER`, `HEADLESS` không còn quan trọng _(nhập bừa / để trống)_
 > - `page` link: Trong link có query `&page=`:
->   - `1`: Tool sẽ tự động check và tải trang sách đến khi đạt giới hạn _(không dùng multi threading)_
->   - \> `1`: Tool tự nhận đấy là limit của file sách hoặc chủ đích sử dụng tải tới trang đấy _(dùng multi threading)_
+>   - `1`: Tool sẽ tự động check và tải trang sách đến khi đạt giới hạn _(không multi threading)_
+>   - \> `1`: Tool tự nhận đấy là limit của file sách hoặc chủ đích sử dụng _(dùng threading)_
 
 ---
 
 ## ⚙️ NÂNG CAO
 
 - Có thể chạy tool theo các cách:
-  - [Pre config](#🗃️-pre-config): Để không phải nhập input mỗi lần chạy
-  - [Pass by arguments](#⛏️-pass-by-arguments)
-  - [Python](#🤐-python): Clone cả repo về chạy python
+  - [Pre config](#🗃️-pre-config):
+  - [Command line arguments](#⛏️-command-line-arguments)
+  - [Python](#🤐-python)
 
 > [!NOTE]
 >
@@ -154,13 +153,15 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ### 🗃️ Pre-config
 
-1. Tạo file `config.yml` trong đường dẫn `./VNULIB-Downloader/` bằng 1 trong 2 cách:
+- Để không phải nhập input mỗi lần chạy
+
+1. Tạo file `config.yml` bằng 1 trong 2 cách:
    - Chạy trước tool 1 lần sẽ tự tạo file `config.yml`
    - Copy nội dung của file [`config-sample.yml`](../VNULIB-Downloader/config-sample.yml) và paste vào
      file `config.yml`
-2. Chỉnh các giá trị biến trong file `config.yml`
+2. Chỉnh `config.yml`
 
-### ⛏️ Pass by arguments
+### ⛏️ Command line arguments
 
 - Windows:
   ```.ps1
@@ -191,14 +192,18 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
      ```.ps1
      pip install virtualenv
      python -m venv .env
+     # Active virtual environment
      myenv\Scripts\activate
+     # Deactive virtual environment
      deactivate
      ```
    - Mac / Linux
      ```.sh
      pip3 install virtualenv
      virtualenv .env
+     # Active virtual environment
      source .env/bin/activate
+     # Deactive virtual environment
      deactivate
      ```
 4. Install requirements
@@ -220,20 +225,13 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ### Giải thích thuật ngữ
 
-| **TERM**             | **EXPLANTION**                                                                                                                                                                                               |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `book`               | Link của sách<br>Ex: `https://ir.vnulib.edu.vn/handle/VNUHCM/8108`                                                                                                                                           |
-| `preview`            | Preview link của sách<br>Ex: `https://ir.vnulib.edu.vn/flowpaper/simple_document.php?subfolder=11/94/07/&doc=914783209473971&bitsid=c3558fcc-95bb-4a92-a492-46f61eccfadc&uid=237ys-b676-45b0-855b-12iuiwdT5` |
-| `page`               | Link ảnh của 1 trang sách<br>Ex: `https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=914783209473971&format=jpg&page=1&subfolder=11/94/07/`                                                            |
-| `Selenium Webdriver` | Hỗ trợ automation bằng trình duyệt                                                                                                                                                                           |
-| `headless`           | Khi chạy trình duyệt sẽ không hiện ra thành cửa sổ, chỉ ẩn dưới nền                                                                                                                                          |
-
-### Cách lấy page link
-
-- Vào `preview` sách
-- Lấy link ảnh trang sác của một trang bất kì
-  > Có thể F12 để lấy link ảnh trang sách nếu chuột phải không có option `Copy image address`, ...
-  > ![Lấy link ảnh trang sách bằng F12](../asset/video/huong_dan_get_link_anh_trang_sach.mp4)
+| **TERM**             | **EXPLANTION**                                                      | **EXAMPLE**                                                                                                                                                                     |
+| -------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `book`               | Link của sách                                                       | `https://ir.vnulib.edu.vn/handle/VNUHCM/8108`                                                                                                                                   |
+| `preview`            | Preview link của sách                                               | `https://ir.vnulib.edu.vn/flowpaper/simple_document.php?subfolder=11/94/07/&doc=914783209473971&bitsid=c3558fcc-95bb-4a92-a492-46f61eccfadc&uid=237ys-b676-45b0-855b-12iuiwdT5` |
+| `page`               | Link ảnh của 1 trang sách                                           | `https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=914783209473971&format=jpg&page=1&subfolder=11/94/07/`                                                                |
+| `Selenium Webdriver` | Hỗ trợ automation bằng trình duyệt                                  |
+| `headless`           | Khi chạy trình duyệt sẽ không hiện ra thành cửa sổ, chỉ ẩn dưới nền |
 
 ---
 
