@@ -10,7 +10,7 @@ else:
     BUNDLE_DIR = ""
 
 
-VERSION: str = "1.4"
+VERSION: str = "1.4.1-beta"
 AUTHORS: str = "KevinNitroG & NTGNguyen"
 BANNER: str = """
 ██╗   ██╗███╗   ██╗██╗   ██╗██╗     ██╗██████╗ 
