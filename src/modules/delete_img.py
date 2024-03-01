@@ -6,6 +6,8 @@ import os
 
 from .link_parse import Link
 
+from ..utils import logger
+
 
 class DeleteIMG:
     """Merge the images of books into PDF files
@@ -14,11 +16,12 @@ class DeleteIMG:
         - links (list[Link]): The list of links object
     """
 
-    def __init__(self, links: list[Link]) -> None:
+    def __init__(self, links: list[Link], download_directory: str) -> None:
         self.links: list[Link] = links
+        self.download_directory: str = download_directory
 
     @staticmethod
-    def delete_jpg_page_link_or_preview_link(page_directory: str) -> None:
+    def process(page_directory: str) -> None:
         """Delete JPG file in directory
 
         Args:
@@ -31,11 +34,11 @@ class DeleteIMG:
         ]
         for jpg_file in jpg_files:
             os.remove(jpg_file)
+        logger.info(msg=f'Deleted images in: "{page_directory}"')
 
     @staticmethod
-    def delete_jpg_book_link(book_directory: str, link: Link) -> None:
-        """
-        For each subdirectory in a directory, merge all JPG images into a single PDF.
+    def book_handler(book_directory: str, link: Link) -> None:
+        """For each subdirectory in a directory, merge all JPG images into a single PDF.
         The PDF is saved in the same subdirectory with the name of the subdirectory.
 
         Args:
@@ -43,25 +46,17 @@ class DeleteIMG:
             link (Link): The book's link
         """
         for link_page in link.files:
-            DeleteIMG.delete_jpg_page_link_or_preview_link(
-                os.path.join(book_directory, link_page.name)
-            )
+            DeleteIMG.process(os.path.join(book_directory, link_page.name))
 
-    @staticmethod
-    def delete_jpg(dowload_directory: str, links: list[Link]) -> None:
-        """
-        For each subdirectory in a directory, if there are JPG images, delete it
-
-        Ars:
-            directory (str): The directory containing the subdirectories.
-            links(list[Link]): The list of Link
-        """
-        for link in links:
-            if link.original_type == "book":
-                DeleteIMG.delete_jpg_book_link(
-                    os.path.join(dowload_directory, link.name), link
-                )
-            else:
-                DeleteIMG.delete_jpg_page_link_or_preview_link(
-                    os.path.join(dowload_directory, link.name)
-                )
+    def delete_img(self) -> None:
+        """Delete images"""
+        for link in self.links:
+            match link.original_type:
+                case "book":
+                    self.book_handler(
+                        os.path.join(self.download_directory, link.name), link
+                    )
+                case "page" | "preview":
+                    self.process(
+                        os.path.join(self.download_directory, link.files[0].name)
+                    )

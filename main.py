@@ -8,8 +8,8 @@ from src import (
     Action,
     Browser,
     Config,
-    # CreatePDF,
-    # DeleteIMG,
+    CreatePDF,
+    DeleteIMG,
     DownloadIMG,
     LinkParse,
     Login,
@@ -48,7 +48,6 @@ def main() -> None:
                 username=user_options.username,
                 password=user_options.password,
             ).login()
-            user_options.links = LinkParse(links=user_options.links).parse()
             user_options.links = Action(
                 driver=driver, links=user_options.links
             ).action()
@@ -63,15 +62,16 @@ def main() -> None:
         timeout=user_options.timeout,
     ).dowload()
 
-    # if user_options.create_pdf:
-    #     print_title('PDF')
-    #     CreatePDF.create_pdf(DOWNLOAD_DIR, user_options.links)
+    if user_options.create_pdf:
+        print_title("PDF")
+        CreatePDF(user_options.links, DOWNLOAD_DIR).create_pdf()
 
-    # if user_options.clean_img:
-    #     print_title('DELETE IMAGES')
-    #     DeleteIMG.delete_jpg(DOWNLOAD_DIR, user_options.links)
+    if user_options.clean_img:
+        print_title("DELETE IMAGES")
+        DeleteIMG(user_options.links, DOWNLOAD_DIR).delete_img()
 
 
 if __name__ == "__main__":
     main()
+    print_title("END PROGRAM")
     pause()
