@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from pprint import pformat
-
+from multiprocessing import freeze_support
 from src import (
     Action,
     Browser,
@@ -75,6 +75,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    freeze_support()
     main()
     print_title("END PROGRAM")
     pause()
