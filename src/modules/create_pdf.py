@@ -29,7 +29,7 @@ class CreatePDF:
             directory (str): The directory containing the JPG images
             name (str): Name of pdf file
         """
-        pdf_file_name: str = f"{directory}/{name}.pdf"
+        pdf_file_name: str = os.path.join(directory, f"{name}.pdf")
         logger.info(msg=f'Creating PDF: "{pdf_file_name}"')
         list_files: list[str] = [
             os.path.join(directory, item) for item in os.listdir(directory)

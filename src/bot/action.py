@@ -58,7 +58,7 @@ class Action:
         ).text.strip(" /")
         return int(pages)
 
-    def book_preview_to_page_and_book_pages(self, link: str) -> tuple[str, int]:
+    def preview_to_page_and_num_pages(self, link: str) -> tuple[str, int]:
         """Book preview link to book page link and get number of pages
 
         Args:
@@ -79,7 +79,7 @@ class Action:
         pages: int = self.__get_num_pages(driver=self.driver)
         return page_link, pages
 
-    def book_web_to_preview(self, link: str) -> list[str]:
+    def book_to_preview(self, link: str) -> list[str]:
         """Book website link to book preview link
 
         Args:
@@ -117,7 +117,7 @@ class Action:
         ]
         return file_names
 
-    def process_book(self, link: Link) -> Link:
+    def book_handler(self, link: Link) -> Link:
         """Process book link handler
 
         Args:
@@ -126,16 +126,14 @@ class Action:
         Returns:
             - Link: Processed link object
         """
-        preview_links: list[str] = self.book_web_to_preview(link=link.original_link)
+        preview_links: list[str] = self.book_to_preview(link=link.original_link)
         book_files_name: list[str] = self.get_book_files_name()
         link.name = slugify(
             self.driver.find_element(by=By.CSS_SELECTOR, value=".ds-div-head").text
         )
         processed_files: list[LinkFile] = []
         for i, preview_link in enumerate(preview_links):
-            page_link, num_pages = self.book_preview_to_page_and_book_pages(
-                link=preview_link
-            )
+            page_link, num_pages = self.preview_to_page_and_num_pages(link=preview_link)
             processed_files.append(
                 LinkFile(
                     page_link=page_link, num_pages=num_pages, name=book_files_name[i]
@@ -144,7 +142,7 @@ class Action:
         link.files = processed_files
         return link
 
-    def process_preview(self, link: Link) -> Link:
+    def preview_handler(self, link: Link) -> Link:
         """Process preview link handler
 
         Args:
@@ -153,7 +151,7 @@ class Action:
         Returns:
             - Link: Processed link object
         """
-        page_link, num_pages = self.book_preview_to_page_and_book_pages(
+        page_link, num_pages = self.preview_to_page_and_num_pages(
             link=link.original_link
         )
         link.files = [
@@ -171,10 +169,10 @@ class Action:
         for link in self.links:
             match link.original_type:
                 case "book":
-                    converted_links.append(self.process_book(link=link))
+                    converted_links.append(self.book_handler(link=link))
                     logger.info(msg=f'"{link.original_link}": "{link.original_type}"')
                 case "preview":
-                    converted_links.append(self.process_preview(link=link))
+                    converted_links.append(self.preview_handler(link=link))
                     logger.info(msg=f'"{link.original_link}": "{link.original_type}"')
                 case "page":
                     converted_links.append(link)
