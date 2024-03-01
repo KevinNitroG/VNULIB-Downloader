@@ -3,36 +3,42 @@
 # STRING CAN BE IN DOUBLE QUOTES OR NON QUOTES
 
 # Username
+# Ex: USERNAME: "1500023520000"
 USERNAME:
 
 # Password
+# Ex: PASSWORD: "examplePass"
 PASSWORD:
 
 #  A list of links of the first picture
-# Format can be like this:
+# Ex:
 # LINKS:
-# - LINK1
-# - LINK2
+# - "LINK1"
+# - "LINK2"
 # or
-# LINKS: [LINK1, LINK2]
+# LINKS: ["LINK1", "LINK2"]
 LINKS:
 
 # Timeout (s) for Selenium & request each image from server (default: 20)
-# 10, 20,...
+# Ex: TIMEOUT: 20
 TIMEOUT:
 
 # Browser you are using (to use Selenium webdriver)
-# Options: chrome, path/to/local/google_chromedriver (google chromedriver only)
+# Options: "chrome", "path/to/local/google_chromedriver" (google chromedriver only)
+# Ex: BROSWER: chrome
 BROWSER:
 
 # Headless mode for the browser, but there will be some warning logs
-# True, true, on / False, false, off
+# Options: True, true, on / False, false, off
+# Ex: HEADLESS: true
 HEADLESS:
 
 # Merge images to a PDF after downloading images
-# True, true, on / False, false, off
+# Options: True, true, on / False, false, off
+# CREATE_PDF: true
 CREATE_PDF:
 
 # Clean downloaded images
-# True, true, on / False, false, off
+# Options: True, true, on / False, false, off
+# Ex: CLEAN_IMG: true
 CLEAN_IMG:
