@@ -44,8 +44,8 @@ class Browser:
         """
         logger.info(msg="Setting up the browser...")
         self.__setup_arguments()
-        match self.browser:
-            case "chrome":
+        match self.browser.strip():
+            case "chrome" | "":
                 self.driver = self.__setup_chrome_browser()
             case _:
                 self.driver = self.__setup_local_chrome_browser()

@@ -7,10 +7,11 @@ import sys
 import threading
 from concurrent.futures import ThreadPoolExecutor
 from itertools import count
-from typing import Any
+from typing import Any, override
 import requests
-import urllib3
 from requests.sessions import Session
+from requests import Response
+import urllib3
 from alive_progress import alive_bar
 from .link_parse import Link, LinkFile
 from ..constants import ERROR_PAGE_IMAGE_PATH
@@ -94,8 +95,9 @@ class SingleThreadDownload(DownloadCore):
         """
         return requests.Session()
 
-    def get_content_pages(self, link: str) -> str:
-        """Get text from page
+    @override
+    def get_images_bytes(self, link: str) -> bytes:
+        """Get image's bytes, check valid page first
 
         Args:
             - link (str): Link
@@ -103,9 +105,12 @@ class SingleThreadDownload(DownloadCore):
         Returns:
             - str: Text content of link
         """
-        return self.session.get(
+        response: Response = self.session.get(
             link, stream=True, timeout=self.timeout, verify=False
-        ).text  # skipcq: BAN-B501, PTC-W6001
+        )  # skipcq: BAN-B501, PTC-W6001
+        if OUT_PAGE_ERROR_TEXT in response.text:
+            return b""
+        return response.content
 
     def download(self) -> None:
         """Download"""
@@ -119,10 +124,11 @@ class SingleThreadDownload(DownloadCore):
                 image_path: str = os.path.join(
                     self.download_path, f"image_{current_page}.jpg"
                 )
-                if OUT_PAGE_ERROR_TEXT in self.get_content_pages(image_link):
+                if image_bytes := self.get_images_bytes(image_link):
+                    with open(image_path, "wb") as file:  # skipcq: PTC-W6004
+                        file.write(image_bytes)
+                else:
                     break
-                with open(image_path, "wb") as file:  # skipcq: PTC-W6004
-                    file.write(self.get_images_bytes(image_link))
                 bar()  # pylint: disable=not-callable
         self.session.close()
 

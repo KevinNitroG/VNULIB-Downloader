@@ -258,9 +258,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ## 🤥 DISCLAIMER
 
-Dự án không dưới quyền [VNULIB](https://vnulib.edu.vn/) hay bất kì tổ chức nào khác. Dự án chỉ mang tính học tập
-_(thực hành, làm việc nhóm, sử dụng ngôn ngữ lập trình, tổ chức một dự án, sử dụng Git, Github, CI/CD)_, không có mục
-đích thương mại, phá hoại _(DDOS,...)_. Chúng tôi không chịu trách nhiệm cho bất kì kết quả và hậu quả nào của việc sử dụng tool.
+Dự án không dưới quyền [VNULIB](https://vnulib.edu.vn/) hay bất kì tổ chức nào khác. Dự án chỉ mang tính học tập _(thực hành, làm việc nhóm, sử dụng ngôn ngữ lập trình, tổ chức một dự án, sử dụng Git, Github, CI/CD)_, không có mục đích thương mại, phá hoại _(DDOS,...)_. Xin hãy tuân thủ luật sở hữu trí tuệ, không in ấn có tổ chức,... Chúng tôi không chịu trách nhiệm cho bất kì kết quả và hậu quả nào của việc sử dụng tool.
 
 ---
 
