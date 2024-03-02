@@ -65,7 +65,6 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
     - [🤐 Python](#-python)
   - [🤔 NOTES](#-notes)
     - [Giải thích thuật ngữ](#giải-thích-thuật-ngữ)
-    - [Chú thích thêm](#chú-thích-thêm)
   - [👨‍💻 DEVELOP / CONTRIBUTE](#-develop--contribute)
   - [📓 TODO](#-todo)
   - [📝 LICENSE](#-license)
@@ -79,10 +78,10 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 - Tải sách _(có thể đọc preview online)_ trên [VNULIB](https://vnulib.edu.vn/) _(HCM)_
   > Ví dụ: https://ir.vnulib.edu.vn/handle/VNUHCM/8108
-- Hỗ trợ link: `book`, `preview`, `page` [<sup>giải thích</sup>](#giải-thích-thuật-ngữ)
+- Hỗ trợ link: `book`, `preview`, `page` [<sup>?</sup>](#giải-thích-thuật-ngữ)
 - Hỗ trợ tải nhiều sách _(lần lượt từng sách)_
-- Tải sách - Multithreading _(đa luồng)_
-- Merge các ảnh thành PDF - Multiprocessing _(đa xử lý)_
+- Tải sách - Multithreading[<sup>?</sup>](#giải-thích-thuật-ngữ)
+- Merge các ảnh thành PDF - Multiprocessing[<sup>?</sup>](#giải-thích-thuật-ngữ)
 - Xoá các ảnh sau khi tải, merge PDF
 
 ---
@@ -121,11 +120,6 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 | `CREATE_PDF`                                    | `y`, `n`, ...                               | `y`         | Tạo file PDF từ các ảnh đã tải về                                            | `y`             |
 | `CLEAN_IMG`                                     | `y`, `n`, ...                               | `y`         | Xoá ảnh sau khi đã tạo PDF                                                   | `y`             |
 
-> [!NOTE]
->
-> - Ảnh và sách sẽ được tải về thư mục `./Downloads/`
-> - Kiểm tra log tại `./log/`
-
 > [!WARNING]
 >
 > - Vì sử dụng Multithreading, nếu tải quá nhiều sách có thể ảnh hưởng đến server
@@ -134,6 +128,12 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 >
 > - Nếu trong tương lai việc sử dụng link `book` hay `preview` không được, hãy thử link `page` _(vì các phần tử trang web
 >   có thể thay đổi)_
+
+> [!NOTE]
+>
+> - Ảnh và sách sẽ được tải về thư mục `./Downloads/`
+> - Kiểm tra log tại `./log/`
+> - Trong quá trình tải ảnh của sách, nếu quá thời gian `TIMEOUT` thì trang sẽ huỷ tải, thay bằng ảnh [error](../asset/image/error_page.jpg)
 
 > [!TIP]
 >
@@ -237,11 +237,13 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 | `page`               | Link ảnh của 1 trang sách                                           | `https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=914783209473971&format=jpg&page=1&subfolder=11/94/07/`                                                                                                                                                     |
 | `Selenium Webdriver` | Hỗ trợ automation bằng trình duyệt                                  |
 | `headless`           | Khi chạy trình duyệt sẽ không hiện ra thành cửa sổ, chỉ ẩn dưới nền |
+| `Multithreading`     | Đa luồng                                                            |
+| `Multiprocessing`    | Đa xử lý                                                            |
 
-### Chú thích thêm
-
-- Download các ảnh cho lần lượt từng link. 1 link sẽ có nhiều ảnh. Multithreading để tải các ảnh của 1 sách đồng thời _(concurrent)_
-- Merge song song từng folder thành PDF, phụ thuộc vào số nhân CPU _(parallel)_
+> [!NOTE]
+>
+> - Download các ảnh cho lần lượt từng link. 1 link sẽ có nhiều ảnh. Multithreading để tải các ảnh của 1 sách đồng thời _(concurrent)_
+> - Merge song song từng folder thành PDF, phụ thuộc vào số nhân CPU _(parallel)_
 
 ---
 
