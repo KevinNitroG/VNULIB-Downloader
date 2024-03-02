@@ -67,6 +67,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
     - [Giải thích thuật ngữ](#giải-thích-thuật-ngữ)
     - [Chú thích thêm](#chú-thích-thêm)
   - [👨‍💻 DEVELOP / CONTRIBUTE](#-develop--contribute)
+  - [📓 TODO](#-todo)
   - [📝 LICENSE](#-license)
   - [🤥 DISCLAIMER](#-disclaimer)
   - [😌 CREDIT](#-credit)
@@ -251,6 +252,16 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   - [Prettier](https://prettier.io/)
 - Docstring: [Google format](https://github.com/NilsJPWerner/autoDocstring/blob/master/docs/google.md#google-docstring-format)
 - Requirement of python: Need specific version
+
+---
+
+## 📓 TODO
+
+- [ ] Support more browsers _(inherited from which class?)_
+- [ ] Options to enable Multithreading, Multiprocessing
+- [ ] Update tool option using command line arguments
+
+> Cần người có lòng hảo tâm contribute 🫠
 
 ---
 

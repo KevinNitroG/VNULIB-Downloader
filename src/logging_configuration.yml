@@ -28,10 +28,6 @@ loggers:
       - stdout
       - file
     propogate: false
-  img2pdf:
-    level: NOTSET
-    propogate: false
-    handlers:
 root:
   level: CRITICAL
   propogate: false
