@@ -148,9 +148,9 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ## ⚙️ NÂNG CAO
 
 - Có thể chạy tool theo các cách:
-  - [Pre config](#🗃️-pre-config):
-  - [Command line arguments](#⛏️-command-line-arguments)
-  - [Python](#🤐-python)
+  - [Pre config](#-pre-config)
+  - [Command line arguments](#-command-line-arguments)
+  - [Python](#-python)
 
 > [!NOTE]
 >
