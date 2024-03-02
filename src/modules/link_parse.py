@@ -12,9 +12,6 @@ from ..utils.utils import datetime_name
 
 
 PATTERN_BOOK = re_compile(r"^https?:\/\/ir\.vnulib\.edu\.vn\/handle\/VNUHCM\/\d+$")
-# PATTERN_PREVIEW = re_compile(
-#     r"^https?:\/\/ir\.vnulib\.edu\.vn\/flowpaper\/(simple_document\.php)?\?(?=.*\bsubfolder=[^&]+\b)(?=.*\bbitsid=[^&]+\b)(?=.*\bdoc=\d*\b).*$"
-# )
 PATTERN_PREVIEW = re_compile(
     r"^https?:\/\/ir\.vnulib\.edu\.vn\/flowpaper\/(simple_document\.php)?\?(?=.*\bbitsid=[^&]+\b).*$"
 )
