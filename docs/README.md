@@ -82,7 +82,8 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 - Hỗ trợ tải nhiều sách _(lần lượt từng sách)_
 - Tải sách - Multithreading[<sup>?</sup>](#giải-thích-thuật-ngữ)
 - Merge các ảnh thành PDF - Multiprocessing[<sup>?</sup>](#giải-thích-thuật-ngữ)
-- Xoá các ảnh sau khi tải, merge PDF
+- Tạo PDF các file sách
+- Xoá ảnh sau khi tải _(phù hợp khi dùng tạo PDF)_
 
 ---
 
@@ -262,6 +263,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 - [ ] Support more browsers _(inherited from which class?)_
 - [ ] Options to enable Multithreading, Multiprocessing
 - [ ] Update tool option using command line arguments
+- [ ] Merge PDF for book which has multiple files
 
 > Cần người có lòng hảo tâm contribute 🫠
 
