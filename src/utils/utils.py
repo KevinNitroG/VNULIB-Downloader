@@ -84,7 +84,7 @@ def datetime_name() -> str:
     return datetime.now().strftime("%Y-%m-%d %H-%M-%S-%f")
 
 
-def slugify(value, allow_unicode=True):
+def slugify(value, allow_unicode=False):
     """
     Convert to ASCII if 'allow_unicode' is False. Convert spaces or repeated
     dashes to single dashes. Remove characters that aren't alphanumerics,

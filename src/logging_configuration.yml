@@ -13,7 +13,6 @@ handlers:
     stream: ext://sys.stdout
     formatter: simple
     level: INFO
-    encoding: utf-8
   file:
     class: logging.handlers.RotatingFileHandler
     formatter: verbose
