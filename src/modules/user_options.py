@@ -178,8 +178,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
             return self.config["BROWSER"]
         self.__log_set_by_user_input("browser")
         return input(
-            "Enter browser you are using"
-            " (chrome, chromium, brave, local (chromedriver only)): "
+            "Enter browser you are using [chrome, path/to/chrome_driver]: "
         ).strip()
 
     def __setup_headless(self) -> bool:
