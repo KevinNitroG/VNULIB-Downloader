@@ -102,6 +102,10 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ### 2️⃣ Sử dụng
 
+> [!IMPORTANT]
+>
+> Cần có trình duyệt [Chrome](https://www.google.com/chrome/) _(cần cho Selenium Webdriver)_
+
 1. Mở tool
 2. Input
 
