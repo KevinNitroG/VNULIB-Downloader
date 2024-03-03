@@ -162,12 +162,11 @@ class MultiThreadingDownload(DownloadCore):
 
     def download(self) -> None:
         """Download images."""
-        with alive_bar(total=self.link.num_pages) as self.bar:  # pylint: disable=[disallowed-name, attribute-defined-outside-init]
-            with ThreadPoolExecutor() as executor:
-                for page_num in range(1, self.link.num_pages + 1):
-                    sub_link: str = f"{self.link.page_link}&page={page_num}"
-                    image_path: str = os.path.join(self.download_path, f"image_{page_num}.jpg")
-                    executor.submit(self.download_to_file, sub_link, image_path)
+        with alive_bar(total=self.link.num_pages) as self.bar, ThreadPoolExecutor() as executor:  # pylint: disable=[disallowed-name, attribute-defined-outside-init]
+            for page_num in range(1, self.link.num_pages + 1):
+                sub_link: str = f"{self.link.page_link}&page={page_num}"
+                image_path: str = os.path.join(self.download_path, f"image_{page_num}.jpg")
+                executor.submit(self.download_to_file, sub_link, image_path)
 
 
 class DownloadIMG:
