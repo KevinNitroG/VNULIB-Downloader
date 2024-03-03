@@ -44,7 +44,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   <img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="Visual Studio Code">
   <br>
   <br>
-  <a href="../../../releases/latest"><img alt="Download Release" src="https://img.shields.io/github/v/release/KevinNitroG/VNULIB-Downloader?label=DOWNLOAD&sort=date&display_name=tag&style=for-the-badge&color=eed49f"></a>
+  <a href="../../../releases/latest"><img alt="Download Release" src="https://img.shields.io/github/v/release/KevinNitroG/VNULIB-Downloader?sort=date&display_name=tag&style=for-the-badge&color=eed49f"></a>
 </div>
 
 <!-- ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white)
@@ -97,15 +97,15 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ### 1️⃣ Tải tool
 
-- [![Windows](https://img.shields.io/badge/Windows-a0c4ff?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-windows.exe)
-- [![Mac OS](https://img.shields.io/badge/MAC_OS-bdb2ff?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-macos)
-- [![Linux](https://img.shields.io/badge/Linux-ffc6ff?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-ubuntu)
+- [![Windows](https://img.shields.io/badge/Windows-8aadf4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-windows.exe)
+- [![Mac OS](https://img.shields.io/badge/MAC_OS-ed8796?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-macos)
+- [![Linux](https://img.shields.io/badge/Linux-5b6078?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-ubuntu)
 
 ### 2️⃣ Sử dụng
 
 > [!IMPORTANT]
 >
-> Cần có trình duyệt [Chrome](https://www.google.com/chrome/) _(cần cho Selenium Webdriver)_
+> Cần có trình duyệt [Chrome](https://www.google.com/chrome/) được cài đặt trong máy _(cần cho Selenium Webdriver)_
 
 1. Mở tool
 2. Input
@@ -191,7 +191,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 1. Install [Python](https://www.python.org/downloads/)
 2. Clone repo
    ```.ps1
-   git clone https://github.com/KevinNitroG/VNULIB-Downloader --depth 1
+   git clone "https://github.com/KevinNitroG/VNULIB-Downloader" --depth 1
    ```
 3. Create virtual environment _(optional)_
    - Windows
