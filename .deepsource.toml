@@ -1,24 +1,24 @@
 version = 1
 
 exclude_patterns = [
-"src/CONSTANTS.py",
-"sample_config.yml",
-"src/CONSTANTS.py",
-"src/utils/update.py",
-"**/__init__.py"
+  "src/CONSTANTS.py",
+  "sample_config.yml",
+  "src/CONSTANTS.py",
+  "src/utils/update.py",
+  "**/__init__.py"
 ]
 
 [[analyzers]]
 name = "python"
 
-[analyzers.meta]
-runtime_version = "3.x.x"
-
-[[transformers]]
-name = "autopep8"
+  [analyzers.meta]
+  runtime_version = "3.x.x"
 
 [[analyzers]]
 name = "secrets"
 
 [[analyzers]]
 name = "shell"
+
+[[transformers]]
+name = "ruff"
