@@ -1,23 +1,23 @@
-"""Use Selenium to log in to the website"""
+"""Use Selenium to log in to the website."""
 
 from __future__ import annotations
 
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
+from .utils import wait_element_clickable
 from ..constants import LOGIN_URL
 from ..utils import logger
-from .utils import wait_element_clickable
 
 
 class Login:
-    """Login to the VNULIB website
+    """Login to the VNULIB website.
 
     Args:
-        - driver (WebDriver): Selenium WebDriver
-        - username (str): Username
-        - password (str): Password
-        - timeout (int): Time to wait for element to be visible
+        - driver (WebDriver): Selenium WebDriver.
+        - username (str): Username.
+        - password (str): Password.
+        - timeout (int): Time to wait for element to be visible.
     """
 
     def __init__(self, driver: WebDriver, username, password, timeout: int) -> None:
@@ -29,18 +29,14 @@ class Login:
 
     def __fill_in(self) -> None:
         """Fill in the login form"""
-        self.driver.find_element(
-            By.CSS_SELECTOR, '.form-control[name="username"]'
-        ).send_keys(self.username)
-        self.driver.find_element(
-            By.CSS_SELECTOR, '.form-control[name="password"]'
-        ).send_keys(self.password)
+        self.driver.find_element(By.CSS_SELECTOR, '.form-control[name="username"]').send_keys(self.username)
+        self.driver.find_element(By.CSS_SELECTOR, '.form-control[name="password"]').send_keys(self.password)
 
     def login(self) -> None:
-        """Login to VNULIB website
+        """Login to VNULIB website.
 
         Raises:
-            ConnectionError: Login failed
+            ConnectionError: Login failed.
         """
         logger.info(msg="Logging in...")
         self.driver.get(self.url)

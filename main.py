@@ -1,4 +1,4 @@
-"""VNULIB Downloader"""
+"""VNULIB Downloader."""
 
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ from src.constants import DOWNLOAD_DIR
 
 
 def main() -> None:
-    """Main function to run VNULIB Downloader"""
+    """Main function to run VNULIB Downloader."""
     PrintIntro()
 
     print_title("USER OPTIONS")
@@ -75,7 +75,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    freeze_support()
+    freeze_support()  # For pyinstaller to fix multiprocessing in Windows
     main()
     print_title("END PROGRAM")
     pause()

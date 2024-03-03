@@ -2,7 +2,7 @@ ci:
   autoupdate_schedule: weekly
   autofix_commit_msg: "🐛 [pre-commit.ci]: Auto Fix"
   autofix_prs: true
-  autoupdate_commit_msg: "🔧 [pre-commit.ci]: pre-commit autoupdate"
+  autoupdate_commit_msg: "🔧 [pre-commit.ci]: Pre-commit autoupdate"
 
 exclude: ^(src/utils/update.py)
 
@@ -39,10 +39,18 @@ repos:
     hooks:
       - id: pyupgrade
 
-  - repo: https://github.com/psf/black
-    rev: 24.2.0
+  # - repo: https://github.com/psf/black
+  #   rev: 24.2.0
+  #   hooks:
+  #     - id: black
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.3.0
     hooks:
-      - id: black
+      # Run the linter.
+      # - id: ruff
+      # Run the formatter.
+      - id: ruff-format
 
   - repo: https://github.com/pylint-dev/pylint
     rev: v3.1.0

@@ -1,4 +1,4 @@
-"""Merge the images of books into PDF files"""
+"""Create PDF for books."""
 
 from __future__ import annotations
 
@@ -10,10 +10,10 @@ from ..utils import logger
 
 
 class CreatePDF:
-    """Merge the images of books into PDF files
+    """Create PDF for books.
 
     Args:
-        - links (list[Link]): The list of links object
+        - links (list[Link]): The list of links object.
     """
 
     def __init__(self, links: list[Link], download_directory: str) -> None:
@@ -23,17 +23,15 @@ class CreatePDF:
 
     @staticmethod
     def process(directory: str, name: str) -> None:
-        """Merge all JPG images in a directory into a single PDF
+        """Merge all images in a directory into a single PDF.
 
         Args:
-            directory (str): The directory containing the JPG images
-            name (str): Name of pdf file
+            directory (str): The directory containing the images.
+            name (str): Name of pdf file.
         """
         pdf_file_name: str = os.path.join(directory, f"{name}.pdf")
         logger.info(msg=f'Creating PDF: "{pdf_file_name}"')
-        list_files: list[str] = [
-            os.path.join(directory, item) for item in os.listdir(directory)
-        ]
+        list_files: list[str] = [os.path.join(directory, item) for item in os.listdir(directory)]
         if any(map(lambda file: file.endswith(".pdf"), list_files)):
             return
         pdf_file: bytes | None = img2pdf.convert(list_files)
@@ -43,11 +41,11 @@ class CreatePDF:
             logger.info(msg=f'Created PDF: "{pdf_file_name}"')
 
     def book_handler(self, book_directory: str, link: Link) -> None:
-        """Book handler, create PDF for Book's files
+        """Book handler, create PDF for Book's files.
 
         Args:
-            directory (str): The directory containing the subdirectories
-            link (Link): The book's Link
+            directory (str): The directory containing the subdirectories.
+            link (Link): The book's Link.
         """
         for file in link.files:
             self.executor.submit(
@@ -57,13 +55,11 @@ class CreatePDF:
             )
 
     def create_pdf(self) -> None:
-        """Create PDF"""
+        """Create PDF."""
         for link in self.links:
             match link.original_type:
                 case "book":
-                    self.book_handler(
-                        os.path.join(self.download_directory, link.name), link
-                    )
+                    self.book_handler(os.path.join(self.download_directory, link.name), link)
                 case "preview" | "page":
                     self.executor.submit(
                         self.process,

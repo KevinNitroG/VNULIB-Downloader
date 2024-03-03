@@ -1,5 +1,4 @@
-"""Contains classes, function, object to be imported in main
-"""
+"""Contains classes, function, object to be imported in main"""
 
 from __future__ import annotations
 

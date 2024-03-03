@@ -251,10 +251,14 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ## 👨‍💻 DEVELOP / CONTRIBUTE
 
 - Format:
-  - Python pep8: [`black`](https://github.com/psf/black) formatter
+  - Python:
+    - [`ruff`](https://docs.astral.sh/ruff/formatter/) - Ruff Formatter
+    - [`black`](https://github.com/psf/black) - Black Formatter _(alternatives)_
+    - Docstring: Google format
+      - [Ex 1](https://github.com/NilsJPWerner/autoDocstring/blob/master/docs/google.md#google-docstring-format)
+      - [Ex 2](https://gist.github.com/Raxy45/98de280aec506e7168cbb5955242ec3f/#file-google_docstrings)
   - [Prettier](https://prettier.io/)
-- Docstring: [Google format](https://github.com/NilsJPWerner/autoDocstring/blob/master/docs/google.md#google-docstring-format)
-- Requirement of python: Need specific version
+- Python requirements: Need specific version
 
 ---
 

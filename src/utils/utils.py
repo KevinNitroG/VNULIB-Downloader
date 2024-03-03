@@ -32,11 +32,7 @@ def create_directory(directory: str, force: bool | None = None) -> bool:
     if path.exists(path=directory):
         if force is False:
             return True
-        if (
-            force is True
-            or input(f'"{directory}" already exists. Force create it [Y/n]: ').upper()
-            in USER_INPUT_YES
-        ):
+        if force is True or input(f'"{directory}" already exists. Force create it [Y/n]: ').upper() in USER_INPUT_YES:
             try:
                 rmtree(path=directory)
             except PermissionError as e:
@@ -97,10 +93,6 @@ def slugify(value, allow_unicode=False):
     if allow_unicode:
         value = unicodedata.normalize("NFKC", value)
     else:
-        value = (
-            unicodedata.normalize("NFKD", value)
-            .encode("ascii", "ignore")
-            .decode("ascii")
-        )
+        value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
     value = re.sub(r"[^\w\s-]", "", value.lower())
     return re.sub(r"[-\s]+", "-", value).strip("-_")

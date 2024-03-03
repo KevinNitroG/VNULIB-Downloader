@@ -1,4 +1,4 @@
-"""Setup pre config file for VNULIB-Downloader"""
+"""Setup pre config file for VNULIB-Downloader."""
 
 from __future__ import annotations
 
@@ -9,11 +9,11 @@ from ..utils import logger
 
 
 class Config:
-    """Setup tool config file
+    """Setup tool config file.
 
     Args:
-        - config_file (str): The config file name
-        - url (str): The link of the raw config file
+        - config_file (str): The config file name.
+        - url (str): The link of the raw config file.
     """
 
     def __init__(
@@ -26,15 +26,15 @@ class Config:
         self.setup()
 
     def prepare_config_file(self) -> None:
-        """Copy config sample file to config file"""
+        """Copy config sample file to config file."""
         copyfile(self.config_sample_file, self.config_file)
         logger.info(msg=f'Created tool config: "{self.config_file}"')
 
     def check_exist_config_file(self) -> bool:
-        """Check if the config file exists or not
+        """Check if the config file exists or not.
 
         Returns:
-            - bool: True if the config file exists, False otherwise
+            - bool: True if the config file exists, False otherwise.
         """
         if path.exists(path=self.config_file):
             return True
@@ -42,6 +42,6 @@ class Config:
         return False
 
     def setup(self) -> None:
-        """Prepare the config file for the project"""
+        """Prepare the config file for the project."""
         if not self.check_exist_config_file():
             self.prepare_config_file()

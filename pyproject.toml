@@ -1,0 +1,10 @@
+[tool.ruff]
+line-length = 300
+fix = true
+extend-exclude = ["src/utils/update.py"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

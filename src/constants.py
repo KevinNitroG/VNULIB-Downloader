@@ -1,4 +1,4 @@
-"""Constant variables throughout the program"""
+"""Constant variables throughout the program."""
 
 from __future__ import annotations
 import sys
@@ -30,12 +30,10 @@ BANNER: str = """
 REPOSITORY_URL: str = "https://github.com/KevinNitroG/VNULIB-Downloader"
 CONFIG_FILE: str = "config.yml"
 CONFIG_SAMPLE_FILE: str = BUNDLE_DIR + "config-sample.yml"
-CONFIG_FILE_URL: str = (
-    "https://raw.githubusercontent.com/KevinNitroG/VNULIB-Downloader/main/config-sample.yml"  # skipcq: [FLK-E501, FLK-W505]
-)
+CONFIG_FILE_URL: str = "https://raw.githubusercontent.com/KevinNitroG/VNULIB-Downloader/main/config-sample.yml"  # skipcq: [FLK-E501, FLK-W505]
 LOGGING_CONFIG_FILE_PATH: str = BUNDLE_DIR + "src/logging_configuration.yml"
 LOGGING_PATH: str = "log"
-ERROR_PAGE_IMAGE_PATH: str = "asset/image/error_page.jpg"
+ERROR_PAGE_IMAGE_PATH: str = "assets/images/error_page.jpg"
 DOWNLOAD_DIR: str = "Downloads"
 LOGGER_MODE: list[str] = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
 USER_INPUT_YES: list[str] = ["Y", "YES", "", "1"]

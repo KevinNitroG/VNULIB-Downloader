@@ -1,4 +1,4 @@
-"""Setup Selenium Browser"""
+"""Setup Selenium Browser."""
 
 from __future__ import annotations
 
@@ -21,12 +21,12 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class Browser:
-    """Setup Selenium Browser
+    """Setup Selenium Browser.
 
     Args:
-        - browser (str): The browser to set up
-        - headless (bool): Headless mode
-        - timeout (int): Timeout for implicit wait for Selenium
+        - browser (str): The browser to set up.
+        - headless (bool): Headless mode.
+        - timeout (int): Timeout for implicit wait for Selenium.
     """
 
     def __init__(self, browser: str, headless: bool, timeout: int) -> None:
@@ -37,10 +37,10 @@ class Browser:
         self.timeout: int = timeout
 
     def __enter__(self) -> WebDriver:
-        """Set up the browser when entering the context manager
+        """Set up the browser when entering the context manager.
 
         Returns:
-            - WebDriver: Selenium WebDriver
+            - WebDriver: Selenium WebDriver.
         """
         logger.info(msg="Setting up the browser...")
         self.__setup_arguments()
@@ -64,24 +64,20 @@ class Browser:
             self.options.add_argument(argument)
         if self.headless:
             self.options.add_argument("--headless")
-            self.options.add_experimental_option(
-                "prefs", {"profile.managed_default_content_settings.images": 2}
-            )
+            self.options.add_experimental_option("prefs", {"profile.managed_default_content_settings.images": 2})
 
     def __setup_chrome_browser(self) -> WebDriver:
-        """Setup Chrome Browser
+        """Setup Chrome Browser.
 
         Returns:
-            - WebDriver: Selenium WebDriver
+            - WebDriver: Selenium WebDriver.
         """
-        return webdriver.Chrome(
-            options=self.options, service=Service(ChromeDriverManager().install())
-        )
+        return webdriver.Chrome(options=self.options, service=Service(ChromeDriverManager().install()))
 
     def __setup_local_chrome_browser(self) -> WebDriver:
-        """Setup Local Chrome Browser
+        """Setup Local Chrome Browser.
 
         Returns:
-            - WebDriver: Selenium WebDriver
+            - WebDriver: Selenium WebDriver.
         """
         return webdriver.Chrome(options=self.options, service=Service(self.browser))

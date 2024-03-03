@@ -1,4 +1,4 @@
-"""Argparse for VNULIB-Downloader"""
+"""Argparse for VNULIB-Downloader."""
 
 from __future__ import annotations
 
@@ -6,17 +6,15 @@ from argparse import ArgumentParser, Namespace
 
 
 def setup_argparse() -> Namespace:
-    """Parse the arguments
+    """Parse the arguments.
 
     Returns:
-        - Namespace: The parsed arguments
+        - Namespace: The parsed arguments.
     """
     parser = ArgumentParser()
     parser.add_argument("--username", "-u", type=str, help="Your VNULIB username")
     parser.add_argument("--password", "-p", type=str, help="Your VNULIB password")
-    parser.add_argument(
-        "--link", type=str, nargs="*", help="Links of the book(s) to be downloaded"
-    )
+    parser.add_argument("--link", type=str, nargs="*", help="Links of the book(s) to be downloaded")
     parser.add_argument(
         "--timeout",
         "-t",
@@ -27,9 +25,7 @@ def setup_argparse() -> Namespace:
         "--browser",
         "-b",
         default=None,
-        help="Browser you are using, to use the correct webdriver"
-        " (chrome, firefox, edge, safari, opera, ie)"
-        " 'local' to use local 'webdriver' in the same directory",
+        help="Browser you are using, to use the correct webdriver" " (chrome, firefox, edge, safari, opera, ie)" " 'local' to use local 'webdriver' in the same directory",
     )
     parser.add_argument(
         "--headless",
