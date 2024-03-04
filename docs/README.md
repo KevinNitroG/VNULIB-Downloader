@@ -44,7 +44,8 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   <img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="Visual Studio Code">
   <br>
   <br>
-  <a href="../../../releases/latest"><img alt="Download Release" src="https://img.shields.io/github/v/release/KevinNitroG/VNULIB-Downloader?sort=date&display_name=tag&style=for-the-badge&color=eed49f"></a>
+  <a href="../../../releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/KevinNitroG/VNULIB-Downloader?sort=date&display_name=tag&style=for-the-badge&color=eed49f"></a>
+  <a href="../../../releases/latest"><img alt="Download Count" src="https://img.shields.io/github/downloads/KevinNitroG/VNULIB-Downloader/total?style=for-the-badge&color=8bd5ca"></a>
 </div>
 
 <!-- ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white)
@@ -81,8 +82,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 - Hỗ trợ link: `book`, `preview`, `page` [<sup>?</sup>](#giải-thích-thuật-ngữ)
 - Hỗ trợ tải nhiều sách _(lần lượt từng sách)_
 - Tải sách - Multithreading[<sup>?</sup>](#giải-thích-thuật-ngữ)
-- Merge các ảnh thành PDF - Multiprocessing[<sup>?</sup>](#giải-thích-thuật-ngữ)
-- Tạo PDF các file sách
+- Tạo PDF các file sách - Multiprocessing[<sup>?</sup>](#giải-thích-thuật-ngữ)
 - Xoá ảnh sau khi tải _(phù hợp khi dùng tạo PDF)_
 
 ---
@@ -105,7 +105,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 > [!IMPORTANT]
 >
-> Cần có trình duyệt [Chrome](https://www.google.com/chrome/) được cài đặt trong máy _(cần cho Selenium Webdriver)_
+> Cần cài đặt trình duyệt [Chrome](https://www.google.com/chrome/) _(cần cho Selenium Webdriver)_
 
 1. Mở tool
 2. Input
@@ -149,8 +149,8 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ## ⚙️ NÂNG CAO
 
 - Có thể chạy tool theo các cách:
-  - [Pre config](#-pre-config)
-  - [Command line arguments](#-command-line-arguments)
+  - [Pre config](#️-pre-config)
+  - [Command line arguments](#️-command-line-arguments)
   - [Python](#-python)
 
 > [!NOTE]
