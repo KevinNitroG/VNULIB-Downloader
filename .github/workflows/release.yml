@@ -34,6 +34,7 @@ jobs:
     name: build
     needs: prepare
     strategy:
+      fail-fast: false
       matrix:
         os:
           - ubuntu

@@ -1,0 +1,45 @@
+name: Pre-commit
+
+concurrency:
+  cancel-in-progress: true
+  group: Pre-commit
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@main
+
+      - name: Install python
+        uses: actions/setup-python@main
+        with:
+          cache: pip
+          python-version: "3.12"
+
+      - name: Install Sourcery
+        run: pip install sourcery
+
+      - name: Run Sourcery
+        continue-on-error: true
+        run: sourcery login --token ${{ secrets.SOURCERY_TOKEN }} && source review .
+
+      - name: Install Pre-commit
+        run: pip install pre-commit
+
+      - name: Run Pre-commit
+        continue-on-error: true
+        run: pre-commit run --all-files
+
+      - name: Update pre-commit hook
+        run: pre-commit autoupdate
+
+      - uses: stefanzweifel/git-auto-commit-action@master
+        with:
+          commit_message: "🐛 [pre-commit action]: Auto format"

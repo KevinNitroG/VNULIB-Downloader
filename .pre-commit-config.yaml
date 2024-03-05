@@ -39,6 +39,27 @@ repos:
     hooks:
       - id: pyupgrade
 
+  - repo: https://github.com/pylint-dev/pylint
+    rev: v3.1.0
+    hooks:
+      - id: pylint
+        types: [python]
+        args: ["--rcfile=.pylintrc", "--disable=F0401"]
+
+  # - repo: https://github.com/sourcery-ai/sourcery
+  #   rev: v1.15.0
+  #   hooks:
+  #     - id: sourcery
+  #       # The best way to use Sourcery in a pre-commit hook:
+  #       # * review only changed lines:
+  #       # * omit the summary
+  #       args: [--diff=git diff HEAD, --no-summary]
+
+  - repo: https://github.com/asottile/yesqa
+    rev: v1.5.0
+    hooks:
+      - id: yesqa
+
   # - repo: https://github.com/psf/black
   #   rev: 24.2.0
   #   hooks:
@@ -52,29 +73,8 @@ repos:
       # Run the formatter.
       - id: ruff-format
 
-  - repo: https://github.com/pylint-dev/pylint
-    rev: v3.1.0
-    hooks:
-      - id: pylint
-        types: [python]
-        args: ["--rcfile=.pylintrc", "--disable=F0401"]
-
-  - repo: https://github.com/asottile/yesqa
-    rev: v1.5.0
-    hooks:
-      - id: yesqa
-
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
         exclude: "config-sample.yml"
-
-  - repo: https://github.com/sourcery-ai/sourcery
-    rev: v1.15.1b41
-    hooks:
-      - id: sourcery
-        # The best way to use Sourcery in a pre-commit hook:
-        # * review only changed lines:
-        # * omit the summary
-        args: [--diff=git diff HEAD, --no-summary]
