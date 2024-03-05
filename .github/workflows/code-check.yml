@@ -1,8 +1,8 @@
-name: Pre-commit
+name: Code Check
 
 concurrency:
   cancel-in-progress: true
-  group: Pre-commit
+  group: code-check
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  pre-commit:
+  code-check:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -28,7 +28,7 @@ jobs:
 
       - name: Run Sourcery
         continue-on-error: true
-        run: sourcery login --token "${{ secrets.SOURCERY_TOKEN }}"" && sourcery review .
+        run: sourcery login --token "${{ secrets.SOURCERY_TOKEN }}" && sourcery review .
 
       - name: Install Pre-commit
         run: pip install pre-commit
@@ -42,4 +42,4 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@master
         with:
-          commit_message: "🐛 [pre-commit action]: Auto format"
+          commit_message: "🎨 [Code check]: Auto check"

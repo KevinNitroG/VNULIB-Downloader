@@ -29,7 +29,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   <a href="https://wakatime.com/badge/github/KevinNitroG/VNULIB-Downloader"><img src="https://wakatime.com/badge/github/KevinNitroG/VNULIB-Downloader.svg?style=for-the-badge" alt="Wakatime"></a>
   <a href="https://www.codefactor.io/repository/github/kevinnitrog/VNULIB-Downloader"><img src="https://img.shields.io/codefactor/grade/github/KevinNitroG/VNULIB-Downloader?style=for-the-badge" alt="CodeFactor Grade"></a>
   <a href="../../../actions/workflows/release.yml"><img src="https://img.shields.io/github/actions/workflow/status/KevinNitroG/VNULIB-Downloader/release.yml?style=for-the-badge&label=RELEASE" alt="Release Status"></a>
-  <a href="../../../actions/workflows/pre-commit.yml"><img src="https://img.shields.io/github/actions/workflow/status/KevinNitroG/VNULIB-Downloader/pre-commit.yml?style=for-the-badge&label=PRE-COMIT" alt="Pre-commit status"></a>
+  <a href="../../../actions/workflows/code-check.yml"><img src="https://img.shields.io/github/actions/workflow/status/KevinNitroG/VNULIB-Downloader/code-check.yml?style=for-the-badge&label=CODE%20CHECK" alt="Code check status"></a>
   <br>
   <br>
   <a href="https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader/"><img src="https://app.deepsource.com/gh/KevinNitroG/VNULIB-Downloader.svg/?label=active+issues&show_trend=true&token=CudEDrOLrCKS4df1IaYBoP-G" alt="DeepSource active issues"></a>
