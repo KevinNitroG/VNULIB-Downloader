@@ -69,3 +69,12 @@ repos:
     hooks:
       - id: prettier
         exclude: "config-sample.yml"
+
+  - repo: https://github.com/sourcery-ai/sourcery
+    rev: v1.15.0
+    hooks:
+      - id: sourcery
+        # The best way to use Sourcery in a pre-commit hook:
+        # * review only changed lines:
+        # * omit the summary
+        args: [--diff=git diff HEAD, --no-summary]

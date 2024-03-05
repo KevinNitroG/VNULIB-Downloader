@@ -23,9 +23,7 @@ def getVersionsFromRepository(repo_url: str = REPOSITORY_URL) -> list[str]:
         REPOSITORY_URL.split('/')[-2] + REPOSITORY_URL.split('/')[-1] + '/tags'
     response: Response = get(f'{repo_url}/releases')
     if response.status_code == 200:
-        versions = []
-        for version in loads(response.text):
-            versions.append(version['name'])
+        versions = [version['name'] for version in loads(response.text)]
         print_info(message='Successfully get versions from repository')
         return versions
     else:
@@ -104,6 +102,5 @@ def updateTheTool() -> None:
         repo_url=REPOSITORY_URL)
     if checkNeedToUpdate(current_version=VERSION, VERSIONS=versions):
         print_info(message='Updating the tool... (Not implemented yet)')
-        pass  # implement later
     else:
         print_info(message='Skip updating the tool')

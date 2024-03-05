@@ -5,7 +5,7 @@ import sys
 
 
 if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
-    BUNDLE_DIR: str = sys._MEIPASS + "/"  # type: ignore # skipcq: PYL-W0212 # pylint: disable=protected-access # nopep8
+    BUNDLE_DIR: str = f"{sys._MEIPASS}/"  # type: ignore # skipcq: PYL-W0212 # pylint: disable=protected-access # nopep8
 else:
     BUNDLE_DIR = ""
 
@@ -29,9 +29,9 @@ BANNER: str = """
 """
 REPOSITORY_URL: str = "https://github.com/KevinNitroG/VNULIB-Downloader"
 CONFIG_FILE: str = "config.yml"
-CONFIG_SAMPLE_FILE: str = BUNDLE_DIR + "config-sample.yml"
+CONFIG_SAMPLE_FILE: str = f"{BUNDLE_DIR}config-sample.yml"
 CONFIG_FILE_URL: str = "https://raw.githubusercontent.com/KevinNitroG/VNULIB-Downloader/main/config-sample.yml"  # skipcq: [FLK-E501, FLK-W505]
-LOGGING_CONFIG_FILE_PATH: str = BUNDLE_DIR + "src/logging_configuration.yml"
+LOGGING_CONFIG_FILE_PATH: str = f"{BUNDLE_DIR}src/logging_configuration.yml"
 LOGGING_PATH: str = "log"
 ERROR_PAGE_IMAGE_PATH: str = "assets/images/error_page.jpg"
 DOWNLOAD_DIR: str = "Downloads"

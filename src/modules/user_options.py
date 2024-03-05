@@ -155,9 +155,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
             self.__log_set_by_config("timeout")
             return int(self.config["TIMEOUT"])
         user_timeout: str = input("Enter timeout for Selenium & request [20]: ").strip()
-        if user_timeout == "":
-            return 20
-        return int(user_timeout)
+        return int(user_timeout) if user_timeout else 20
 
     def __setup_browser(self) -> str:
         """Setup browser.

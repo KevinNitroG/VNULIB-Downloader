@@ -41,9 +41,7 @@ class LinkParse:
             return "book"
         if re_search(PATTERN_PREVIEW, link):
             return "preview"
-        if re_search(PATTERN_PAGE, link):
-            return "page"
-        return ""
+        return "page" if re_search(PATTERN_PAGE, link) else ""
 
     @staticmethod
     def __get_page_num_from_page_query(link: str) -> int:

@@ -104,9 +104,7 @@ class SingleThreadDownload(DownloadCore):
             - str: Text content of link.
         """
         response: Response = self.session.get(link, stream=True, timeout=self.timeout, verify=False)  # skipcq: BAN-B501, PTC-W6001
-        if OUT_PAGE_ERROR_TEXT in response.text:
-            return b""
-        return response.content
+        return b"" if OUT_PAGE_ERROR_TEXT in response.text else response.content
 
     def download(self) -> None:
         """Download."""
