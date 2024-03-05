@@ -28,7 +28,7 @@ jobs:
 
       - name: Run Sourcery
         continue-on-error: true
-        run: sourcery login --token ${{ secrets.SOURCERY_TOKEN }} && source review .
+        run: sourcery login --token "${{ secrets.SOURCERY_TOKEN }}"" && sourcery review .
 
       - name: Install Pre-commit
         run: pip install pre-commit
