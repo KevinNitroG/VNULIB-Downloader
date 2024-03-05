@@ -71,7 +71,7 @@ repos:
         exclude: "config-sample.yml"
 
   - repo: https://github.com/sourcery-ai/sourcery
-    rev: v1.15.0
+    rev: v1.15.1b41
     hooks:
       - id: sourcery
         # The best way to use Sourcery in a pre-commit hook:
