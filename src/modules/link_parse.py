@@ -53,11 +53,12 @@ class LinkParse:
         Returns:
             int: Number of pages.
         """
-        query = parse_qs(urlparse(link).query)
-        current_num_pages = query.get("page")
+        query: dict[str, list[str]] = parse_qs(urlparse(link).query)
+        current_num_pages: list[str] | None = query.get("page")
         if current_num_pages is not None:
-            int_current_num_pages = int(current_num_pages[0])
-        return int_current_num_pages if int_current_num_pages > 1 else -1
+            int_current_num_pages: int = int(current_num_pages[0])
+            return int_current_num_pages if int_current_num_pages > 1 else -1
+        return -1
 
     @staticmethod
     def remove_page_query(link: str) -> str:

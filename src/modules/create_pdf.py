@@ -66,4 +66,6 @@ class CreatePDF:
                         os.path.join(self.download_directory, link.files[0].name),
                         link.files[0].name,
                     )
+                case _:
+                    pass
         self.executor.shutdown()

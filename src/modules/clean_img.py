@@ -50,3 +50,5 @@ class CleanIMG:
                     self.book_handler(os.path.join(self.download_directory, link.name), link)
                 case "page" | "preview":
                     self.process(os.path.join(self.download_directory, link.files[0].name))
+                case _:
+                    pass

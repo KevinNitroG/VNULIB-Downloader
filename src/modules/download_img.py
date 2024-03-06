@@ -228,4 +228,6 @@ class DownloadIMG:
                         self.preview_handler(link.files[0])
                     else:
                         self.page_handler(link.files[0])
+                case _:
+                    pass
             logger.info(msg=f'Done: "{link.original_link}"')
