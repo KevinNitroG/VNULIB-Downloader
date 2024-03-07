@@ -132,7 +132,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 > [!NOTE]
 >
-> - Ảnh và sách sẽ được tải về thư mục `./Downloads/`
+> - Ảnh và sách sẽ được tải về `./Downloads/`
 > - Kiểm tra log tại `./log/`
 > - Trong quá trình tải ảnh của sách, nếu quá thời gian `TIMEOUT` thì trang sẽ huỷ tải, thay bằng ảnh [error](../asset/image/error_page.jpg)
 
@@ -189,37 +189,40 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ### 🤐 Python
 
 1. Install [Python](https://www.python.org/downloads/)
+
 2. Clone repo
-   ```.ps1
-   git clone "https://github.com/KevinNitroG/VNULIB-Downloader" --depth 1
-   ```
+
+```.ps1
+git clone "https://github.com/KevinNitroG/VNULIB-Downloader" --depth 1
+```
+
 3. Create virtual environment _(optional)_
-   - Windows
-     ```.ps1
-     pip install virtualenv
-     python -m venv .env
-     # Active virtual environment
-     myenv\Scripts\activate
-     # Deactive virtual environment
-     deactivate
-     ```
-   - Mac / Linux
-     ```.sh
-     pip3 install virtualenv
-     virtualenv .env
-     # Active virtual environment
-     source .env/bin/activate
-     # Deactive virtual environment
-     deactivate
-     ```
+
+   ```.ps1
+   # Create virtual environment
+   python -m venv .venv
+
+   # Active virtual environment
+   # For Windows
+   myenv\Scripts\activate
+   # For Mac / Linux
+   source .env/bin/activate
+
+   # Deactive virtual environment
+   deactivate
+   ```
+
 4. Install requirements
-   ```ps1
-   pip install -r requirements.txt
-   ```
+
+```ps1
+pip install -r requirements.txt
+```
+
 5. Run tool
-   ```ps1
-   python main.py
-   ```
+
+```ps1
+python main.py
+```
 
 > [!NOTE]
 >
@@ -250,15 +253,15 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ## 👨‍💻 DEVELOP / CONTRIBUTE
 
-- Format:
-  - Python:
-    - [`ruff`](https://docs.astral.sh/ruff/formatter/) - Ruff Formatter
-    - [`black`](https://github.com/psf/black) - Black Formatter _(alternatives)_
-    - Docstring: Google format
-      - [Ex 1](https://github.com/NilsJPWerner/autoDocstring/blob/master/docs/google.md#google-docstring-format)
-      - [Ex 2](https://gist.github.com/Raxy45/98de280aec506e7168cbb5955242ec3f/#file-google_docstrings)
-  - [Prettier](https://prettier.io/)
-- Python requirements: Need specific version
+- Python:
+  - [`ruff`](https://docs.astral.sh/ruff/formatter/) - Ruff Formatter
+  - [`black`](https://github.com/psf/black) - Black Formatter _(alternatives)_
+  - Docstring: Google format
+    - [Ex 1](https://github.com/NilsJPWerner/autoDocstring/blob/master/docs/google.md#google-docstring-format)
+    - [Ex 2](https://gist.github.com/Raxy45/98de280aec506e7168cbb5955242ec3f/#file-google_docstrings)
+  - Package manager: Pip - Need specific version
+  - Linter: [Pylance](vscode:extension/ms-python.vscode-pylance) / Pylint
+- [Prettier](https://prettier.io/)
 
 ---
 
