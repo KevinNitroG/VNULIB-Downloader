@@ -1,8 +1,8 @@
 ci:
   autoupdate_schedule: weekly
-  autofix_commit_msg: "🐛 [pre-commit.ci]: Auto Fix"
+  autofix_commit_msg: "🐛 fix: pre-commit auto fix"
   autofix_prs: true
-  autoupdate_commit_msg: "🔧 [pre-commit.ci]: Pre-commit autoupdate"
+  autoupdate_commit_msg: "🔧 chore: pre-commit auto update"
 
 exclude: ^(src/utils/update.py)
 

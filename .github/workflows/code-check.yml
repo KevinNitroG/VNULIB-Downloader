@@ -26,20 +26,22 @@ jobs:
       - name: Install Sourcery
         run: pip install sourcery
 
-      - name: Run Sourcery
-        continue-on-error: true
-        run: sourcery login --token "${{ secrets.SOURCERY_TOKEN }}" && sourcery review .
-
       - name: Install Pre-commit
         run: pip install pre-commit
 
+      - name: Run Sourcery
+        if: ${{ always() }}
+        run: sourcery login --token "${{ secrets.SOURCERY_TOKEN }}" && sourcery review .
+
       - name: Run Pre-commit
-        continue-on-error: true
+        if: ${{ always() }}
         run: pre-commit run --all-files
 
       - name: Update pre-commit hook
+        if: ${{ always() }}
         run: pre-commit autoupdate
 
       - uses: stefanzweifel/git-auto-commit-action@master
+        if: ${{ always() }}
         with:
-          commit_message: "🎨 [Code check]: Auto check"
+          commit_message: "🎨 refactor: auto code check"
