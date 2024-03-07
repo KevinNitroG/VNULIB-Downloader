@@ -53,11 +53,12 @@ class DownloadCore:  # pylint: disable=too-few-public-methods
         self.timeout: int = timeout
         self.session: Any
 
-    def get_images_bytes(self, link: str) -> bytes:
+    def get_images_bytes(self, link: str, page: str) -> bytes:
         """Get images bytes.
 
         Args:
             - link (str): the page link.
+            - page (str): The current page number to download.
 
         Return:
             - Bytes: The datas of images.
@@ -66,7 +67,7 @@ class DownloadCore:  # pylint: disable=too-few-public-methods
             with self.session.get(link, stream=True, timeout=self.timeout, verify=False) as reponse:
                 return reponse.content  # skipcq: BAN-B501, PTC-W6001
         except requests.exceptions.ReadTimeout:
-            logger.error(msg=f'"{link}": Error page')
+            logger.error(msg=f'"{link}": Page "{page}" - Timeout')
             return ERROR_PAGE_IMAGE
 
 
@@ -94,17 +95,22 @@ class SingleThreadDownload(DownloadCore):
         return requests.Session()
 
     @override
-    def get_images_bytes(self, link: str) -> bytes:
+    def get_images_bytes(self, link: str, page: str) -> bytes:
         """Get image's bytes, check valid page first.
 
         Args:
             - link (str): Link.
+            - page (str): The current page number to download.
 
         Returns:
             - str: Text content of link.
         """
-        response: Response = self.session.get(link, stream=True, timeout=self.timeout, verify=False)  # skipcq: BAN-B501, PTC-W6001
-        return b"" if OUT_PAGE_ERROR_TEXT in response.text else response.content
+        try:
+            response: Response = self.session.get(link, stream=True, timeout=self.timeout, verify=False)  # skipcq: BAN-B501, PTC-W6001
+            return b"" if OUT_PAGE_ERROR_TEXT in response.text else response.content
+        except requests.exceptions.ReadTimeout:
+            logger.error(msg=f'"{link}": Page "{page}" - Timeout')
+            return ERROR_PAGE_IMAGE
 
     def download(self) -> None:
         """Download."""
@@ -114,7 +120,7 @@ class SingleThreadDownload(DownloadCore):
                 current_page: str = str(next(self.count))  # skipcq: PTC-W0063
                 image_link: str = f"{self.link.page_link}&page={current_page}"
                 image_path: str = os.path.join(self.download_path, f"image_{current_page}.jpg")
-                if image_bytes := self.get_images_bytes(image_link):
+                if image_bytes := self.get_images_bytes(link=image_link, page=current_page):
                     with open(image_path, "wb") as file:  # skipcq: PTC-W6004
                         file.write(image_bytes)
                 else:
@@ -147,15 +153,16 @@ class MultiThreadingDownload(DownloadCore):
             self.thread_local.session = requests.Session()
         return self.thread_local.session
 
-    def download_to_file(self, image_link: str, image_path: str) -> None:  # pylint: disable=disallowed-name
+    def download_to_file(self, image_link: str, image_path: str, page: str) -> None:  # pylint: disable=disallowed-name
         """Multithreading download function for known page link (book | preview).
 
         Args:
             - image_link (str): Image link.
             - image_path (str): Image path.
+            - page (str): The current page number to download.
         """
         with open(image_path, "wb") as file:  # skipcq: PTC-W6004
-            file.write(self.get_images_bytes(image_link))
+            file.write(self.get_images_bytes(link=image_link, page=page))
         self.bar()  # pylint: disable=not-callable
 
     def download(self) -> None:
@@ -164,7 +171,7 @@ class MultiThreadingDownload(DownloadCore):
             for page_num in range(1, self.link.num_pages + 1):
                 sub_link: str = f"{self.link.page_link}&page={page_num}"
                 image_path: str = os.path.join(self.download_path, f"image_{page_num}.jpg")
-                executor.submit(self.download_to_file, sub_link, image_path)
+                executor.submit(self.download_to_file, sub_link, image_path, str(page_num))
 
 
 class DownloadIMG:
