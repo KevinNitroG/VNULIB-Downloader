@@ -28,7 +28,7 @@ BANNER_FILE: str = f"{BUNDLE_DIR}assets/utils/ascii_banner.txt"
 # ██████╔╝╚██████╔╝╚███╔███╔╝██║ ╚████║███████╗╚██████╔╝██║  ██║██████╔╝███████╗██║  ██║
 # ╚═════╝  ╚═════╝  ╚══╝╚══╝ ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
 # """
-with open(BANNER_FILE, "r", encoding="utf-8") as banner_content:
+with open(BANNER_FILE, encoding="utf-8") as banner_content:
     BANNER: str = banner_content.read()
 REPOSITORY_URL: str = "https://github.com/KevinNitroG/VNULIB-Downloader"
 CONFIG_FILE: str = "config.yml"
