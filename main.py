@@ -56,9 +56,8 @@ def main() -> None:
             ).action()
     logger.debug(msg=f"LINKS OBJECT:\n{pformat(user_options.links)}")
 
-    create_directory(DOWNLOAD_DIR, force=False)
-
     print_title("DOWNLOAD")
+    create_directory(DOWNLOAD_DIR, force=False)
     DownloadIMG(
         links=user_options.links,
         download_directory=DOWNLOAD_DIR,

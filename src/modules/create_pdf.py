@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import os
 from concurrent.futures import ProcessPoolExecutor
+from multiprocessing import Queue
+from logging.handlers import QueueHandler
 import img2pdf
 from .link_parse import Link
 from ..utils import logger
@@ -20,6 +22,20 @@ class CreatePDF:
         self.links: list[Link] = links
         self.download_directory: str = download_directory
         self.executor = ProcessPoolExecutor()
+        self.all_processes_stop: bool = False
+        self.queue = Queue()
+        self.logger = logger
+        self.logger.addHandler(QueueHandler(queue=self.queue))
+
+    def logging_process(self) -> None:
+        """Take a separate process for logging"""
+        while True:
+            msg = self.queue.get()
+            match msg:
+                case None:
+                    pass
+                case _:
+                    self.logger.handle(msg)
 
     @staticmethod
     def process(directory: str, name: str) -> None:
