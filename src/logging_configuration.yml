@@ -17,7 +17,7 @@ handlers:
     class: logging.handlers.RotatingFileHandler
     formatter: verbose
     filename: "log/tool.log"
-    maxBytes: 200 # 20000 # 2KB
+    maxBytes: 500 # 20000 # 2KB
     backupCount: 3
     level: DEBUG
     encoding: utf-8

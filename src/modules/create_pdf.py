@@ -50,7 +50,7 @@ class CreatePDF:
             name (str): Name of pdf file.
         """
         pdf_file_name: str = os.path.join(directory, f"{name}.pdf")
-        self.logger.info(msg=f'Creating PDF: "{pdf_file_name}"')
+        self.logger.info('Creating PDF: "%s"', pdf_file_name)
         list_files: list[str] = [os.path.join(directory, item) for item in os.listdir(directory)]
         if any(map(lambda file: file.endswith(".pdf"), list_files)):
             return
@@ -58,7 +58,7 @@ class CreatePDF:
         if pdf_file is not None:
             with open(pdf_file_name, "wb") as f:
                 f.write(pdf_file)
-            self.logger.info(msg=f'Created PDF: "{pdf_file_name}"')
+            self.logger.info('Created PDF: "%s"', pdf_file_name)
 
     def book_handler(self, book_directory: str, link: Link) -> None:
         """Book handler, create PDF for Book's files.
@@ -75,8 +75,25 @@ class CreatePDF:
                     file.name,
                 ),
             )
-            worker.start()
             self.workers.append(worker)
+            worker.start()
+
+    def preview_and_page_handler(self, download_directory: str, name: str) -> None:
+        """Preview and page handler, create PDF for only one file.
+
+        Args:
+            download_directory (str): The directory to download the file.
+            name (str): The file's name.
+        """
+        worker = multiprocessing.Process(
+            target=self.process,
+            args=(
+                os.path.join(self.download_directory, name),
+                name,
+            ),
+        )
+        self.workers.append(worker)
+        worker.start()
 
     def create_pdf(self) -> None:
         """Create PDF."""
@@ -85,17 +102,15 @@ class CreatePDF:
         for link in self.links:
             match link.original_type:
                 case "book":
-                    self.book_handler(os.path.join(self.download_directory, link.name), link)
-                case "preview" | "page":
-                    worker = multiprocessing.Process(
-                        target=self.process,
-                        args=(
-                            os.path.join(self.download_directory, link.files[0].name),
-                            link.files[0].name,
-                        ),
+                    self.book_handler(
+                        os.path.join(self.download_directory, link.name),
+                        link,
                     )
-                    worker.start()
-                    self.workers.append(worker)
+                case "preview" | "page":
+                    self.preview_and_page_handler(
+                        os.path.join(self.download_directory, link.files[0].name),
+                        link.files[0].name,
+                    )
                 case _:
                     pass
         for worker in self.workers:

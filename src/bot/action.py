@@ -150,11 +150,11 @@ class Action:
         for link in self.links:
             match link.original_type:
                 case "book":
+                    logger.info(msg=f'"{link.original_link}": "{link.original_type}"')
                     converted_links.append(self.book_handler(link=link))
-                    logger.info(msg=f'"{link.original_link}": "{link.original_type}"')
                 case "preview":
-                    converted_links.append(self.preview_handler(link=link))
                     logger.info(msg=f'"{link.original_link}": "{link.original_type}"')
+                    converted_links.append(self.preview_handler(link=link))
                 case "page":
                     converted_links.append(link)
         return converted_links
