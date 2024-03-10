@@ -10,7 +10,7 @@ insert_final_newline = true
 trim_trailing_whitespace = unset
 
 [*.py]
-indent_size = 4
+indent_size = unset
 end_of_line = crlf
 
 [*.{js,ts,tsx,json,yml,yaml,toml}]
