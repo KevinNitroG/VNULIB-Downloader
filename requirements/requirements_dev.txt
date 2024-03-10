@@ -1,0 +1,4 @@
+# requirements_dev.txt
+-r requirements.txt
+
+editorconfig-checker==2.7.3

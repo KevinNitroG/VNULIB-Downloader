@@ -78,3 +78,9 @@ repos:
     hooks:
       - id: prettier
         exclude: "config-sample.yml"
+
+  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
+    rev: "2.7.3"
+    hooks:
+      - id: editorconfig-checker
+      - id: editorconfig-checker-system

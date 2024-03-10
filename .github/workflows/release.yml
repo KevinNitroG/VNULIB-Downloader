@@ -54,7 +54,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependacies
-        run: pip install -r requirements.txt && pip install pyinstaller
+        run: pip install -r requirements/requirements.txt && pip install pyinstaller
 
       - name: Build for ${{ matrix.os }}
         run: pyinstaller --noconfirm --onefile --console --icon "assets/images/VNU_HCM_LOGO-256.ico" --name "VNULIB-Downloader-${{ matrix.os }}" --log-level "INFO" --add-data "src/:src/" --add-data "config-sample.yml:." --add-data "assets/images/error_page.jpg:assets/image/" --add-data "LICENSE:." --collect-data grapheme "main.py"

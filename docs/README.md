@@ -215,7 +215,7 @@ git clone "https://github.com/KevinNitroG/VNULIB-Downloader" --depth 1
 4. Install requirements
 
 ```ps1
-pip install -r requirements.txt
+pip install -r requirements/requirements.txt
 ```
 
 5. Run tool
