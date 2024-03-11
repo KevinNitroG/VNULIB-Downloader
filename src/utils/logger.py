@@ -71,9 +71,9 @@ class QueueHandlerLogger:
         """Start Queue Handler thread."""
         self.queue_handler = getHandlerByName(self.logger_name)
         if self.queue_handler:
-            self.queue_handler.listener.start()  # noqa # type: ignore
+            self.queue_handler.listener.start()  # type: ignore
 
     def stop(self) -> None:
         """Stop the Queue Handler thread."""
         if self.queue_handler:
-            self.queue_handler.listener.stop()  # noqa # type: ignore
+            self.queue_handler.listener.stop()  # type: ignore
