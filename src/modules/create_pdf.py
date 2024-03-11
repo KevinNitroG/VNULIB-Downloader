@@ -6,14 +6,12 @@ Reference modern logging: https://www.youtube.com/watch?v=9L77QExPmI0
 from __future__ import annotations
 
 import os
-from concurrent.futures import ProcessPoolExecutor
+from multiprocessing import Queue, Process
 from logging import Logger
+from typing import Any
 import img2pdf
 from .link_parse import Link
-from ..utils import ToolLogger, QueueHandlerRun
-
-
-logger: Logger = ToolLogger().get_logger("vnulib_downloader_queue")
+from ..utils import QueueHandlerRun
 
 
 class CreatePDF:
@@ -26,9 +24,9 @@ class CreatePDF:
     def __init__(self, links: list[Link], download_directory: str) -> None:
         self.links: list[Link] = links
         self.download_directory: str = download_directory
-        self.executor = ProcessPoolExecutor()
-        self.queue_handler: QueueHandlerRun = QueueHandlerRun("queue")
-        self.queue_handler.start()
+        self.queue_handler: QueueHandlerRun = QueueHandlerRun("queue_handler")
+        self.queue: Queue = self.queue_handler.queue
+        self.workers: list[Process] = []
 
     @staticmethod
     def check_already_has_pdf(files: list[str]) -> bool:
@@ -46,7 +44,7 @@ class CreatePDF:
         return False
 
     @staticmethod
-    def process(directory: str, name: str) -> None:
+    def process(directory: str, name: str, queue: Queue) -> None:
         """Merge all images in a directory into a single PDF.
 
         Args:
@@ -54,8 +52,7 @@ class CreatePDF:
             name (str): Name of pdf file.
         """
         print("Da vao")
-        logger: Logger = ToolLogger().get_logger("vnulib_downloader_queue")
-        logger.warning("Heyyy")
+        logger: Logger = QueueHandlerRun.get_logger(queue)
         pdf_file_name: str = os.path.join(directory, f"{name}.pdf")
         logger.info('Creating PDF: "%s"', pdf_file_name)
         files: list[str] = [os.path.join(directory, item) for item in os.listdir(directory)]
@@ -75,11 +72,16 @@ class CreatePDF:
             link (Link): The book's Link.
         """
         for file in link.files:
-            self.executor.submit(
-                CreatePDF.process,
-                os.path.join(book_directory, file.name),
-                file.name,
+            worker = Process(
+                target=CreatePDF.process,
+                args=(
+                    os.path.join(book_directory, file.name),
+                    file.name,
+                    self.queue,
+                ),
             )
+            worker.start()
+            self.workers.append(worker)
 
     def preview_and_page_handler(self, download_directory: str, name: str) -> None:
         """Preview and page handler, create PDF for only one file.
@@ -88,14 +90,21 @@ class CreatePDF:
             download_directory (str): The directory to download the file.
             name (str): The file's name.
         """
-        self.executor.submit(
-            CreatePDF.process,
-            download_directory,
-            name,
+        worker = Process(
+            target=CreatePDF.process,
+            args=(
+                download_directory,
+                name,
+                self.queue,
+            ),
         )
+        worker.start()
+        self.workers.append(worker)
 
     def create_pdf(self) -> None:
         """Create PDF."""
+        logger_listener = Process(target=QueueHandlerRun.logger_listener, args=(self.queue,))
+        logger_listener.start()
         for link in self.links:
             match link.original_type:
                 case "book":
@@ -110,5 +119,7 @@ class CreatePDF:
                     )
                 case _:
                     pass
-        self.executor.shutdown()
-        self.queue_handler.stop()
+        for worker in self.workers:
+            worker.join()
+        self.queue.put_nowait(None)
+        logger_listener.join()

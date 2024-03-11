@@ -2,10 +2,9 @@
 
 from __future__ import annotations
 
-from logging import Logger, Handler, getLogger, getHandlerByName
+from logging import Logger, getLogger
 from logging.config import dictConfig
 from os import makedirs, path
-from typing import Any
 from yaml import safe_load
 from src.constants import LOGGING_CONFIG_FILE_PATH, LOGGING_PATH
 
@@ -38,33 +37,7 @@ class ToolLogger:
         with open(self.config_path, encoding="utf-8") as config_file:
             dictConfig(safe_load(config_file))  # skipcq: PY-A6006
 
-    def get_logger(self, logger_name: str, *args: Any, **kwds: Any) -> Logger:
+    def get_logger(self, logger_name: str) -> Logger:
         self.log_folder()
         self.read_logging_config()
         return getLogger(logger_name)
-
-
-class QueueHandlerRun:
-    """Start the Queue Handler thread.
-    Use it by context manager.
-    """
-
-    def __init__(self, handler_name: str) -> None:
-        """Initialise.
-
-        Args:
-            handler_name (str): Name of the handler to get, not logger :)).
-        """
-        self.handler_name: str = handler_name
-        ToolLogger().read_logging_config()
-        self.queue_handler: Handler | None = getHandlerByName(handler_name)
-
-    def start(self) -> None:
-        """Start Queue Handler thread."""
-        if self.queue_handler:
-            self.queue_handler.listener.start()  # type: ignore
-
-    def stop(self) -> None:
-        """Stop the Queue Handler thread."""
-        if self.queue_handler:
-            self.queue_handler.listener.stop()  # type: ignore

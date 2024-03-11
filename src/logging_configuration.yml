@@ -21,7 +21,8 @@ handlers:
     backupCount: 3
     level: DEBUG
     encoding: utf-8
-  queue:
+    mode: a
+  queue_handler:
     class: logging.handlers.QueueHandler
     handlers:
       - stdout
@@ -37,7 +38,7 @@ loggers:
   vnulib_downloader_queue:
     level: DEBUG
     handlers:
-      - queue
+      - queue_handler
     propogate: false
 # root:
 #   handlers:
