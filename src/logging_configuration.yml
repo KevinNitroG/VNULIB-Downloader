@@ -28,14 +28,20 @@ handlers:
       - rotating_file
     respect_handler_level: true
 loggers:
+  vnulib_downloader:
+    level: DEBUG
+    handlers:
+      - stdout
+      - rotating_file
+    propogate: false
   vnulib_downloader_queue:
     level: DEBUG
     handlers:
       - queue
     propogate: false
-root:
-  level: DEBUG
-  handlers:
-    - stdout
-    - rotating_file
-  propogate: false
+# root:
+#   handlers:
+#     - stdout
+#     - rotating_file
+#   level: DEBUG
+#   propogate: false

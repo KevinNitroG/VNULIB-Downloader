@@ -7,15 +7,10 @@ from __future__ import annotations
 
 import os
 from concurrent.futures import ProcessPoolExecutor
-import logging
+from logging import Logger
 import img2pdf
 from .link_parse import Link
-from ..utils.logger import ToolLogger
-
-
-# logger = ToolLogger().get_logger(__name__)
-print(__name__)
-logger = ToolLogger().get_logger("vnulib_downloader_queue")
+from ..utils import QueueHandlerLogger
 
 
 class CreatePDF:
@@ -29,6 +24,9 @@ class CreatePDF:
         self.links: list[Link] = links
         self.download_directory: str = download_directory
         self.executor = ProcessPoolExecutor()
+        self.queue_handler: QueueHandlerLogger = QueueHandlerLogger("vnulib_downloader_queue")
+        self.queue_handler.start()
+        self.queue_logger: Logger = self.queue_handler.get_logger()
 
     def process(self, directory: str, name: str) -> None:
         """Merge all images in a directory into a single PDF.
@@ -37,8 +35,9 @@ class CreatePDF:
             directory (str): The directory containing the images.
             name (str): Name of pdf file.
         """
+        print("Da vao")
         pdf_file_name: str = os.path.join(directory, f"{name}.pdf")
-        logger.info('Creating PDF: "%s"', pdf_file_name)
+        self.queue_logger.info('Creating PDF: "%s"', pdf_file_name)
         list_files: list[str] = [os.path.join(directory, item) for item in os.listdir(directory)]
         if any(map(lambda file: file.endswith(".pdf"), list_files)):
             return
@@ -46,7 +45,7 @@ class CreatePDF:
         if pdf_file is not None:
             with open(pdf_file_name, "wb") as f:
                 f.write(pdf_file)
-            logger.info('Created PDF: "%s"', pdf_file_name)
+            self.queue_logger.info('Created PDF: "%s"', pdf_file_name)
 
     def book_handler(self, book_directory: str, link: Link) -> None:
         """Book handler, create PDF for Book's files.
@@ -73,21 +72,19 @@ class CreatePDF:
 
     def create_pdf(self) -> None:
         """Create PDF."""
-        queue_handler = logging.getHandlerByName("queue")
-        queue_handler.listener.start()
         for link in self.links:
             match link.original_type:
                 case "book":
                     self.book_handler(
-                        os.path.join(self.download_directory, link.name),
-                        link,
+                        book_directory=os.path.join(self.download_directory, link.name),
+                        link=link,
                     )
                 case "preview" | "page":
                     self.preview_and_page_handler(
-                        os.path.join(self.download_directory, link.files[0].name),
-                        link.files[0].name,
+                        download_directory=os.path.join(self.download_directory, link.files[0].name),
+                        name=link.files[0].name,
                     )
                 case _:
                     pass
         self.executor.shutdown()
-        queue_handler.listener.stop()
+        self.queue_handler.stop()

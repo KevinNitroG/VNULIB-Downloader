@@ -11,7 +11,7 @@ from ..utils.utils import datetime_name
 from ..utils import ToolLogger
 
 
-logger = ToolLogger().get_logger(__name__)
+logger = ToolLogger().get_logger("vnulib_downloader")
 
 
 PATTERN_BOOK = re_compile(r"^https?:\/\/ir\.vnulib\.edu\.vn\/handle\/VNUHCM\/\d+$")

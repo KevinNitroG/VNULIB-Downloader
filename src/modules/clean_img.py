@@ -7,7 +7,7 @@ from .link_parse import Link
 from ..utils import ToolLogger
 
 
-logger = ToolLogger().get_logger(__name__)
+logger = ToolLogger().get_logger("vnulib_downloader")
 
 
 class CleanIMG:

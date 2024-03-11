@@ -18,7 +18,7 @@ from ..constants import ERROR_PAGE_IMAGE_PATH
 from ..utils import create_directory, ToolLogger
 
 
-logger = ToolLogger().get_logger(__name__)
+logger = ToolLogger().get_logger("vnulib_downloader")
 
 
 def get_error_page_bytes() -> bytes:

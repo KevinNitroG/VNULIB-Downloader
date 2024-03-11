@@ -10,7 +10,7 @@ from ..constants import LOGIN_URL
 from ..utils import ToolLogger
 
 
-logger = ToolLogger().get_logger(__name__)
+logger = ToolLogger().get_logger("vnulib_downloader")
 
 
 class Login:

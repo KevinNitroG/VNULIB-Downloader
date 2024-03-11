@@ -13,7 +13,7 @@ from ..utils import ToolLogger
 from .argpase import setup_argparse
 
 
-logger = ToolLogger().get_logger(__name__)
+logger = ToolLogger().get_logger("vnulib_downloader")
 
 
 @dataclass(slots=True)

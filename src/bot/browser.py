@@ -14,7 +14,7 @@ from src.constants import BROWSER_ARGUMENTS
 from ..utils import ToolLogger
 
 
-logger = ToolLogger().get_logger(__name__)
+logger = ToolLogger().get_logger("vnulib_downloader")
 
 set_logger(logger)
 os.environ["WDM_LOG"] = str(logging.DEBUG)

@@ -26,7 +26,7 @@ from src.constants import DOWNLOAD_DIR
 
 def main() -> None:
     """Main function to run VNULIB Downloader."""
-    logger: Logger = ToolLogger().get_logger(__name__)
+    logger: Logger = ToolLogger().get_logger("vnulib_downloader")
 
     PrintIntro()
 
