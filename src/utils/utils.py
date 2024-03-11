@@ -8,7 +8,10 @@ from datetime import datetime
 from os import makedirs, path
 from shutil import rmtree
 from ..constants import USER_INPUT_YES
-from ..utils import logger
+from ..utils import ToolLogger
+
+
+logger = ToolLogger().get_logger(__name__)
 
 
 def pause() -> None:

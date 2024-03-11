@@ -13,7 +13,7 @@ handlers:
     stream: ext://sys.stdout
     formatter: simple
     level: INFO
-  file:
+  rotating_file:
     class: logging.handlers.RotatingFileHandler
     formatter: verbose
     filename: "log/tool.log"
@@ -21,13 +21,21 @@ handlers:
     backupCount: 3
     level: DEBUG
     encoding: utf-8
-loggers:
-  vnulib_downloader:
-    level: DEBUG
+  queue:
+    class: logging.handlers.QueueHandler
     handlers:
       - stdout
-      - file
+      - rotating_file
+    respect_handler_level: true
+loggers:
+  vnulib_downloader_queue:
+    level: DEBUG
+    handlers:
+      - queue
     propogate: false
 root:
-  level: CRITICAL
+  level: DEBUG
+  handlers:
+    - stdout
+    - rotating_file
   propogate: false

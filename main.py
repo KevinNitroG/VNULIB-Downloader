@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pprint import pformat
 from multiprocessing import freeze_support
+from logging import Logger
 from src import (
     Action,
     Browser,
@@ -16,7 +17,7 @@ from src import (
     PrintIntro,
     UserOptions,
     create_directory,
-    logger,
+    ToolLogger,
     pause,
     print_title,
 )
@@ -25,6 +26,8 @@ from src.constants import DOWNLOAD_DIR
 
 def main() -> None:
     """Main function to run VNULIB Downloader."""
+    logger: Logger = ToolLogger().get_logger(__name__)
+
     PrintIntro()
 
     print_title("USER OPTIONS")
@@ -72,9 +75,10 @@ def main() -> None:
         print_title("DELETE IMAGES")
         CleanIMG(user_options.links, DOWNLOAD_DIR).clean_img()
 
+    print_title("END PROGRAM")
+    pause()
+
 
 if __name__ == "__main__":
     freeze_support()  # For pyinstaller to fix multiprocessing in Windows
     main()
-    print_title("END PROGRAM")
-    pause()

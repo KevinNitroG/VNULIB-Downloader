@@ -10,7 +10,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from .utils import wait_element_visible
 from ..modules import Link, LinkFile
-from ..utils import datetime_name, logger, slugify
+from ..utils import ToolLogger, datetime_name, slugify
+
+
+logger = ToolLogger().get_logger(__name__)
 
 
 class Action:

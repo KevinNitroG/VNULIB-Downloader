@@ -1,15 +1,21 @@
 """Create PDF for books.
 Reference logging for multiprocessing: https://docs.python.org/3/howto/logging-cookbook.html#logging-to-a-single-file-from-multiple-processes
+Reference modern logging: https://www.youtube.com/watch?v=9L77QExPmI0
 """
 
 from __future__ import annotations
 
 import os
-import multiprocessing
-from logging.handlers import QueueHandler
+from concurrent.futures import ProcessPoolExecutor
+import logging
 import img2pdf
 from .link_parse import Link
-from ..utils import logger
+from ..utils.logger import ToolLogger
+
+
+# logger = ToolLogger().get_logger(__name__)
+print(__name__)
+logger = ToolLogger().get_logger("vnulib_downloader_queue")
 
 
 class CreatePDF:
@@ -22,25 +28,7 @@ class CreatePDF:
     def __init__(self, links: list[Link], download_directory: str) -> None:
         self.links: list[Link] = links
         self.download_directory: str = download_directory
-        self.all_processes_stop: bool = False
-        self.queue = multiprocessing.Queue(maxsize=-1)
-        self.logger = logger
-        self.logger.addHandler(QueueHandler(queue=self.queue))
-        self.workers: list = []
-
-    def logging_process(self) -> None:
-        """Take a separate process for logging."""
-        while True:
-            try:
-                record = self.queue.get()
-                if record is None:
-                    break
-                self.logger.handle(record)
-            except Exception:
-                import sys, traceback
-
-                print("Whoops! Problem:", file=sys.stderr)
-                traceback.print_exc(file=sys.stderr)
+        self.executor = ProcessPoolExecutor()
 
     def process(self, directory: str, name: str) -> None:
         """Merge all images in a directory into a single PDF.
@@ -50,7 +38,7 @@ class CreatePDF:
             name (str): Name of pdf file.
         """
         pdf_file_name: str = os.path.join(directory, f"{name}.pdf")
-        self.logger.info('Creating PDF: "%s"', pdf_file_name)
+        logger.info('Creating PDF: "%s"', pdf_file_name)
         list_files: list[str] = [os.path.join(directory, item) for item in os.listdir(directory)]
         if any(map(lambda file: file.endswith(".pdf"), list_files)):
             return
@@ -58,7 +46,7 @@ class CreatePDF:
         if pdf_file is not None:
             with open(pdf_file_name, "wb") as f:
                 f.write(pdf_file)
-            self.logger.info('Created PDF: "%s"', pdf_file_name)
+            logger.info('Created PDF: "%s"', pdf_file_name)
 
     def book_handler(self, book_directory: str, link: Link) -> None:
         """Book handler, create PDF for Book's files.
@@ -68,15 +56,11 @@ class CreatePDF:
             link (Link): The book's Link.
         """
         for file in link.files:
-            worker = multiprocessing.Process(
-                target=self.process,
-                args=(
-                    os.path.join(book_directory, file.name),
-                    file.name,
-                ),
+            self.executor.submit(
+                self.process,
+                os.path.join(book_directory, file.name),
+                file.name,
             )
-            self.workers.append(worker)
-            worker.start()
 
     def preview_and_page_handler(self, download_directory: str, name: str) -> None:
         """Preview and page handler, create PDF for only one file.
@@ -85,20 +69,12 @@ class CreatePDF:
             download_directory (str): The directory to download the file.
             name (str): The file's name.
         """
-        worker = multiprocessing.Process(
-            target=self.process,
-            args=(
-                os.path.join(self.download_directory, name),
-                name,
-            ),
-        )
-        self.workers.append(worker)
-        worker.start()
+        self.executor.submit(self.process, download_directory, name)
 
     def create_pdf(self) -> None:
         """Create PDF."""
-        logger_listener = multiprocessing.Process(target=self.logging_process)
-        logger_listener.start()
+        queue_handler = logging.getHandlerByName("queue")
+        queue_handler.listener.start()
         for link in self.links:
             match link.original_type:
                 case "book":
@@ -113,7 +89,5 @@ class CreatePDF:
                     )
                 case _:
                     pass
-        for worker in self.workers:
-            worker.join()
-        self.queue.put_nowait(None)
-        logger_listener.join()
+        self.executor.shutdown()
+        queue_handler.listener.stop()

@@ -37,10 +37,7 @@ class ToolLogger:
         with open(self.config_path, encoding="utf-8") as config_file:
             dictConfig(safe_load(config_file))  # skipcq: PY-A6006
 
-    def __call__(self, *args: Any, **kwds: Any) -> Any:
+    def get_logger(self, logger_name: str, *args: Any, **kwds: Any) -> Logger:
         self.log_folder()
         self.read_logging_config()
-
-
-tool_logger = ToolLogger()()
-logger: Logger = getLogger("vnulib_downloader")
+        return getLogger(logger_name)

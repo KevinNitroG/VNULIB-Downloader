@@ -15,7 +15,10 @@ import urllib3
 from alive_progress import alive_bar
 from .link_parse import Link, LinkFile
 from ..constants import ERROR_PAGE_IMAGE_PATH
-from ..utils import create_directory, logger
+from ..utils import create_directory, ToolLogger
+
+
+logger = ToolLogger().get_logger(__name__)
 
 
 def get_error_page_bytes() -> bytes:

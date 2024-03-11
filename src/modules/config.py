@@ -5,7 +5,10 @@ from __future__ import annotations
 from os import path
 from shutil import copyfile
 from ..constants import CONFIG_FILE, CONFIG_SAMPLE_FILE
-from ..utils import logger
+from ..utils import ToolLogger
+
+
+logger = ToolLogger().get_logger(__name__)
 
 
 class Config:

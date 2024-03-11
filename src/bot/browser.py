@@ -11,8 +11,10 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.logger import set_logger
 from src.constants import BROWSER_ARGUMENTS
-from ..utils import logger
+from ..utils import ToolLogger
 
+
+logger = ToolLogger().get_logger(__name__)
 
 set_logger(logger)
 os.environ["WDM_LOG"] = str(logging.DEBUG)

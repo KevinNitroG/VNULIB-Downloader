@@ -13,4 +13,4 @@ from .modules import (
     UserOptions,
     setup_argparse,
 )
-from .utils import create_directory, logger, pause, print_title
+from .utils import create_directory, ToolLogger, pause, print_title

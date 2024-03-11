@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import os
 from .link_parse import Link
-from ..utils import logger
+from ..utils import ToolLogger
+
+
+logger = ToolLogger().get_logger(__name__)
 
 
 class CleanIMG:
