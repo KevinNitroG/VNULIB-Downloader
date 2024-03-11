@@ -44,31 +44,23 @@ class ToolLogger:
         return getLogger(logger_name)
 
 
-class QueueHandlerLogger:
+class QueueHandlerRun:
     """Start the Queue Handler thread.
     Use it by context manager.
     """
 
-    def __init__(self, logger_name: str) -> None:
+    def __init__(self, handler_name: str) -> None:
         """Initialise.
 
         Args:
-            logger_name (str): Name of the logger to get.
+            handler_name (str): Name of the handler to get, not logger :)).
         """
-        self.logger_name = logger_name
-        self.queue_handler: Handler | None
-
-    def get_logger(self) -> Logger:
-        """Return the got logger.
-
-        Returns:
-            Logger: The logger.
-        """
-        return ToolLogger().get_logger(self.logger_name)
+        self.handler_name: str = handler_name
+        ToolLogger().read_logging_config()
+        self.queue_handler: Handler | None = getHandlerByName(handler_name)
 
     def start(self) -> None:
         """Start Queue Handler thread."""
-        self.queue_handler = getHandlerByName(self.logger_name)
         if self.queue_handler:
             self.queue_handler.listener.start()  # type: ignore
 

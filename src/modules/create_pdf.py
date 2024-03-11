@@ -10,7 +10,10 @@ from concurrent.futures import ProcessPoolExecutor
 from logging import Logger
 import img2pdf
 from .link_parse import Link
-from ..utils import QueueHandlerLogger
+from ..utils import ToolLogger, QueueHandlerRun
+
+
+logger: Logger = ToolLogger().get_logger("vnulib_downloader_queue")
 
 
 class CreatePDF:
@@ -24,25 +27,41 @@ class CreatePDF:
         self.links: list[Link] = links
         self.download_directory: str = download_directory
         self.executor = ProcessPoolExecutor()
-        self.queue_handler: QueueHandlerLogger = QueueHandlerLogger("vnulib_downloader_queue")
+        self.queue_handler: QueueHandlerRun = QueueHandlerRun("queue")
         self.queue_handler.start()
-        self.queue_logger: Logger = self.queue_handler.get_logger()
 
     @staticmethod
-    def process(directory: str, name: str, logger: Logger) -> None:
+    def check_already_has_pdf(files: list[str]) -> bool:
+        """Check if a list of files contains a pdf file.
+
+        Args:
+            files (list[str]): List of files.
+
+        Returns:
+            bool: True if yes, otherwise False.
+        """
+        for file in files:
+            if file.endswith(".pdf"):
+                return True
+        return False
+
+    @staticmethod
+    def process(directory: str, name: str) -> None:
         """Merge all images in a directory into a single PDF.
 
         Args:
             directory (str): The directory containing the images.
             name (str): Name of pdf file.
-
         """
+        print("Da vao")
+        logger: Logger = ToolLogger().get_logger("vnulib_downloader_queue")
+        logger.warning("Heyyy")
         pdf_file_name: str = os.path.join(directory, f"{name}.pdf")
         logger.info('Creating PDF: "%s"', pdf_file_name)
-        list_files: list[str] = [os.path.join(directory, item) for item in os.listdir(directory)]
-        if any(map(lambda file: file.endswith(".pdf"), list_files)):
+        files: list[str] = [os.path.join(directory, item) for item in os.listdir(directory)]
+        if CreatePDF.check_already_has_pdf(files):
             return
-        pdf_file: bytes | None = img2pdf.convert(list_files)
+        pdf_file: bytes | None = img2pdf.convert(files)
         if pdf_file is not None:
             with open(pdf_file_name, "wb") as f:
                 f.write(pdf_file)
@@ -60,7 +79,6 @@ class CreatePDF:
                 CreatePDF.process,
                 os.path.join(book_directory, file.name),
                 file.name,
-                self.queue_logger,
             )
 
     def preview_and_page_handler(self, download_directory: str, name: str) -> None:
@@ -71,16 +89,13 @@ class CreatePDF:
             name (str): The file's name.
         """
         self.executor.submit(
-            self.process,
+            CreatePDF.process,
             download_directory,
             name,
-            self.queue_logger,
         )
 
     def create_pdf(self) -> None:
         """Create PDF."""
-        self.queue_logger.info("Hello")
-        _ = input()
         for link in self.links:
             match link.original_type:
                 case "book":
