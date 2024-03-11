@@ -57,7 +57,6 @@ class QueueHandlerLogger:
         """
         self.logger_name = logger_name
         self.queue_handler: Handler | None
-        self.logger: Logger = ToolLogger().get_logger(self.logger_name)
 
     def get_logger(self) -> Logger:
         """Return the got logger.
@@ -65,7 +64,7 @@ class QueueHandlerLogger:
         Returns:
             Logger: The logger.
         """
-        return self.logger
+        return ToolLogger().get_logger(self.logger_name)
 
     def start(self) -> None:
         """Start Queue Handler thread."""

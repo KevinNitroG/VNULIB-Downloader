@@ -28,16 +28,17 @@ class CreatePDF:
         self.queue_handler.start()
         self.queue_logger: Logger = self.queue_handler.get_logger()
 
-    def process(self, directory: str, name: str) -> None:
+    @staticmethod
+    def process(directory: str, name: str, logger: Logger) -> None:
         """Merge all images in a directory into a single PDF.
 
         Args:
             directory (str): The directory containing the images.
             name (str): Name of pdf file.
+
         """
-        print("Da vao")
         pdf_file_name: str = os.path.join(directory, f"{name}.pdf")
-        self.queue_logger.info('Creating PDF: "%s"', pdf_file_name)
+        logger.info('Creating PDF: "%s"', pdf_file_name)
         list_files: list[str] = [os.path.join(directory, item) for item in os.listdir(directory)]
         if any(map(lambda file: file.endswith(".pdf"), list_files)):
             return
@@ -45,7 +46,7 @@ class CreatePDF:
         if pdf_file is not None:
             with open(pdf_file_name, "wb") as f:
                 f.write(pdf_file)
-            self.queue_logger.info('Created PDF: "%s"', pdf_file_name)
+            logger.info('Created PDF: "%s"', pdf_file_name)
 
     def book_handler(self, book_directory: str, link: Link) -> None:
         """Book handler, create PDF for Book's files.
@@ -56,9 +57,10 @@ class CreatePDF:
         """
         for file in link.files:
             self.executor.submit(
-                self.process,
+                CreatePDF.process,
                 os.path.join(book_directory, file.name),
                 file.name,
+                self.queue_logger,
             )
 
     def preview_and_page_handler(self, download_directory: str, name: str) -> None:
@@ -68,10 +70,17 @@ class CreatePDF:
             download_directory (str): The directory to download the file.
             name (str): The file's name.
         """
-        self.executor.submit(self.process, download_directory, name)
+        self.executor.submit(
+            self.process,
+            download_directory,
+            name,
+            self.queue_logger,
+        )
 
     def create_pdf(self) -> None:
         """Create PDF."""
+        self.queue_logger.info("Hello")
+        _ = input()
         for link in self.links:
             match link.original_type:
                 case "book":
