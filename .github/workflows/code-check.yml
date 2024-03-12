@@ -8,7 +8,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -43,7 +42,19 @@ jobs:
         if: ${{ always() }}
         run: pre-commit autoupdate
 
-      - uses: stefanzweifel/git-auto-commit-action@master
+      # - uses: stefanzweifel/git-auto-commit-action@master
+      #   if: ${{ always() }}
+      #   with:
+      #     commit_message: "🎨 refactor: auto code check"
+      #     branch: bot/auto_code_check
+
+      - name: Create Pull Request
         if: ${{ always() }}
+        uses: peter-evans/create-pull-request@v6
         with:
-          commit_message: "🎨 refactor: auto code check"
+          reviewers: KevinNitroG
+          title: "🎨 refactor: auto code check"
+          delete-branch: true
+          commit-message: "🎨 refactor: auto code check"
+          branch-suffix: short-commit-hash
+          labels: enhancement
