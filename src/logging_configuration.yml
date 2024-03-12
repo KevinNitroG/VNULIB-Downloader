@@ -14,7 +14,7 @@ handlers:
     formatter: simple
     level: INFO
   file_handler:
-    class: logging.handlers.FileHandler
+    class: logging.FileHandler
     formatter: verbose
     filename: "log/tool.log"
     level: DEBUG
@@ -23,10 +23,11 @@ handlers:
     class: logging.handlers.RotatingFileHandler
     formatter: verbose
     filename: "log/tool.log"
-    maxBytes: 5000 # 20000 # 2KB
+    maxBytes: 50000 # 5KB
     backupCount: 3
     level: DEBUG
     encoding: utf-8
+    delay: false
 loggers:
   vnulib_downloader:
     level: DEBUG
