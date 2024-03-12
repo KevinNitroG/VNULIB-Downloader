@@ -64,6 +64,24 @@ class CreatePDF:
                 f.write(pdf_file)
             logger.info('Created PDF: "%s"', pdf_file_name)
 
+    def _create_pdf_worker(self, download_directory: str, name: str) -> None:
+        """Creates a worker process to generate a PDF.
+
+        Args:
+            download_directory (str): The directory to download the file.
+            name (str): The file's name.
+        """
+        worker = Process(
+            target=CreatePDF.process,
+            args=(
+                download_directory,
+                name,
+                self.queue,
+            ),
+        )
+        worker.start()
+        self.workers.append(worker)
+
     def book_handler(self, book_directory: str, link: Link) -> None:
         """Book handler, create PDF for Book's files.
 
@@ -83,41 +101,14 @@ class CreatePDF:
             worker.start()
             self.workers.append(worker)
 
-    def preview_handler(self, download_directory: str, name: str) -> None:
-        """Preview handler, create PDF for preview files.
+    def preview_and_page_handler(self, download_directory: str, name: str) -> None:
+        """Preview and Page handler, create PDF files.
 
         Args:
             download_directory (str): The directory to download the file.
             name (str): The file's name.
         """
         self._create_pdf_worker(download_directory, name)
-
-    def page_handler(self, download_directory: str, name: str) -> None:
-        """Page handler, create PDF for individual pages.
-
-        Args:
-            download_directory (str): The directory to download the file.
-            name (str): The file's name.
-        """
-        self._create_pdf_worker(download_directory, name)
-
-    def _create_pdf_worker(self, download_directory: str, name: str) -> None:
-        """Creates a worker process to generate a PDF.
-
-        Args:
-            download_directory (str): The directory to download the file.
-            name (str): The file's name.
-        """
-        worker = Process(
-            target=CreatePDF.process,
-            args=(
-                download_directory,
-                name,
-                self.queue,
-            ),
-        )
-        worker.start()
-        self.workers.append(worker)
 
     def create_pdf(self) -> None:
         """Create PDF."""

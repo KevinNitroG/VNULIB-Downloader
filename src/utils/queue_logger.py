@@ -1,4 +1,6 @@
-from multiprocessing import Queue, current_process
+from __future__ import annotations
+
+from multiprocessing import Queue
 from logging import Logger, Handler, getLogger, getHandlerByName, DEBUG
 from logging.handlers import QueueHandler
 from .logger import ToolLogger
