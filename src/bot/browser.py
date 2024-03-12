@@ -5,16 +5,16 @@ from __future__ import annotations
 import logging
 import os
 import urllib3
+from logging import getLogger
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.logger import set_logger
 from src.constants import BROWSER_ARGUMENTS
-from ..utils import ToolLogger
 
 
-logger = ToolLogger().get_logger("vnulib_downloader")
+logger = getLogger("vnulib_downloader")
 
 set_logger(logger)
 os.environ["WDM_LOG"] = str(logging.DEBUG)

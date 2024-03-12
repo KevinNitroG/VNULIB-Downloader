@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from logging import Logger, getLogger
+from logging import Logger, getLogger, DEBUG
 from logging.config import dictConfig
+from logging.handlers import QueueHandler
+from multiprocessing import Queue
 from os import makedirs, path
 from yaml import safe_load
 from src.constants import LOGGING_CONFIG_FILE_PATH, LOGGING_PATH
@@ -37,7 +39,37 @@ class ToolLogger:
         with open(self.config_path, encoding="utf-8") as config_file:
             dictConfig(safe_load(config_file))  # skipcq: PY-A6006
 
-    def get_logger(self, logger_name: str) -> Logger:
+    def setup(self) -> None:
         self.log_folder()
         self.read_logging_config()
-        return getLogger(logger_name)
+
+
+def logger_listener(logger_name: str, queue: Queue) -> None:
+    """Logger listener. Suitable for multiprocessing logger.
+
+    Args:
+        logger_name (str): The name of logger to get.
+        queue (Queue): The queue to take record to handle.
+    """
+    logger: Logger = getLogger(logger_name)
+    while True:
+        record = queue.get()
+        if record is None:
+            break
+        logger.handle(record=record)
+
+
+def get_queue_logger(queue: Queue) -> Logger:
+    """Get the queue logger with standard setup.
+
+    Args:
+        queue (Queue): The queue to add record to.
+
+    Returns:
+        Logger: The logger.
+    """
+    logger: Logger = getLogger("queue_logger")
+    logger.propagate = False
+    logger.addHandler(QueueHandler(queue))
+    logger.setLevel(DEBUG)
+    return logger

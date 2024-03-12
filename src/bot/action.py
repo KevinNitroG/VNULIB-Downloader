@@ -5,15 +5,16 @@ Book website -> Book preview -> Book page link.
 from __future__ import annotations
 
 from urllib.parse import parse_qs, urlparse
+from logging import getLogger
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from .utils import wait_element_visible
 from ..modules import Link, LinkFile
-from ..utils import ToolLogger, datetime_name, slugify
+from ..utils import datetime_name, slugify
 
 
-logger = ToolLogger().get_logger("vnulib_downloader")
+logger = getLogger("vnulib_downloader")
 
 
 class Action:

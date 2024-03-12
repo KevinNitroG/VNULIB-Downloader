@@ -8,10 +8,9 @@ from __future__ import annotations
 import os
 from multiprocessing import Queue, Process
 from logging import Logger
-from typing import Any
 import img2pdf
 from .link_parse import Link
-from ..utils import QueueHandlerRun
+from ..utils import get_queue_logger, logger_listener
 
 
 class CreatePDF:
@@ -24,8 +23,7 @@ class CreatePDF:
     def __init__(self, links: list[Link], download_directory: str) -> None:
         self.links: list[Link] = links
         self.download_directory: str = download_directory
-        self.queue_handler: QueueHandlerRun = QueueHandlerRun("queue_handler")
-        self.queue: Queue = self.queue_handler.queue
+        self.queue: Queue = Queue(-1)
         self.workers: list[Process] = []
 
     @staticmethod
@@ -51,8 +49,7 @@ class CreatePDF:
             directory (str): The directory containing the images.
             name (str): Name of pdf file.
         """
-        print("Da vao")
-        logger: Logger = QueueHandlerRun.get_logger(queue)
+        logger: Logger = get_queue_logger(queue)
         pdf_file_name: str = os.path.join(directory, f"{name}.pdf")
         logger.info('Creating PDF: "%s"', pdf_file_name)
         files: list[str] = [os.path.join(directory, item) for item in os.listdir(directory)]
@@ -112,8 +109,8 @@ class CreatePDF:
 
     def create_pdf(self) -> None:
         """Create PDF."""
-        logger_listener = Process(target=QueueHandlerRun.logger_listener, args=(self.queue,))
-        logger_listener.start()
+        listener = Process(target=logger_listener, args=("vnulib_downloader", self.queue))
+        listener.start()
         for link in self.links:
             match link.original_type:
                 case "book":
@@ -131,4 +128,4 @@ class CreatePDF:
         for worker in self.workers:
             worker.join()
         self.queue.put_nowait(None)
-        logger_listener.join()
+        listener.join()

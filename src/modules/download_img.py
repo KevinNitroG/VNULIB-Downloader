@@ -12,13 +12,14 @@ import requests
 from requests.sessions import Session
 from requests import Response
 import urllib3
+from logging import getLogger
 from alive_progress import alive_bar
 from .link_parse import Link, LinkFile
 from ..constants import ERROR_PAGE_IMAGE_PATH
-from ..utils import create_directory, ToolLogger
+from ..utils import create_directory
 
 
-logger = ToolLogger().get_logger("vnulib_downloader")
+logger = getLogger("vnulib_downloader")
 
 
 def get_error_page_bytes() -> bytes:
