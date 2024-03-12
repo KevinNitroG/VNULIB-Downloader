@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from logging import Logger, getLogger, DEBUG
+from logging import Logger, getLogger
 from logging.config import dictConfig
 from logging.handlers import QueueHandler
 from multiprocessing import Queue
