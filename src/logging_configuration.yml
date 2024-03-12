@@ -8,41 +8,34 @@ formatters:
   detail:
     "format": "%(asctime)s [%(levelname)-8s] - %(message)s (%(pathname)s:%(lineno)d)"
 handlers:
-  stdout:
+  stdout_handler:
     class: logging.StreamHandler
     stream: ext://sys.stdout
     formatter: simple
     level: INFO
-  rotating_file:
+  file_handler:
+    class: logging.handlers.FileHandler
+    formatter: verbose
+    filename: "log/tool.log"
+    level: DEBUG
+    encoding: utf-8
+  rotating_file_handler: # Problem of RotatingFileHandler: https://python-forum.io/thread-19104.html
     class: logging.handlers.RotatingFileHandler
     formatter: verbose
     filename: "log/tool.log"
-    maxBytes: 10000 # 20000 # 2KB
+    maxBytes: 5000 # 20000 # 2KB
     backupCount: 3
     level: DEBUG
     encoding: utf-8
-    mode: a
-  queue_handler:
-    class: logging.handlers.QueueHandler
-    handlers:
-      - stdout
-      - rotating_file
-    respect_handler_level: true
 loggers:
   vnulib_downloader:
     level: DEBUG
     handlers:
-      - stdout
-      - rotating_file
-    propogate: false
+      - stdout_handler
+      - rotating_file_handler
   vnulib_downloader_queue:
     level: DEBUG
     handlers:
-      - queue_handler
+      - stdout_handler
+      - file_handler
     propogate: false
-# root:
-#   handlers:
-#     - stdout
-#     - rotating_file
-#   level: DEBUG
-#   propogate: false

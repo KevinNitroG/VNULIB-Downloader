@@ -40,6 +40,7 @@ class ToolLogger:
             dictConfig(safe_load(config_file))  # skipcq: PY-A6006
 
     def setup(self) -> None:
+        """Setup the logger folder and read logging config file."""
         self.log_folder()
         self.read_logging_config()
 

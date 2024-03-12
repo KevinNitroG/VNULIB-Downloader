@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import logging
 import os
-import urllib3
 from logging import getLogger
+import urllib3
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.webdriver import WebDriver

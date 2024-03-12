@@ -2,11 +2,6 @@
 
 from __future__ import annotations
 
-from src.utils.logger import ToolLogger
-
-# Have to read the logger config file before all.
-ToolLogger().setup()
-
 
 from pprint import pformat
 from multiprocessing import freeze_support
@@ -22,6 +17,7 @@ from src import (
     Login,
     PrintIntro,
     UserOptions,
+    ToolLogger,
     create_directory,
     pause,
     print_title,
@@ -31,6 +27,7 @@ from src.constants import DOWNLOAD_DIR
 
 def main() -> None:
     """Main function to run VNULIB Downloader."""
+    ToolLogger().setup()
     logger = getLogger("vnulib_downloader")
 
     PrintIntro()

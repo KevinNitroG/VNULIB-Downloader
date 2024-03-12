@@ -109,7 +109,7 @@ class CreatePDF:
 
     def create_pdf(self) -> None:
         """Create PDF."""
-        listener = Process(target=logger_listener, args=("vnulib_downloader", self.queue))
+        listener = Process(target=logger_listener, args=("vnulib_downloader_queue", self.queue))
         listener.start()
         for link in self.links:
             match link.original_type:
