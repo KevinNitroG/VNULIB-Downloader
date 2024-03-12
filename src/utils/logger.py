@@ -61,16 +61,15 @@ def logger_listener(logger_name: str, queue: Queue) -> None:
 
 
 def get_queue_logger(queue: Queue) -> Logger:
-    """Get the queue logger with standard setup.
+    """Get the queue logger which is pre-configured in config file.
+    Then add the Queue into the Logger in order to send records to the Queue.
 
     Args:
-        queue (Queue): The queue to add record to.
+        queue (Queue): The queue to send records to.
 
     Returns:
         Logger: The logger.
     """
-    logger: Logger = getLogger("queue_logger")
-    logger.propagate = False
+    logger: Logger = getLogger("vnulib_downloader_sub_process")
     logger.addHandler(QueueHandler(queue))
-    logger.setLevel(DEBUG)
     return logger

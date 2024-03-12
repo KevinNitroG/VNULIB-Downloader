@@ -3,10 +3,16 @@
 from __future__ import annotations
 
 
-from pprint import pformat
-from multiprocessing import freeze_support
-from logging import getLogger
-from src import (
+from src.utils.logger import ToolLogger
+
+# Have to read the logger config file before all.
+ToolLogger().setup()
+
+
+from pprint import pformat  # pylint: disable=wrong-import-position, wrong-import-order
+from multiprocessing import freeze_support  # pylint: disable=wrong-import-position, wrong-import-order
+from logging import getLogger, Logger  # pylint: disable=wrong-import-position, wrong-import-order
+from src import (  # pylint: disable=wrong-import-position, wrong-import-order
     Action,
     Browser,
     Config,
@@ -17,18 +23,16 @@ from src import (
     Login,
     PrintIntro,
     UserOptions,
-    ToolLogger,
     create_directory,
     pause,
     print_title,
 )
-from src.constants import DOWNLOAD_DIR
+from src.constants import DOWNLOAD_DIR  # pylint: disable=wrong-import-position
 
 
 def main() -> None:
     """Main function to run VNULIB Downloader."""
-    ToolLogger().setup()
-    logger = getLogger("vnulib_downloader")
+    logger: Logger = getLogger("vnulib_downloader")
 
     PrintIntro()
 

@@ -34,9 +34,13 @@ loggers:
     handlers:
       - stdout_handler
       - rotating_file_handler
-  vnulib_downloader_queue:
+    propogate: false
+  vnulib_downloader_queue_listener:
     level: DEBUG
     handlers:
       - stdout_handler
       - file_handler
+    propogate: false
+  vnulib_downloader_sub_process:
+    level: DEBUG
     propogate: false
