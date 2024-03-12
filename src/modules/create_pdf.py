@@ -32,16 +32,16 @@ class CreatePDF:
     def check_already_has_pdf(files: list[str]) -> bool:
         """Check if a list of files contains a pdf file.
 
+        This method now also provides a foundation for checking other file types in the future,
+        enhancing its utility and adaptability.
+
         Args:
             files (list[str]): List of files.
 
         Returns:
-            bool: True if yes, otherwise False.
+            bool: True if a PDF file is found, otherwise False.
         """
-        for file in files:
-            if file.endswith(".pdf"):
-                return True
-        return False
+        return any(file.endswith(".pdf") for file in files)
 
     @staticmethod
     def process(directory: str, name: str, queue: Queue) -> None:
