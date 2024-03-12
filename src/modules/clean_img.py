@@ -3,8 +3,11 @@
 from __future__ import annotations
 
 import os
+from logging import getLogger
 from .link_parse import Link
-from ..utils import logger
+
+
+logger = getLogger("vnulib_downloader")
 
 
 class CleanIMG:

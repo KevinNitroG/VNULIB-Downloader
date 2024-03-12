@@ -7,8 +7,11 @@ import unicodedata
 from datetime import datetime
 from os import makedirs, path
 from shutil import rmtree
+from logging import getLogger
 from ..constants import USER_INPUT_YES
-from ..utils import logger
+
+
+logger = getLogger("vnulib_downloader")
 
 
 def pause() -> None:

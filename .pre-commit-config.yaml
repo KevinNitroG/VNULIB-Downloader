@@ -21,7 +21,7 @@ repos:
         args:
           - "--allow-multiple-documents"
       - id: trailing-whitespace
-        exclude: "^(docs/README.md|src/constants.py)"
+        exclude: "^(docs/README.md|src/constants.py|assets/utils/ascii_banner.txt)"
       - id: end-of-file-fixer
       - id: debug-statements
       # - id: double-quote-string-fixer

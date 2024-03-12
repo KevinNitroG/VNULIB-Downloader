@@ -6,9 +6,12 @@ from re import compile as re_compile
 from re import search as re_search
 from time import sleep
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
+from logging import getLogger
 from .user_options import Link, LinkFile
 from ..utils.utils import datetime_name
-from ..utils import logger
+
+
+logger = getLogger("vnulib_downloader")
 
 
 PATTERN_BOOK = re_compile(r"^https?:\/\/ir\.vnulib\.edu\.vn\/handle\/VNUHCM\/\d+$")

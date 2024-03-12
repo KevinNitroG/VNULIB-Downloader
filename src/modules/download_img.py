@@ -7,7 +7,8 @@ import sys
 import threading
 from concurrent.futures import ThreadPoolExecutor
 from itertools import count
-from typing import Any, override
+from typing import override
+from logging import getLogger
 import requests
 from requests.sessions import Session
 from requests import Response
@@ -15,7 +16,10 @@ import urllib3
 from alive_progress import alive_bar
 from .link_parse import Link, LinkFile
 from ..constants import ERROR_PAGE_IMAGE_PATH
-from ..utils import create_directory, logger
+from ..utils import create_directory
+
+
+logger = getLogger("vnulib_downloader")
 
 
 def get_error_page_bytes() -> bytes:
@@ -51,7 +55,7 @@ class DownloadCore:  # pylint: disable=too-few-public-methods
         self.link: LinkFile = link
         self.download_path: str = download_path
         self.timeout: int = timeout
-        self.session: Any
+        self.session: Session
 
     def get_images_bytes(self, link: str, page: str) -> bytes:
         """Get images bytes.

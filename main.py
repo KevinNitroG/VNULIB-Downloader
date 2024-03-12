@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+
 from pprint import pformat
 from multiprocessing import freeze_support
+from logging import getLogger
 from src import (
     Action,
     Browser,
@@ -15,8 +17,8 @@ from src import (
     Login,
     PrintIntro,
     UserOptions,
+    ToolLogger,
     create_directory,
-    logger,
     pause,
     print_title,
 )
@@ -25,6 +27,9 @@ from src.constants import DOWNLOAD_DIR
 
 def main() -> None:
     """Main function to run VNULIB Downloader."""
+    ToolLogger().setup()
+    logger = getLogger("vnulib_downloader")
+
     PrintIntro()
 
     print_title("USER OPTIONS")
@@ -56,9 +61,8 @@ def main() -> None:
             ).action()
     logger.debug(msg=f"LINKS OBJECT:\n{pformat(user_options.links)}")
 
-    create_directory(DOWNLOAD_DIR, force=False)
-
     print_title("DOWNLOAD")
+    create_directory(DOWNLOAD_DIR, force=False)
     DownloadIMG(
         links=user_options.links,
         download_directory=DOWNLOAD_DIR,
@@ -73,9 +77,10 @@ def main() -> None:
         print_title("DELETE IMAGES")
         CleanIMG(user_options.links, DOWNLOAD_DIR).clean_img()
 
+    print_title("END PROGRAM")
+    pause()
+
 
 if __name__ == "__main__":
     freeze_support()  # For pyinstaller to fix multiprocessing in Windows
     main()
-    print_title("END PROGRAM")
-    pause()
