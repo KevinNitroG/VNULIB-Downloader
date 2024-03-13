@@ -1,11 +1,8 @@
 version = 1
 
 exclude_patterns = [
-"src/CONSTANTS.py",
 "sample_config.yml",
-"src/CONSTANTS.py",
 "src/utils/update.py",
-"**/__init__.py"
 ]
 
 [[analyzers]]

@@ -82,7 +82,7 @@ def get_subprocess_logger(logger_name: str, queue: Queue) -> Logger:
     Returns:
         Logger: The logger.
     """
-    logger: Logger = getLogger(logger_name + ".subprocess")
+    logger: Logger = getLogger(f"{logger_name}.subprocess")
     logger.addHandler(QueueHandler(queue))
     logger.propagate = False
     logger.setLevel(DEBUG)
