@@ -7,7 +7,6 @@ from logging.config import dictConfig
 from logging.handlers import QueueHandler
 from multiprocessing import Queue
 from os import makedirs, path, environ as os_environ
-from webdriver_manager.core.logger import set_logger as webdriver_manager_set_logger
 from yaml import safe_load
 from src.constants import LOGGING_CONFIG_FILE_PATH, LOGGING_PATH
 
