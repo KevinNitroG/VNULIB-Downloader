@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from logging import Logger, getLogger, DEBUG
+from logging import Logger, getLogger, DEBUG, WARNING
 from logging.config import dictConfig
 from logging.handlers import QueueHandler
 from multiprocessing import Queue
@@ -30,32 +30,31 @@ class ToolLogger:
         self.config_path: str = config_path
         self.logging_path = logging_path
 
-    def log_folder(self) -> None:
+    def _create_log_folder(self) -> None:
         """Create the logging folder if not exists."""
         if not path.exists(self.logging_path):
             makedirs(self.logging_path)
 
-    def read_logging_config(self) -> None:
+    def _read_logging_config(self) -> None:
         """Read the logging config file."""
         with open(self.config_path, encoding="utf-8") as config_file:
             dictConfig(safe_load(config_file))  # skipcq: PY-A6006
 
     @staticmethod
-    def setup_other_logger() -> None:
+    def _setup_other_logger() -> None:
         """Disable other loggers and change some loggers."""
         getLogger("img2pdf").disabled = True
         getLogger("PIL.PngImagePlugin").disabled = True
-        getLogger("urllib3.connectionpool").disabled = True
+        getLogger("urllib3.connectionpool").setLevel(WARNING)
         getLogger("selenium.webdriver.remote.remote_connection").disabled = True
-        webdriver_manager_set_logger(getLogger())
         os_environ["WDM_LOG"] = str(DEBUG)
         os_environ["WDM_SSL_VERIFY"] = "0"
 
     def setup(self) -> None:
         """Setup the logger folder and read logging config file."""
-        self.log_folder()
-        self.read_logging_config()
-        self.setup_other_logger()
+        self._create_log_folder()
+        self._read_logging_config()
+        self._setup_other_logger()
 
 
 def logger_listener(logger_name: str, queue: Queue) -> None:

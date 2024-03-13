@@ -18,21 +18,22 @@ logger = getLogger(__name__)
 
 
 class Action:
-    """Bot actions to process links.
-
-    Args:
-        - driver (WebDriver): Selenium WebDriver.
-        - links (list[Link]): List of links object.
-        - timeout (int): Time to wait for element to be visible.
-    """
+    """Bot actions to process links."""
 
     def __init__(self, driver: WebDriver, links: list[Link], timeout: int) -> None:
-        self.driver: WebDriver = driver
+        """Initialise Action class.
+
+        Args:
+            - driver (WebDriver): Selenium WebDriver.
+            - links (list[Link]): List of links object.
+            - timeout (int): Time to wait for element to be visible.
+        """
+        self._driver: WebDriver = driver
         self.links: list[Link] = links
-        self.timeout: int = timeout
+        self._timeout: int = timeout
 
     @staticmethod
-    def __book_preview_to_page(link: str) -> str:
+    def _book_preview_to_page(link: str) -> str:
         """Book preview link to book page link.
 
         Args:
@@ -48,7 +49,7 @@ class Action:
         page_link: str = f"https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc={doc_value}&format=jpg&subfolder={subfolder_value}"  # nopep8
         return page_link
 
-    def __get_num_pages(self, driver: WebDriver) -> int:
+    def _get_num_pages(self, driver: WebDriver) -> int:
         """Get number of pages from book preview link.
         Already in book preview link in Selenium.
 
@@ -58,10 +59,10 @@ class Action:
         Returns:
             - int: Number of pages.
         """
-        pages: str = wait_element_visible(driver=driver, css_selector=".flowpaper_lblTotalPages", timeout=self.timeout).text.strip(" /")
+        pages: str = wait_element_visible(driver=driver, css_selector=".flowpaper_lblTotalPages", timeout=self._timeout).text.strip(" /")
         return int(pages)
 
-    def preview_to_page_and_num_pages(self, link: str) -> tuple[str, int]:
+    def _preview_to_page_and_num_pages(self, link: str) -> tuple[str, int]:
         """Book preview link to book page link and get number of pages.
 
         Args:
@@ -70,19 +71,19 @@ class Action:
         Returns:
             - tuple[str, int]: Book page link and number of pages.
         """
-        self.driver.switch_to.window(self.driver.window_handles[0])
-        self.driver.get(link)
+        self._driver.switch_to.window(self._driver.window_handles[0])
+        self._driver.get(link)
         wait_element_visible(
-            driver=self.driver,
+            driver=self._driver,
             css_selector="#pageContainer_0_documentViewer_textLayer",
-            timeout=self.timeout,
+            timeout=self._timeout,
         )
-        preview_link: str = self.driver.current_url
-        page_link: str = self.__book_preview_to_page(link=preview_link)
-        pages: int = self.__get_num_pages(driver=self.driver)
+        preview_link: str = self._driver.current_url
+        page_link: str = self._book_preview_to_page(link=preview_link)
+        pages: int = self._get_num_pages(driver=self._driver)
         return page_link, pages
 
-    def book_to_preview(self, link: str) -> list[str]:
+    def _book_to_preview(self, link: str) -> list[str]:
         """Book website link to book preview link.
 
         Args:
@@ -91,8 +92,8 @@ class Action:
         Returns:
             - list[str]: List of book preview link(s).
         """
-        self.driver.get(link)
-        view_online_button: list[WebElement] = self.driver.find_elements(By.CSS_SELECTOR, ".pdf-view.viewonline")
+        self._driver.get(link)
+        view_online_button: list[WebElement] = self._driver.find_elements(By.CSS_SELECTOR, ".pdf-view.viewonline")
         preview_links: list[str] = []
         for preview_link_element in view_online_button:
             preview_link: str | None = preview_link_element.get_attribute("href")
@@ -101,18 +102,18 @@ class Action:
         logger.info('"%s": Found "%s" preview link(s)', link, len(preview_links))
         return preview_links
 
-    def get_book_files_name(self) -> list[str]:
+    def _get_book_files_name(self) -> list[str]:
         """Get book's files' name from the book website.
         Already in book website in Selenium.
 
         Returns:
             - list[str]: List of book's files' name.
         """
-        name_elements: list[WebElement] = self.driver.find_elements(By.CSS_SELECTOR, ".standard.title-bit.break-all > a")
+        name_elements: list[WebElement] = self._driver.find_elements(By.CSS_SELECTOR, ".standard.title-bit.break-all > a")
         file_names: list[str] = [name_element.text.replace(".pdf", "") for name_element in name_elements]
         return file_names
 
-    def book_handler(self, link: Link) -> Link:
+    def _book_handler(self, link: Link) -> Link:
         """Process book link handler.
 
         Args:
@@ -121,17 +122,17 @@ class Action:
         Returns:
             - Link: Processed link object.
         """
-        preview_links: list[str] = self.book_to_preview(link=link.original_link)
-        book_files_name: list[str] = self.get_book_files_name()
-        link.name = slugify(self.driver.find_element(by=By.CSS_SELECTOR, value=".ds-div-head").text)
+        preview_links: list[str] = self._book_to_preview(link=link.original_link)
+        book_files_name: list[str] = self._get_book_files_name()
+        link.name = slugify(self._driver.find_element(by=By.CSS_SELECTOR, value=".ds-div-head").text)
         processed_files: list[LinkFile] = []
         for i, preview_link in enumerate(preview_links):
-            page_link, num_pages = self.preview_to_page_and_num_pages(link=preview_link)
-            processed_files.append(LinkFile(page_link=page_link, num_pages=num_pages, name=book_files_name[i]))
+            page_link, num_pages = self._preview_to_page_and_num_pages(link=preview_link)
+            processed_files.append(LinkFile(page_link=page_link, num_pages=num_pages, name=slugify(book_files_name[i])))
         link.files = processed_files
         return link
 
-    def preview_handler(self, link: Link) -> Link:
+    def _preview_handler(self, link: Link) -> Link:
         """Process preview link handler.
 
         Args:
@@ -140,25 +141,23 @@ class Action:
         Returns:
             - Link: Processed link object.
         """
-        page_link, num_pages = self.preview_to_page_and_num_pages(link=link.original_link)
+        page_link, num_pages = self._preview_to_page_and_num_pages(link=link.original_link)
         link.files = [LinkFile(page_link=page_link, num_pages=num_pages, name=datetime_name())]
         return link
 
-    def action(self) -> list[Link]:
+    def run(self) -> None:
         """Convert all links to the page links format.
-
-        Returns:
-        - list[Link]: A list processed links object.
+        Then replace links attribute of object.
         """
         converted_links: list[Link] = []
         for link in self.links:
             match link.original_type:
                 case "book":
                     logger.info('"%s": "%s"', link.original_link, link.original_type)
-                    converted_links.append(self.book_handler(link=link))
+                    converted_links.append(self._book_handler(link=link))
                 case "preview":
                     logger.info('"%s": "%s"', link.original_link, link.original_type)
-                    converted_links.append(self.preview_handler(link=link))
+                    converted_links.append(self._preview_handler(link=link))
                 case "page":
                     converted_links.append(link)
-        return converted_links
+        self.links = converted_links

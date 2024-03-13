@@ -11,18 +11,20 @@ logger = getLogger(__name__)
 
 
 class CleanIMG:
-    """Clean images. Suitable to use for after creating PDF.
-
-    Args:
-        - links (list[Link]): The list of links object.
-    """
+    """Clean images. Suitable to use for after creating PDF."""
 
     def __init__(self, links: list[Link], download_directory: str) -> None:
-        self.links: list[Link] = links
-        self.download_directory: str = download_directory
+        """Initialise for CleanIMG class.
+
+        Args:
+            - links (list[Link]): The list of links object.
+            - download_directory (str): The download directory.
+        """
+        self._links: list[Link] = links
+        self._download_directory: str = download_directory
 
     @staticmethod
-    def process(page_directory: str) -> None:
+    def _process(page_directory: str) -> None:
         """Delete images file in directory.
 
         Args:
@@ -35,7 +37,7 @@ class CleanIMG:
         logger.info('Deleted images: "%s"', page_directory)
 
     @staticmethod
-    def book_handler(book_directory: str, link: Link) -> None:
+    def _book_handler(book_directory: str, link: Link) -> None:
         """Book link hanlder to clean images
 
         Args:
@@ -43,15 +45,15 @@ class CleanIMG:
             link (Link): The book's link.
         """
         for link_page in link.files:
-            CleanIMG.process(os.path.join(book_directory, link_page.name))
+            CleanIMG._process(os.path.join(book_directory, link_page.name))
 
     def clean_img(self) -> None:
         """Clean images"""
-        for link in self.links:
+        for link in self._links:
             match link.original_type:
                 case "book":
-                    self.book_handler(os.path.join(self.download_directory, link.name), link)
+                    self._book_handler(os.path.join(self._download_directory, link.name), link)
                 case "page" | "preview":
-                    self.process(os.path.join(self.download_directory, link.files[0].name))
+                    self._process(os.path.join(self._download_directory, link.files[0].name))
                 case _:
                     pass
