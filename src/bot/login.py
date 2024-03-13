@@ -41,7 +41,7 @@ class Login:
         Raises:
             ConnectionError: Login failed.
         """
-        logger.info(msg="Logging in...")
+        logger.info("Logging in...")
         self.driver.get(self.url)
         submit_button: WebElement = wait_element_clickable(
             driver=self.driver,
@@ -51,7 +51,7 @@ class Login:
         self.__fill_in()
         submit_button.click()
         if "https://ir.vnulib.edu.vn/" in self.driver.current_url:
-            logger.info(msg="Logged in successfully!")
+            logger.info("Logged in successfully!")
         else:
-            logger.error(msg="Login failed!")
+            logger.error("Login failed!")
             raise ConnectionError("Login failed!")

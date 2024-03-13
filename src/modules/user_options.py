@@ -78,11 +78,11 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         self.create_pdf = self.__setup_create_pdf()
         self.clean_img = self.__setup_clean_img()
         self.__log_the_variables()
-        logger.info(msg="User options setup completed")
+        logger.info("User options setup completed")
 
     def __log_the_variables(self) -> None:
         """Log the variable to log file."""
-        logger.debug(msg=f"User options:\n{self}")
+        logger.debug("User options:\n%s", self)
 
     def __str__(self) -> str:
         """For debug purpose.
@@ -227,7 +227,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         Args:
             - var (str): Variable name.
         """
-        logger.debug(msg=f"Variable: {var} - Set by argparse")
+        logger.debug("Variable: %s - Set by argparse", var)
 
     @staticmethod
     def __log_set_by_config(var: str) -> None:
@@ -236,7 +236,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         Args:
             - var (str): Variable name.
         """
-        logger.debug(msg=f"Variable: {var} - Set by config file")
+        logger.debug("Variable: %s - Set by config file", var)
 
     @staticmethod
     def __log_set_by_user_input(var: str) -> None:
@@ -245,4 +245,4 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         Args:
             - var (str): Variable name.
         """
-        logger.debug(msg=f"Variable: {var}" " - Retrieve from user input")
+        logger.debug("Variable: %s - Retrieve from user input", var)

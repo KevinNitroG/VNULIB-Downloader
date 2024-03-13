@@ -31,7 +31,7 @@ class Config:
     def prepare_config_file(self) -> None:
         """Copy config sample file to config file."""
         copyfile(self.config_sample_file, self.config_file)
-        logger.info(msg=f'Created tool config: "{self.config_file}"')
+        logger.info('Created tool config: "%s"', self.config_file)
 
     def check_exist_config_file(self) -> bool:
         """Check if the config file exists or not.
@@ -41,7 +41,7 @@ class Config:
         """
         if path.exists(path=self.config_file):
             return True
-        logger.info(msg=f"{self.config_file} does not exist")
+        logger.info('"%s" does not exist', self.config_file)
         return False
 
     def setup(self) -> None:

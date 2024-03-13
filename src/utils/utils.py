@@ -38,15 +38,15 @@ def create_directory(directory: str, force: bool | None = None) -> bool:
         if force is True or input(f'"{directory}" already exists. Force create it [Y/n]: ').upper() in USER_INPUT_YES:
             try:
                 rmtree(path=directory)
-            except PermissionError as e:
-                logger.error(msg=e)
-                raise e
-            logger.info(msg=f'Deleted: "{directory}"')
+            except Exception as _e:
+                logger.error(_e)
+                raise _e
+            logger.info('Deleted: "%s"', directory)
         else:
-            logger.info(msg=f'Skip creating: "{directory}"')
+            logger.info('Skip creating: "%s"', directory)
             return False
     makedirs(name=directory)
-    logger.info(msg=f'Created: "{directory}"')
+    logger.info('Created: "%s"', directory)
     return True
 
 
@@ -65,12 +65,12 @@ def remove_directory(directory: str) -> bool:
     if path.exists(path=directory):
         try:
             rmtree(path=directory)
-        except PermissionError as e:
-            logger.error(msg=e)
-            raise e
-        logger.info(msg=f'Deleted: "{directory}"')
+        except Exception as _e:
+            logger.error(_e)
+            raise _e
+        logger.info('Deleted: "%s"', directory)
         return True
-    logger.info(msg=f'Not found: "{directory}"')
+    logger.info('Not found: "%s"', directory)
     return False
 
 

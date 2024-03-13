@@ -12,7 +12,6 @@ from logging import getLogger
 import requests
 from requests.sessions import Session
 from requests import Response
-import urllib3
 from alive_progress import alive_bar
 from .link_parse import Link, LinkFile
 from ..constants import ERROR_PAGE_IMAGE_PATH
@@ -39,7 +38,6 @@ def get_error_page_bytes() -> bytes:
 
 ERROR_PAGE_IMAGE: bytes = get_error_page_bytes()
 OUT_PAGE_ERROR_TEXT: str = "Error:Error converting document"
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class DownloadCore:  # pylint: disable=too-few-public-methods
@@ -71,7 +69,7 @@ class DownloadCore:  # pylint: disable=too-few-public-methods
             with self.session.get(link, stream=True, timeout=self.timeout, verify=False) as reponse:
                 return reponse.content  # skipcq: BAN-B501, PTC-W6001
         except requests.exceptions.ReadTimeout:
-            logger.error(msg=f'"{link}": Page "{page}" - Timeout')
+            logger.error('"%s": Page "%s" - Timeout', link, page)
             return ERROR_PAGE_IMAGE
 
 
@@ -113,7 +111,7 @@ class SingleThreadDownload(DownloadCore):
             response: Response = self.session.get(link, stream=True, timeout=self.timeout, verify=False)  # skipcq: BAN-B501, PTC-W6001
             return b"" if OUT_PAGE_ERROR_TEXT in response.text else response.content
         except requests.exceptions.ReadTimeout:
-            logger.error(msg=f'"{link}": Page "{page}" - Timeout')
+            logger.error('"%s": Page "%s" - Timeout', link, page)
             return ERROR_PAGE_IMAGE
 
     def download(self) -> None:
@@ -228,7 +226,7 @@ class DownloadIMG:
     def dowload(self) -> None:
         """Dowload Images from list of Link."""
         for link in self.links:
-            logger.info(msg=f'Downloading: "{link.original_link}"')
+            logger.info('Downloading: "%s"', link.original_link)
             match link.original_type:
                 case "book":
                     self.book_handler(link)
@@ -241,4 +239,4 @@ class DownloadIMG:
                         self.page_handler(link.files[0])
                 case _:
                     pass
-            logger.info(msg=f'Done: "{link.original_link}"')
+            logger.info('Done: "%s"', link.original_link)

@@ -28,11 +28,11 @@ class CleanIMG:
         Args:
             directory (str): The directory containing the images.
         """
-        logger.info(msg=f'Deleting images: "{page_directory}"')
+        logger.info('Deleting images: "%s"', page_directory)
         jpg_files: list[str] = [os.path.join(page_directory, f) for f in os.listdir(page_directory) if f.endswith(".jpg")]
         for jpg_file in jpg_files:
             os.remove(jpg_file)
-        logger.info(msg=f'Deleted images: "{page_directory}"')
+        logger.info('Deleted images: "%s"', page_directory)
 
     @staticmethod
     def book_handler(book_directory: str, link: Link) -> None:

@@ -64,7 +64,7 @@ def main() -> None:
                 driver=driver,
                 links=user_options.links,
             ).action()
-    logger.debug(msg=f"LINKS OBJECT:\n{pformat(user_options.links)}")
+    logger.debug("LINKS OBJECT:\n%s", pformat(user_options.links))
 
     print_title("DOWNLOAD")
     create_directory(DOWNLOAD_DIR, force=False)

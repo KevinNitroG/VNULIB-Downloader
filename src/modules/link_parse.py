@@ -126,8 +126,8 @@ class LinkParse:
                 case "page":
                     link = self.process_page(link)
                     modified_links.append(link)
-                    logger.info(msg=f'"{link.original_link}": "page" - "{link.files[0].num_pages}" page(s)')
+                    logger.info('"%s": "page" - "%s" page(s)', link.original_link, link.files[0].num_pages)
                     sleep(0.1)  # Sleep to avoid same folder name in any case
                 case _:
-                    logger.warning(msg=f'"{link.original_link}": Unknown link type')
+                    logger.warning('"%s": Unknown link type', link.original_link)
         return modified_links

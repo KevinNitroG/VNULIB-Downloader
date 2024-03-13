@@ -35,7 +35,7 @@ class Browser:
         Returns:
             - WebDriver: Selenium WebDriver.
         """
-        logger.info(msg="Setting up the browser...")
+        logger.info("Setting up the browser...")
         self.__setup_arguments()
         match self.browser.strip():
             case "chrome" | "":
@@ -43,12 +43,12 @@ class Browser:
             case _:
                 self.driver = self.__setup_local_chrome_browser()
         self.driver.implicitly_wait(self.timeout)
-        logger.info(msg=f'Browser "{self.browser}" setup complete!')
+        logger.info('Browser "%s" setup complete!', self.browser)
         return self.driver
 
     def __exit__(self, exc_type, exc_value, traceback) -> None:
         """Exit the context manager"""
-        logger.info(msg="Quit the browser")
+        logger.info("Quit the browser")
         self.driver.quit()
 
     def __setup_arguments(self) -> None:
