@@ -23,9 +23,9 @@ class ToolLogger:
         """Initialise for ToolLogger
 
         Args:
-            - config_path (str): The path of logging config file.
+            config_path (str): The path of logging config file.
                 Default to LOGGING_CONFIG_FILE_PATH.
-            - logging_path (str): The logging directory. Default to LOGGING_PATH.
+            logging_path (str): The logging directory. Default to LOGGING_PATH.
         """
         self.config_path: str = config_path
         self.logging_path = logging_path

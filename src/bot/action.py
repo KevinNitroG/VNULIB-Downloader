@@ -24,9 +24,9 @@ class Action:
         """Initialise Action class.
 
         Args:
-            - driver (WebDriver): Selenium WebDriver.
-            - links (list[Link]): List of links object.
-            - timeout (int): Time to wait for element to be visible.
+            driver (WebDriver): Selenium WebDriver.
+            links (list[Link]): List of links object.
+            timeout (int): Time to wait for element to be visible.
         """
         self._driver: WebDriver = driver
         self.links: list[Link] = links
@@ -37,10 +37,10 @@ class Action:
         """Book preview link to book page link.
 
         Args:
-            - link (str): Book preview link.
+            link (str): Book preview link.
 
         Returns:
-            - str: Book page link without "page" query.
+            str: Book page link without "page" query.
         """
         parser = urlparse(link)
         query = parse_qs(parser.query)
@@ -54,10 +54,10 @@ class Action:
         Already in book preview link in Selenium.
 
         Args:
-            - driver (WebDriver): Selenium WebDriver.
+            driver (WebDriver): Selenium WebDriver.
 
         Returns:
-            - int: Number of pages.
+            int: Number of pages.
         """
         pages: str = wait_element_visible(driver=driver, css_selector=".flowpaper_lblTotalPages", timeout=self._timeout).text.strip(" /")
         return int(pages)
@@ -66,10 +66,10 @@ class Action:
         """Book preview link to book page link and get number of pages.
 
         Args:
-            - link (str): Book preview link.
+            link (str): Book preview link.
 
         Returns:
-            - tuple[str, int]: Book page link and number of pages.
+            tuple[str, int]: Book page link and number of pages.
         """
         self._driver.switch_to.window(self._driver.window_handles[0])
         self._driver.get(link)
@@ -87,10 +87,10 @@ class Action:
         """Book website link to book preview link.
 
         Args:
-            - link (str): Book website link.
+            link (str): Book website link.
 
         Returns:
-            - list[str]: List of book preview link(s).
+            list[str]: List of book preview link(s).
         """
         self._driver.get(link)
         view_online_button: list[WebElement] = self._driver.find_elements(By.CSS_SELECTOR, ".pdf-view.viewonline")
@@ -107,7 +107,7 @@ class Action:
         Already in book website in Selenium.
 
         Returns:
-            - list[str]: List of book's files' name.
+            list[str]: List of book's files' name.
         """
         name_elements: list[WebElement] = self._driver.find_elements(By.CSS_SELECTOR, ".standard.title-bit.break-all > a")
         file_names: list[str] = [name_element.text.replace(".pdf", "") for name_element in name_elements]
@@ -117,10 +117,10 @@ class Action:
         """Process book link handler.
 
         Args:
-            - link (Link): Current link object.
+            link (Link): Current link object.
 
         Returns:
-            - Link: Processed link object.
+            Link: Processed link object.
         """
         preview_links: list[str] = self._book_to_preview(link=link.original_link)
         book_files_name: list[str] = self._get_book_files_name()
@@ -136,10 +136,10 @@ class Action:
         """Process preview link handler.
 
         Args:
-            - link (Link): Current link object.
+            link (Link): Current link object.
 
         Returns:
-            - Link: Processed link object.
+            Link: Processed link object.
         """
         page_link, num_pages = self._preview_to_page_and_num_pages(link=link.original_link)
         link.files = [LinkFile(page_link=page_link, num_pages=num_pages, name=datetime_name())]

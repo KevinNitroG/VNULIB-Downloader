@@ -20,9 +20,9 @@ class Browser:
         """Initialise for Browser.
 
         Args:
-            - browser (str): The browser to set up.
-            - headless (bool): Headless mode.
-            - timeout (int): Timeout for implicit wait for Selenium.
+            browser (str): The browser to set up.
+            headless (bool): Headless mode.
+            timeout (int): Timeout for implicit wait for Selenium.
         """
         self._browser: str = browser  # skipcq: PTC-W0052
         self._headless: bool = headless
@@ -34,7 +34,7 @@ class Browser:
         """Set up the browser when entering the context manager.
 
         Returns:
-            - WebDriver: Selenium WebDriver.
+            WebDriver: Selenium WebDriver.
         """
         logger.info("Setting up the browser...")
         self._setup_arguments()
@@ -64,7 +64,7 @@ class Browser:
         """Setup Chrome Browser.
 
         Returns:
-            - WebDriver: Selenium WebDriver.
+            WebDriver: Selenium WebDriver.
         """
         return webdriver.Chrome(options=self._options, service=Service(ChromeDriverManager().install()))
 
@@ -72,6 +72,6 @@ class Browser:
         """Setup Local Chrome Browser.
 
         Returns:
-            - WebDriver: Selenium WebDriver.
+            WebDriver: Selenium WebDriver.
         """
         return webdriver.Chrome(options=self._options, service=Service(self._browser))

@@ -25,7 +25,7 @@ class LinkParse:
         """Initialise for LinkParse class.
 
         Args:
-            - links (list[Links]): List of links to parse.
+            links (list[Links]): List of links to parse.
         """
         self.links: list[Link] = links
         self.need_to_process: bool = False
@@ -34,10 +34,10 @@ class LinkParse:
         """Categorise the links using regex.
 
         Args:
-            - link (str): Link to categorise.
+            link (str): Link to categorise.
 
         Returns:
-            - str: ``book``, ``preview``, ``page`` or empty string.
+            str: ``book``, ``preview``, ``page`` or empty string.
         """
         if re_search(self._PATTERN_BOOK, link):
             return "book"
@@ -67,10 +67,10 @@ class LinkParse:
         """Parse the link to remove ``page`` query.
 
         Args:
-            - link (str): Link to parse.
+            link (str): Link to parse.
 
         Returns:
-            - str: Parsed link without ``page`` query.
+            str: Parsed link without ``page`` query.
         """
         parser = urlparse(link)
         query = parse_qs(parser.query)
@@ -93,10 +93,10 @@ class LinkParse:
         """Process ``page`` link handler.
 
         Args:
-            - link (Link): Current link page object.
+            link (Link): Current link page object.
 
         Returns:
-            - Link: Processed link page object.
+            Link: Processed link page object.
         """
         link.original_type = "page"
         page_link: str = LinkParse._remove_page_query(link=link.original_link)
@@ -123,7 +123,7 @@ class LinkParse:
                 case "page":
                     link = self._page_handler(link)
                     modified_links.append(link)
-                    logger.info('"%s": "page" - "%s" page(s)', link.original_link, link.files[0].num_pages)
+                    logger.info('"%s": "page" "%s" page(s)', link.original_link, link.files[0].num_pages)
                     sleep(0.1)  # Sleep to avoid same folder name in any case
                 case _:
                     logger.warning('"%s": Unknown link type', link.original_link)

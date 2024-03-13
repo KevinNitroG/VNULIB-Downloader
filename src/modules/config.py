@@ -18,8 +18,8 @@ class Config:
         """Initialise for Config.
 
         Args:
-            - config_file (str, optional): The config file name. Defaults to CONFIG_FILE.
-            - url (str, optional): The link of the raw config file. Defaults to CONFIG_SAMPLE_FILE.
+            config_file (str, optional): The config file name. Defaults to CONFIG_FILE.
+            url (str, optional): The link of the raw config file. Defaults to CONFIG_SAMPLE_FILE.
         """
         self._config_file: str = config_file
         self._config_sample_file: str = config_sample_file
@@ -34,7 +34,7 @@ class Config:
         """Check if the config file exists or not.
 
         Returns:
-            - bool: True if the config file exists, False otherwise.
+            bool: True if the config file exists, False otherwise.
         """
         if path.exists(path=self._config_file):
             return True

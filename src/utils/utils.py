@@ -23,14 +23,14 @@ def create_directory(directory: str, force: bool | None = None) -> bool:
     """Remove (if force=True) and create a directory
 
     Args:
-        - directory (str): A directory to create
-        - force (bool | None): Whether to remove the directory if it exists. Default to None to ask for user input [Y/n]
+        directory (str): A directory to create
+        force (bool | None): Whether to remove the directory if it exists. Default to None to ask for user input [Y/n]
 
     Raise:
-        - PermissionError: If the directory cannot be removed due to permission error
+        PermissionError: If the directory cannot be removed due to permission error
 
     Returns:
-        - bool: True if the directory was created, False if it was already created
+        bool: True if the directory was created, False if it was already created
     """
     if path.exists(path=directory):
         if force is False:
@@ -54,13 +54,13 @@ def remove_directory(directory: str) -> bool:
     """Remove a directory
 
     Args:
-        - directory (str): A directory to remove
+        directory (str): A directory to remove
 
     Raise:
-        - PermissionError: If the directory cannot be removed due to permission error
+        PermissionError: If the directory cannot be removed due to permission error
 
     Returns:
-        - bool: True if the directory was removed, False if it was not found
+        bool: True if the directory was removed, False if it was not found
     """
     if path.exists(path=directory):
         try:
@@ -78,7 +78,7 @@ def datetime_name() -> str:
     """Get the datetime name (%Y-%m-%d %H-%M-%S-%f)
 
     Returns:
-        - str: The datetime name
+        str: The datetime name
     """
     return datetime.now().strftime("%Y-%m-%d %H-%M-%S-%f")
 

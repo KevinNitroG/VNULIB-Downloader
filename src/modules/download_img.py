@@ -46,9 +46,9 @@ class _DownloadCore:  # pylint: disable=too-few-public-methods
         """Initialise for _DownloadCore class.
 
         Args:
-            - link (LinkFile): Link object.
-            - download_path (str): Path for images to be downloaded.
-            - timeout (int): Timeout for Request.
+            link (LinkFile): Link object.
+            download_path (str): Path for images to be downloaded.
+            timeout (int): Timeout for Request.
         """
         self._link: LinkFile = link
         self._download_path: str = download_path
@@ -59,17 +59,17 @@ class _DownloadCore:  # pylint: disable=too-few-public-methods
         """Get images bytes.
 
         Args:
-            - link (str): the page link.
-            - page (str): The current page number to download.
+            link (str): the page link.
+            page (str): The current page number to download.
 
         Return:
-            - Bytes: The datas of images.
+            Bytes: The datas of images.
         """
         try:
             with self._session.get(link, stream=True, timeout=self._timeout, verify=False) as reponse:
                 return reponse.content  # skipcq: BAN-B501, PTC-W6001
         except requests.exceptions.ReadTimeout:
-            logger.error('"%s": Page "%s" - Timeout', link, page)
+            logger.error('"%s": Page "%s" Timeout', link, page)
             return self._ERROR_PAGE_IMAGE
 
 
@@ -80,9 +80,9 @@ class _SingleThreadDownload(_DownloadCore):
         """Initialise for _SingleThreadDownload class.
 
         Args:
-            - link (LinkFile): Link object.
-            - download_path (str): Path for images to be downloaded.
-            - timeout (int): Timeout for Request.
+            link (LinkFile): Link object.
+            download_path (str): Path for images to be downloaded.
+            timeout (int): Timeout for Request.
         """
         super().__init__(link=link, download_path=download_path, timeout=timeout)
         self._session: Session = self._get_session()
@@ -93,7 +93,7 @@ class _SingleThreadDownload(_DownloadCore):
         """Get session.
 
         Returns:
-            - Session: Session.
+            Session: Session.
         """
         return requests.Session()
 
@@ -102,17 +102,17 @@ class _SingleThreadDownload(_DownloadCore):
         """Get image's bytes, check valid page first.
 
         Args:
-            - link (str): Link.
-            - page (str): The current page number to download.
+            link (str): Link.
+            page (str): The current page number to download.
 
         Returns:
-            - str: Text content of link.
+            str: Text content of link.
         """
         try:
             response: Response = self._session.get(link, stream=True, timeout=self._timeout, verify=False)  # skipcq: BAN-B501, PTC-W6001
             return b"" if self._OUT_PAGE_ERROR_TEXT in response.text else response.content
         except requests.exceptions.ReadTimeout:
-            logger.error('"%s": Page "%s" - Timeout', link, page)
+            logger.error('"%s": Page "%s" Timeout', link, page)
             return self._ERROR_PAGE_IMAGE
 
     def download(self) -> None:
@@ -138,9 +138,9 @@ class _MultiThreadingDownload(_DownloadCore):
         """Initialise for _MultiThreadingDownload class.
 
         Args:
-            - link (LinkFile): Link object.
-            - download_path (str): Path for images to be downloaded.
-            - timeout (int): Timeout for Request.
+            link (LinkFile): Link object.
+            download_path (str): Path for images to be downloaded.
+            timeout (int): Timeout for Request.
         """
         super().__init__(link=link, download_path=download_path, timeout=timeout)
         self._thread_local = threading.local()
@@ -151,7 +151,7 @@ class _MultiThreadingDownload(_DownloadCore):
         """Get session for thread.
 
         Returns:
-            - Session: Session for thread.
+            Session: Session for thread.
         """
         if not hasattr(self._thread_local, "session"):
             self._thread_local.session = requests.Session()
@@ -161,9 +161,9 @@ class _MultiThreadingDownload(_DownloadCore):
         """Multithreading download function for known page link (book | preview).
 
         Args:
-            - image_link (str): Image link.
-            - image_path (str): Image path.
-            - page (str): The current page number to download.
+            image_link (str): Image link.
+            image_path (str): Image path.
+            page (str): The current page number to download.
         """
         with open(image_path, "wb") as file:  # skipcq: PTC-W6004
             file.write(self._get_images_bytes(link=image_link, page=page))
@@ -186,9 +186,9 @@ class DownloadIMG:
 
 
         Args:
-            - links (list[Link]): The list of links object.
-            - download_directory (str): Download directory.
-            - timeout (int): Timeout (s) for Request to fetch each image.
+            links (list[Link]): The list of links object.
+            download_directory (str): Download directory.
+            timeout (int): Timeout (s) for Request to fetch each image.
         """
         self._links: list[Link] = links
         self._download_directory: str = download_directory
@@ -221,7 +221,7 @@ class DownloadIMG:
         """Dowload All book's images from page link (for unkown num pages).
 
         Args:
-            - link (LinkFile): LinkFile of Page link.
+            link (LinkFile): LinkFile of Page link.
         """
         folder_path: str = os.path.join(self._download_directory, link.name)
         if create_directory(folder_path, force=True):

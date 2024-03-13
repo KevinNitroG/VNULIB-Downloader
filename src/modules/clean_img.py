@@ -17,8 +17,8 @@ class CleanIMG:
         """Initialise for CleanIMG class.
 
         Args:
-            - links (list[Link]): The list of links object.
-            - download_directory (str): The download directory.
+            links (list[Link]): The list of links object.
+            download_directory (str): The download directory.
         """
         self._links: list[Link] = links
         self._download_directory: str = download_directory

@@ -28,7 +28,7 @@ class PrintIntro:
         """Print out the banner.
 
         Args:
-            - lines (list[str]): List of lines of the banner.
+            lines (list[str]): List of lines of the banner.
         """
         for line in lines:
             printColor(line.center(TERMINAL_SIZE_COLUMNS), color="yan")
@@ -38,7 +38,7 @@ class PrintIntro:
         """Print out the authors.
 
         Args:
-            - authors (str): Authors.
+            authors (str): Authors.
         """
         to_print_authors: str = f"\033[94m\033[43m {authors} \033[0m"
         print(to_print_authors.rjust(TERMINAL_SIZE_COLUMNS))
@@ -48,7 +48,7 @@ class PrintIntro:
         """Print out the version.
 
         Args:
-            - version (str): Version.
+            version (str): Version.
         """
         to_print_version: str = f"\033[45m\033[44m {version} \033[0m"
         print(to_print_version.rjust(TERMINAL_SIZE_COLUMNS))

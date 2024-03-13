@@ -21,9 +21,9 @@ class LinkFile:
     """Dataclass to store book file's information.
 
     Args:
-        - page_link (str): Page link.
-        - num_pages (int): Number of pages.
-        - name (str): Name of the file.
+        page_link (str): Page link.
+        num_pages (int): Number of pages.
+        name (str): Name of the file.
             If original link is preview link, it will be datetime format.
     """
 
@@ -37,10 +37,10 @@ class Link:
     """Dataclass to store links' information.
 
     Args:
-        - original_link (str): Original link.
-        - original_type (str): Original type of the link.
-        - files (list[LinkFile]): List of book files from the book.
-        - name (str): Name of the book.
+        original_link (str): Original link.
+        original_type (str): Original type of the link.
+        files (list[LinkFile]): List of book files from the book.
+        name (str): Name of the book.
             If ``preview`` / ``page`` link, it will be empty string.
     """
 
@@ -105,7 +105,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         """Setup username.
 
         Returns:
-            - str: Username.
+            str: Username.
         """
         if self.argparse.username is not None:
             self._log_set_by_argparse("username")
@@ -120,7 +120,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         """Setup password.
 
         Returns:
-            - str: Password.
+            str: Password.
         """
         if self.argparse.password is not None:
             self._log_set_by_argparse("password")
@@ -135,7 +135,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         """Setup links.
 
         Returns:
-            - list[Link]: List of links object.
+            list[Link]: List of links object.
         """
         if self.argparse.link is not None:
             self._log_set_by_argparse("links")
@@ -165,7 +165,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         """Setup browser.
 
         Returns:
-            - str: Browser.
+            str: Browser.
         """
         if self.argparse.browser is not None:
             self._log_set_by_argparse("browser")
@@ -180,7 +180,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         """Setup headless mode.
 
         Returns:
-            - bool: Headless mode.
+            bool: Headless mode.
         """
         if self.argparse.headless is not None:
             self._log_set_by_argparse("headless")
@@ -195,7 +195,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         """Setup create pdf.
 
         Returns:
-            - bool: Create PDF.
+            bool: Create PDF.
         """
         if self.argparse.create_pdf is not None:
             self._log_set_by_argparse("create_pdf")
@@ -210,7 +210,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         """Setup clean images.
 
         Returns:
-            - bool: Clean images.
+            bool: Clean images.
         """
         if self.argparse.clean_img is not None:
             self._log_set_by_argparse("clean_img")
@@ -226,24 +226,24 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         """Log variable set by argparse.
 
         Args:
-            - var (str): Variable name.
+            var (str): Variable name.
         """
-        logger.debug("Variable: %s - Set by argparse", var)
+        logger.debug("Variable: %s Set by argparse", var)
 
     @staticmethod
     def _log_set_by_config(var: str) -> None:
         """Log variable set by config file.
 
         Args:
-            - var (str): Variable name.
+            var (str): Variable name.
         """
-        logger.debug("Variable: %s - Set by config file", var)
+        logger.debug("Variable: %s Set by config file", var)
 
     @staticmethod
     def _log_set_by_user_input(var: str) -> None:
         """Log variable retrieved from user input.
 
         Args:
-            - var (str): Variable name.
+            var (str): Variable name.
         """
-        logger.debug("Variable: %s - Retrieve from user input", var)
+        logger.debug("Variable: %s Retrieve from user input", var)

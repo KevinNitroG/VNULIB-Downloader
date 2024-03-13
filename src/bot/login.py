@@ -22,10 +22,10 @@ class Login:
         """Initialise for Login of Bot.
 
         Args:
-            - driver (WebDriver): Selenium WebDriver.
-            - username (str): Username.
-            - password (str): Password.
-            - timeout (int): Time to wait for element to be visible.
+            driver (WebDriver): Selenium WebDriver.
+            username (str): Username.
+            password (str): Password.
+            timeout (int): Time to wait for element to be visible.
         """
         self._driver: WebDriver = driver
         self._username: str = username
