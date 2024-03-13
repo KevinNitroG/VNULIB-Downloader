@@ -72,17 +72,18 @@ def logger_listener(logger_name: str, queue: Queue) -> None:
         logger.handle(record=record)
 
 
-def get_subprocess_logger(queue: Queue) -> Logger:
+def get_subprocess_logger(logger_name: str, queue: Queue) -> Logger:
     """Get the subprocess logger which is pre-configured in config file.
     Then add the Queue into the Logger in order to send records to the Queue.
 
     Args:
+        logger_name (str): The name of logger to get.
         queue (Queue): The queue to send records to.
 
     Returns:
         Logger: The logger.
     """
-    logger: Logger = getLogger(__name__ + ".subprocess")
+    logger: Logger = getLogger(logger_name + ".subprocess")
     logger.addHandler(QueueHandler(queue))
     logger.propagate = False
     logger.setLevel(DEBUG)

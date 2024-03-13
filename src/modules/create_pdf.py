@@ -51,7 +51,7 @@ class CreatePDF:
             directory (str): The directory containing the images.
             name (str): Name of pdf file.
         """
-        logger: Logger = get_subprocess_logger(queue)
+        logger: Logger = get_subprocess_logger(logger_name=__name__, queue=queue)
         pdf_file_name: str = os.path.join(directory, f"{name}.pdf")
         logger.info('Creating PDF: "%s"', pdf_file_name)
         files: list[str] = [os.path.join(directory, item) for item in os.listdir(directory)]
