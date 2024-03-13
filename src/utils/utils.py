@@ -11,7 +11,7 @@ from logging import getLogger
 from ..constants import USER_INPUT_YES
 
 
-logger = getLogger("vnulib_downloader")
+logger = getLogger(__name__)
 
 
 def pause() -> None:

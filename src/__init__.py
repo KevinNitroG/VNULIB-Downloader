@@ -14,6 +14,7 @@ from .modules import (
     setup_argparse,
 )
 from .utils import (
+    ToolLogger,
     create_directory,
     pause,
     print_title,

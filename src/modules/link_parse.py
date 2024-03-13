@@ -11,7 +11,7 @@ from .user_options import Link, LinkFile
 from ..utils.utils import datetime_name
 
 
-logger = getLogger("vnulib_downloader")
+logger = getLogger(__name__)
 
 
 PATTERN_BOOK = re_compile(r"^https?:\/\/ir\.vnulib\.edu\.vn\/handle\/VNUHCM\/\d+$")

@@ -3,16 +3,13 @@
 from __future__ import annotations
 
 
-from src.utils.logger import ToolLogger
-
-# Have to read the logger config file before all.
-ToolLogger().setup()
-
-
-from pprint import pformat  # pylint: disable=wrong-import-position, wrong-import-order
-from multiprocessing import freeze_support  # pylint: disable=wrong-import-position, wrong-import-order
-from logging import getLogger, Logger  # pylint: disable=wrong-import-position, wrong-import-order
-from src import (  # pylint: disable=wrong-import-position, wrong-import-order
+from pprint import pformat
+from multiprocessing import freeze_support
+from logging import getLogger, Logger
+from urllib3 import disable_warnings as urllib3_disable_warnings
+from urllib3.exceptions import InsecureRequestWarning
+from src import (
+    ToolLogger,
     Action,
     Browser,
     Config,
@@ -27,12 +24,16 @@ from src import (  # pylint: disable=wrong-import-position, wrong-import-order
     pause,
     print_title,
 )
-from src.constants import DOWNLOAD_DIR  # pylint: disable=wrong-import-position
+from src.constants import DOWNLOAD_DIR
+
+
+ToolLogger().setup()
+urllib3_disable_warnings(InsecureRequestWarning)
 
 
 def main() -> None:
     """Main function to run VNULIB Downloader."""
-    logger: Logger = getLogger("vnulib_downloader")
+    logger: Logger = getLogger(__name__)
 
     PrintIntro()
 

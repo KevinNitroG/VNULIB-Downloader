@@ -14,7 +14,7 @@ from ..modules import Link, LinkFile
 from ..utils import datetime_name, slugify
 
 
-logger = getLogger("vnulib_downloader")
+logger = getLogger(__name__)
 
 
 class Action:

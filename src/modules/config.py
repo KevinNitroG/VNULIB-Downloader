@@ -8,7 +8,7 @@ from logging import getLogger
 from ..constants import CONFIG_FILE, CONFIG_SAMPLE_FILE
 
 
-logger = getLogger("vnulib_downloader")
+logger = getLogger(__name__)
 
 
 class Config:

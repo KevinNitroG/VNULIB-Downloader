@@ -19,6 +19,7 @@ tab_width = 4
 
 [*.{js,ts,tsx,json,yml,yaml,toml}]
 indent_size = 2
+tab_width = 2
 
 [*.sh]
 end_of_line = lf

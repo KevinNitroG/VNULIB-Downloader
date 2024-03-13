@@ -10,7 +10,7 @@ from .utils import wait_element_clickable
 from ..constants import LOGIN_URL
 
 
-logger = getLogger("vnulib_downloader")
+logger = getLogger(__name__)
 
 
 class Login:

@@ -7,7 +7,7 @@ from logging import getLogger
 from .link_parse import Link
 
 
-logger = getLogger("vnulib_downloader")
+logger = getLogger(__name__)
 
 
 class CleanIMG:

@@ -13,7 +13,7 @@ from ..constants import CONFIG_FILE, USER_INPUT_NO, USER_INPUT_YES
 from .argpase import setup_argparse
 
 
-logger = getLogger("vnulib_downloader")
+logger = getLogger(__name__)
 
 
 @dataclass(slots=True)
