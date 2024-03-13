@@ -3,15 +3,19 @@
 # top-most EditorConfig file
 root = true
 
+
+
+
 [*]
 indent_style = space
 charset = utf-8
 insert_final_newline = true
-trim_trailing_whitespace = unset
+trim_trailing_whitespace = true
 
 [*.py]
-indent_size = unset
+indent_size = 4
 end_of_line = crlf
+tab_width = 4
 
 [*.{js,ts,tsx,json,yml,yaml,toml}]
 indent_size = 2
@@ -28,3 +32,5 @@ end_of_line = lf
 
 [renovate.json]
 end_of_line = lf
+
+

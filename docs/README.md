@@ -198,19 +198,19 @@ git clone "https://github.com/KevinNitroG/VNULIB-Downloader" --depth 1
 
 3. Create virtual environment _(optional)_
 
-   ```.ps1
-   # Create virtual environment
-   python -m venv .venv
+```.ps1
+# Create virtual environment
+python -m venv .venv
 
-   # Active virtual environment
-   # For Windows
-   myenv\Scripts\activate
-   # For Mac / Linux
-   source .env/bin/activate
+# Active virtual environment
+# For Windows
+myenv\Scripts\activate
+# For Mac / Linux
+source .env/bin/activate
 
-   # Deactive virtual environment
-   deactivate
-   ```
+# Deactive virtual environment
+deactivate
+```
 
 4. Install requirements
 
