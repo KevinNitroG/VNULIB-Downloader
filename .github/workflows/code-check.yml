@@ -59,3 +59,4 @@ jobs:
           commit-message: "🎨 refactor: auto code check"
           branch-suffix: short-commit-hash
           labels: enhancement
+          branch: bot/code-check
