@@ -32,5 +32,3 @@ end_of_line = lf
 
 [renovate.json]
 end_of_line = lf
-
-
