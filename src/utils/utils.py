@@ -23,14 +23,14 @@ def create_directory(directory: str, force: bool | None = None) -> bool:
     """Remove (if force=True) and create a directory
 
     Args:
-        - directory (str): A directory to create
-        - force (bool | None): Whether to remove the directory if it exists. Default to None to ask for user input [Y/n]
+        directory (str): A directory to create
+        force (bool | None): Whether to remove the directory if it exists. Default to None to ask for user input [Y/n]
 
     Raise:
-        - PermissionError: If the directory cannot be removed due to permission error
+        PermissionError: If the directory cannot be removed due to permission error
 
     Returns:
-        - bool: True if the directory was created, False if it was already created
+        bool: True if the directory was created, False if it was already created
     """
     if path.exists(path=directory):
         if force is False:
@@ -38,15 +38,15 @@ def create_directory(directory: str, force: bool | None = None) -> bool:
         if force is True or input(f'"{directory}" already exists. Force create it [Y/n]: ').upper() in USER_INPUT_YES:
             try:
                 rmtree(path=directory)
-            except PermissionError as e:
-                logger.error(msg=e)
+            except Exception as e:
+                logger.error(e)
                 raise e
-            logger.info(msg=f'Deleted: "{directory}"')
+            logger.info('Deleted: "%s"', directory)
         else:
-            logger.info(msg=f'Skip creating: "{directory}"')
+            logger.info('Skip creating: "%s"', directory)
             return False
     makedirs(name=directory)
-    logger.info(msg=f'Created: "{directory}"')
+    logger.info('Created: "%s"', directory)
     return True
 
 
@@ -54,23 +54,23 @@ def remove_directory(directory: str) -> bool:
     """Remove a directory
 
     Args:
-        - directory (str): A directory to remove
+        directory (str): A directory to remove
 
     Raise:
-        - PermissionError: If the directory cannot be removed due to permission error
+        PermissionError: If the directory cannot be removed due to permission error
 
     Returns:
-        - bool: True if the directory was removed, False if it was not found
+        bool: True if the directory was removed, False if it was not found
     """
     if path.exists(path=directory):
         try:
             rmtree(path=directory)
-        except PermissionError as e:
-            logger.error(msg=e)
+        except Exception as e:
+            logger.error(e)
             raise e
-        logger.info(msg=f'Deleted: "{directory}"')
+        logger.info('Deleted: "%s"', directory)
         return True
-    logger.info(msg=f'Not found: "{directory}"')
+    logger.info('Not found: "%s"', directory)
     return False
 
 
@@ -78,7 +78,7 @@ def datetime_name() -> str:
     """Get the datetime name (%Y-%m-%d %H-%M-%S-%f)
 
     Returns:
-        - str: The datetime name
+        str: The datetime name
     """
     return datetime.now().strftime("%Y-%m-%d %H-%M-%S-%f")
 

@@ -14,17 +14,19 @@ from ..utils import get_subprocess_logger, logger_listener
 
 
 class CreatePDF:
-    """Create PDF for books.
-
-    Args:
-        - links (list[Link]): The list of links object.
-    """
+    """Create PDF for books."""
 
     def __init__(self, links: list[Link], download_directory: str) -> None:
-        self.links: list[Link] = links
-        self.download_directory: str = download_directory
-        self.queue: Queue = Queue(-1)
-        self.workers: list[Process] = []
+        """Initalise for CreatePDF class.
+
+        Args:
+            links (list[Link]): The list of links object.
+            download_directory (str): The download directory.
+        """
+        self._links: list[Link] = links
+        self._download_directory: str = download_directory
+        self._queue: Queue = Queue(-1)
+        self._workers: list[Process] = []
 
     @staticmethod
     def check_already_has_pdf(files: list[str]) -> bool:
@@ -42,14 +44,14 @@ class CreatePDF:
         return any(file.endswith(".pdf") for file in files)
 
     @staticmethod
-    def process(directory: str, name: str, queue: Queue) -> None:
+    def _process(directory: str, name: str, queue: Queue) -> None:
         """Merge all images in a directory into a single PDF.
 
         Args:
             directory (str): The directory containing the images.
             name (str): Name of pdf file.
         """
-        logger: Logger = get_subprocess_logger(queue)
+        logger: Logger = get_subprocess_logger(logger_name=__name__, queue=queue)
         pdf_file_name: str = os.path.join(directory, f"{name}.pdf")
         logger.info('Creating PDF: "%s"', pdf_file_name)
         files: list[str] = [os.path.join(directory, item) for item in os.listdir(directory)]
@@ -69,17 +71,17 @@ class CreatePDF:
             name (str): The file's name.
         """
         worker = Process(
-            target=CreatePDF.process,
+            target=CreatePDF._process,
             args=(
                 download_directory,
                 name,
-                self.queue,
+                self._queue,
             ),
         )
         worker.start()
-        self.workers.append(worker)
+        self._workers.append(worker)
 
-    def book_handler(self, book_directory: str, link: Link) -> None:
+    def _book_handler(self, book_directory: str, link: Link) -> None:
         """Book handler, create PDF for Book's files.
 
         Args:
@@ -88,17 +90,17 @@ class CreatePDF:
         """
         for file in link.files:
             worker = Process(
-                target=CreatePDF.process,
+                target=CreatePDF._process,
                 args=(
                     os.path.join(book_directory, file.name),
                     file.name,
-                    self.queue,
+                    self._queue,
                 ),
             )
             worker.start()
-            self.workers.append(worker)
+            self._workers.append(worker)
 
-    def preview_and_page_handler(self, download_directory: str, name: str) -> None:
+    def _preview_and_page_handler(self, download_directory: str, name: str) -> None:
         """Preview and Page handler, create PDF files.
 
         Args:
@@ -109,23 +111,23 @@ class CreatePDF:
 
     def create_pdf(self) -> None:
         """Create PDF."""
-        listener = Process(target=logger_listener, args=(__name__, self.queue))
+        listener = Process(target=logger_listener, args=(__name__, self._queue))
         listener.start()
-        for link in self.links:
+        for link in self._links:
             match link.original_type:
                 case "book":
-                    self.book_handler(
-                        book_directory=os.path.join(self.download_directory, link.name),
+                    self._book_handler(
+                        book_directory=os.path.join(self._download_directory, link.name),
                         link=link,
                     )
                 case "preview" | "page":
-                    self.preview_and_page_handler(
-                        download_directory=os.path.join(self.download_directory, link.files[0].name),
+                    self._preview_and_page_handler(
+                        download_directory=os.path.join(self._download_directory, link.files[0].name),
                         name=link.files[0].name,
                     )
                 case _:
                     pass
-        for worker in self.workers:
+        for worker in self._workers:
             worker.join()
-        self.queue.put_nowait(None)
+        self._queue.put_nowait(None)
         listener.join()

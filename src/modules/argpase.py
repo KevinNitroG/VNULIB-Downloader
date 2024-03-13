@@ -9,7 +9,7 @@ def setup_argparse() -> Namespace:
     """Parse the arguments.
 
     Returns:
-        - Namespace: The parsed arguments.
+        Namespace: The parsed arguments.
     """
     parser = ArgumentParser()
     parser.add_argument("--username", "-u", type=str, help="Your VNULIB username")

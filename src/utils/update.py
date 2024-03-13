@@ -14,10 +14,10 @@ def getVersionsFromRepository(repo_url: str = REPOSITORY_URL) -> list[str]:
     """Get versions from repository exclude beta versions
 
     Args:
-        - repo_url (str) = REPOSITORY_URL: Repository URL
+        repo_url (str) = REPOSITORY_URL: Repository URL
 
     Returns:
-        - list[str]: List of versions
+        list[str]: List of versions
     """
     api_url: str = 'https://api.github.com/repos/' + \
         REPOSITORY_URL.split('/')[-2] + REPOSITORY_URL.split('/')[-1] + '/tags'
@@ -35,11 +35,11 @@ def compareVersion(version: str, to_compare_version: str) -> int:
     """Compare two versions
 
     Args:
-        - version (str): Version to compare
-        - to_compare_version (str): Version to be compared
+        version (str): Version to compare
+        to_compare_version (str): Version to be compared
 
         Returns:
-            - int: 1 if version > to_compare_version, -1 if version < to_compare_version, 0 if version == to_compare_version"""
+            int: 1 if version > to_compare_version, -1 if version < to_compare_version, 0 if version == to_compare_version"""
     extracted_version: list[str] = version.split('.')
     extracted_to_compare_version: list[str] = to_compare_version.split('.')
     for i in range(len(version)):
@@ -54,11 +54,11 @@ def checkNeedToUpdate(current_version: str, VERSIONS: list[str]) -> bool:
     """Check if it needs to update the tool or not
 
     Args:
-        - current_version (str): Current version
-        - VERSIONS (list[str]): List of versions from repository
+        current_version (str): Current version
+        VERSIONS (list[str]): List of versions from repository
 
     Returns:
-        - bool: True if it needs to update the tool, False if not
+        bool: True if it needs to update the tool, False if not
     """
     if 'beta' in current_version:
         for version in [version for version in VERSIONS if 'beta' in version]:
@@ -93,10 +93,10 @@ def updateTheTool() -> None:
     """Update thee tool function
 
     Args:
-        - None
+        None
 
     Returns:
-        - None
+        None
     """
     versions: list[str] = getVersionsFromRepository(
         repo_url=REPOSITORY_URL)

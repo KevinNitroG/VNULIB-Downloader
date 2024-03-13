@@ -83,3 +83,4 @@ repos:
     rev: "2.7.3"
     hooks:
       - id: editorconfig-checker
+        exclude: "^(docs/README.md)"

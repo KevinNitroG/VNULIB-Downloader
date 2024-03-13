@@ -5,8 +5,10 @@
 *toml text eol=crlf
 *json text eol=crlf
 *txt text eol=crlf
+*md text eol=crlf
 
 restyled.yml text eol=lf
 .whitesource text eol=lf
 setup.cfg text eol=crlf
 renovate.json text eol=lf
+**/.editorconfig text eol=crlf

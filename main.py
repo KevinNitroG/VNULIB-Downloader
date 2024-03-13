@@ -43,36 +43,22 @@ def main() -> None:
     user_options.setup()
 
     print_title("PARSE LINKS")
-    link_parse = LinkParse(links=user_options.links)
-    user_options.links = link_parse.parse()
-    if link_parse.need_to_process:
+    link_parser = LinkParse(links=user_options.links)
+    link_parser.parse()
+    user_options.links = link_parser.links
+    if link_parser.need_to_process:
         logger.info("There is / are some link(s) need to be processed")
         print_title("PROCESS LINKS")
-        with Browser(
-            browser=user_options.browser,
-            headless=user_options.headless,
-            timeout=user_options.timeout,
-        ) as driver:
-            Login(
-                driver=driver,
-                username=user_options.username,
-                password=user_options.password,
-                timeout=user_options.timeout,
-            ).login()
-            user_options.links = Action(
-                timeout=user_options.timeout,
-                driver=driver,
-                links=user_options.links,
-            ).action()
-    logger.debug(msg=f"LINKS OBJECT:\n{pformat(user_options.links)}")
+        with Browser(browser=user_options.browser, headless=user_options.headless, timeout=user_options.timeout) as driver:
+            Login(driver=driver, username=user_options.username, password=user_options.password, timeout=user_options.timeout).login()
+            bot_action = Action(timeout=user_options.timeout, driver=driver, links=user_options.links)
+            bot_action.run()
+            user_options.links = bot_action.links
+    logger.debug("LINKS OBJECT:\n%s", pformat(user_options.links))
 
     print_title("DOWNLOAD")
     create_directory(DOWNLOAD_DIR, force=False)
-    DownloadIMG(
-        links=user_options.links,
-        download_directory=DOWNLOAD_DIR,
-        timeout=user_options.timeout,
-    ).dowload()
+    DownloadIMG(links=user_options.links, download_directory=DOWNLOAD_DIR, timeout=user_options.timeout).dowload()
 
     if user_options.create_pdf:
         print_title("PDF")

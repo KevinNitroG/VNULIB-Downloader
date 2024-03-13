@@ -14,40 +14,39 @@ from ..utils.utils import datetime_name
 logger = getLogger(__name__)
 
 
-PATTERN_BOOK = re_compile(r"^https?:\/\/ir\.vnulib\.edu\.vn\/handle\/VNUHCM\/\d+$")
-PATTERN_PREVIEW = re_compile(r"^https?:\/\/ir\.vnulib\.edu\.vn\/flowpaper\/(simple_document\.php)?\?(?=.*\bbitsid=[^&]+\b).*$")
-PATTERN_PAGE = re_compile(r"https?:\/\/ir\.vnulib\.edu\.vn\/flowpaper\/services\/view\.php\?(?=.*\bdoc=\d*\b)(?=.*\bformat=jpg&\b)(?=.*\bsubfolder=[^&]+\b).*$")
-
-
 class LinkParse:
-    """Parse links to categorise and remove invalid links.
+    """Parse links to categorise and remove invalid links."""
 
-    Args:
-        - links (list[Links]): List of links to parse.
-    """
+    _PATTERN_BOOK = re_compile(r"^https?:\/\/ir\.vnulib\.edu\.vn\/handle\/VNUHCM\/\d+$")
+    _PATTERN_PREVIEW = re_compile(r"^https?:\/\/ir\.vnulib\.edu\.vn\/flowpaper\/(simple_document\.php)?\?(?=.*\bbitsid=[^&]+\b).*$")
+    _PATTERN_PAGE = re_compile(r"https?:\/\/ir\.vnulib\.edu\.vn\/flowpaper\/services\/view\.php\?(?=.*\bdoc=\d*\b)(?=.*\bformat=jpg&\b)(?=.*\bsubfolder=[^&]+\b).*$")
 
     def __init__(self, links: list[Link]) -> None:
+        """Initialise for LinkParse class.
+
+        Args:
+            links (list[Links]): List of links to parse.
+        """
         self.links: list[Link] = links
         self.need_to_process: bool = False
 
-    @staticmethod
-    def categorise(link: str) -> str:
+    def _categorise(self, link: str) -> str:
         """Categorise the links using regex.
 
         Args:
-            - link (str): Link to categorise.
+            link (str): Link to categorise.
 
         Returns:
-            - str: ``book``, ``preview``, ``page`` or empty string.
+            str: ``book``, ``preview``, ``page`` or empty string.
         """
-        if re_search(PATTERN_BOOK, link):
+        if re_search(self._PATTERN_BOOK, link):
             return "book"
-        if re_search(PATTERN_PREVIEW, link):
+        if re_search(self._PATTERN_PREVIEW, link):
             return "preview"
-        return "page" if re_search(PATTERN_PAGE, link) else ""
+        return "page" if re_search(self._PATTERN_PAGE, link) else ""
 
     @staticmethod
-    def __get_page_num_from_page_query(link: str) -> int:
+    def _get_page_num_from_page_query(link: str) -> int:
         """Get limit number of pages from page query (use for ``page`` link).
 
         Args:
@@ -64,14 +63,14 @@ class LinkParse:
         return -1
 
     @staticmethod
-    def remove_page_query(link: str) -> str:
+    def _remove_page_query(link: str) -> str:
         """Parse the link to remove ``page`` query.
 
         Args:
-            - link (str): Link to parse.
+            link (str): Link to parse.
 
         Returns:
-            - str: Parsed link without ``page`` query.
+            str: Parsed link without ``page`` query.
         """
         parser = urlparse(link)
         query = parse_qs(parser.query)
@@ -90,30 +89,28 @@ class LinkParse:
         return parsed_url
 
     @staticmethod
-    def process_page(link: Link) -> Link:
+    def _page_handler(link: Link) -> Link:
         """Process ``page`` link handler.
 
         Args:
-            - link (Link): Current link page object.
+            link (Link): Current link page object.
 
         Returns:
-            - Link: Processed link page object.
+            Link: Processed link page object.
         """
         link.original_type = "page"
-        page_link: str = LinkParse.remove_page_query(link=link.original_link)
-        num_pages: int = LinkParse.__get_page_num_from_page_query(link=link.original_link)
+        page_link: str = LinkParse._remove_page_query(link=link.original_link)
+        num_pages: int = LinkParse._get_page_num_from_page_query(link=link.original_link)
         link.files = [LinkFile(page_link=page_link, num_pages=num_pages, name=datetime_name())]
         return link
 
-    def parse(self) -> list[Link]:
-        """Categorise links, remvoe invalid links, pre-set for ``page`` type links.
-
-        Returns:
-        - list[Links]: List of parsed links object.
+    def parse(self) -> None:
+        """Categorise links, remove invalid links, pre-set for ``page`` type links.
+        Then it will replace the link in object.
         """
         modified_links: list[Link] = []
         for link in self.links:
-            link_type: str = self.categorise(link.original_link)
+            link_type: str = self._categorise(link.original_link)
             match link_type:
                 case "book":
                     self.need_to_process = True
@@ -124,10 +121,10 @@ class LinkParse:
                     link.original_type = "preview"
                     modified_links.append(link)
                 case "page":
-                    link = self.process_page(link)
+                    link = self._page_handler(link)
                     modified_links.append(link)
-                    logger.info(msg=f'"{link.original_link}": "page" - "{link.files[0].num_pages}" page(s)')
+                    logger.info('"%s": "page" "%s" page(s)', link.original_link, link.files[0].num_pages)
                     sleep(0.1)  # Sleep to avoid same folder name in any case
                 case _:
-                    logger.warning(msg=f'"{link.original_link}": Unknown link type')
-        return modified_links
+                    logger.warning('"%s": Unknown link type', link.original_link)
+        self.links = modified_links

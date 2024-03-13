@@ -267,7 +267,6 @@ python main.py
 
 ## 📓 TODO
 
-- [ ] Logging to file check ⚠️ due to `RotatingFileHandler` on Windows
 - [ ] Support more browsers _(inherited from which class?)_
 - [ ] Options to enable Multithreading, Multiprocessing
 - [ ] Update tool option using command line arguments
