@@ -17,5 +17,5 @@ name = "secrets"
 [[analyzers]]
 name = "shell"
 
-[[transformers]]
-name = "ruff"
+# [[transformers]]
+# name = "ruff"
