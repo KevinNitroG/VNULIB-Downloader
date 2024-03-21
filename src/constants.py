@@ -10,7 +10,7 @@ else:
     BUNDLE_DIR = ""
 
 
-VERSION: str = "1.16.1-beta"
+VERSION: str = "1.16"
 AUTHORS: str = "KevinNitroG & NTGNguyen"
 BANNER_FILE: str = f"{BUNDLE_DIR}assets/utils/ascii_banner.txt"
 with open(BANNER_FILE, encoding="utf-8") as banner_content:

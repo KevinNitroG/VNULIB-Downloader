@@ -18,16 +18,19 @@ logger = getLogger(__name__)
 
 
 def delete_old_meipass(time_threshold=3600) -> None:  # Default setting: Remove after 1 hour, time_threshold in seconds
-    """Clean old _MEIPASS folder (Windows only I think).
+    """Clean old _MEI folder (Windows only I think).
+    But usually _MEI folder is deleted when program stops.
+    This function use just in case ...
     This code is from: https://stackoverflow.com/a/61909248/23173098
 
     Args:
-        time_threshold (int, optional): Delete old _MEIPASS older than time_threshold (s). Defaults to 3600.
+        time_threshold (int, optional): Delete old _MEI folders older than time_threshold (s). Defaults to 3600.
     """
     try:
         base_path = sys._MEIPASS  # type: ignore # skipcq: PYL-W0212 # pylint: disable=protected-access # nopep8
-    except Exception:
-        logger.debug("No MEIPASS found")
+        logger.debug("Running in freeze mode")
+    except AttributeError:
+        logger.debug("Not in freeze mode so cannot retrieve _MEIPASS attribute")
         return  # Not being ran as OneFile Folder -> Return
     temp_path = path.abspath(path.join(base_path, ".."))  # Go to parent folder of MEIPASS
     # Search all MEIPASS folders...
