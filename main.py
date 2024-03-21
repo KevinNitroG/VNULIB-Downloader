@@ -20,6 +20,7 @@ from src import (
     Login,
     PrintIntro,
     UserOptions,
+    delete_old_meipass,
     create_directory,
     pause,
     print_title,
@@ -27,13 +28,10 @@ from src import (
 from src.constants import DOWNLOAD_DIR
 
 
-ToolLogger().setup()
-urllib3_disable_warnings(InsecureRequestWarning)
-
-
 def main() -> None:
     """Main function to run VNULIB Downloader."""
     logger: Logger = getLogger(__name__)
+    delete_old_meipass(time_threshold=300)
 
     PrintIntro()
 
@@ -73,5 +71,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    freeze_support()  # For pyinstaller to fix multiprocessing in Windows
+    freeze_support()  # For pyinstaller to fix multiprocessing in Windows due to freeze scheme
+    ToolLogger().setup()
+    urllib3_disable_warnings(InsecureRequestWarning)
     main()

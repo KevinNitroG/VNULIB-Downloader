@@ -3,8 +3,11 @@
 from __future__ import annotations
 
 import re
+import sys
 import unicodedata
+from glob import glob
 from datetime import datetime
+from time import time
 from os import makedirs, path
 from shutil import rmtree
 from logging import getLogger
@@ -12,6 +15,27 @@ from ..constants import USER_INPUT_YES
 
 
 logger = getLogger(__name__)
+
+
+def delete_old_meipass(time_threshold=3600) -> None:  # Default setting: Remove after 1 hour, time_threshold in seconds
+    """Clean old _MEIPASS folder (Windows only I think).
+    This code is from: https://stackoverflow.com/a/61909248/23173098
+
+    Args:
+        time_threshold (int, optional): Delete old _MEIPASS older than time_threshold (s). Defaults to 3600.
+    """
+    try:
+        base_path = sys._MEIPASS  # type: ignore # skipcq: PYL-W0212 # pylint: disable=protected-access # nopep8
+    except Exception:
+        logger.debug("No MEIPASS found")
+        return  # Not being ran as OneFile Folder -> Return
+    temp_path = path.abspath(path.join(base_path, ".."))  # Go to parent folder of MEIPASS
+    # Search all MEIPASS folders...
+    mei_folders = glob(path.join(temp_path, "_MEI*"))
+    for item in mei_folders:
+        if (time() - path.getctime(item)) > time_threshold:
+            rmtree(item)
+            logger.debug("Deleted: %s", item)
 
 
 def pause() -> None:

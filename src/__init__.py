@@ -18,4 +18,5 @@ from .utils import (
     create_directory,
     pause,
     print_title,
+    delete_old_meipass,
 )
