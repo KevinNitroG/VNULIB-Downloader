@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD009 MD013 MD028 MD033 MD031 -->
+
 # ✨ VNULIB DOWNLOADER ✨
 
 <pre align="center">
@@ -21,7 +23,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 <div>
   <a href="../../commits/main"><img src="https://img.shields.io/github/last-commit/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=f4dbd6" alt="GitHub last commit (by committer)"></a>
   <img alt="Lines of code" src="https://img.shields.io/tokei/lines/github/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=f0c6c6">
-  <img src="https://img.shields.io/github/repo-size/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=f5bde6" alt="GitHub repo size">
+<img src="https://img.shields.io/github/repo-size/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=f5bde6" alt="GitHub repo size">
   <a href="../../graphs/contributors"><img src="https://img.shields.io/github/contributors/KevinNitroG/VNULIB-Downloader?style=for-the-badge&color=c6a0f6" alt="GitHub contributors"></a>
   <img src="https://hits.sh/github.com/KevinNitroG/VNULIB-Downloader.svg?view=today-total&style=for-the-badge&label=hits" alt="Hit">
   <br>
@@ -77,7 +79,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ## 🎆 CHỨC NĂNG
 
 - Tải sách _(có thể đọc preview online)_ trên [VNULIB](https://vnulib.edu.vn/) _(HCM)_
-  > Ví dụ: https://ir.vnulib.edu.vn/handle/VNUHCM/8108
+  > Ví dụ: [https://ir.vnulib.edu.vn/handle/VNUHCM/8108]([https://ir.vnulib.edu.vn/handle/VNUHCM/8108)
 - Hỗ trợ link: `book`, `preview`, `page` [<sup>?</sup>](#giải-thích-thuật-ngữ)
 - Hỗ trợ tải nhiều sách _(lần lượt từng sách)_
 - Tải sách - Multithreading[<sup>?</sup>](#giải-thích-thuật-ngữ)
@@ -188,40 +190,41 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ### 🤐 Python
 
 1. Install [Python](https://www.python.org/downloads/)
-
 2. Clone repo
-
-```.ps1
-git clone "https://github.com/KevinNitroG/VNULIB-Downloader" --depth 1
-```
-
+   ```.ps1
+   git clone "https://github.com/KevinNitroG/VNULIB-Downloader" --depth 1
+   ```
 3. Create virtual environment _(optional)_
 
-```.ps1
-# Create virtual environment
-python -m venv .venv
-
-# Active virtual environment
-# For Windows
-myenv\Scripts\activate
-# For Mac / Linux
-source .env/bin/activate
-
-# Deactive virtual environment
-deactivate
-```
+   - Create virtual environment
+     ```.ps1
+     python -m venv .venv
+     ```
+   - Active virtual environment
+     - For Windows
+       ```.ps1
+       myenv\Scripts\activate
+       ```
+     - For Mac / Linux
+       ```.sh
+       source .env/bin/activate
+       ```
+   - Deactive virtual environment
+     ```.sh
+     deactivate
+     ```
 
 4. Install requirements
 
-```ps1
-pip install -r requirements/requirements.txt
-```
+   ```ps1
+   pip install -r requirements/requirements.txt
+   ```
 
 5. Run tool
 
-```ps1
-python main.py
-```
+   ```ps1
+   python main.py
+   ```
 
 > [!NOTE]
 >
@@ -238,10 +241,10 @@ python main.py
 | `book`               | Link của sách                                                       | `https://ir.vnulib.edu.vn/handle/VNUHCM/8108`                                                                                                                                                                                                                                                            |
 | `preview`            | Preview link của sách                                               | `https://ir.vnulib.edu.vn/flowpaper/?bitsid=4e5aa1b6-d1fb-4478-9740-ad9a8558ee62`<br>or<br>`https://ir.vnulib.edu.vn/flowpaper/simple_document.php?subfolder=69/37/45/&doc=69374546227582323703697992942653251709&bitsid=4e5aa1b6-d1fb-4478-9740-ad9a8558ee62&uid=63a80468-b67g-4ab0-855b-f4df246b123iy` |
 | `page`               | Link ảnh của 1 trang sách                                           | `https://ir.vnulib.edu.vn/flowpaper/services/view.php?doc=69374546227582323703697992942653251709&format=jpg&page=1&subfolder=69/37/45/`                                                                                                                                                                  |
-| `Selenium Webdriver` | Hỗ trợ automation bằng trình duyệt                                  |
-| `headless`           | Khi chạy trình duyệt sẽ không hiện ra thành cửa sổ, chỉ ẩn dưới nền |
-| `Multithreading`     | Đa luồng                                                            |
-| `Multiprocessing`    | Đa xử lý                                                            |
+| `Selenium Webdriver` | Hỗ trợ automation bằng trình duyệt                                  | -                                                                                                                                                                                                                                                                                                        |
+| `headless`           | Khi chạy trình duyệt sẽ không hiện ra thành cửa sổ, chỉ ẩn dưới nền | -                                                                                                                                                                                                                                                                                                        |
+| `Multithreading`     | Đa luồng                                                            | -                                                                                                                                                                                                                                                                                                        |
+| `Multiprocessing`    | Đa xử lý                                                            | -                                                                                                                                                                                                                                                                                                        |
 
 > [!NOTE]
 >
@@ -303,3 +306,6 @@ Dự án không dưới quyền [VNULIB](https://vnulib.edu.vn/) hay bất kì t
     <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=KevinNitroG/VNULIB-Downloader&type=Timeline" />
   </picture>
 </a>
+
+<!-- markdownlint-disable MD012 -->
+
