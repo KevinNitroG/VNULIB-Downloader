@@ -2,7 +2,7 @@ ci:
   autoupdate_schedule: weekly
   autofix_commit_msg: "🐛 fix: pre-commit auto fix"
   autofix_prs: true
-  autoupdate_commit_msg: "🔧 chore: pre-commit auto update"
+  autoupdate_commit_msg: "🔧 chore (deps): pre-commit auto update dependencies"
 
 exclude: ^(src/utils/update.py)
 
@@ -60,18 +60,16 @@ repos:
     hooks:
       - id: yesqa
 
-  # - repo: https://github.com/psf/black
-  #   rev: 24.2.0
-  #   hooks:
-  #     - id: black
-
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.3.5
     hooks:
-      # Run the linter.
-      # - id: ruff
-      # Run the formatter.
+      - id: ruff
       - id: ruff-format
+
+  # - repo: https://github.com/PyCQA/isort
+  #   rev: "5.13.2"
+  #   hooks:
+  #     - id: isort
 
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v4.0.0-alpha.8

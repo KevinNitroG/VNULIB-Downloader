@@ -6,5 +6,11 @@ extend-exclude = ["src/utils/update.py"]
 [tool.ruff.format]
 docstring-code-format = true
 
+[tool.ruff.lint]
+select = ["I"]
+
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+
+[tool.ruff.lint.isort]
+required-imports = ["from __future__ import annotations"]

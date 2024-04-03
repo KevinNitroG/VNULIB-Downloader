@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from os import get_terminal_size
+
 from print_color.print_color import print as print_color
 
 

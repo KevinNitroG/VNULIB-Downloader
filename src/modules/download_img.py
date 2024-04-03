@@ -7,16 +7,17 @@ import sys
 import threading
 from concurrent.futures import ThreadPoolExecutor
 from itertools import count
-from typing import override, Callable
 from logging import getLogger
+from typing import Callable, override
+
 import requests
-from requests.sessions import Session
-from requests import Response
 from alive_progress import alive_bar
-from .link_parse import Link, LinkFile
+from requests import Response
+from requests.sessions import Session
+
 from ..constants import ERROR_PAGE_IMAGE_PATH
 from ..utils import create_directory
-
+from .link_parse import Link, LinkFile
 
 logger = getLogger(__name__)
 

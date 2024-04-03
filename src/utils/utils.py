@@ -5,14 +5,14 @@ from __future__ import annotations
 import re
 import sys
 import unicodedata
-from glob import glob
 from datetime import datetime
-from time import time
+from glob import glob
+from logging import getLogger
 from os import makedirs, path
 from shutil import rmtree
-from logging import getLogger
-from ..constants import USER_INPUT_YES
+from time import time
 
+from ..constants import USER_INPUT_YES
 
 logger = getLogger(__name__)
 

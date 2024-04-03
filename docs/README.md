@@ -41,7 +41,6 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   <img src="https://img.shields.io/badge/-selenium-%43B02A?style=for-the-badge&logo=selenium&logoColor=white" alt="Selenium">
   <img src="https://img.shields.io/badge/pre--commit-FAB040.svg?style=for-the-badge&logo=precommit&logoColor=white" alt="Pre-commit">
   <img src="https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white" alt="GitHub Actions">
-  <img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="Visual Studio Code">
   <br>
   <br>
   <a href="../../../releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/KevinNitroG/VNULIB-Downloader?sort=date&display_name=tag&style=for-the-badge&color=eed49f"></a>
@@ -254,13 +253,14 @@ python main.py
 ## 👨‍💻 DEVELOP / CONTRIBUTE
 
 - Python:
-  - [`ruff`](https://docs.astral.sh/ruff/formatter/) - Ruff Formatter
+  - [`ruff`](https://docs.astral.sh/ruff/formatter/) - Ruff Formatter & Linter
+  - [`isort`](https://pycqa.github.io/isort/) - Isort formatter
   - [`black`](https://github.com/psf/black) - Black Formatter _(alternatives)_
   - Docstring: Google format
     - [Ex 1](https://github.com/NilsJPWerner/autoDocstring/blob/master/docs/google.md#google-docstring-format)
     - [Ex 2](https://gist.github.com/Raxy45/98de280aec506e7168cbb5955242ec3f/#file-google_docstrings)
   - Package manager: Pip - Need specific version
-  - Linter: [Pylance](vscode:extension/ms-python.vscode-pylance) / Pylint
+  - Linter: [Pylance](vscode:extension/ms-python.vscode-pylance) / Pylint / Pyright
 - [Prettier](https://prettier.io/)
 
 ---

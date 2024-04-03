@@ -2,29 +2,14 @@
 
 from __future__ import annotations
 
-
-from pprint import pformat
+from logging import Logger, getLogger
 from multiprocessing import freeze_support
-from logging import getLogger, Logger
+from pprint import pformat
+
 from urllib3 import disable_warnings as urllib3_disable_warnings
 from urllib3.exceptions import InsecureRequestWarning
-from src import (
-    ToolLogger,
-    Action,
-    Browser,
-    Config,
-    CreatePDF,
-    CleanIMG,
-    DownloadIMG,
-    LinkParse,
-    Login,
-    PrintIntro,
-    UserOptions,
-    delete_old_meipass,
-    create_directory,
-    pause,
-    print_title,
-)
+
+from src import Action, Browser, CleanIMG, Config, CreatePDF, DownloadIMG, LinkParse, Login, PrintIntro, ToolLogger, UserOptions, create_directory, delete_old_meipass, pause, print_title
 from src.constants import DOWNLOAD_DIR
 
 

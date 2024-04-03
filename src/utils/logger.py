@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
-from logging import Logger, getLogger, DEBUG, WARNING
+from logging import DEBUG, WARNING, Logger, getLogger
 from logging.config import dictConfig
 from logging.handlers import QueueHandler
 from multiprocessing import Queue
-from os import makedirs, path, environ as os_environ
+from os import environ as os_environ
+from os import makedirs, path
+
 from yaml import safe_load
+
 from src.constants import LOGGING_CONFIG_FILE_PATH, LOGGING_PATH
 
 

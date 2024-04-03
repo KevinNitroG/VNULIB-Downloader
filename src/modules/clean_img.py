@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import os
 from logging import getLogger
-from .link_parse import Link
 
+from .link_parse import Link
 
 logger = getLogger(__name__)
 

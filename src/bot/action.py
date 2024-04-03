@@ -4,15 +4,16 @@ Book website -> Book preview -> Book page link.
 
 from __future__ import annotations
 
-from urllib.parse import parse_qs, urlparse
 from logging import getLogger
+from urllib.parse import parse_qs, urlparse
+
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from .utils import wait_element_visible
+
 from ..modules import Link, LinkFile
 from ..utils import datetime_name, slugify
-
+from .utils import wait_element_visible
 
 logger = getLogger(__name__)
 

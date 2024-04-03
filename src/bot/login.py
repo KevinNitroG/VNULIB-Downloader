@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 from logging import getLogger
+
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from .utils import wait_element_clickable
-from ..constants import LOGIN_URL
 
+from ..constants import LOGIN_URL
+from .utils import wait_element_clickable
 
 logger = getLogger(__name__)
 

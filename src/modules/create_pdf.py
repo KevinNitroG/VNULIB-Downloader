@@ -6,11 +6,13 @@ Reference modern logging: https://www.youtube.com/watch?v=9L77QExPmI0
 from __future__ import annotations
 
 import os
-from multiprocessing import Queue, Process
 from logging import Logger
+from multiprocessing import Process, Queue
+
 import img2pdf
-from .link_parse import Link
+
 from ..utils import get_subprocess_logger, logger_listener
+from .link_parse import Link
 
 
 class CreatePDF:
