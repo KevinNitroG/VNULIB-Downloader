@@ -8,24 +8,14 @@ indent_style = space
 charset = utf-8
 insert_final_newline = true
 trim_trailing_whitespace = true
+end_of_line = lf
 
 [*.py]
-end_of_line = crlf
 tab_width = 4
 
 [*.{js,ts,tsx,json,yml,yaml,toml,md}]
 indent_size = 2
 tab_width = 2
 
-[*.sh]
-end_of_line = lf
-
 [.whitesource]
-end_of_line = lf
 indent_size = 2
-
-[restyled.yml]
-end_of_line = lf
-
-[renovate.json]
-end_of_line = lf

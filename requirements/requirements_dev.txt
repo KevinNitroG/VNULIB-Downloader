@@ -2,3 +2,4 @@
 -r requirements.txt
 
 editorconfig-checker==2.7.3
+pre-commit==3.7.0

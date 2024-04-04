@@ -203,11 +203,11 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
    - Active virtual environment
      - For Windows
        ```.ps1
-       myenv\Scripts\activate
+       .venv\Scripts\activate
        ```
      - For Mac / Linux
        ```.sh
-       source .env/bin/activate
+       source .venv/bin/activate
        ```
    - Deactive virtual environment
      ```.sh
@@ -308,4 +308,3 @@ Dự án không dưới quyền [VNULIB](https://vnulib.edu.vn/) hay bất kì t
 </a>
 
 <!-- markdownlint-disable MD012 -->
-
