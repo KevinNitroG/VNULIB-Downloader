@@ -135,7 +135,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 >
 > - Ảnh và sách sẽ được tải về `./Downloads/`
 > - Kiểm tra log tại `./log/`
-> - Trong quá trình tải ảnh của sách, nếu quá thời gian `TIMEOUT` thì trang sẽ huỷ tải, thay bằng ảnh [error](../asset/image/error_page.jpg)
+> - Trong quá trình tải ảnh của sách, nếu quá thời gian `TIMEOUT` thì trang sẽ huỷ tải, thay bằng ảnh [error](../assets/images/error_page.jpg)
 
 > [!TIP]
 >

@@ -23,6 +23,7 @@ repos:
       - id: trailing-whitespace
         exclude: "^(docs/README.md|src/constants.py|assets/utils/ascii_banner.txt)"
       - id: end-of-file-fixer
+        exclude: "^(docs/README.md)"
       - id: debug-statements
       # - id: double-quote-string-fixer
       - id: name-tests-test
