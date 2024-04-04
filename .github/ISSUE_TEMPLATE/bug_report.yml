@@ -23,12 +23,11 @@ body:
       options:
         - label: Windows
         - label: macOS
-        - label: Linux
-        - label: Khác
+        - label: Linux / Khác
   - type: textarea
     id: other-os
     attributes:
-      label: 🖥️ Hệ điều hành khác
+      label: 🖥️ Linux distro / Hệ điều hành khác
       description: |
         Nếu bạn chọn "Khác" ở trên, hãy điền tên hệ điều hành bạn đang sử dụng
       placeholder: "Ví dụ: Ubuntu, Arch Linux, Manjaro, Cục gạch Nokia..."
@@ -39,6 +38,8 @@ body:
     attributes:
       label: 💁‍♂️ Python version
       description: Phiên bản python bạn đang sử dụng
+    validations:
+      required: false
   - type: textarea
     id: note
     attributes:
