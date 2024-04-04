@@ -1,14 +1,17 @@
-*py text eol=crlf
+*py text eol=lf
 *sh text eol=lf
-*yml text eol=crlf
-*yaml text eol=crlf
-*toml text eol=crlf
-*json text eol=crlf
-*txt text eol=crlf
-*md text eol=crlf
+*yml text eol=lf
+*yaml text eol=lf
+*toml text eol=lf
+*json text eol=lf
+*txt text eol=lf
+*md text eol=lf
 
-restyled.yml text eol=lf
+.gitignore text eolf=lf
+.gitattributes text eol=lf
 .whitesource text eol=lf
-setup.cfg text eol=crlf
+setup.cfg text eol=lf
 renovate.json text eol=lf
-**/.editorconfig text eol=crlf
+**/.editorconfig text eol=lf
+.pylintrc text eol=lf
+LICENSE text eol=lf
