@@ -55,8 +55,10 @@ def main() -> None:
     pause()
 
 
+ToolLogger().setup()
+
+
 if __name__ == "__main__":
     freeze_support()  # For pyinstaller to fix multiprocessing in Windows due to freeze scheme
-    ToolLogger().setup()
     urllib3_disable_warnings(InsecureRequestWarning)
     main()
