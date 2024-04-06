@@ -10,7 +10,6 @@ from logging import Logger
 from multiprocessing import Process, Queue
 
 import img2pdf
-from PIL import UnidentifiedImageError
 
 from ..utils import get_subprocess_logger, logger_listener
 from .link_parse import Link
@@ -62,8 +61,8 @@ class CreatePDF:
             return
         try:
             pdf_file: bytes | None = img2pdf.convert(files)
-        except UnidentifiedImageError as _e:
-            logger.error("Failed to create PDF: %s - Image type isn't supported", pdf_file_name)
+        except img2pdf.ImageOpenError as _e:
+            logger.error('Failed to create PDF: "%s" - Image open error (may due to unsupported image type)', pdf_file_name)
             logger.debug(_e)
             return
         if pdf_file is not None:
