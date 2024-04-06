@@ -44,9 +44,6 @@ restylers_version: stable
 
 restylers:
   - "*"
-  - name: black # Not yet support for ruff so I use black .-.
-    include:
-      - "**/*.py"
-      - "main.py"
+  - "!black"
   - "!autopep8"
   - "!pyment"
