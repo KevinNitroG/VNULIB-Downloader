@@ -59,7 +59,11 @@ class CreatePDF:
         files: list[str] = [os.path.join(directory, item) for item in os.listdir(directory)]
         if CreatePDF.check_already_has_pdf(files):
             return
-        pdf_file: bytes | None = img2pdf.convert(files)
+        try:
+            pdf_file: bytes | None = img2pdf.convert(files)
+        except img2pdf.ImageOpenError as _e:
+            logger.error(_e)
+            return
         if pdf_file is not None:
             with open(pdf_file_name, "wb") as f:
                 f.write(pdf_file)

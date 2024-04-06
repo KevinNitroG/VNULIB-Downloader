@@ -8,7 +8,7 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 from itertools import count
 from logging import getLogger
-from typing import Callable, override
+from typing import Callable
 
 import requests
 from alive_progress import alive_bar
@@ -98,7 +98,6 @@ class _SingleThreadDownload(_DownloadCore):
         """
         return requests.Session()
 
-    @override
     def _get_images_bytes(self, link: str, page: str) -> bytes:
         """Get image's bytes, check valid page first.
 

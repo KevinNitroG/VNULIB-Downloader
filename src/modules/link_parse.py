@@ -123,7 +123,8 @@ class LinkParse:
                 case "page":
                     link = self._page_handler(link)
                     modified_links.append(link)
-                    logger.info('"%s": "page" "%s" page(s)', link.original_link, link.files[0].num_pages)
+                    num_pages: str = f'"{link.files[0].num_pages}" page(s)' if link.files[0].num_pages != -1 else "no limit"
+                    logger.info('"%s": "page" - %s', link.original_link, num_pages)
                     sleep(0.1)  # Sleep to avoid same folder name in any case
                 case _:
                     logger.warning('"%s": Unknown link type', link.original_link)
