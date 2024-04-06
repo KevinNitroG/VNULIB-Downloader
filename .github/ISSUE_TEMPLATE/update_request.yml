@@ -1,28 +1,36 @@
-name: 🙏 Update Request
-description: Cập nhật khi website có thay đổi
-title: "🔨 Cập nhật Script khi web VNULIB thay đổi"
+name: 🙏 Update request
+description: Update request when VNULIB changes their schemes.
+title: "🔨 VNULIB schemes update request"
 labels: ["vnulib update"]
 body:
   - type: markdown
     attributes:
       value: |
-        Vui lòng giữ nguyên tiêu đề, không thay đổi ‼️
+        Please keep the title as it is.
+        You can use either Vietnamese or English.
   - type: textarea
     id: update-description
     attributes:
-      label: 🔨 Mô tả cập nhật
+      label: 🔨 Describe the update
       placeholder: |
-        Bạn có thể mô tả cụ thể hơn về sự thay đổi cập nhật này không?
+        Could you describe more about the changed scheme(s)?
     validations:
       required: false
   - type: dropdown
     id: still-working
     attributes:
-      label: 🤥 Script vẫn hoạt động?
+      label: 🤥 Still working?
       description: |
-        Hiện tại version mới nhất vẫn còn hoạt động?
+        Does the latest version of the tool still working properly?
       options:
-        - Co
-        - Cothedeonaoduoc
+        - Yes
+        - No
     validations:
       required: true
+  - type: textarea
+    id: note
+    attributes:
+      label: 📝 Note
+      description: Do you have any notes?
+    validations:
+      required: false

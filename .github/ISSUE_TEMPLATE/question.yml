@@ -1,22 +1,23 @@
 name: ❓ Question
-description: Bạn đang có thắc mắc cần giải đáp?
+description: You have (a) question(s)?
 title: "❓ "
 labels: ["question"]
 body:
   - type: markdown
     attributes:
       value: |
-        Vui lòng giữ emoji "❓" ở tiêu đề
+        Please keep the emoji "❓" in the title.
+        You can use either Vietnamese or English.
   - type: textarea
     id: question-description
     attributes:
-      label: 🤔 Mô tả thắc mắc
+      label: 🤔 Question(s)
     validations:
       required: true
   - type: textarea
     id: note
     attributes:
-      label: 📝 Ghi chú
-      placeholder: Bạn có ghi chú gì thêm không?
+      label: 📝 Note
+      description: Do you have any notes?
     validations:
       required: false

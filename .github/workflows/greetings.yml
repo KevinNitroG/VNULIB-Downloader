@@ -12,5 +12,5 @@ jobs:
       - uses: actions/first-interaction@main
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          issue-message: "Hello. Có thể @KevinNitroG sẽ rep sớm thôi (hoặc không). Chờ tẹo nha 😴"
-          pr-message: "Bro có chắc là nó chạy không mà PR vậy 😶‍🌫️"
+          issue-message: "Hello. @KevinNitroG may reply soon (or not). Please go and a cupatea 😴"
+          pr-message: "Bro hold on. Are you sure it works? 😶‍🌫️"

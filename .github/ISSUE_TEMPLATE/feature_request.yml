@@ -1,23 +1,25 @@
-name: 💫 Feature Request
-description: Đề xuất tính năng
+name: 💫 Feature request
+description: Request new feature
 title: "✨ "
 labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
-        Vui lòng giữ emoji "✨" ở tiêu đề
+        Please keep the emoji "✨" in the title.
+        You can use either Vietnamese or English.
+        Please request 1 feature per issue.
   - type: textarea
     id: feature-description
     attributes:
-      label: 📈 Mô tả tính năng
-      placeholder: Bạn có thể mô tả cụ thể hơn về tính năng này không?
+      label: 📈 Feature description
+      placeholder: Describe the feature
     validations:
       required: true
   - type: textarea
     id: note
     attributes:
-      label: 📝 Ghi chú
-      placeholder: Bạn có ghi chú gì thêm không?
+      label: 📝 Note
+      placeholder: Do you have any notes?
     validations:
       required: false

@@ -1,49 +1,51 @@
-name: 🐞 Bug Report
-description: Bạn đang gặp lỗi 😐
+name: 🐞 Bug report
+description: You are facing issue? 😐
 title: "🐛 "
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Vui lòng giữ emoji "🐛" ở tiêu đề
+        Please keep the emoji "🐛" in the title.
+        You can use either Vietnamese or English.
   - type: textarea
     id: bug-description
     attributes:
-      label: 🐛 Mô tả lỗi
-      placeholder: Bạn gặp lỗi đếch gì voại? 🥱
+      label: 🐛 Bug description
+      placeholder: What bug are you facing 🥱
     validations:
       required: true
   - type: checkboxes
     id: os
     attributes:
-      label: 💻 Hệ điều hành
+      label: 💻 OS
       description: |
-        Chọn hệ điều hành bạn đang sử dụng
+        Choose your OS you are using
       options:
         - label: Windows
         - label: macOS
-        - label: Linux / Khác
+        - label: Linux / Other
   - type: textarea
     id: other-os
     attributes:
-      label: 🖥️ Linux distro / Hệ điều hành khác
+      label: 🖥️ Linux distro / Other
       description: |
-        Nếu bạn chọn "Khác" ở trên, hãy điền tên hệ điều hành bạn đang sử dụng
-      placeholder: "Ví dụ: Ubuntu, Arch Linux, Manjaro, Cục gạch Nokia..."
+        Linux: Which distro are you using?
+        Other: Please fill it in here.
+      placeholder: "Ví dụ: Ubuntu, Arch, Manjaro, ..."
     validations:
       required: false
   - type: textarea
     id: python-version
     attributes:
       label: 💁‍♂️ Python version
-      description: Phiên bản python bạn đang sử dụng
+      description: Python version if you use it as python
     validations:
       required: false
   - type: textarea
     id: note
     attributes:
-      label: 📝 Ghi chú
-      description: Bạn có ghi chú gì thêm không?
+      label: 📝 Note
+      description: Do you have any notes?
     validations:
       required: false
