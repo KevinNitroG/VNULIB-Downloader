@@ -23,8 +23,8 @@ body:
       description: |
         Does the latest version of the tool still working properly?
       options:
-        - Yes
-        - No
+        - "Yes"
+        - "Nope"
     validations:
       required: true
   - type: textarea
