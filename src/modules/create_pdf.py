@@ -62,8 +62,7 @@ class CreatePDF:
         try:
             pdf_file: bytes | None = img2pdf.convert(files)
         except img2pdf.ImageOpenError as _e:
-            logger.error('Failed to create PDF: "%s" - Image open error (may due to unsupported image type)', pdf_file_name)
-            logger.debug(_e)
+            logger.error(_e)
             return
         if pdf_file is not None:
             with open(pdf_file_name, "wb") as f:

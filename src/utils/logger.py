@@ -46,7 +46,9 @@ class ToolLogger:
     def _setup_other_logger() -> None:
         """Disable other loggers and change some loggers."""
         getLogger("img2pdf").disabled = True
-        getLogger("PIL.PngImagePlugin").disabled = True
+        getLogger("PIL.PngImagePlugin").setLevel(WARNING)
+        getLogger("PIL.Image").setLevel(WARNING)
+        getLogger("charset_normalizer").setLevel(WARNING)
         getLogger("urllib3.connectionpool").setLevel(WARNING)
         getLogger("selenium.webdriver.remote.remote_connection").disabled = True
         os_environ["WDM_LOG"] = str(DEBUG)
