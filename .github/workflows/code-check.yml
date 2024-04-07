@@ -39,9 +39,9 @@ jobs:
         if: ${{ always() }}
         run: pre-commit run --all-files
 
-      - name: Update pre-commit hook
-        if: ${{ always() }}
-        run: pre-commit autoupdate
+      # - name: Update pre-commit hook
+      #   if: ${{ always() }}
+      #   run: pre-commit autoupdate
 
       # - uses: stefanzweifel/git-auto-commit-action@master
       #   if: ${{ always() }}
