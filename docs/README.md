@@ -192,7 +192,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 1. Install [Python](https://www.python.org/downloads/)
 2. Clone repo
    ```.ps1
-   git clone "https://github.com/KevinNitroG/VNULIB-Downloader" --depth 1
+   git clone "https://github.com/KevinNitroG/VNULIB-Downloader" --depth 1 --filter=blob:none
    ```
 3. Create virtual environment _(optional)_
 
@@ -255,16 +255,20 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ## 👨‍💻 DEVELOP / CONTRIBUTE
 
-- Python:
-  - [`ruff`](https://docs.astral.sh/ruff/formatter/) - Ruff Formatter & Linter
-  - [`isort`](https://pycqa.github.io/isort/) - Isort formatter
-  - [`black`](https://github.com/psf/black) - Black Formatter _(alternatives)_
-  - Docstring: Google format
-    - [Ex 1](https://github.com/NilsJPWerner/autoDocstring/blob/master/docs/google.md#google-docstring-format)
-    - [Ex 2](https://gist.github.com/Raxy45/98de280aec506e7168cbb5955242ec3f/#file-google_docstrings)
-  - Package manager: Pip - Need specific version
-  - Linter: [Pylance](vscode:extension/ms-python.vscode-pylance) / Pylint / Pyright
-- [Prettier](https://prettier.io/)
+| **TYPE**        | **NAME**          | **NOTE**                                                                                                                                                                                                        |
+| --------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| LSP             | Pylance / Pyright | Use either Pylance or Pyright                                                                                                                                                                                   |
+| Linter          | Ruff              | Include Isort rules                                                                                                                                                                                             |
+| Formatter       | Ruff              | ↑                                                                                                                                                                                                               |
+| Formatter       | Prettier          | -                                                                                                                                                                                                               |
+| Docstring       | Google            | - [Ex 1](https://github.com/NilsJPWerner/autoDocstring/blob/master/docs/google.md#google-docstring-format)<br>- [Ex 2](https://gist.github.com/Raxy45/98de280aec506e7168cbb5955242ec3f/#file-google_docstrings) |
+| Package Manager | Pip               | Need specifying dependencies' versions                                                                                                                                                                          |
+| Commit message  | Gitmoji           | I have messed up the commit messages 🥴                                                                                                                                                                         |
+| End of line     | LF                | -                                                                                                                                                                                                               |
+
+> [!NOTE]
+>
+> Use Google's docstring format with always noting the types of variables even they are in parameters of functions / methods
 
 ---
 
