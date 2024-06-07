@@ -8,6 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.os_manager import ChromeType
 
 from src.constants import BROWSER_ARGUMENTS
 
@@ -42,6 +43,8 @@ class Browser:
         match self._browser.strip():
             case "chrome" | "":
                 self.driver = self._setup_chrome_browser()
+            case "chromium":
+                self.driver = self._setup_chromium_browser()
             case _:
                 self.driver = self._setup_local_chrome_browser()
         self.driver.implicitly_wait(self._timeout)
@@ -68,6 +71,14 @@ class Browser:
             WebDriver: Selenium WebDriver.
         """
         return webdriver.Chrome(options=self._options, service=Service(ChromeDriverManager().install()))
+
+    def _setup_chromium_browser(self) -> WebDriver:
+        """Setup Chromium Browser.
+
+        Returns:
+            WebDriver: Selenium WebDriver.
+        """
+        return webdriver.Chrome(options=self._options, service=Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()))
 
     def _setup_local_chrome_browser(self) -> WebDriver:
         """Setup Local Chrome Browser.

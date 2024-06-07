@@ -6,6 +6,10 @@ on:
       - src/constants.py
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   prepare:
     name: prepare

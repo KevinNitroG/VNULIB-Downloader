@@ -175,7 +175,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
             self._log_set_by_config("browser")
             return self._config["BROWSER"].lower()
         self._log_set_by_user_input("browser")
-        return input("Enter browser you are using [CHROME, path/to/chrome_driver]: ").strip().lower()
+        return input('Enter browser you are using ["CHROME", "CHROMIUM", "path/to/chrome_driver"]: ').strip().lower()
 
     def _setup_headless(self) -> bool:
         """Setup headless mode.
@@ -220,7 +220,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
             self._log_set_by_config("clean_img")
             return self._config["CLEAN_IMG"]
         self._log_set_by_user_input("clean_img")
-        return input("Create images of book(s) after being merged into PDF [y/N]: ").strip().upper() in USER_INPUT_NO
+        return input("Clean images of book(s) after being merged into PDF [y/N]: ").strip().upper() in USER_INPUT_NO
 
     @staticmethod
     def _log_set_by_argparse(var: str) -> None:

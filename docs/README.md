@@ -64,6 +64,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   - [⚙️ NÂNG CAO](#️-nâng-cao)
     - [🗃️ Pre-config](#️-pre-config)
     - [⛏️ Command line arguments](#️-command-line-arguments)
+    - [📦 Docker](#-docker)
     - [🤐 Python](#-python)
   - [🤔 NOTES](#-notes)
     - [Giải thích thuật ngữ](#giải-thích-thuật-ngữ)
@@ -110,7 +111,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 > [!IMPORTANT]
 >
-> Cần cài đặt trình duyệt [Chrome](https://www.google.com/chrome/) _(cần cho Selenium Webdriver)_
+> Cần cài đặt trình duyệt [Chrome](https://www.google.com/chrome/) hoặc Chromium _(cần cho Selenium Webdriver)_
 
 1. Mở tool
 2. Input
@@ -153,11 +154,6 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ## ⚙️ NÂNG CAO
 
-- Có thể chạy tool theo các cách:
-  - [Pre config](#️-pre-config)
-  - [Command line arguments](#️-command-line-arguments)
-  - [Python](#-python)
-
 > [!NOTE]
 >
 > Thứ tự ưu tiên giá trị biến: `arguments` > `config.yml` > `user input`
@@ -188,8 +184,21 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   ```
 - Ví dụ _(Windows)_:
   ```.ps1
-  .\VNULIB-Downloader-windows.exe --link "link1" "link2" --username "1500023520000" --password "examplePass" --browser "~/chrome_driver.exe" --headless --create-pdf --clean-imgs
+  .\VNULIB-Downloader-windows.exe --link "link1" "link2" --username "1500023520000" --password "examplePass" --browser "./chrome_driver.exe" --headless --create-pdf --clean-imgs
   ```
+
+### 📦 Docker
+
+- Có thể tải và sử dụng thông qua docker image _(chỉ chạy theo kiểu `user input`)_
+  ```sh
+  docker run -it --rm -v "$(pwd)/Downloads/:/app/Downloads/" kevinnitro/vnulib-downloader
+  ```
+
+> [!NOTE]
+>
+> - Tải chạy docker image [`kevinnitro/vnulib-donwloader`](https://hub.docker.com/r/kevinnitro/vnulib-downloader) từ dockerhub
+> - File tải về sẽ được lưu ở `./Downloads/`
+> - Tự động xoá image sau khi chạy
 
 ### 🤐 Python
 
@@ -278,6 +287,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ## 📓 TODO
 
+- [ ] Docker version, auto build and push
 - [ ] Support more browsers _(inherited from which class?)_
 - [ ] Options to enable Multithreading, Multiprocessing
 - [ ] Update tool option using command line arguments

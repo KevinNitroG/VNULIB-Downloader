@@ -24,7 +24,7 @@ LINKS:
 TIMEOUT:
 
 # Browser you are using (to use Selenium webdriver)
-# Options: "chrome", "path/to/local/google_chromedriver" (google chromedriver only)
+# Options: "chrome", "chromium", "path/to/local/google_chromedriver" (google chromedriver only)
 # Ex: BROSWER: chrome
 BROWSER:
 
