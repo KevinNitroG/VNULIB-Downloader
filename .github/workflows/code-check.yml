@@ -1,9 +1,5 @@
 name: Code Check
 
-concurrency:
-  cancel-in-progress: false
-  group: code-check
-
 on:
   push:
     branches:
