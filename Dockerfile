@@ -3,7 +3,6 @@ FROM python:3.12.3-alpine
 LABEL authors="KevinNitro <kevinnitro@duck.com>"
 LABEL name="VNULIB Downloader"
 LABEL repository="https://github.com/KevinNitroG/VNULIB-Downloader"
-LABEL latest=true
 
 WORKDIR /app
 

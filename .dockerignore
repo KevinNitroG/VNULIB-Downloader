@@ -1,0 +1,68 @@
+# Ignore git and cache directories
+.git
+.gitignore
+.github
+__pycache__
+.ruff_cache
+
+# Ignore specific files
+*.pyc
+*.pyo
+*.pyd
+*.pyc
+
+# Ignore all log files
+*.log
+
+# Ignore all .env files
+*.env
+
+# Ignore Python compiled files
+**/*.pyc
+**/__pycache__
+
+# Ignore test directory
+tests/
+
+# Ignore Dockerfile
+Dockerfile
+
+# Ignore docker-compose files
+docker-compose.yml
+docker-compose.*.yml
+
+# Ignore all markdown files
+*.md
+
+# Ignore environment files
+.venv
+
+# Ignore after running files
+Downloads
+log
+
+# Ignore pyinstaller files
+dist
+build
+*.spec
+
+# Ignore node_modules
+node_modules
+
+# Other
+.deepsource.toml
+.editorconfig
+.gitattributes
+.pre-commit-config.yaml
+.prettierrc
+.pylintrc
+.sourcery.yaml
+.vscode
+.whitesource
+config.yml
+docs
+pyproject.toml
+renovate.json
+restyled.yml
+scripts
+setup.cfg
