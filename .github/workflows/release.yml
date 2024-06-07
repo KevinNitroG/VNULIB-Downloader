@@ -46,7 +46,8 @@ jobs:
     steps:
       - name: get OS lowercase
         id: get_os
-        run: echo "OS_LOWER=${RUNNER_OS,,}" >> $GITHUB_ENV
+        shell: bash
+        run: echo "OS_LOWER=$(echo $RUNNER_OS | awk '{print tolower($0)}')" >> $GITHUB_ENV
 
       - name: Checkout repo
         uses: actions/checkout@main
