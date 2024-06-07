@@ -26,10 +26,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@main
 
-      - name: Prepare Version & Set Pre Release
+      - name: Get Version
         id: get_version
         run: |
-          VERSION=$(grep VERSION "src/constants.py" | cut -d "=" -f 2 | sed 's/'\''//g' | sed 's/"//g' | sed 's/ //g' | sed 's/\r//')"
+          VERSION=$(grep VERSION "src/constants.py" | cut -d "=" -f 2 | sed 's/'\''//g' | sed 's/"//g' | sed 's/ //g' | sed 's/\r//')
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Set Continue
@@ -45,7 +45,7 @@ jobs:
           done
           echo "CONTINUE=true" >>$GITHUB_OUTPUT
 
-      - name: Set Pre Release
+      - name: Set Pre-Release
         id: set_pre_release
         run: |
           VERSION_REGEX="^v[0-9]+\.[0-9]+\.[0-9]+$"
