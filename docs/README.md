@@ -100,7 +100,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 - [![Windows](https://img.shields.io/badge/Windows-8aadf4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-windows.exe)
 - [![Mac OS](https://img.shields.io/badge/MAC_OS-ed8796?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-macos)
-- [![Linux](https://img.shields.io/badge/Linux-5b6078?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-ubuntu)
+- [![Linux](https://img.shields.io/badge/Linux-5b6078?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-linux)
 
 > [!NOTE]
 >
@@ -184,7 +184,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   ```
 - Linux:
   ```sh
-  ./VNULIB-Downloader-ubuntu --help
+  ./VNULIB-Downloader-linux --help
   ```
 - Ví dụ _(Windows)_:
   ```.ps1

@@ -44,6 +44,10 @@ jobs:
     timeout-minutes: 10
     if: ${{ needs.prepare.outputs.CONTINUE == 'true' }}
     steps:
+      - name: get OS lowercase
+        id: get_os
+        run: echo "OS_LOWER=${RUNNER_OS,,}" >> $GITHUB_ENV
+
       - name: Checkout repo
         uses: actions/checkout@main
 
@@ -56,8 +60,8 @@ jobs:
       - name: Install dependacies
         run: pip install -r requirements/requirements.txt && pip install pyinstaller
 
-      - name: Build for ${{ matrix.os }}
-        run: pyinstaller --noconfirm --onefile --console --icon "assets/images/VNU_HCM_LOGO-256.ico" --name "VNULIB-Downloader-${{ matrix.os }}" --log-level "INFO" --add-data "src/:src/" --add-data "config-sample.yml:." --add-data "assets/images/error_page.jpg:assets/images/" --add-data "assets/utils/ascii_banner.txt:assets/utils/" --add-data "LICENSE:." --collect-data grapheme "main.py"
+      - name: Build for ${{ runner.os }}
+        run: pyinstaller --noconfirm --onefile --console --icon "assets/images/VNU_HCM_LOGO-256.ico" --name "VNULIB-Downloader-${{ env.OS_LOWER }}" --log-level "INFO" --add-data "src/:src/" --add-data "config-sample.yml:." --add-data "assets/images/error_page.jpg:assets/images/" --add-data "assets/utils/ascii_banner.txt:assets/utils/" --add-data "LICENSE:." --collect-data grapheme "main.py"
 
       - name: Change permissions
         if: runner.os == 'Linux' || runner.os == 'macOS'
@@ -66,7 +70,7 @@ jobs:
       - name: Upload to artifact
         uses: actions/upload-artifact@main
         with:
-          name: VNULIB-Downloader-${{ matrix.os }}
+          name: VNULIB-Downloader-${{ env.OS_LOWER }}
           path: dist/VNULIB-Downloader-*
           compression-level: 6
           retention-days: 30
