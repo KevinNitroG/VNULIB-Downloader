@@ -92,10 +92,10 @@ jobs:
       - name: Install dependacies
         run: pip install -r requirements/requirements.txt && pip install pyinstaller
 
-      - name: Build for ${{ runner.os }}
+      - name: Build for ${{ env.OS_LOWER }}
         env:
           OS_LOWER: ${{ env.OS_LOWER }}
-        run: pyinstaller --noconfirm --onefile --console --icon="assets/images/VNU_HCM_LOGO-256.ico" --name="VNULIB-Downloader-${{ env.OS_LOWER }}" --log-level="INFO" --add-data="src/:src/" --add-data="config-sample.yml:." --add-data="assets/images/error_page.jpg:assets/images/" --add-data="assets/utils/ascii_banner.txt:assets/utils/" --add-data="LICENSE:." --collect-data grapheme --target-arch=universal2 "main.py"
+        run: pyinstaller --noconfirm --onefile --console --icon="assets/images/VNU_HCM_LOGO-256.ico" --name="VNULIB-Downloader-${{ env.OS_LOWER }}" --log-level="INFO" --add-data="src/:src/" --add-data="config-sample.yml:." --add-data="assets/images/error_page.jpg:assets/images/" --add-data="assets/utils/ascii_banner.txt:assets/utils/" --add-data="LICENSE:." --collect-data grapheme "main.py"
 
       - name: Change permissions
         if: runner.os == 'Linux' || runner.os == 'macOS'
