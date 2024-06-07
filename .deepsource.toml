@@ -22,3 +22,6 @@ name = "secrets"
 
 [[analyzers]]
 name = "shell"
+
+[[transformers]]
+name = "ruff"
