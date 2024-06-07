@@ -8,7 +8,7 @@ on:
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   prepare:
@@ -18,17 +18,42 @@ jobs:
       run:
         shell: bash
     outputs:
-      VERSION: ${{ steps.get_variables.outputs.VERSION }}
-      SET_PRE_RELEASE: ${{ steps.get_variables.outputs.SET_PRE_RELEASE }}
-      CONTINUE: ${{ steps.get_variables.outputs.CONTINUE }}
+      CONTINUE: ${{ steps.set_continue.outputs.CONTINUE }}
       LAST_COMMIT: ${{ steps.last-commit.outputs.message }}
+      PRE_RELEASE: ${{ steps.set_pre_release.outputs.PRE_RELEASE }}
+      VERSION: ${{ steps.get_version.outputs.VERSION }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@main
 
       - name: Prepare Version & Set Pre Release
-        id: get_variables
-        run: scripts/checkRelease.sh
+        id: get_version
+        run: |
+          VERSION=$(grep VERSION "src/constants.py" | cut -d "=" -f 2 | sed 's/'\''//g' | sed 's/"//g' | sed 's/ //g' | sed 's/\r//')"
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Set Continue
+        id: set_continue
+        run: |
+          REMOTE_VERSIONS=$(git ls-remote --tags -q | cut -d "/" -f 3)
+          for REMOTE_VERSION in ${REMOTE_VERSIONS[@]}; do
+            if [[ "${{ steps.get_version.outputs.VERSION }}" == "$REMOTE_VERSION" ]]; then
+              echo "Current version ${{ steps.get_version.outputs.VERSION }} is already released."
+              echo "CONTINUE=false" >>$GITHUB_OUTPUT
+              exit 0
+            fi
+          done
+          echo "CONTINUE=true" >>$GITHUB_OUTPUT
+
+      - name: Set Pre Release
+        id: set_pre_release
+        run: |
+          VERSION_REGEX="^v[0-9]+\.[0-9]+\.[0-9]+$"
+          if [[ "${{ steps.get_version.outputs.VERSION }}" =~ $VERSION_REGEX ]]; then
+            echo "PRE_RELEASE=false" >> $GITHUB_OUTPUT
+          else
+            echo "PRE_RELEASE=true" >> $GITHUB_OUTPUT
+          fi
 
       - name: Get last commit message
         id: last-commit
@@ -66,13 +91,17 @@ jobs:
         run: pip install -r requirements/requirements.txt && pip install pyinstaller
 
       - name: Build for ${{ runner.os }}
-        run: pyinstaller --noconfirm --onefile --console --icon "assets/images/VNU_HCM_LOGO-256.ico" --name "VNULIB-Downloader-${{ env.OS_LOWER }}" --log-level "INFO" --add-data "src/:src/" --add-data "config-sample.yml:." --add-data "assets/images/error_page.jpg:assets/images/" --add-data "assets/utils/ascii_banner.txt:assets/utils/" --add-data "LICENSE:." --collect-data grapheme "main.py"
+        env:
+          OS_LOWER: ${{ env.OS_LOWER }}
+        run: pyinstaller --noconfirm --onefile --console --icon="assets/images/VNU_HCM_LOGO-256.ico" --name="VNULIB-Downloader-${{ env.OS_LOWER }}" --log-level="INFO" --add-data="src/:src/" --add-data="config-sample.yml:." --add-data="assets/images/error_page.jpg:assets/images/" --add-data="assets/utils/ascii_banner.txt:assets/utils/" --add-data="LICENSE:." --collect-data grapheme --target-arch=universal2 "main.py"
 
       - name: Change permissions
         if: runner.os == 'Linux' || runner.os == 'macOS'
         run: chmod +x dist/VNULIB-Downloader-*
 
       - name: Upload to artifact
+        env:
+          OS_LOWER: ${{ env.OS_LOWER }}
         uses: actions/upload-artifact@main
         with:
           name: VNULIB-Downloader-${{ env.OS_LOWER }}
@@ -103,4 +132,4 @@ jobs:
           tag: ${{ needs.prepare.outputs.VERSION }}
           file_glob: true
           overwrite: false
-          prerelease: ${{ needs.prepare.outputs.SET_PRE_RELEASE }}
+          prerelease: ${{ needs.prepare.outputs.PRE_RELEASE }}
