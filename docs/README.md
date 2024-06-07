@@ -102,6 +102,10 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 - [![Mac OS](https://img.shields.io/badge/MAC_OS-ed8796?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-macos)
 - [![Linux](https://img.shields.io/badge/Linux-5b6078?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-ubuntu)
 
+> [!NOTE]
+>
+> Linux + Mac: Nếu file executable không có quyền thực thi thì hãy dùng lệnh `chmod +x ./VNULIB-Downloader*`
+
 ### 2️⃣ Sử dụng
 
 > [!IMPORTANT]
