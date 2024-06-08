@@ -21,10 +21,10 @@ RUN apk add --no-cache --virtual .build-deps \
       g++ \
       python3-dev \
       libxml2 \
-      libxml2-dev && \
-    apk add libxslt-dev && \
-    pip install --no-cache-dir -r requirements.txt && \
-    apk del .build-deps
+      libxml2-dev
+RUN apk add libxslt-dev
+RUN pip install --no-cache-dir -r requirements.txt
+RUN apk del .build-deps
 
 RUN apk add --no-cache chromium chromium-chromedriver
 
