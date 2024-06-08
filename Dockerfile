@@ -1,4 +1,4 @@
-FROM python:3.12.3-alpine
+FROM python:3.12.4-alpine
 
 LABEL authors="KevinNitro <kevinnitro@duck.com>"
 LABEL name="VNULIB Downloader"
@@ -16,16 +16,7 @@ COPY main.py /app/
 COPY src/ /app/src/
 
 RUN apk update
-# https://gist.github.com/deliro/509b663093ff0f49c1b71e1876597ccb
-RUN apk add --no-cache --virtual .build-deps \
-      g++ \
-      python3-dev \
-      libxml2 \
-      libxml2-dev
-RUN apk add libxslt-dev
-RUN pip install --no-cache-dir -r requirements.txt
-RUN apk del .build-deps
-
 RUN apk add --no-cache chromium chromium-chromedriver
+RUN pip install --no-cache-dir -r requirements.txt
 
 CMD ["python", "main.py"]
