@@ -7,7 +7,7 @@ LABEL repository="https://github.com/KevinNitroG/VNULIB-Downloader"
 WORKDIR /app
 
 RUN apk update
-RUN apk add libxml2 libxlt
+RUN apk add libxml2 libxslt
 
 COPY requirements/requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
