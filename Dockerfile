@@ -7,6 +7,7 @@ LABEL repository="https://github.com/KevinNitroG/VNULIB-Downloader"
 WORKDIR /app
 
 COPY requirements/requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY assets/images/error_page.jpg /app/assets/images/
 COPY assets/utils/ascii_banner.txt /app/assets/utils/
@@ -15,8 +16,6 @@ COPY config-docker.yml /app/config.yml
 COPY main.py /app/
 COPY src/ /app/src/
 
-RUN apk update
 RUN apk add --no-cache chromium chromium-chromedriver
-RUN pip install --no-cache-dir -r requirements.txt
 
 CMD ["python", "main.py"]
