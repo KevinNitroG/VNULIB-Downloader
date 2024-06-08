@@ -19,7 +19,7 @@ RUN apk update
 # https://gist.github.com/deliro/509b663093ff0f49c1b71e1876597ccb
 RUN apk add --no-cache --virtual .build-deps \
       g++ \
-      python-dev \
+      python3-dev \
       libxml2 \
       libxml2-dev && \
     apk add libxslt-dev && \
