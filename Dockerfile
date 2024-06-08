@@ -6,6 +6,9 @@ LABEL repository="https://github.com/KevinNitroG/VNULIB-Downloader"
 
 WORKDIR /app
 
+RUN apk update
+RUN apk add libxml2 libxlt
+
 COPY requirements/requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -16,7 +19,6 @@ COPY config-docker.yml /app/config.yml
 COPY main.py /app/
 COPY src/ /app/src/
 
-RUN apk update
 RUN apk add chromium
 RUN apk add chromium-chromedriver
 
