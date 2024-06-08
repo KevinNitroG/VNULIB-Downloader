@@ -43,10 +43,13 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   <img src="https://img.shields.io/badge/-selenium-%43B02A?style=for-the-badge&logo=selenium&logoColor=white" alt="Selenium">
   <img src="https://img.shields.io/badge/pre--commit-FAB040.svg?style=for-the-badge&logo=precommit&logoColor=white" alt="Pre-commit">
   <img src="https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white" alt="GitHub Actions">
+  <img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
   <br>
   <br>
-  <a href="../../../releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/KevinNitroG/VNULIB-Downloader?sort=date&display_name=tag&style=for-the-badge&color=eed49f"></a>
-  <a href="../../../releases/latest"><img alt="Download Count" src="https://img.shields.io/github/downloads/KevinNitroG/VNULIB-Downloader/total?style=for-the-badge&color=8bd5ca"></a>
+  <a href="../../../releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/KevinNitroG/VNULIB-Downloader?sort=date&display_name=tag&style=for-the-badge&color=f9e2af"></a>
+  <a href="../../../releases/latest"><img alt="Download Count" src="https://img.shields.io/github/downloads/KevinNitroG/VNULIB-Downloader/total?style=for-the-badge&color=89dceb"></a>
+  <a href="https://hub.docker.com/r/kevinnitro/vnulib-downloader"><img alt="Docker Pull Count" src="https://img.shields.io/docker/pulls/kevinnitro/vnulib-downloader?style=for-the-badge&logo=docker&color=89b4fa"></a>
+  <a href="https://hub.docker.com/r/kevinnitro/vnulib-downloader"><img alt="Docker Image Size" src="https://img.shields.io/docker/image-size/kevinnitro/vnulib-downloader?sort=date&arch=amd64&style=for-the-badge&logo=docker&color=b4befe"></a>
 </div>
 
 <!-- ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white)
@@ -112,6 +115,8 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 > [!IMPORTANT]
 >
 > Cần cài đặt trình duyệt [Chrome](https://www.google.com/chrome/) hoặc Chromium _(cần cho Selenium Webdriver)_
+>
+> Có thể dùng phương pháp [📦 Docker](#-docker) để không cần phải cài đặt Chrome hoặc Chromium
 
 1. Mở tool
 2. Input
@@ -189,16 +194,21 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ### 📦 Docker
 
-- Có thể tải và sử dụng thông qua docker image _(chỉ chạy theo kiểu `user input`)_
+- `bash`, `zsh`, `powershell`
   ```sh
   docker run -it --rm -v "$(pwd)/Downloads/:/app/Downloads/" kevinnitro/vnulib-downloader
+  ```
+- `cmd`
+  ```bat
+  docker run -it --rm -v %CD%/Downloads/:/app/Downloads/ kevinnitro/vnulib-downloader
   ```
 
 > [!NOTE]
 >
-> - Tải chạy docker image [`kevinnitro/vnulib-donwloader`](https://hub.docker.com/r/kevinnitro/vnulib-downloader) từ dockerhub
-> - File tải về sẽ được lưu ở `./Downloads/`
-> - Tự động xoá image sau khi chạy
+> - Chỉ chạy theo kiểu `user input`
+> - Tải chạy docker image [`kevinnitro/vnulib-donwloader`](https://hub.docker.com/r/kevinnitro/vnulib-downloader) từ DockerHub
+> - File sách tải về sẽ được lưu ở `./Downloads/` _(folder hiện tại / Downloads)_
+> - Tự động xoá container sau khi chạy
 
 ### 🤐 Python
 
