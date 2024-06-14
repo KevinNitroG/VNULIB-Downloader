@@ -59,7 +59,7 @@ def create_directory(directory: str, force: bool | None = None) -> bool:
     Returns:
         bool: True if the directory was created, False if it was already created
     """
-    if path.exists(path=directory):
+    if path.exists(directory):
         if force is False:
             return True
         if force is True or input(f'"{directory}" already exists. Force create it [Y/n]: ').upper() in USER_INPUT_YES:
@@ -89,7 +89,7 @@ def remove_directory(directory: str) -> bool:
     Returns:
         bool: True if the directory was removed, False if it was not found
     """
-    if path.exists(path=directory):
+    if path.exists(directory):
         try:
             rmtree(path=directory)
         except Exception as e:

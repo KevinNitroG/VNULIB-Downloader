@@ -36,7 +36,7 @@ class Config:
         Returns:
             bool: True if the config file exists, False otherwise.
         """
-        if path.exists(path=self._config_file):
+        if path.exists(self._config_file):
             return True
         logger.info('"%s" does not exist', self._config_file)
         return False
