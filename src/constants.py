@@ -3,11 +3,27 @@
 from __future__ import annotations
 
 import sys
+from os import cpu_count
 
 if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
     BUNDLE_DIR: str = f"{sys._MEIPASS}/"  # type: ignore # skipcq: PYL-W0212 # pylint: disable=protected-access # nopep8
 else:
     BUNDLE_DIR = ""
+
+
+def _get_number_of_thread(max_number_of_threads: int) -> int:
+    """Get suitable number of threads base on `max_number_of_threads` argument.
+
+    Args:
+        max_number_of_threads (int): Max number of threads allowed.
+
+    Returns:
+        int: Suitable number of threads.
+    """
+    number_of_thread: int | None = cpu_count()
+    if number_of_thread is None:
+        return 1
+    return number_of_thread if number_of_thread * 5 < max_number_of_threads else max_number_of_threads
 
 
 VERSION: str = "v1.17.3"
@@ -70,3 +86,5 @@ BROWSER_ARGUMENTS: set[str] = {
     "--silent",
     "--disable-gpu",
 }
+MAX_NUMBER_OF_THREADS = 20
+NUMBER_OF_THREADS: int = _get_number_of_thread(MAX_NUMBER_OF_THREADS)

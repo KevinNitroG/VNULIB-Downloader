@@ -15,7 +15,7 @@ from alive_progress import alive_bar
 from requests import Response
 from requests.sessions import Session
 
-from ..constants import ERROR_PAGE_IMAGE_PATH
+from ..constants import ERROR_PAGE_IMAGE_PATH, NUMBER_OF_THREADS
 from ..utils import create_directory
 from .link_parse import Link, LinkFile
 
@@ -146,6 +146,7 @@ class _MultiThreadingDownload(_DownloadCore):
         self._thread_local = threading.local()
         self._session: Session = self._get_session()
         self._bar: Callable
+        self._number_of_threads: int = NUMBER_OF_THREADS
 
     def _get_session(self) -> Session:
         """Get session for thread.
@@ -171,7 +172,7 @@ class _MultiThreadingDownload(_DownloadCore):
 
     def download(self) -> None:
         """Download images."""
-        with alive_bar(total=self._link.num_pages) as self._bar, ThreadPoolExecutor() as executor:  # pylint: disable=[disallowed-name, attribute-defined-outside-init]
+        with alive_bar(total=self._link.num_pages) as self._bar, ThreadPoolExecutor(max_workers=self._number_of_threads) as executor:  # pylint: disable=[disallowed-name, attribute-defined-outside-init]
             for page_num in range(1, self._link.num_pages + 1):
                 sub_link: str = f"{self._link.page_link}&page={page_num}"
                 image_path: str = os.path.join(self._download_path, f"image_{page_num}.jpg")
