@@ -36,12 +36,12 @@ repos:
   #     - id: setup-cfg-fmt
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.2
+    rev: v3.16.0
     hooks:
       - id: pyupgrade
 
   - repo: https://github.com/pylint-dev/pylint
-    rev: v3.1.0
+    rev: v3.2.3
     hooks:
       - id: pylint
         types: [python]
@@ -62,7 +62,7 @@ repos:
       - id: yesqa
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.3.7
+    rev: v0.4.8
     hooks:
       - id: ruff
       - id: ruff-format
