@@ -106,6 +106,12 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 - [![Mac OS](https://img.shields.io/badge/MAC_OS-ed8796?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-macos)
 - [![Linux](https://img.shields.io/badge/Linux-5b6078?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-linux)
 
+> [!IMPORTANT]
+>
+> - Các bản prebuilt chỉ dành cho máy chip `AMD64`.
+> - Với các máy dùng chip `ARM64` hãy dùng phương pháp [📦 Docker](#-docker) hoặc [🤐 Python](#-python).
+> - Các máy dùng chip khác có thể sẽ không dùng được vì một số thư viện không hỗ trợ. Hãy dùng tool đơn giản hơn như [`tlatonf/vnulib`](https://github.com/tlatonf/vnulib) _(Windows only)_.
+
 > [!NOTE]
 >
 > Linux + Mac: Nếu file executable không có quyền thực thi thì hãy dùng lệnh `chmod +x ./VNULIB-Downloader*`
@@ -135,6 +141,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 > [!WARNING]
 >
 > - Vì sử dụng Multithreading, nếu tải quá nhiều sách có thể ảnh hưởng đến server
+> - Thi thoảng `[browser] driver` không tự tắt dẫn đến ngốn RAM và CPU. Hãy check và tắt _(Task Manager, pkill,...)_
 
 > [!IMPORTANT]
 >
@@ -158,6 +165,12 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 ---
 
 ## ⚙️ NÂNG CAO
+
+- Có thể dùng một / kết hợp các cách sử dụng dưới đây:
+  - [🗃️ Pre-config](#️-pre-config)
+  - [⛏️ Command line arguments](#️-command-line-arguments)
+  - [📦 Docker](#-docker)
+  - [🤐 Python](#-python)
 
 > [!NOTE]
 >
