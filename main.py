@@ -6,12 +6,11 @@ from logging import Logger, getLogger
 from multiprocessing import freeze_support
 from pprint import pformat
 
-from urllib3 import PoolManager
 from urllib3 import disable_warnings as urllib3_disable_warnings
 from urllib3.exceptions import InsecureRequestWarning
 
 from src import Action, Browser, CleanIMG, Config, CreatePDF, DownloadIMG, LinkParse, Login, PrintIntro, ToolLogger, UserOptions, create_directory, delete_old_meipass, pause, print_title
-from src.constants import DOWNLOAD_DIR, NUMBER_OF_THREADS
+from src.constants import DOWNLOAD_DIR
 
 
 def main() -> None:
@@ -62,5 +61,4 @@ ToolLogger().setup()
 if __name__ == "__main__":
     freeze_support()  # For pyinstaller to fix multiprocessing in Windows due to freeze scheme
     urllib3_disable_warnings(InsecureRequestWarning)
-    PoolManager(num_pools=NUMBER_OF_THREADS)
     main()

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from logging import DEBUG, WARNING, Logger, getLogger
+from logging import DEBUG, ERROR, WARNING, Logger, getLogger
 from logging.config import dictConfig
 from logging.handlers import QueueHandler
 from multiprocessing import Queue
@@ -49,7 +49,7 @@ class ToolLogger:
         getLogger("PIL.PngImagePlugin").setLevel(WARNING)
         getLogger("PIL.Image").setLevel(WARNING)
         getLogger("charset_normalizer").setLevel(WARNING)
-        getLogger("urllib3.connectionpool").setLevel(WARNING)
+        getLogger("urllib3.connectionpool").setLevel(ERROR)
         getLogger("selenium.webdriver.remote.remote_connection").disabled = True
         os_environ["WDM_LOG"] = str(DEBUG)
         os_environ["WDM_SSL_VERIFY"] = "0"
