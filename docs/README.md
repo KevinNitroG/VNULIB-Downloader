@@ -58,25 +58,28 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 ---
 
-- [✨ VNULIB DOWNLOADER ✨](#-vnulib-downloader-)
-  - [🎆 CHỨC NĂNG](#-chức-năng)
-  - [🥂 DEMO](#-demo)
-  - [🪴 HƯỚNG DẪN SỬ DỤNG](#-hướng-dẫn-sử-dụng)
-    - [1️⃣ Tải tool](#1️⃣-tải-tool)
-    - [2️⃣ Sử dụng](#2️⃣-sử-dụng)
-  - [⚙️ NÂNG CAO](#️-nâng-cao)
-    - [🗃️ Pre-config](#️-pre-config)
-    - [⛏️ Command line arguments](#️-command-line-arguments)
-    - [📦 Docker](#-docker)
-    - [🤐 Python](#-python)
-  - [🤔 NOTES](#-notes)
-    - [Giải thích thuật ngữ](#giải-thích-thuật-ngữ)
-  - [👨‍💻 DEVELOP / CONTRIBUTE](#-develop--contribute)
-  - [📓 TODO](#-todo)
-  - [📝 LICENSE](#-license)
-  - [🤥 DISCLAIMER](#-disclaimer)
-  - [😌 CREDIT](#-credit)
-  - [⭐ STARGAZER](#-stargazer)
+<!-- toc -->
+
+- [🎆 CHỨC NĂNG](#%F0%9F%8E%86-ch%E1%BB%A9c-nang)
+- [🥂 DEMO](#%F0%9F%A5%82-demo)
+- [🪴 HƯỚNG DẪN SỬ DỤNG](#%F0%9F%AA%B4-h%C6%B0%E1%BB%9Bng-d%E1%BA%ABn-s%E1%BB%AD-d%E1%BB%A5ng)
+  - [1️⃣ Tải tool](#1%EF%B8%8F%E2%83%A3-t%E1%BA%A3i-tool)
+  - [2️⃣ Sử dụng](#2%EF%B8%8F%E2%83%A3-s%E1%BB%AD-d%E1%BB%A5ng)
+- [⚙️ NÂNG CAO](#%E2%9A%99%EF%B8%8F-nang-cao)
+  - [🗃️ Pre-config](#%F0%9F%97%83%EF%B8%8F-pre-config)
+  - [⛏️ Command line arguments](#%E2%9B%8F%EF%B8%8F-command-line-arguments)
+  - [📦 Docker](#%F0%9F%93%A6-docker)
+  - [🤐 Python](#%F0%9F%A4%90-python)
+- [🤔 NOTES](#%F0%9F%A4%94-notes)
+  - [Giải thích thuật ngữ](#gi%E1%BA%A3i-thich-thu%E1%BA%ADt-ng%E1%BB%AF)
+- [👨‍💻 DEVELOP / CONTRIBUTE](#%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB-develop--contribute)
+- [📓 TODO](#%F0%9F%93%93-todo)
+- [📝 LICENSE](#%F0%9F%93%9D-license)
+- [🤥 DISCLAIMER](#%F0%9F%A4%A5-disclaimer)
+- [😌 CREDIT](#%F0%9F%98%8C-credit)
+- [⭐ STARGAZER](#%E2%AD%90-stargazer)
+
+<!-- tocstop -->
 
 ---
 
@@ -138,16 +141,6 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 | `CREATE_PDF`                                    | `y`, `n`, ...                               | `y`         | Tạo file PDF từ các ảnh đã tải về                                            | `y`             |
 | `CLEAN_IMG`                                     | `y`, `n`, ...                               | `y`         | Xoá ảnh sau khi đã tạo PDF                                                   | `y`             |
 
-> [!WARNING]
->
-> - Vì sử dụng Multithreading, nếu tải quá nhiều sách có thể ảnh hưởng đến server
-> - Thi thoảng `[browser] driver` không tự tắt dẫn đến ngốn RAM và CPU. Hãy check và tắt _(Task Manager, pkill,...)_
-
-> [!IMPORTANT]
->
-> - Nếu trong tương lai việc sử dụng link `book` hay `preview` không được, hãy thử link `page` _(vì các phần tử trang web
->   có thể thay đổi)_
-
 > [!NOTE]
 >
 > - Ảnh và sách sẽ được tải về `./Downloads/`
@@ -161,6 +154,13 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 > - `page` link: Trong link có query `&page=`:
 >   - `1`: Tool sẽ tự động check và tải trang sách đến khi đạt giới hạn _(Single thread)_
 >   - \> `1`: Tool tự nhận đấy là limit của file sách hoặc chủ đích sử dụng _(Multithreading)_
+> - Nếu trong tương lai việc sử dụng link `book` hay `preview` không được, hãy thử link `page` _(vì các phần tử trang web
+>   có thể thay đổi)_
+
+> [!WARNING]
+>
+> - Vì sử dụng Multithreading, nếu tải quá nhiều sách có thể ảnh hưởng đến server
+> - Thi thoảng `[browser] driver` không tự tắt dẫn đến ngốn RAM và CPU. Hãy check và tắt _(Task Manager, pkill,...)_
 
 ---
 
@@ -202,8 +202,13 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
   ```
 - Ví dụ _(Windows)_:
   ```.ps1
-  .\VNULIB-Downloader-windows.exe --link "link1" "link2" --username "1500023520000" --password "examplePass" --browser "./chrome_driver.exe" --headless --create-pdf --clean-imgs
+  .\VNULIB-Downloader-windows.exe --link "link1" "link2" --username="1500023520000" --password "examplePass\!" --browser="" --headless --create-pdf --clean-img --timeout="20"
   ```
+  > Đảm bảo các arguments như trên sẽ không yêu cầu nhập từ stdin
+
+> [!NOTE]
+>
+> Vui lòng để ý nếu mật khẩu chứa ký tự đặc biệt cần escape _(`\`, `\``, `^` tùy shell)_ hoặc hãy sử dụng [🗃️ Pre-config](#%F0%9F%97%83%EF%B8%8F-pre-config)
 
 ### 📦 Docker
 
@@ -231,7 +236,6 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
    git clone "https://github.com/KevinNitroG/VNULIB-Downloader" --depth 1 --filter=blob:none
    ```
 3. Create virtual environment _(optional)_
-
    - Create virtual environment
      ```.ps1
      python -m venv .venv
@@ -245,21 +249,17 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
        ```.sh
        source .venv/bin/activate
        ```
-   - Deactive virtual environment
-     ```.sh
-     deactivate
-     ```
-
 4. Install requirements
-
    ```ps1
    pip install -r requirements/requirements.txt
    ```
-
 5. Run tool
-
    ```ps1
    python main.py
+   ```
+6. Deactive virtual environment _(optional)_
+   ```.sh
+   deactivate
    ```
 
 > [!NOTE]

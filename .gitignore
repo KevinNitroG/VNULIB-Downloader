@@ -7,6 +7,7 @@ config.yml
 **/tempCodeRunnerFile.py
 .vscode/
 node_modules/
+Downloads/
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,pycharm+all,virtualenv
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,visualstudiocode,pycharm+all,virtualenv

@@ -12,7 +12,7 @@ from pprint import pformat
 from yaml import safe_load
 
 from ..constants import CONFIG_FILE, USER_INPUT_NO, USER_INPUT_YES
-from .argpase import setup_argparse
+from .argparse import setup_argparse
 
 logger = getLogger(__name__)
 
@@ -155,7 +155,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
         """
         if self.argparse.timeout is not None:
             self._log_set_by_argparse("timeout")
-            return int(self.argparse.browser)
+            return int(self.argparse.timeout)
         if self._config["TIMEOUT"] is not None:
             self._log_set_by_config("timeout")
             return int(self._config["TIMEOUT"])
@@ -175,7 +175,7 @@ class UserOptions:  # pylint: disable=too-many-instance-attributes
             self._log_set_by_config("browser")
             return self._config["BROWSER"].lower()
         self._log_set_by_user_input("browser")
-        return input('Enter browser you are using ["CHROME", "CHROMIUM", "path/to/chrome_driver"]: ').strip().lower()
+        return input('Enter browser you are using ["chrome", "chromium", "path/to/chrome_driver"]: ').strip().lower()
 
     def _setup_headless(self) -> bool:
         """Setup headless mode.

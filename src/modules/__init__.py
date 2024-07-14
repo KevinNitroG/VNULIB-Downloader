@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from .argpase import setup_argparse
+from .argparse import setup_argparse
 from .clean_img import CleanIMG
 from .config import Config
 from .create_pdf import CreatePDF
