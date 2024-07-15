@@ -134,16 +134,16 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 1. Mở tool
 2. Input
 
-| **VARIABLE**                                    | **VALUE**                                   | **DEFAULT** | **DESCRIPTION**                                                              | **EXAMPLE**     |
-| ----------------------------------------------- | ------------------------------------------- | ----------- | ---------------------------------------------------------------------------- | --------------- |
-| `USERNAME`                                      | `string`                                    |             | Username tài khoản                                                           | `1500023520000` |
-| `PASSWORD`                                      | `string`                                    |             | Password tài khoản                                                           | `examplePass`   |
-| `LINKS`                                         | `string string ...`                         |             | Link ảnh trang sách<br>_(Có thể nhiều sách, cách nhau bằng khoảng cách)_     | `link_1 link_2` |
-| `TIMEOUT`                                       | `int`                                       | `20`        | Timeout _(s)_ khi sử dụng Selenium và request lấy mỗi ảnh từ server          | `20`            |
-| `BROWSER`                                       | `chrome`,<br> `path/to/local/chrome_driver` | `chrome`    | Trình duyệt để sử dụng Selenium Webdriver khi có cần xử lý `book`, `preview` | `chrome`        |
-| `HEADLESS`[<sup>?</sup>](#giải-thích-thuật-ngữ) | `y`, `n`, ...                               | `y`         | Selenium Webdriver headless mode                                             | `y`             |
-| `CREATE_PDF`                                    | `y`, `n`, ...                               | `y`         | Tạo file PDF từ các ảnh đã tải về                                            | `y`             |
-| `CLEAN_IMG`                                     | `y`, `n`, ...                               | `y`         | Xoá ảnh sau khi đã tạo PDF                                                   | `y`             |
+| **VARIABLE**                                    | **VALUE**                                              | **DEFAULT** | **DESCRIPTION**                                                              | **EXAMPLE**     |
+| ----------------------------------------------- | ------------------------------------------------------ | ----------- | ---------------------------------------------------------------------------- | --------------- |
+| `USERNAME`                                      | `string`                                               |             | Username tài khoản                                                           | `1500023520000` |
+| `PASSWORD`                                      | `string`                                               |             | Password tài khoản                                                           | `examplePass`   |
+| `LINKS`                                         | `string string ...`                                    |             | Link ảnh trang sách<br>_(Có thể nhiều sách, cách nhau bằng khoảng cách)_     | `link_1 link_2` |
+| `TIMEOUT`                                       | `int`                                                  | `20`        | Timeout _(s)_ khi sử dụng Selenium và request lấy mỗi ảnh từ server          | `20`            |
+| `BROWSER`                                       | `chrome`, `chromium,`<br>`path/to/local/chrome_driver` | `chrome`    | Trình duyệt để sử dụng Selenium Webdriver khi có cần xử lý `book`, `preview` | `chrome`        |
+| `HEADLESS`[<sup>?</sup>](#giải-thích-thuật-ngữ) | `y`, `n`, ...                                          | `y`         | Selenium Webdriver headless mode                                             | `y`             |
+| `CREATE_PDF`                                    | `y`, `n`, ...                                          | `y`         | Tạo file PDF từ các ảnh đã tải về                                            | `y`             |
+| `CLEAN_IMG`                                     | `y`, `n`, ...                                          | `y`         | Xoá ảnh sau khi đã tạo PDF                                                   | `y`             |
 
 > [!NOTE]
 >
@@ -164,7 +164,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 > [!WARNING]
 >
 > - Vì sử dụng Multithreading, nếu tải quá nhiều sách có thể ảnh hưởng đến server
-> - Thi thoảng `[browser] driver` không tự tắt dẫn đến ngốn RAM và CPU. Hãy check và tắt _(Task Manager, pkill,...)_
+> - Thi thoảng `[browser] driver` không tự tắt dẫn đến ngốn RAM và CPU. Hãy check và tắt _(Task Manager, kill, pkill,...)_
 
 ---
 
@@ -212,7 +212,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 > [!NOTE]
 >
-> Vui lòng để ý nếu mật khẩu chứa ký tự đặc biệt cần escape _(`\`, `\``, `^` tùy shell)_ hoặc hãy sử dụng [🗃️ Pre-config](#%F0%9F%97%83%EF%B8%8F-pre-config)
+> Vui lòng để ý nếu mật khẩu chứa ký tự đặc biệt cần escape _(`\`, `` ` ``, `^`,... tùy shell)_ hoặc hãy sử dụng [🗃️ Pre-config](#%F0%9F%97%83%EF%B8%8F-pre-config)
 
 ### 📦 Docker
 
@@ -228,7 +228,7 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 > [!NOTE]
 >
 > - Chỉ chạy theo kiểu `user input`
-> - Tải chạy docker image [`kevinnitro/vnulib-donwloader`](https://hub.docker.com/r/kevinnitro/vnulib-downloader) từ DockerHub
+> - Source docker image [`kevinnitro/vnulib-donwloader`](https://hub.docker.com/r/kevinnitro/vnulib-downloader) từ DockerHub
 > - File sách tải về sẽ được lưu ở `./Downloads/` _(folder hiện tại / Downloads)_
 > - Tự động xoá container sau khi chạy
 
