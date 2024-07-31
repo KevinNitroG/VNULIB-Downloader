@@ -1,17 +1,8 @@
-*py text eol=lf
-*sh text eol=lf
-*yml text eol=lf
-*yaml text eol=lf
-*toml text eol=lf
-*json text eol=lf
-*txt text eol=lf
-*md text eol=lf
+* text=auto
 
-.gitignore text eolf=lf
-.gitattributes text eol=lf
-.whitesource text eol=lf
-setup.cfg text eol=lf
-renovate.json text eol=lf
-**/.editorconfig text eol=lf
-.pylintrc text eol=lf
-LICENSE text eol=lf
+*.png binary
+*.jpg binary
+*.ico binary
+
+assets/images/* binary
+assets/videos/* binary
