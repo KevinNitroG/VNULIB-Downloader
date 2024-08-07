@@ -1,4 +1,4 @@
-FROM python:3.12.4-alpine
+FROM python:3.12.5-alpine
 
 LABEL authors="KevinNitro <kevinnitro@duck.com>"
 LABEL name="VNULIB Downloader"
