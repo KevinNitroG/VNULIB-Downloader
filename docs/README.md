@@ -111,12 +111,13 @@ Python CLI tool download sách từ <strong>VNULIB</strong>
 
 - [![Windows](https://img.shields.io/badge/Windows-8aadf4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-windows.exe)
 - [![Mac OS](https://img.shields.io/badge/MAC_OS-ed8796?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-macos)
+- [![Mac OS M1](https://img.shields.io/badge/MAC_OS_M1-f38ba8?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-macos-m1)
 - [![Linux](https://img.shields.io/badge/Linux-5b6078?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/KevinNitroG/VNULIB-Downloader/releases/latest/download/VNULIB-Downloader-linux)
 
 > [!IMPORTANT]
 >
-> - Các bản prebuilt chỉ dành cho máy chip `AMD64`.
-> - Với các máy dùng chip `ARM64` hãy dùng phương pháp [📦 Docker](#-docker) hoặc [🤐 Python](#-python).
+> - Các bản prebuilt chỉ dành cho máy chip `AMD64` và MacOS chip `M1`.
+> - Với các máy dùng chip `ARM64` khác hãy dùng phương pháp [📦 Docker](#-docker) hoặc [🤐 Python](#-python).
 > - Các máy dùng chip khác có thể sẽ không dùng được vì một số thư viện không hỗ trợ. Hãy dùng tool đơn giản hơn như [`tlatonf/vnulib`](https://github.com/tlatonf/vnulib) _(Windows only)_.
 
 > [!NOTE]

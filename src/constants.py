@@ -26,7 +26,7 @@ def _get_number_of_thread(max_number_of_threads: int) -> int:
     return number_of_thread if number_of_thread * 5 < max_number_of_threads else max_number_of_threads
 
 
-VERSION: str = "v1.17.5"
+VERSION: str = "v1.17.6"
 AUTHORS: str = "KevinNitroG & NTGNguyen"
 BANNER_FILE: str = f"{BUNDLE_DIR}assets/utils/ascii_banner.txt"
 with open(BANNER_FILE, encoding="utf-8") as banner_content:

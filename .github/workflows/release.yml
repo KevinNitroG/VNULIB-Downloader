@@ -60,23 +60,30 @@ jobs:
         run: echo "message=$(git log -1 --pretty=%s)" >> $GITHUB_OUTPUT
 
   build:
-    name: build
+    name: build - ${{ matrix.os }}
     needs: prepare
     strategy:
       fail-fast: false
       matrix:
         os:
-          - ubuntu
-          - windows
-          - macos
-    runs-on: ${{ matrix.os }}-latest
+          - macos-13
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 10
     if: ${{ needs.prepare.outputs.CONTINUE == 'true' }}
     steps:
       - name: get OS lowercase
         id: get_os
         shell: bash
-        run: echo "OS_LOWER=$(echo $RUNNER_OS | awk '{print tolower($0)}')" >> $GITHUB_ENV
+        run: |
+          case "${{ matrix.os }}" in
+            "macos-13") echo "OS_NAME_FOR_RELEASE=macos" >> "$GITHUB_ENV" ;;
+            "macos-latest") echo "OS_NAME_FOR_RELEASE=macos-m1" >> "$GITHUB_ENV" ;;
+            "ubuntu-latest") echo "OS_NAME_FOR_RELEASE=linux" >> "$GITHUB_ENV" ;;
+            "windows-latest") echo "OS_NAME_FOR_RELEASE=windows" >> "$GITHUB_ENV" ;;
+          esac
 
       - name: Checkout repo
         uses: actions/checkout@main
@@ -90,21 +97,17 @@ jobs:
       - name: Install dependacies
         run: pip install -r requirements/requirements.txt && pip install pyinstaller
 
-      - name: Build for ${{ env.OS_LOWER }}
-        env:
-          OS_LOWER: ${{ env.OS_LOWER }}
-        run: pyinstaller --noconfirm --onefile --console --icon="assets/images/VNU_HCM_LOGO-256.ico" --name="VNULIB-Downloader-${{ env.OS_LOWER }}" --log-level="INFO" --add-data="src/:src/" --add-data="config-sample.yml:." --add-data="assets/images/error_page.jpg:assets/images/" --add-data="assets/utils/ascii_banner.txt:assets/utils/" --add-data="LICENSE:." --collect-data grapheme "main.py"
+      - name: Build for ${{ env.OS_NAME_FOR_RELEASE }}
+        run: pyinstaller --noconfirm --onefile --console --icon="assets/images/VNU_HCM_LOGO-256.ico" --name="VNULIB-Downloader-${{ env.OS_NAME_FOR_RELEASE }}" --log-level="INFO" --add-data="src/:src/" --add-data="config-sample.yml:." --add-data="assets/images/error_page.jpg:assets/images/" --add-data="assets/utils/ascii_banner.txt:assets/utils/" --add-data="LICENSE:." --collect-data grapheme "main.py"
 
       - name: Change permissions
         if: runner.os == 'Linux' || runner.os == 'macOS'
         run: chmod +x dist/VNULIB-Downloader-*
 
       - name: Upload to artifact
-        env:
-          OS_LOWER: ${{ env.OS_LOWER }}
         uses: actions/upload-artifact@main
         with:
-          name: VNULIB-Downloader-${{ env.OS_LOWER }}
+          name: VNULIB-Downloader-${{ env.OS_NAME_FOR_RELEASE }}
           path: dist/VNULIB-Downloader-*
           compression-level: 6
           retention-days: 30
