@@ -2,9 +2,7 @@ name: Docker
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - "v*"
+  workflow_call:
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -13,8 +11,6 @@ concurrency:
 jobs:
   run:
     name: run
-    strategy:
-      fail-fast: false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

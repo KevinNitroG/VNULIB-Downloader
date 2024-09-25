@@ -136,3 +136,10 @@ jobs:
           file_glob: true
           overwrite: false
           prerelease: ${{ needs.prepare.outputs.PRE_RELEASE }}
+
+  docker-build:
+    name: Docker Build
+    needs: prepare
+    if: ${{ needs.prepare.outputs.CONTINUE == 'true' }}
+    uses: ./.github/workflows/docker.yml
+    secrets: inherit
