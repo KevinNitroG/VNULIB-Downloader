@@ -1,5 +1,5 @@
 # requirements.txt
-alive-progress==3.1.5
+alive-progress==3.2.0
 argparse==1.4.0
 img2pdf==0.5.1
 print-color==0.4.6
